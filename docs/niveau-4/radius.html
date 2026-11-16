@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RADIUS — Remote Authentication Dial-In User Service | Nexorya</title>
+<meta name="description" content="RADIUS est le protocole par lequel un switch, une borne Wi-Fi ou un VPN demande à un serveur central si un utilisateur ou un appareil a le droit d’accéder au réseau, et avec quels droits.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius" aria-current="page">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/radius">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-1">Qui a le droit d’entrer ?</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>RADIUS</h1><p class="nom-complet">Remote Authentication Dial-In User Service</p>
+<p class="idee">RADIUS est le protocole par lequel un switch, une borne Wi-Fi ou un VPN demande à un serveur central si un utilisateur ou un appareil a le droit d’accéder au réseau, et avec quels droits.</p><div class="badges"><span>Couche OSI 7 (UDP 1812 authentification, 1813 traçabilité)</span><span>Découvrir : 8 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-4/aaa.html">AAA</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Un salarié se connecte au Wi-Fi d’entreprise avec ses identifiants. La borne Wi-Fi ne connaît pas les salariés. Elle doit demander à quelqu’un : « cet utilisateur a-t-il le droit d’entrer ? Si oui, dans quel VLAN ? ».</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>RADIUS transporte la question « peut-il entrer ? » de l’équipement d’accès vers le serveur central, et ramène la réponse avec les droits à appliquer.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 760 624" width="760" role="img" aria-label="Accès au Wi-Fi d’entreprise avec RADIUS" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="624"/><g class="sq-acteur"><rect x="31.0" y="12" width="108.0" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Ordinateur</text></g><line class="sq-vie" x1="281.66666666666663" y1="43" x2="281.66666666666663" y2="624"/><g class="sq-acteur"><rect x="198.96666666666664" y="12" width="165.39999999999998" height="31" rx="8"/><text x="281.66666666666663" y="33" text-anchor="middle">Borne Wi-Fi (NAS)</text></g><line class="sq-vie" x1="478.3333333333333" y1="43" x2="478.3333333333333" y2="624"/><g class="sq-acteur"><rect x="407.93333333333334" y="12" width="140.79999999999998" height="31" rx="8"/><text x="478.3333333333333" y="33" text-anchor="middle">Serveur RADIUS</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="624"/><g class="sq-acteur"><rect x="629.2" y="12" width="91.6" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Annuaire</text></g><g class="sq-msg "><text x="183.33333333333331" y="66" text-anchor="middle">1. identité (via 802.1X</text><text x="183.33333333333331" y="84" text-anchor="middle">/ EAP)</text><line x1="85.0" y1="96" x2="269.66666666666663" y2="96"/><polygon class="sq-pointe" points="279.66666666666663,96 267.66666666666663,90 267.66666666666663,102"/></g><g class="sq-msg "><text x="380.0" y="134" text-anchor="middle">2. Access-Request</text><line x1="281.66666666666663" y1="146" x2="466.3333333333333" y2="146"/><polygon class="sq-pointe" points="476.3333333333333,146 464.3333333333333,140 464.3333333333333,152"/></g><g class="sq-msg rep"><text x="380.0" y="184" text-anchor="middle">3. Access-Challenge</text><text x="380.0" y="202" text-anchor="middle">(échanges EAP, plusieurs</text><text x="380.0" y="220" text-anchor="middle">allers-retours)</text><line x1="478.3333333333333" y1="232" x2="293.66666666666663" y2="232"/><polygon class="sq-pointe" points="283.66666666666663,232 295.66666666666663,226 295.66666666666663,238"/></g><g class="sq-msg "><text x="576.6666666666666" y="270" text-anchor="middle">4. alice existe ?</text><text x="576.6666666666666" y="288" text-anchor="middle">groupes ?</text><line x1="478.3333333333333" y1="300" x2="663.0" y2="300"/><polygon class="sq-pointe" points="673.0,300 661.0,294 661.0,306"/></g><g class="sq-msg rep"><text x="576.6666666666666" y="338" text-anchor="middle">5. oui, groupe « Compta</text><text x="576.6666666666666" y="356" text-anchor="middle">»</text><line x1="675.0" y1="368" x2="490.3333333333333" y2="368"/><polygon class="sq-pointe" points="480.3333333333333,368 492.3333333333333,362 492.3333333333333,374"/></g><g class="sq-msg rep"><text x="380.0" y="406" text-anchor="middle">6. Access-Accept + VLAN</text><text x="380.0" y="424" text-anchor="middle">10</text><line x1="478.3333333333333" y1="436" x2="293.66666666666663" y2="436"/><polygon class="sq-pointe" points="283.66666666666663,436 295.66666666666663,430 295.66666666666663,442"/></g><g class="sq-msg rep"><text x="183.33333333333331" y="474" text-anchor="middle">7. accès ouvert dans le</text><text x="183.33333333333331" y="492" text-anchor="middle">VLAN 10</text><line x1="281.66666666666663" y1="504" x2="97.0" y2="504"/><polygon class="sq-pointe" points="87.0,504 99.0,498 99.0,510"/></g><g class="sq-msg "><text x="380.0" y="542" text-anchor="middle">8. Accounting-Start</text><text x="380.0" y="560" text-anchor="middle">(début de session)</text><line x1="281.66666666666663" y1="572" x2="466.3333333333333" y2="572"/><polygon class="sq-pointe" points="476.3333333333333,572 464.3333333333333,566 464.3333333333333,578"/></g></svg><figcaption>Accès au Wi-Fi d’entreprise avec RADIUS</figcaption></figure>
+<h2 id="ce-que-le-serveur-peut-decider">Ce que le serveur peut décider</h2>
+<p>Le serveur RADIUS applique des <strong>politiques</strong> : selon le groupe de l’utilisateur, le type d’appareil, l’heure, l’endroit, il peut répondre :</p>
+<ul>
+<li><strong>Accept</strong> + VLAN 10 pour les employés de la comptabilité ;</li>
+<li><strong>Accept</strong> + VLAN 30 (invités) pour un appareil personnel ;</li>
+<li><strong>Accept</strong> + ACL restrictive pour une imprimante ;</li>
+<li><strong>Reject</strong> pour un compte désactivé.</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>RADIUS</strong> — Protocole d’authentification et d’autorisation des accès au réseau.</li>
+<li><strong>Access-Request / Accept / Reject / Challenge</strong> — Messages RADIUS : demande, acceptation, refus, demande d’informations supplémentaires.</li>
+<li><strong>Attribut RADIUS</strong> — Information transmise dans un message (identité, VLAN, durée…).</li>
+<li><strong>Secret partagé</strong> — Clé commune au NAS et au serveur, qui protège une partie des échanges.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Le serveur RADIUS est injoignable. Que se passe-t-il pour les salariés qui se connectent au Wi-Fi 802.1X ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les nouvelles connexions <strong>échouent</strong> : personne ne peut valider leur identité. C’est pourquoi on déploie au moins <strong>deux serveurs RADIUS</strong> et, sur les switches, une politique de secours (VLAN critique) pour les postes filaires.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="attributs-courants">Attributs courants</h2>
+<table>
+<thead>
+<tr>
+<th>Attribut</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>User-Name</td>
+<td>identité</td>
+</tr>
+<tr>
+<td>NAS-IP-Address, Called-Station-Id</td>
+<td>quel équipement et quel SSID ou port</td>
+</tr>
+<tr>
+<td>Calling-Station-Id</td>
+<td>adresse MAC du client</td>
+</tr>
+<tr>
+<td><strong>Tunnel-Type = VLAN (13), Tunnel-Medium-Type = 802 (6), Tunnel-Private-Group-ID</strong></td>
+<td>VLAN à attribuer</td>
+</tr>
+<tr>
+<td>Filter-Id, Cisco-AVPair</td>
+<td>ACL à appliquer</td>
+</tr>
+<tr>
+<td>Session-Timeout</td>
+<td>durée maximale avant réauthentification</td>
+</tr>
+<tr>
+<td>Class</td>
+<td>étiquette reprise dans la traçabilité</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-cote-switch-cisco-ios-xe">Configuration côté switch (Cisco IOS-XE)</h2>
+<pre><code class="language-cisco">aaa new-model
+radius server ISE-1
+ address ipv4 10.99.0.80 auth-port 1812 acct-port 1813
+ key Une-Cle-Longue-Et-Unique
+radius server ISE-2
+ address ipv4 10.99.1.80 auth-port 1812 acct-port 1813
+ key Une-Cle-Longue-Et-Unique
+aaa group server radius RADIUS-ACCES
+ server name ISE-1
+ server name ISE-2
+ ip radius source-interface Vlan99
+aaa authentication dot1x default group RADIUS-ACCES
+aaa authorization network default group RADIUS-ACCES
+aaa accounting dot1x default start-stop group RADIUS-ACCES
+radius-server dead-criteria time 5 tries 3
+radius-server deadtime 10
+</code></pre>
+<p><code>dead-criteria</code> et <code>deadtime</code> : déclarer un serveur hors service après 3 essais sans réponse, et ne plus l’interroger pendant 10 minutes. Cela accélère la bascule vers le second serveur.</p>
+<h2 id="securite-du-protocole">Sécurité du protocole</h2>
+<p>RADIUS est ancien : seul le mot de passe (attribut User-Password) est masqué avec le secret partagé ; le reste circule en clair, et l’intégrité des messages repose sur MD5. Les recommandations actuelles :</p>
+<ul>
+<li>secret <strong>long et unique</strong> par équipement ou groupe d’équipements ;</li>
+<li>attribut <strong>Message-Authenticator</strong> obligatoire (faille <em>Blast-RADIUS</em>, 2024) ;</li>
+<li><strong>RADIUS sur TLS</strong> (RadSec, TCP 2083) quand les échanges traversent un réseau non maîtrisé ;</li>
+<li>de toute façon, en 802.1X, les identifiants de l’utilisateur sont protégés <strong>par EAP</strong>, à l’intérieur de RADIUS.</li>
+</ul>
+<h2 id="diagnostic">Diagnostic</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> test aaa group RADIUS-ACCES alice MotDePasse new-code
+<span class="k">SW1#</span> show aaa servers
+RADIUS: id 1, priority 1, host 10.99.0.80, auth-port 1812, acct-port 1813
+     State: current UP, duration 812733s, previous duration 0s
+     Authen: request 4211, timeouts 0, failover 0, retransmission 0
+<span class="k">SW1#</span> show authentication sessions interface Gi1/0/5 details
+</code></pre>
+<p>Côté serveur, le journal d’authentification indique <strong>pourquoi</strong> une demande a été refusée (mauvais mot de passe, certificat inconnu, aucune politique correspondante). C’est presque toujours là que se trouve la réponse.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Les postes de la comptabilité sont acceptés en 802.1X, mais arrivent dans le VLAN par défaut du port au lieu du VLAN 10. Que vérifier ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les <strong>attributs de VLAN</strong> dans l’Access-Accept (Tunnel-Type, Tunnel-Medium-Type, Tunnel-Private-Group-ID) : absents, mal écrits, ou un nom de VLAN qui n’existe pas sur le switch. Vérifier aussi <code>aaa authorization network</code>, sans lequel le switch ignore les attributs reçus.</p>
+</details>
+<p><strong>2.</strong> Un switch affiche des timeouts vers le serveur RADIUS, alors que le serveur reçoit bien les requêtes. Le journal du serveur indique « unknown client ». Pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le serveur ne reconnaît pas l’<strong>adresse source</strong> du switch comme un client RADIUS déclaré : souvent parce que le switch envoie ses requêtes depuis une autre interface que celle enregistrée. Configurer <code>ip radius source-interface</code> avec l’adresse déclarée sur le serveur (ou déclarer la bonne adresse côté serveur), et vérifier le secret partagé.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/aaa.html"><small>Fiche précédente</small><strong>AAA</strong></a><a class="apres" href="../niveau-4/tacacs.html"><small>Fiche suivante</small><strong>TACACS+</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#ce-que-le-serveur-peut-decider">Ce que le serveur peut décider</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#attributs-courants">Attributs courants</a><a href="#configuration-cote-switch-cisco-ios-xe">Configuration côté switch (Cisco IOS-XE)</a><a href="#securite-du-protocole">Sécurité du protocole</a><a href="#diagnostic">Diagnostic</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

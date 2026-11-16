@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>À propos de Nexorya | Nexorya</title>
+<meta name="description" content="Explore les réseaux. Maîtrise l’infrastructure.">
+<link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="index.html"><img src="assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="demarrer/index.html" class="">Je débute</a><a href="index.html#plan" class="">Les niveaux</a><a href="pratique/index.html" class="secondaire-nav">Pratique</a><a href="lexique.html" class="secondaire-nav">Lexique</a><a href="progression.html" class="">Ma progression</a>
+<a href="recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="page"><p class="fil"><a href="index.html">Accueil</a></p><h1>À propos de Nexorya</h1><p class=chapeau>Explore les réseaux. Maîtrise l’infrastructure.</p><div class="prose"><p>Nexorya est une formation libre et gratuite aux réseaux informatiques, en français. Elle accompagne aussi bien la personne qui n’a jamais ouvert une invite de commandes que le technicien qui prépare un poste d’ingénieur.</p>
+<h2 id="les-principes">Les principes</h2>
+<ul>
+<li><strong>Le problème avant la solution.</strong> Chaque fiche commence par la situation qu’une technologie résout. On retient bien mieux une réponse quand on a compris la question.</li>
+<li><strong>Deux lectures.</strong> <em>Découvrir</em> donne l’idée, un exemple et les mots à connaître ; <em>Approfondir</em> détaille le fonctionnement, les commandes et les pièges. On peut s’arrêter à la première et revenir plus tard.</li>
+<li><strong>Aucun mot sans explication.</strong> Tout terme technique est défini là où il apparaît, et rassemblé dans le <a href="lexique.html">lexique</a>.</li>
+<li><strong>Des exercices corrigés partout.</strong> Dans chaque fiche, puis dans un QCM par niveau qui explique pourquoi chaque mauvaise réponse est fausse.</li>
+<li><strong>La pratique.</strong> Des <a href="pratique/index.html">laboratoires</a> à faire dans un simulateur, et un projet qui traverse tous les niveaux.</li>
+</ul>
+<h2 id="les-niveaux">Les niveaux</h2>
+<table>
+<thead>
+<tr>
+<th>Niveau</th>
+<th>Pour qui</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Je débute</td>
+<td>personne n’ayant aucune connaissance du réseau</td>
+</tr>
+<tr>
+<td>1. Ethernet, switching et Wi-Fi</td>
+<td>premiers pas de technicien : câbles, switches, VLAN, Wi-Fi</td>
+</tr>
+<tr>
+<td>2. IP et routage</td>
+<td>adresses IP, sous-réseaux, routage interne et entre opérateurs</td>
+</tr>
+<tr>
+<td>3. Services et applications</td>
+<td>TCP/UDP, DNS, DHCP, Web, administration, partage de fichiers, voix</td>
+</tr>
+<tr>
+<td>4. Sécurité et identité</td>
+<td>authentification, chiffrement, filtrage, détection</td>
+</tr>
+<tr>
+<td>5. WAN, datacenter et exploitation</td>
+<td>WAN, datacenter, QoS, supervision, automatisation, cloud</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ta-progression-reste-chez-toi">Ta progression reste chez toi</h2>
+<p>Les fiches lues, les scores aux QCM et le thème choisi sont enregistrés <strong>uniquement dans ton navigateur</strong> (stockage local). Aucun compte, aucun cookie de suivi, aucune donnée envoyée à un serveur. Depuis la page <a href="progression.html">Ma progression</a>, tu peux exporter ta progression dans un fichier pour la retrouver sur un autre appareil.</p>
+<h2 id="une-precision-sur-les-commandes">Une précision sur les commandes</h2>
+<p>Les exemples de configuration utilisent surtout la syntaxe Cisco IOS, la plus répandue dans les formations, et parfois Junos, Linux ou d’autres systèmes. Les concepts sont les mêmes partout. Les noms de produits et de marques appartiennent à leurs propriétaires ; Nexorya n’est affiliée à aucun constructeur.</p>
+<h2 id="contribuer">Contribuer</h2>
+<p>Le site est généré à partir de fichiers Markdown simples. Une erreur, une explication peu claire, une idée de fiche ? Les contributions sont bienvenues sur le dépôt du projet : le fichier <code>CONTRIBUTING.md</code> explique comment écrire une fiche, un schéma ou une question de QCM.</p>
+<h2 id="credits">Crédits</h2>
+<ul>
+<li>Polices : Bricolage Grotesque, Atkinson Hyperlegible et JetBrains Mono, sous licence SIL Open Font License.</li>
+<li>Version : 1.0.</li>
+</ul></div></div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="a-propos.html">À propos</a></span></footer>
+
+<script src="assets/js/nexorya.js"></script>
+</body>
+</html>

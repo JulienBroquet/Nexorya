@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MSTP — Multiple Spanning Tree Protocol (IEEE 802.1s) | Nexorya</title>
+<meta name="description" content="MSTP regroupe de nombreux VLAN dans quelques arbres seulement ; on garde la répartition de charge sans calculer un arbre par VLAN.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp" aria-current="page">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/mstp">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-5">Éviter les boucles</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>MSTP</h1><p class="nom-complet">Multiple Spanning Tree Protocol (IEEE 802.1s)</p>
+<p class="idee">MSTP regroupe de nombreux VLAN dans quelques arbres seulement ; on garde la répartition de charge sans calculer un arbre par VLAN.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 6 min</span><span>Approfondir : 14 min</span><span>Avant : <a href="../niveau-1/rstp.html">RSTP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-200-vlan-200-arbres">Le problème : 200 VLAN, 200 arbres</h2>
+<p>Avec Rapid PVST+, chaque VLAN a son propre arbre Spanning Tree. Avec 200 VLAN, chaque switch calcule 200 arbres et envoie 200 séries de BPDU toutes les deux secondes sur chaque trunk. Or, dans un campus, il n’existe souvent que <strong>deux chemins</strong> possibles. Calculer 200 fois la même chose gaspille du processeur.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>MSTP range les VLAN dans quelques <strong>instances</strong>, et calcule un arbre par instance. Deux instances suffisent souvent : une qui passe par le switch de distribution A, l’autre par B.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<ol>
+<li>L’administrateur crée des <strong>instances</strong> : instance 1 et instance 2.</li>
+<li>Il y range les VLAN : VLAN 10 à 99 → instance 1, VLAN 100 à 199 → instance 2.</li>
+<li>Il donne la racine de l’instance 1 au switch DIST-A, et celle de l’instance 2 à DIST-B.</li>
+<li>Résultat : la moitié des VLAN passe par A, l’autre par B. Les deux uplinks travaillent, chacun sert de secours à l’autre.</li>
+</ol>
+<figure class="schema"><svg viewBox="0 0 464.0 286.0" width="464.0" role="img" aria-label="Deux instances, deux racines, deux uplinks utilisés" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="354.0" y2="50.0"/><line class="tp-lien actif" x1="232.0" y1="190.0" x2="110.0" y2="50.0"/><text class="tp-etiq" x="180.0" y="112.1" text-anchor="start">VLAN 10-99</text><line class="tp-lien actif" x1="232.0" y1="190.0" x2="354.0" y2="50.0"/><text class="tp-etiq" x="284.0" y="112.1" text-anchor="end">VLAN 100-199</text><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">DIST-A</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">racine instance 1</text><g transform="translate(354.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">DIST-B</text><text class="tp-sous" x="354.0" y="106.0" text-anchor="middle">racine instance 2</text><g transform="translate(232.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="232.0" y="230.0" text-anchor="middle">Switch d’accès</text></svg><figcaption>Deux instances, deux racines, deux uplinks utilisés</figcaption></figure>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>MSTP</strong> — <em>Multiple Spanning Tree Protocol</em>, version de STP qui calcule un arbre par groupe de VLAN.</li>
+<li><strong>Instance MST</strong> — Groupe de VLAN qui partagent le même arbre Spanning Tree.</li>
+<li><strong>Région MST</strong> — Ensemble de switches qui partagent exactement la même configuration MST.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Deux switches MSTP ont le même nom de région, mais le VLAN 50 est rangé dans l’instance 1 sur l’un et dans l’instance 2 sur l’autre. Sont-ils dans la même région ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> La table VLAN → instance doit être <strong>strictement identique</strong>. Une seule différence suffit pour que les switches se considèrent dans des régions différentes : la topologie devient sous-optimale et difficile à comprendre.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="instances-ist-et-regions">Instances, IST et régions</h2>
+<ul>
+<li>L’<strong>instance 0</strong> (IST, <em>Internal Spanning Tree</em>) existe toujours. Elle contient tous les VLAN non affectés, et c’est elle qui dialogue avec l’extérieur de la région.</li>
+<li>Les instances 1 à 4094 (le nombre maximal dépend de la plateforme, souvent 64) sont les <strong>MSTI</strong>.</li>
+<li>Toutes les informations MST d’une région voyagent dans <strong>une seule BPDU</strong> par port, ce qui allège considérablement le plan de contrôle.</li>
+<li>Vue de l’extérieur, une région se comporte comme <strong>un seul gros switch</strong> : c’est le CST (<em>Common Spanning Tree</em>) qui relie les régions entre elles et aux switches RSTP/STP.</li>
+</ul>
+<p>La région est identifiée par un <strong>résumé</strong> calculé sur le nom, la révision et la table VLAN → instance. Deux switches dont le résumé diffère sont dans deux régions.</p>
+<h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco">spanning-tree mode mst
+<span class="c">!</span>
+spanning-tree mst configuration
+ name CAMPUS-NORD
+ revision 3
+ instance 1 vlan 10-99
+ instance 2 vlan 100-199
+<span class="c">!</span>
+<span class="c">! Sur DIST-A</span>
+spanning-tree mst 0-1 priority 4096
+spanning-tree mst 2 priority 8192
+<span class="c">! Sur DIST-B</span>
+spanning-tree mst 0-1 priority 8192
+spanning-tree mst 2 priority 4096
+</code></pre>
+<div class="encadre attention">
+<p class="encadre-titre">Attention en production</p>
+<p>Modifier la configuration MST (ajouter un VLAN à une instance) change le résumé de région : le switch sort temporairement de la région jusqu’à ce que tous les switches soient modifiés. Prépare la table VLAN → instance <strong>à l’avance</strong>, y compris pour les VLAN futurs, et applique les changements en fenêtre de maintenance, partout à la fois (automatisation recommandée).</p>
+</div>
+<h2 id="verification">Vérification</h2>
+<pre><code class="language-cisco"><span class="k">DIST-A#</span> show spanning-tree mst configuration
+Name      [CAMPUS-NORD]
+Revision  3     Instances configured 3
+Instance  Vlans mapped
+--------  ---------------------------------------------------------------------
+0         1-9,200-4094
+1         10-99
+2         100-199
+
+<span class="k">ACC1#</span> show spanning-tree mst 2
+<span class="k">#####</span> MST2    vlans mapped:   100-199
+Bridge        address 7c21.0e4a.1b00  priority 32770 (32768 sysid 2)
+Root          address 00aa.0b00.0002  priority 4098  (4096 sysid 2)
+              port    Gi1/0/48        cost 20000     rem hops 19
+Gi1/0/47         Altn BLK 20000     128.47   P2p
+Gi1/0/48         Root FWD 20000     128.48   P2p
+</code></pre>
+<p>MST utilise les <strong>coûts longs</strong> (20 000 pour 1 Gb/s). Un port qui apparaît comme <code>Bound(RSTP)</code> ou <code>Bound(PVST)</code> marque la <strong>frontière</strong> avec un switch hors région.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un switch est ajouté avec <code>name CAMPUS-NORD</code>, <code>revision 3</code>, mais sans les lignes <code>instance</code>. Que se passe-t-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Tous ses VLAN sont dans l’instance 0 : sa table diffère des autres, il forme <strong>sa propre région</strong>. Ses ports vers les autres switches deviennent des ports de frontière, et la répartition de charge par instance ne s’applique plus à travers lui.</p>
+</details>
+<p><strong>2.</strong> Pourquoi recommande-t-on d’affecter dès le départ à une instance des plages de VLAN qui n’existent pas encore ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Pour ne <strong>jamais modifier</strong> la configuration MST plus tard. Créer un VLAN ne change pas le résumé de région ; modifier la table VLAN → instance, si. Préparer des plages (par exemple 10-99 et 100-199) évite des perturbations à chaque nouveau VLAN.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/rstp.html"><small>Fiche précédente</small><strong>RSTP</strong></a><a class="apres" href="../niveau-1/lacp.html"><small>Fiche suivante</small><strong>LACP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-200-vlan-200-arbres">Le problème : 200 VLAN, 200 arbres</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#instances-ist-et-regions">Instances, IST et régions</a><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#verification">Vérification</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IPv6 en pratique — SLAAC, DHCPv6 et double pile | Nexorya</title>
+<meta name="description" content="En IPv6, le routeur annonce le préfixe du réseau et la passerelle ; les machines se configurent seules (SLAAC), avec ou sans l’aide d’un serveur DHCPv6.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique" aria-current="page">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/ipv6-pratique">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-1">Adresser les machines</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>IPv6 en pratique</h1><p class="nom-complet">SLAAC, DHCPv6 et double pile</p>
+<p class="idee">En IPv6, le routeur annonce le préfixe du réseau et la passerelle ; les machines se configurent seules (SLAAC), avec ou sans l’aide d’un serveur DHCPv6.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 9 min</span><span>Approfondir : 20 min</span><span>Avant : <a href="../niveau-2/ipv6.html">IPv6</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-configurer-des-milliers-de-machines">Le problème : configurer des milliers de machines</h2>
+<p>En IPv4, une machine obtient son adresse, son masque, sa passerelle et son DNS par <a href="../niveau-3/dhcp.html">DHCP</a>. IPv6 propose une autre approche : le routeur <strong>annonce</strong> le réseau, et chaque machine se configure toute seule.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le routeur dit « le réseau ici, c’est <code>2001:db8:10:20::/64</code>, et je suis votre passerelle ». Chaque machine complète le préfixe avec ses 64 bits d’identifiant et obtient son adresse, sans serveur.</p>
+</div>
+<h2 id="comment-ca-marche-slaac">Comment ça marche : SLAAC</h2>
+<figure class="schema"><svg viewBox="0 0 760 452" width="760" role="img" aria-label="Autoconfiguration sans état (SLAAC)" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="452"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">PC</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="452"/><g class="sq-acteur"><rect x="633.3" y="12" width="83.39999999999999" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Routeur</text></g><g class="sq-note"><rect x="6" y="74" width="200" height="68" rx="6"/><text x="106.0" y="93" text-anchor="middle">crée son adresse de lien</text><text x="106.0" y="111" text-anchor="middle">local fe80::…, vérifie</text><text x="106.0" y="129" text-anchor="middle">qu’elle est unique</text></g><g class="sq-msg "><text x="380.0" y="168" text-anchor="middle">1. RS : « un routeur est-il là ? » (vers ff02::2)</text><line x1="85.0" y1="180" x2="663.0" y2="180"/><polygon class="sq-pointe" points="673.0,180 661.0,174 661.0,186"/></g><g class="sq-msg rep"><text x="380.0" y="218" text-anchor="middle">2. RA : préfixe 2001:db8:10:20::/64, passerelle = moi (fe80::1)</text><line x1="675.0" y1="230" x2="97.0" y2="230"/><polygon class="sq-pointe" points="87.0,230 99.0,224 99.0,236"/></g><g class="sq-note"><rect x="6" y="276" width="200" height="86" rx="6"/><text x="106.0" y="295" text-anchor="middle">fabrique</text><text x="106.0" y="313" text-anchor="middle">2001:db8:10:20:xxxx:xxxx:xxxx:xxxx</text><text x="106.0" y="331" text-anchor="middle">et vérifie l’unicité</text><text x="106.0" y="349" text-anchor="middle">(DAD)</text></g><g class="sq-msg "><text x="380.0" y="388" text-anchor="middle">3. trafic vers Internet via fe80::1</text><line x1="85.0" y1="400" x2="663.0" y2="400"/><polygon class="sq-pointe" points="673.0,400 661.0,394 661.0,406"/></g></svg><figcaption>Autoconfiguration sans état (SLAAC)</figcaption></figure>
+<ol>
+<li>La machine crée une <strong>adresse de lien local</strong> et vérifie que personne d’autre ne l’utilise.</li>
+<li>Elle envoie une <strong>sollicitation de routeur</strong> (RS).</li>
+<li>Le routeur répond par une <strong>annonce de routeur</strong> (RA) : préfixe, passerelle, durées de validité. Il en envoie aussi régulièrement sans qu’on le lui demande.</li>
+<li>La machine fabrique son adresse <strong>globale</strong> et l’utilise.</li>
+</ol>
+<h2 id="et-le-dns-les-trois-modes">Et le DNS ? Les trois modes</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Adresse</th>
+<th>DNS et autres options</th>
+<th>Drapeaux de la RA</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SLAAC seul</strong></td>
+<td>fabriquée par la machine</td>
+<td>dans la RA (option RDNSS)</td>
+<td>M=0, O=0</td>
+</tr>
+<tr>
+<td><strong>SLAAC + DHCPv6 sans état</strong></td>
+<td>fabriquée par la machine</td>
+<td>donnés par DHCPv6</td>
+<td>M=0, <strong>O=1</strong></td>
+</tr>
+<tr>
+<td><strong>DHCPv6 avec état</strong></td>
+<td>attribuée par DHCPv6</td>
+<td>donnés par DHCPv6</td>
+<td><strong>M=1</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Dans <strong>tous</strong> les cas, la passerelle vient de la RA. Un réseau sans RA n’a pas de passerelle IPv6, même avec un serveur DHCPv6 parfait.</p>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p><strong>Android ne prend pas en charge DHCPv6 avec état.</strong> Sur un réseau qui ne fournit les adresses que par DHCPv6 (M=1, sans préfixe autonome), les téléphones Android n’obtiennent pas d’adresse globale. C’est pourquoi on garde généralement SLAAC actif sur les réseaux d’utilisateurs.</p>
+</div>
+<h2 id="la-double-pile">La double pile</h2>
+<p>Pendant la transition, la plupart des réseaux fonctionnent en <strong>double pile</strong> : chaque machine a une adresse IPv4 et une adresse IPv6. Quand un nom DNS renvoie les deux types d’adresses, les systèmes <strong>préfèrent IPv6</strong>, avec un mécanisme (<em>Happy Eyeballs</em>) qui bascule vite sur IPv4 si IPv6 ne répond pas.</p>
+<p>Conséquence pratique : un réseau IPv6 <strong>mal configuré</strong> peut ralentir les connexions sans les casser, ce qui le rend difficile à repérer.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>SLAAC</strong> — <em>Stateless Address Autoconfiguration</em>, autoconfiguration d’une adresse IPv6 à partir du préfixe annoncé par le routeur.</li>
+<li><strong>RA</strong> — <em>Router Advertisement</em>, annonce du routeur : préfixe, passerelle, options.</li>
+<li><strong>RS</strong> — <em>Router Solicitation</em>, demande d’annonce envoyée par une machine.</li>
+<li><strong>DHCPv6</strong> — Version IPv6 de DHCP, pour fournir des adresses ou seulement des options (DNS, domaine).</li>
+<li><strong>DAD</strong> — <em>Duplicate Address Detection</em>, vérification qu’une adresse n’est pas déjà utilisée.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un poste a une adresse IPv6 globale fournie par DHCPv6, mais aucune route par défaut IPv6. Où est le problème ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le poste ne reçoit <strong>pas d’annonce de routeur</strong> (RA). La passerelle IPv6 n’est jamais fournie par DHCPv6 : il faut que le routeur envoie des RA sur ce réseau (et qu’aucun filtrage, comme RA Guard mal réglé, ne les bloque).</p>
+</details>
+<p><strong>2.</strong> Pourquoi garder SLAAC sur un réseau Wi-Fi d’employés, même si on dispose d’un serveur DHCPv6 ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que certains systèmes, notamment <strong>Android</strong>, ne savent pas obtenir d’adresse par DHCPv6 avec état. Sans SLAAC, ils n’auraient pas d’adresse IPv6 globale.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-dun-routeur-cisco-ios">Configuration d’un routeur (Cisco IOS)</h2>
+<pre><code class="language-cisco">ipv6 unicast-routing
+<span class="c">!</span>
+interface Vlan10
+ ipv6 address 2001:db8:abcd:110::1/64
+ ipv6 address fe80::1 link-local
+<span class="c"> ! SLAAC + DNS dans la RA (RFC 8106) — selon la version, la commande varie</span>
+ ipv6 nd ra dns server 2001:db8:abcd:99::53
+<span class="c"> ! Option : SLAAC + DHCPv6 sans état pour le DNS</span>
+ ipv6 nd other-config-flag
+ ipv6 dhcp relay destination 2001:db8:abcd:99::547
+<span class="c">!</span>
+interface Vlan99
+ description Serveurs : adresses fixes, pas d'autoconfiguration
+ ipv6 address 2001:db8:abcd:199::1/64
+ ipv6 nd prefix 2001:db8:abcd:199::/64 no-autoconfig
+ ipv6 nd managed-config-flag
+</code></pre>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ipv6 interface Vlan10 | include ND|hosts
+  ND advertised reachable time is 0 (unspecified)
+  ND router advertisements are sent every 200 seconds
+  ND router advertisements live for 1800 seconds
+  Hosts use stateless autoconfig for addresses.
+  Hosts use DHCP to obtain other (non-address) information.
+</code></pre>
+<h2 id="verifier-cote-client">Vérifier côté client</h2>
+<pre><code class="language-bash"><span class="c"># Linux : adresses et origine</span>
+$ ip -6 addr show dev eth0
+    inet6 2001:db8:abcd:110:5e1d:4a7f:9c2b:11e3/64 scope global dynamic mngtmpaddr
+    inet6 2001:db8:abcd:110:a81b:2cff:fe33:9f01/64 scope global temporary dynamic
+    inet6 fe80::a81b:2cff:fe33:9f01/64 scope link
+$ ip -6 route show default
+default via fe80::1 dev eth0 proto ra metric 100
+</code></pre>
+<ul>
+<li><code>proto ra</code> : la route par défaut vient bien d’une annonce de routeur.</li>
+<li><code>temporary</code> : adresse temporaire utilisée pour les connexions sortantes (vie privée).</li>
+<li>La passerelle est une adresse <strong>de lien local</strong> : c’est normal en IPv6.</li>
+</ul>
+<pre><code class="language-powershell">PS&gt; Get-NetIPAddress -AddressFamily IPv6 | Select IPAddress, PrefixOrigin, SuffixOrigin
+2001:db8:abcd:110:5e1d:4a7f:9c2b:11e3   RouterAdvertisement   Random
+fe80::5e1d:4a7f:9c2b:11e3                WellKnown            Link
+</code></pre>
+<h2 id="routage-ipv6-ospfv3-en-bref">Routage IPv6 : OSPFv3 en bref</h2>
+<p>Le routage IPv6 fonctionne comme en IPv4 ; les protocoles ont leur version IPv6 (OSPFv3, EIGRP pour IPv6, MP-BGP). Les échanges entre voisins utilisent les adresses <strong>de lien local</strong>.</p>
+<pre><code class="language-cisco">ipv6 router ospf 1
+ router-id 10.255.0.1
+<span class="c">!</span>
+interface GigabitEthernet0/0/0
+ ipv6 ospf 1 area 0
+<span class="c">!</span>
+<span class="k">R1#</span> show ipv6 route ospf
+O   2001:DB8:ABCD:210::/64 [110/2]
+     via FE80::2, GigabitEthernet0/0/0
+</code></pre>
+<p>Le <em>router-id</em> reste un nombre de 32 bits écrit comme une adresse IPv4 : sur un routeur sans aucune adresse IPv4, il faut le configurer à la main. Voir <a href="ospf.html">OSPF</a>.</p>
+<h2 id="securite-specifique">Sécurité spécifique</h2>
+<ul>
+<li>Une machine qui envoie de <strong>fausses RA</strong> peut se déclarer passerelle de tout le réseau, même dans un réseau « IPv4 seulement » : les systèmes activent IPv6 par défaut. La protection s’appelle <strong>RA Guard</strong> : voir <a href="../niveau-4/protection-ports.html">Protéger les ports</a>.</li>
+<li>Désactiver IPv6 sur les postes n’est pas recommandé par les éditeurs de systèmes ; il vaut mieux le <strong>maîtriser</strong> (RA Guard, filtrage, supervision).</li>
+</ul>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Sur un VLAN, les drapeaux de la RA sont M=0 et O=1, et le préfixe a l’indicateur « autonomous ». Comment un poste obtient-il son adresse et son DNS ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Adresse par SLAAC</strong> (préfixe autonome, M=0), <strong>DNS par DHCPv6 sans état</strong> (O=1), passerelle par la RA. C’est un mode courant en entreprise, compatible avec Android si le DNS est aussi annoncé dans la RA (RDNSS).</p>
+</details>
+<p><strong>2.</strong> Des utilisateurs se plaignent de connexions lentes à démarrer vers certains sites depuis qu’IPv6 a été activé. Le ping IPv6 vers Internet échoue, IPv4 fonctionne. Explique et propose une démarche.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les postes reçoivent une adresse IPv6 et une passerelle (RA), donc ils <strong>tentent d’abord IPv6</strong>, qui n’aboutit pas ; ils basculent ensuite sur IPv4 après un délai. Vérifier la route IPv6 par défaut du routeur vers l’opérateur, le pare-feu IPv6, puis tester avec <code>traceroute -6</code>. En attendant la correction, on peut cesser d’annoncer le préfixe sur ce VLAN plutôt que de laisser une connectivité IPv6 cassée.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/ipv6.html"><small>Fiche précédente</small><strong>IPv6</strong></a><a class="apres" href="../niveau-2/arp.html"><small>Fiche suivante</small><strong>ARP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-configurer-des-milliers-de-machines">Le problème : configurer des milliers de machines</a><a href="#comment-ca-marche-slaac">Comment ça marche : SLAAC</a><a href="#et-le-dns-les-trois-modes">Et le DNS ? Les trois modes</a><a href="#la-double-pile">La double pile</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-dun-routeur-cisco-ios">Configuration d’un routeur (Cisco IOS)</a><a href="#verifier-cote-client">Vérifier côté client</a><a href="#routage-ipv6-ospfv3-en-bref">Routage IPv6 : OSPFv3 en bref</a><a href="#securite-specifique">Sécurité spécifique</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

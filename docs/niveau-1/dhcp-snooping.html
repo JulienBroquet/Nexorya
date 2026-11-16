@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DHCP Snooping — Protection contre les faux serveurs DHCP | Nexorya</title>
+<meta name="description" content="Le DHCP Snooping n’autorise les réponses DHCP que sur les ports qui mènent au vrai serveur ; une box branchée par erreur ne peut plus distribuer de fausses adresses.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping" aria-current="page">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/dhcp-snooping">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-6">Agréger, découvrir, protéger</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>DHCP Snooping</h1><p class="nom-complet">Protection contre les faux serveurs DHCP</p>
+<p class="idee">Le DHCP Snooping n’autorise les réponses DHCP que sur les ports qui mènent au vrai serveur ; une box branchée par erreur ne peut plus distribuer de fausses adresses.</p><div class="badges"><span>Couche OSI 2 et 7</span><span>Découvrir : 7 min</span><span>Approfondir : 14 min</span><span>Avant : <a href="../niveau-1/vlan.html">VLAN</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-la-box-personnelle-qui-casse-un-etage">Le problème : la box personnelle qui casse un étage</h2>
+<p>Lundi matin, des postes du VLAN 10 reçoivent des adresses en <code>192.168.0.x</code> au lieu de <code>10.10.10.x</code>, et n’ont plus accès à rien. Un employé a branché sa <strong>box Internet personnelle</strong> sur sa prise réseau pour avoir du Wi-Fi au bureau. La box contient un serveur DHCP : elle répond aux demandes d’adresses plus vite que le vrai serveur, et distribue ses propres adresses, sa propre passerelle et son propre DNS.</p>
+<p>Le même mécanisme peut être utilisé <strong>volontairement</strong> par un attaquant : en se déclarant passerelle, il fait passer tout le trafic des victimes par sa machine.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le switch ne laisse passer les <strong>réponses</strong> DHCP que si elles arrivent par un port déclaré <strong>de confiance</strong> — celui qui mène au vrai serveur. Les autres sont jetées.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 464.0 426.0" width="464.0" role="img" aria-label="Seul le port de confiance peut répondre en DHCP" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien actif" x1="232.0" y1="50.0" x2="232.0" y2="190.0"/><text class="tp-etiq" x="244.0" y="124.0" text-anchor="start">port de confiance</text><line class="tp-lien " x1="232.0" y1="190.0" x2="110.0" y2="330.0"/><text class="tp-etiq" x="162.0" y="252.1" text-anchor="end">non fiable</text><line class="tp-lien bloque" x1="232.0" y1="190.0" x2="354.0" y2="330.0"/><path class="sq-croix" d="M286.0 253.0 l14 14 M300.0 253.0 l-14 14"/><text class="tp-etiq ko" x="302.0" y="252.1" text-anchor="start">non fiable : réponses jetées</text><g transform="translate(232.0 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="232.0" y="90.0" text-anchor="middle">Serveur DHCP</text><text class="tp-sous" x="232.0" y="106.0" text-anchor="middle">le vrai</text><g transform="translate(232.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="232.0" y="230.0" text-anchor="middle">Switch d’accès</text><g transform="translate(110.0 330.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="370.0" text-anchor="middle">Poste</text><g transform="translate(354.0 330.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="354.0" y="370.0" text-anchor="middle">Box personnelle</text><text class="tp-sous" x="354.0" y="386.0" text-anchor="middle">faux serveur DHCP</text></svg><figcaption>Seul le port de confiance peut répondre en DHCP</figcaption></figure>
+<ol>
+<li>L’administrateur active DHCP Snooping sur les VLAN utilisateurs.</li>
+<li>Il déclare <strong>de confiance</strong> l’uplink qui mène au serveur DHCP. Tous les autres ports sont <strong>non fiables</strong> par défaut.</li>
+<li>Les <strong>demandes</strong> des postes (DISCOVER, REQUEST) passent normalement.</li>
+<li>Les <strong>réponses</strong> (OFFER, ACK) qui arrivent par un port non fiable sont jetées. La box peut rester branchée : elle ne trompe plus personne.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>DHCP Snooping</strong> — Fonction de switch qui filtre les messages DHCP selon la confiance accordée à chaque port.</li>
+<li><strong>Port de confiance</strong> — Port autorisé à faire passer des réponses DHCP, en général l’uplink vers le serveur.</li>
+<li><strong>Serveur DHCP pirate</strong> — Appareil non autorisé qui distribue des adresses sur le réseau (<em>rogue DHCP</em>).</li>
+<li><strong>Table de liaisons</strong> — Liste construite par le switch des adresses IP attribuées, avec MAC, port et VLAN.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Pourquoi Port Security ne suffit-il pas à empêcher l’incident de la box ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Port Security limite le <strong>nombre d’adresses MAC</strong> sur un port. Une box n’utilise qu’une ou deux adresses MAC : elle passe la limite sans problème et continue de répondre en DHCP. Seul un contrôle du <strong>contenu DHCP</strong> (DHCP Snooping) l’en empêche.</p>
+</details>
+<p><strong>2.</strong> Après avoir activé DHCP Snooping, plus aucun poste n’obtient d’adresse. Quel oubli est le plus probable ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>L’administrateur n’a pas déclaré <strong>de confiance</strong> le port qui mène au vrai serveur DHCP (l’uplink). Les réponses légitimes sont jetées comme les autres.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco">ip dhcp snooping
+ip dhcp snooping vlan 10,20,30
+no ip dhcp snooping information option        ! voir la remarque sur l'option 82
+<span class="c">!</span>
+interface Port-channel1
+ description Uplink vers la distribution (vers le serveur DHCP)
+ ip dhcp snooping trust
+<span class="c">!</span>
+interface range GigabitEthernet1/0/1 - 46
+ ip dhcp snooping limit rate 15               ! paquets DHCP par seconde, contre l'épuisement
+</code></pre>
+<p><strong>L’option 82.</strong> Par défaut, un switch Cisco qui fait du snooping <strong>insère l’option 82</strong> (informations sur le port et le switch) dans les demandes DHCP. Si le relais DHCP ou le serveur n’est pas prévu pour la recevoir, les demandes peuvent être <strong>rejetées</strong> et plus personne n’obtient d’adresse. Soit on la désactive (<code>no ip dhcp snooping information option</code>), soit on configure le serveur et le relais pour l’accepter (<code>ip dhcp relay information trust-all</code> sur le relais Cisco, par exemple).</p>
+<h2 id="verification">Vérification</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show ip dhcp snooping
+Switch DHCP snooping is enabled
+DHCP snooping is configured on following VLANs: 10,20,30
+Insertion of option 82 is disabled
+Interface                  Trusted    Allow option    Rate limit (pps)
+-----------------------    -------    ------------    ----------------
+Port-channel1              yes        yes             unlimited
+GigabitEthernet1/0/1       no         no              15
+
+<span class="k">SW1#</span> show ip dhcp snooping binding
+MacAddress          IpAddress     Lease(sec)  Type           VLAN  Interface
+------------------  -----------   ----------  -------------  ----  --------------------
+3C:22:FB:1A:09:7E   10.10.10.57   85712       dhcp-snooping   10   GigabitEthernet1/0/1
+
+<span class="k">SW1#</span> show ip dhcp snooping statistics detail
+ Packets Dropped Because
+   Unknown output interface                             = 0
+   Untrusted server messages                            = 214
+</code></pre>
+<p>Le compteur <strong>Untrusted server messages</strong> révèle qu’un faux serveur a tenté de répondre. On le localise ensuite avec la table MAC.</p>
+<h2 id="la-table-de-liaisons-socle-dautres-protections">La table de liaisons, socle d’autres protections</h2>
+<p>La table de liaisons est réutilisée par :</p>
+<ul>
+<li><strong>Dynamic ARP Inspection</strong> (<a href="../niveau-4/dai.html">DAI</a>) : rejette les réponses ARP qui ne correspondent pas à une liaison connue — protection contre l’usurpation de passerelle ;</li>
+<li><strong>IP Source Guard</strong> : rejette le trafic dont l’adresse IP source ne correspond pas à celle attribuée sur ce port.</li>
+</ul>
+<p>Les machines à <strong>adresse fixe</strong> n’apparaissent pas dans la table : il faut leur ajouter des entrées statiques, sinon DAI et IP Source Guard les bloqueraient.</p>
+<p>Pour qu’un redémarrage du switch ne vide pas la table (et ne bloque pas les postes jusqu’au renouvellement de leur bail), on peut la sauvegarder : <code>ip dhcp snooping database flash:dhcp-snoop.db</code>.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Le compteur « Untrusted server messages » augmente sur un switch d’accès. Comment trouver le coupable ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Capturer ou journaliser les messages rejetés pour obtenir l’<strong>adresse MAC source</strong> du faux serveur, puis <code>show mac address-table address &lt;mac&gt;</code> pour trouver le <strong>port</strong>. On peut aussi provoquer une demande DHCP depuis un poste de test et observer la réponse. Ensuite, aller voir ce qui est branché sur ce port.</p>
+</details>
+<p><strong>2.</strong> Un serveur d’impression a une adresse IP fixe. Après l’activation de DAI sur son VLAN, il n’est plus joignable. Pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>DAI s’appuie sur la table de liaisons du DHCP Snooping. Le serveur, configuré à la main, n’y figure pas : ses réponses ARP sont considérées comme suspectes et <strong>rejetées</strong>. Il faut ajouter une <strong>liaison statique</strong> (ou une ACL ARP) pour cette adresse.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/eee.html"><small>Fiche précédente</small><strong>EEE</strong></a><a class="apres" href="../niveau-1/wifi.html"><small>Fiche suivante</small><strong>Le Wi-Fi</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-la-box-personnelle-qui-casse-un-etage">Le problème : la box personnelle qui casse un étage</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#verification">Vérification</a><a href="#la-table-de-liaisons-socle-dautres-protections">La table de liaisons, socle d’autres protections</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

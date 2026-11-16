@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SIP — Session Initiation Protocol | Nexorya</title>
+<meta name="description" content="SIP sert à établir, modifier et terminer les appels en voix sur IP — il fait sonner le téléphone et négocie le format audio, mais ne transporte pas la voix elle-même.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip" aria-current="page">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/sip">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-6">Voix et mobilité</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>SIP</h1><p class="nom-complet">Session Initiation Protocol</p>
+<p class="idee">SIP sert à établir, modifier et terminer les appels en voix sur IP — il fait sonner le téléphone et négocie le format audio, mais ne transporte pas la voix elle-même.</p><div class="badges"><span>Couche OSI 7 (UDP/TCP 5060 ; TLS 5061)</span><span>Découvrir : 8 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-3/udp.html">UDP</a>, <a href="../niveau-3/nat.html">NAT</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-passer-un-appel-sur-un-reseau-de-donnees">Le problème : passer un appel sur un réseau de données</h2>
+<p>Pour téléphoner sur IP, il faut d’abord <strong>trouver</strong> le correspondant, le <strong>faire sonner</strong>, se mettre d’accord sur le <strong>format</strong> de la voix, puis <strong>raccrocher</strong>. Ce travail de signalisation est distinct du transport de la voix elle-même.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>SIP fait le travail du standard téléphonique — appeler, faire sonner, décrocher, raccrocher —, et laisse RTP transporter la voix.</p>
+</div>
+<h2 id="un-appel-pas-a-pas">Un appel, pas à pas</h2>
+<figure class="schema"><svg viewBox="0 0 760 632" width="760" role="img" aria-label="Établissement d’un appel SIP" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="632"/><g class="sq-acteur"><rect x="43.300000000000004" y="12" width="83.39999999999999" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Poste A</text></g><line class="sq-vie" x1="380.0" y1="60" x2="380.0" y2="632"/><g class="sq-acteur"><rect x="301.4" y="12" width="157.2" height="48" rx="8"/><text x="380.0" y="33" text-anchor="middle">Serveur d’appels</text><text x="380.0" y="50" text-anchor="middle">(PBX)</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="632"/><g class="sq-acteur"><rect x="633.3" y="12" width="83.39999999999999" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Poste B</text></g><g class="sq-msg "><text x="232.5" y="66" text-anchor="middle">1. INVITE (SDP : mon IP, mon port</text><text x="232.5" y="84" text-anchor="middle">audio, mes codecs)</text><line x1="85.0" y1="96" x2="368.0" y2="96"/><polygon class="sq-pointe" points="378.0,96 366.0,90 366.0,102"/></g><g class="sq-msg "><text x="527.5" y="134" text-anchor="middle">2. INVITE</text><line x1="380.0" y1="146" x2="663.0" y2="146"/><polygon class="sq-pointe" points="673.0,146 661.0,140 661.0,152"/></g><g class="sq-msg rep"><text x="527.5" y="184" text-anchor="middle">3. 180 Ringing (le téléphone sonne)</text><line x1="675.0" y1="196" x2="392.0" y2="196"/><polygon class="sq-pointe" points="382.0,196 394.0,190 394.0,202"/></g><g class="sq-msg rep"><text x="232.5" y="234" text-anchor="middle">4. 180 Ringing</text><line x1="380.0" y1="246" x2="97.0" y2="246"/><polygon class="sq-pointe" points="87.0,246 99.0,240 99.0,252"/></g><g class="sq-msg rep"><text x="527.5" y="284" text-anchor="middle">5. 200 OK (B décroche ; SDP : son IP,</text><text x="527.5" y="302" text-anchor="middle">son port, codec choisi)</text><line x1="675.0" y1="314" x2="392.0" y2="314"/><polygon class="sq-pointe" points="382.0,314 394.0,308 394.0,320"/></g><g class="sq-msg rep"><text x="232.5" y="352" text-anchor="middle">6. 200 OK</text><line x1="380.0" y1="364" x2="97.0" y2="364"/><polygon class="sq-pointe" points="87.0,364 99.0,358 99.0,370"/></g><g class="sq-msg "><text x="232.5" y="402" text-anchor="middle">7. ACK</text><line x1="85.0" y1="414" x2="368.0" y2="414"/><polygon class="sq-pointe" points="378.0,414 366.0,408 366.0,420"/></g><g class="sq-note"><rect x="10.0" y="460" width="740.0" height="32" rx="6"/><text x="380.0" y="479" text-anchor="middle">la voix circule en RTP, souvent directement entre les deux postes</text></g><g class="sq-msg "><text x="232.5" y="518" text-anchor="middle">8. BYE (A raccroche)</text><line x1="85.0" y1="530" x2="368.0" y2="530"/><polygon class="sq-pointe" points="378.0,530 366.0,524 366.0,536"/></g><g class="sq-msg rep"><text x="232.5" y="568" text-anchor="middle">9. 200 OK</text><line x1="380.0" y1="580" x2="97.0" y2="580"/><polygon class="sq-pointe" points="87.0,580 99.0,574 99.0,586"/></g></svg><figcaption>Établissement d’un appel SIP</figcaption></figure>
+<h2 id="les-codes-de-reponse">Les codes de réponse</h2>
+<p>Comme HTTP : <strong>1xx</strong> en cours (180 Ringing), <strong>2xx</strong> succès (200 OK), <strong>3xx</strong> redirection, <strong>4xx</strong> erreur du client (401/407 authentification, 404 numéro inconnu, 486 occupé), <strong>5xx</strong> erreur du serveur, <strong>6xx</strong> refus global.</p>
+<h2 id="on-sentend-pas-le-nat">« On s’entend pas » : le NAT</h2>
+<p>Dans l’INVITE, le poste écrit <strong>son adresse IP et son port audio</strong> (le SDP). Derrière un NAT, il écrit son adresse <strong>privée</strong> : le correspondant envoie sa voix vers une adresse injoignable. Résultat : l’appel sonne, on décroche… et <strong>aucun son</strong>, ou un son dans un seul sens.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>SIP</strong> — Protocole de signalisation des appels en voix sur IP.</li>
+<li><strong>INVITE / BYE</strong> — Messages SIP d’ouverture et de fin d’appel.</li>
+<li><strong>SDP</strong> — <em>Session Description Protocol</em>, description du média : adresse, ports, codecs.</li>
+<li><strong>PBX / IPBX</strong> — Autocommutateur, serveur qui gère les appels de l’entreprise.</li>
+<li><strong>Trunk SIP</strong> — Liaison SIP entre l’IPBX de l’entreprise et un opérateur téléphonique.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un appel s’établit (le téléphone sonne, on décroche) mais personne ne s’entend. SIP fonctionne-t-il ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Oui</strong> : la signalisation a réussi, puisque l’appel s’est établi. C’est le <strong>flux audio RTP</strong> qui ne passe pas : ports RTP bloqués par un pare-feu, adresses fausses dans le SDP à cause du NAT, ou routage asymétrique.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="lire-un-invite">Lire un INVITE</h2>
+<pre><code class="language-text">INVITE sip:2042@pbx.exemple.fr SIP/2.0
+Via: SIP/2.0/UDP 10.20.5.31:5060;branch=z9hG4bK776asdhds
+From: &lt;sip:2017@pbx.exemple.fr&gt;;tag=1928301774
+To: &lt;sip:2042@pbx.exemple.fr&gt;
+Call-ID: a84b4c76e66710@10.20.5.31
+CSeq: 314159 INVITE
+Contact: &lt;sip:2017@10.20.5.31:5060&gt;
+Content-Type: application/sdp
+
+v=0
+o=2017 2890844526 2890844526 IN IP4 10.20.5.31
+c=IN IP4 10.20.5.31                 ← adresse où envoyer la voix
+m=audio 16384 RTP/AVP 8 0 101       ← port audio 16384 ; codecs G.711 A (8), µ (0), DTMF (101)
+a=rtpmap:8 PCMA/8000
+</code></pre>
+<h2 id="traverser-le-nat-et-les-pare-feu">Traverser le NAT et les pare-feu</h2>
+<table>
+<thead>
+<tr>
+<th>Solution</th>
+<th>Principe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SBC</strong> (<em>Session Border Controller</em>)</td>
+<td>équipement en bordure qui termine et réécrit la signalisation et le média : la solution d’entreprise</td>
+</tr>
+<tr>
+<td>STUN / TURN / ICE</td>
+<td>le poste découvre son adresse publique, ou relaie le média par un serveur</td>
+</tr>
+<tr>
+<td>ALG SIP du pare-feu</td>
+<td>le pare-feu réécrit le SDP ; souvent <strong>source de pannes</strong>, et à désactiver quand un SBC est présent</td>
+</tr>
+<tr>
+<td>Plages de ports fixes</td>
+<td>ouvrir une plage RTP connue (ex. 16384–32767 UDP)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="diagnostic">Diagnostic</h2>
+<pre><code class="language-bash">$ sudo tcpdump -ni eth0 -s0 -w appel.pcap 'port 5060 or portrange 16384-32767'
+<span class="c"># Wireshark : Téléphonie → Appels VoIP → sélectionner l'appel → Diagramme de flux / Lire les flux</span>
+</code></pre>
+<p>Wireshark reconstitue l’échange SIP, montre les flux RTP de chaque sens et peut même <strong>rejouer</strong> l’audio. Un flux RTP présent dans un seul sens désigne immédiatement le côté bloqué.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Le poste A (10.20.5.31, derrière un NAT) appelle un correspondant externe. L’appel s’établit, A entend le correspondant, mais le correspondant n’entend pas A. La capture côté A montre du RTP sortant et entrant. Que se passe-t-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>A envoie bien sa voix, mais elle n’arrive pas au correspondant : soit elle sort avec une adresse que le correspondant n’attend pas (NAT), soit elle est bloquée en sortie. À l’inverse, le correspondant arrive à joindre A, probablement grâce à une ouverture dynamique ou à un relais. Vérifier les adresses dans le SDP et la traduction NAT des flux RTP sortants, ou passer par un <strong>SBC</strong>.</p>
+</details>
+<p><strong>2.</strong> Les appels entrants de l’opérateur échouent avec « 403 Forbidden » après la mise en place d’un nouveau pare-feu. Quelle piste ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Une réponse 403 vient d’un équipement <strong>SIP</strong> (l’IPBX, le SBC ou l’opérateur) qui refuse la requête : souvent une <strong>adresse source</strong> non reconnue (le nouveau pare-feu traduit l’adresse et l’IPBX n’accepte que celle de l’opérateur), ou une ALG SIP qui modifie les en-têtes. Vérifier le NAT appliqué et désactiver l’ALG si un SBC gère déjà la signalisation.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/ldap.html"><small>Fiche précédente</small><strong>LDAP</strong></a><a class="apres" href="../niveau-3/rtp.html"><small>Fiche suivante</small><strong>RTP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-passer-un-appel-sur-un-reseau-de-donnees">Le problème : passer un appel sur un réseau de données</a><a href="#un-appel-pas-a-pas">Un appel, pas à pas</a><a href="#les-codes-de-reponse">Les codes de réponse</a><a href="#on-sentend-pas-le-nat">« On s’entend pas » : le NAT</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#lire-un-invite">Lire un INVITE</a><a href="#traverser-le-nat-et-les-pare-feu">Traverser le NAT et les pare-feu</a><a href="#diagnostic">Diagnostic</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

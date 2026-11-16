@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VRRP — Virtual Router Redundancy Protocol (RFC 9568) | Nexorya</title>
+<meta name="description" content="VRRP est la version standard de la passerelle virtuelle partagée — même principe que HSRP, mais compatible avec toutes les marques d’équipements.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp" aria-current="page">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/vrrp">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-5">Une passerelle qui ne tombe jamais</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>VRRP</h1><p class="nom-complet">Virtual Router Redundancy Protocol (RFC 9568)</p>
+<p class="idee">VRRP est la version standard de la passerelle virtuelle partagée — même principe que HSRP, mais compatible avec toutes les marques d’équipements.</p><div class="badges"><span>Couche OSI 3 (protocole IP 112)</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-2/hsrp.html">HSRP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Le même qu’avec <a href="hsrp.html">HSRP</a> : rendre la passerelle d’un VLAN tolérante aux pannes. Mais quand les deux routeurs sont de <strong>marques différentes</strong>, ou dans un réseau non Cisco, il faut un protocole standard.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>VRRP fait partager une passerelle virtuelle à plusieurs routeurs de n’importe quelle marque : un <strong>master</strong> répond, les <strong>backup</strong> prennent le relais en cas de panne.</p>
+</div>
+<h2 id="hsrp-et-vrrp-cote-a-cote">HSRP et VRRP côte à côte</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>HSRP</th>
+<th>VRRP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Norme</td>
+<td>Cisco</td>
+<td>standard IETF</td>
+</tr>
+<tr>
+<td>Rôles</td>
+<td>actif / veille</td>
+<td>master / backup</td>
+</tr>
+<tr>
+<td>Préemption par défaut</td>
+<td>non</td>
+<td><strong>oui</strong></td>
+</tr>
+<tr>
+<td>Annonces</td>
+<td>3 s (hold 10 s)</td>
+<td>1 s (≈ 3,6 s pour basculer)</td>
+</tr>
+<tr>
+<td>Adresse virtuelle = adresse réelle d’un routeur</td>
+<td>non</td>
+<td>possible (routeur « propriétaire »)</td>
+</tr>
+<tr>
+<td>MAC virtuelle</td>
+<td><code>0000.0c07.acXX</code> (v1)</td>
+<td><code>0000.5e00.01XX</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>VRRP</strong> — <em>Virtual Router Redundancy Protocol</em>, protocole standard de passerelle virtuelle redondante.</li>
+<li><strong>Master / backup</strong> — Routeur qui porte la passerelle virtuelle / routeurs prêts à le remplacer.</li>
+<li><strong>Propriétaire</strong> — Routeur dont l’adresse réelle est l’adresse virtuelle ; il a toujours la priorité 255.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Une entreprise relie ses VLAN à deux switches de cœur de marques différentes. Peut-elle utiliser HSRP ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non</strong>, HSRP est propriétaire Cisco. Elle utilisera <strong>VRRP</strong>, standard, supporté par toutes les marques.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-cisco-ios-xe-vrrpv3">Configuration (Cisco IOS-XE, VRRPv3)</h2>
+<pre><code class="language-cisco">fhrp version vrrp v3
+<span class="c">!</span>
+interface Vlan10
+ ip address 10.10.0.2 255.255.255.0
+ vrrp 10 address-family ipv4
+  address 10.10.0.1 primary
+  priority 110
+  track 1 decrement 20
+  preempt delay minimum 60
+</code></pre>
+<pre><code class="language-cisco"><span class="k">R1#</span> show vrrp brief
+  Interface          Grp  A-F Pri  Time Own Pre State   Master addr/Group addr
+  Vl10                10 IPv4 110     0  N   Y  MASTER  10.10.0.2(local) 10.10.0.1
+</code></pre>
+<p>VRRPv3 (RFC 5798, révisée par la RFC 9568) gère IPv4 et IPv6 et accepte des intervalles en centièmes de seconde. L’authentification a été retirée de la norme : elle n’apportait pas de vraie sécurité. On protège plutôt le VLAN lui-même.</p>
+<h2 id="le-temps-de-bascule">Le temps de bascule</h2>
+<pre><code class="language-text">temps de bascule (Master Down Interval) = 3 × intervalle d’annonce + temps de décalage
+temps de décalage (skew)               = ((256 − priorité) × intervalle) / 256
+
+Intervalle 1 s, priorité du backup 100 : 3 + 0,61 ≈ 3,6 s
+</code></pre>
+<p>Le décalage fait basculer d’abord le backup de <strong>plus haute</strong> priorité, ce qui évite que plusieurs backups prennent la main en même temps.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Pourquoi l’usage d’une adresse virtuelle égale à l’adresse réelle d’un routeur (propriétaire) est-il pratique, mais à manier avec prudence ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Pratique : pas besoin d’une adresse supplémentaire, et le propriétaire (priorité 255) est toujours master quand il fonctionne. Prudence : il <strong>reprend immédiatement</strong> la main à son retour, même si son routage n’est pas encore prêt ; et sa priorité 255 ne peut pas être abaissée par le suivi. Dans un design avec suivi d’uplink, on préfère une adresse virtuelle distincte.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/bgp-filtrage.html"><small>Fiche précédente</small><strong>Filtrer les routes BGP</strong></a><a class="apres" href="../niveau-2/hsrp.html"><small>Fiche suivante</small><strong>HSRP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#hsrp-et-vrrp-cote-a-cote">HSRP et VRRP côte à côte</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-cisco-ios-xe-vrrpv3">Configuration (Cisco IOS-XE, VRRPv3)</a><a href="#le-temps-de-bascule">Le temps de bascule</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NFS — Network File System | Nexorya</title>
+<meta name="description" content="NFS permet à des machines Linux et Unix de monter un dossier distant comme s’il était local ; c’est le partage de fichiers des serveurs et du stockage.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs" aria-current="page">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/nfs">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-5">Transférer, partager, s’identifier</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>NFS</h1><p class="nom-complet">Network File System</p>
+<p class="idee">NFS permet à des machines Linux et Unix de monter un dossier distant comme s’il était local ; c’est le partage de fichiers des serveurs et du stockage.</p><div class="badges"><span>Couche OSI 7 (TCP 2049)</span><span>Découvrir : 5 min</span><span>Approfondir : 10 min</span><span>Avant : <a href="../niveau-3/tcp.html">TCP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Plusieurs serveurs Linux doivent partager un même volume : des fichiers d’application, des sauvegardes, des répertoires personnels. Ou une ferme de virtualisation doit stocker ses machines virtuelles sur une baie de stockage.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>NFS « monte » un dossier d’un serveur de fichiers dans l’arborescence d’une machine Linux : les applications l’utilisent comme un disque local.</p>
+</div>
+<h2 id="smb-ou-nfs">SMB ou NFS ?</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SMB</th>
+<th>NFS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Monde d’origine</td>
+<td>Windows</td>
+<td>Unix / Linux</td>
+</tr>
+<tr>
+<td>Identité</td>
+<td>utilisateur Windows (Kerberos/NTLM)</td>
+<td>identifiants numériques UID/GID (ou Kerberos)</td>
+</tr>
+<tr>
+<td>Usage typique</td>
+<td>partages d’utilisateurs</td>
+<td>serveurs, virtualisation, stockage</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>NFS</strong> — Protocole de partage de fichiers des systèmes Unix et Linux.</li>
+<li><strong>Montage</strong> — Rattachement d’un dossier distant à un emplacement de l’arborescence locale.</li>
+<li><strong>Export</strong> — Dossier qu’un serveur NFS met à disposition, avec la liste des clients autorisés.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un utilisateur crée un fichier sur un partage NFS ; sur un autre serveur, le fichier appartient à un utilisateur différent. Pourquoi ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>NFS transporte les <strong>identifiants numériques</strong> (UID/GID), pas les noms. Si l’utilisateur <code>alice</code> a l’UID 1001 sur un serveur et 1003 sur l’autre, le même fichier semble appartenir à des personnes différentes. Il faut un annuaire commun (LDAP) ou le mappage d’identités de NFSv4.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configurer-et-monter">Configurer et monter</h2>
+<pre><code class="language-text"><span class="c"># Serveur : /etc/exports</span>
+/srv/applis   10.40.0.0/24(rw,sync,root_squash,sec=sys)
+/srv/archives 10.40.0.0/24(ro,sync,sec=krb5p)
+</code></pre>
+<pre><code class="language-bash">$ sudo exportfs -ra &amp;&amp; exportfs -v
+$ showmount -e srv-nfs                # (v3) liste des exports
+$ sudo mount -t nfs4 srv-nfs:/srv/applis /mnt/applis
+$ nfsstat -m                          # options de montage effectives
+</code></pre>
+<ul>
+<li><code>root_squash</code> : l’utilisateur <code>root</code> d’un client est traité comme un utilisateur sans privilèges sur le serveur.</li>
+<li><code>sec=krb5p</code> : authentification Kerberos <strong>et</strong> chiffrement des échanges.</li>
+</ul>
+<h2 id="reseau-et-nfs">Réseau et NFS</h2>
+<ul>
+<li>Placer le trafic NFS (surtout pour la virtualisation) dans un <strong>VLAN de stockage</strong> dédié, non routé vers les utilisateurs.</li>
+<li>Utiliser des <strong>jumbo frames</strong> de bout en bout si le stockage le demande, en vérifiant la MTU sur tout le chemin.</li>
+<li>Un délai d’attente NFS fige les applications (montage « hard ») : la qualité du lien est critique.</li>
+</ul>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un montage NFS fonctionne pour les petits fichiers, mais la copie de gros fichiers se bloque. Le VLAN de stockage a été passé en MTU 9000 sur les serveurs. Que vérifier ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La <strong>MTU de tout le chemin</strong> : si un switch ou une interface intermédiaire est resté à 1 500, les grosses trames sont perdues (petits échanges OK, gros transferts bloqués). Tester avec <code>ping -M do -s 8972 &lt;serveur&gt;</code> et aligner la MTU partout.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/smb.html"><small>Fiche précédente</small><strong>SMB</strong></a><a class="apres" href="../niveau-3/ldap.html"><small>Fiche suivante</small><strong>LDAP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#smb-ou-nfs">SMB ou NFS ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configurer-et-monter">Configurer et monter</a><a href="#reseau-et-nfs">Réseau et NFS</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

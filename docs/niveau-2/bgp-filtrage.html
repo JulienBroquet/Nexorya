@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Filtrer les routes BGP — Prefix-lists, route-maps et protections | Nexorya</title>
+<meta name="description" content="Un routeur BGP doit décider précisément ce qu’il accepte et ce qu’il annonce ; les prefix-lists choisissent les réseaux, les route-maps appliquent des actions (préférence, communautés) aux routes choisies.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage" aria-current="page">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/bgp-filtrage">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-4">Relier les organisations</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Filtrer les routes BGP</h1><p class="nom-complet">Prefix-lists, route-maps et protections</p>
+<p class="idee">Un routeur BGP doit décider précisément ce qu’il accepte et ce qu’il annonce ; les prefix-lists choisissent les réseaux, les route-maps appliquent des actions (préférence, communautés) aux routes choisies.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 8 min</span><span>Approfondir : 20 min</span><span>Avant : <a href="../niveau-2/bgp.html">BGP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-une-erreur-qui-touche-tout-internet">Le problème : une erreur qui touche tout Internet</h2>
+<p>En BGP, ce que tu annonces est <strong>cru</strong> par tes voisins, qui le réannoncent à leurs voisins. Une entreprise qui annonce par erreur des réseaux qui ne lui appartiennent pas peut attirer le trafic de millions d’utilisateurs. Inversement, accepter n’importe quoi d’un voisin peut remplir la mémoire du routeur ou détourner le trafic de l’entreprise.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Sur chaque session BGP, on écrit <strong>deux listes</strong> : ce qu’on accepte d’entendre, et ce qu’on accepte de dire. Tout le reste est refusé.</p>
+</div>
+<h2 id="les-deux-outils">Les deux outils</h2>
+<table>
+<thead>
+<tr>
+<th>Outil</th>
+<th>Rôle</th>
+<th>Analogie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Prefix-list</strong></td>
+<td>sélectionner des réseaux selon leur adresse et leur longueur</td>
+<td>une liste d’invités à l’entrée</td>
+</tr>
+<tr>
+<td><strong>Route-map</strong></td>
+<td>« si la route correspond à… alors… » : accepter, refuser, ou modifier des attributs</td>
+<td>un videur qui applique des règles et donne un bracelet de couleur</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exemple-nannoncer-que-son-reseau">Exemple : n’annoncer que son réseau</h2>
+<pre><code class="language-cisco">ip prefix-list MES-RESEAUX seq 10 permit 198.51.100.0/24
+<span class="c">!</span>
+router bgp 64512
+ address-family ipv4
+  neighbor 203.0.113.1 prefix-list MES-RESEAUX out
+</code></pre>
+<p>L’entreprise n’annonce que <code>198.51.100.0/24</code>. Même si une erreur de configuration faisait apparaître d’autres routes dans sa table BGP, elles ne sortiraient pas.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Prefix-list</strong> — Liste qui sélectionne des préfixes selon leur adresse et leur longueur.</li>
+<li><strong>Route-map</strong> — Suite de règles « condition → action » appliquée à des routes.</li>
+<li><strong>Bogon</strong> — Préfixe qui ne devrait jamais apparaître sur Internet (adresses privées, réservées, non attribuées).</li>
+<li><strong>Détournement BGP</strong> — Annonce, volontaire ou accidentelle, de réseaux appartenant à quelqu’un d’autre ; <em>BGP hijack</em>.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un opérateur t’envoie une route vers <code>10.0.0.0/8</code>. Faut-il l’accepter ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> <code>10.0.0.0/8</code> est une plage <strong>privée</strong> : elle ne doit jamais circuler sur Internet. L’accepter pourrait détourner vers l’opérateur une partie de ton propre trafic interne. Les plages privées et réservées (<em>bogons</em>) sont filtrées en entrée.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="prefix-lists-ge-et-le">Prefix-lists : <code>ge</code> et <code>le</code></h2>
+<p>Une ligne de prefix-list compare l’<strong>adresse</strong> (selon la longueur indiquée) et la <strong>longueur</strong> du préfixe :</p>
+<table>
+<thead>
+<tr>
+<th>Ligne</th>
+<th>Correspond à</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>permit 10.0.0.0/8</code></td>
+<td>exactement <code>10.0.0.0/8</code>, rien d’autre</td>
+</tr>
+<tr>
+<td><code>permit 10.0.0.0/8 le 32</code></td>
+<td><code>10.0.0.0/8</code> et tous les préfixes plus précis inclus dedans</td>
+</tr>
+<tr>
+<td><code>permit 10.0.0.0/8 ge 24 le 24</code></td>
+<td>tous les /24 inclus dans <code>10.0.0.0/8</code></td>
+</tr>
+<tr>
+<td><code>permit 0.0.0.0/0</code></td>
+<td>uniquement la route par défaut</td>
+</tr>
+<tr>
+<td><code>permit 0.0.0.0/0 le 32</code></td>
+<td>toutes les routes</td>
+</tr>
+<tr>
+<td><code>deny 0.0.0.0/0 ge 25</code></td>
+<td>tous les préfixes plus précis que /24</td>
+</tr>
+</tbody>
+</table>
+<p>Une prefix-list se termine par un <strong>refus implicite</strong> : une route qui ne correspond à aucune ligne est refusée.</p>
+<h2 id="un-filtre-dentree-realiste">Un filtre d’entrée réaliste</h2>
+<pre><code class="language-cisco">ip prefix-list ENTREE-OPERATEUR seq 5  deny 0.0.0.0/8 le 32
+ip prefix-list ENTREE-OPERATEUR seq 10 deny 10.0.0.0/8 le 32
+ip prefix-list ENTREE-OPERATEUR seq 15 deny 100.64.0.0/10 le 32
+ip prefix-list ENTREE-OPERATEUR seq 20 deny 127.0.0.0/8 le 32
+ip prefix-list ENTREE-OPERATEUR seq 25 deny 169.254.0.0/16 le 32
+ip prefix-list ENTREE-OPERATEUR seq 30 deny 172.16.0.0/12 le 32
+ip prefix-list ENTREE-OPERATEUR seq 35 deny 192.168.0.0/16 le 32
+ip prefix-list ENTREE-OPERATEUR seq 40 deny 224.0.0.0/3 le 32
+ip prefix-list ENTREE-OPERATEUR seq 45 deny 198.51.100.0/24 le 32   ! nos propres réseaux
+ip prefix-list ENTREE-OPERATEUR seq 50 deny 0.0.0.0/0 ge 25          ! trop précis
+ip prefix-list ENTREE-OPERATEUR seq 100 permit 0.0.0.0/0 le 24
+<span class="c">!</span>
+router bgp 64512
+ address-family ipv4
+  neighbor 203.0.113.1 prefix-list ENTREE-OPERATEUR in
+  neighbor 203.0.113.1 maximum-prefix 1100000 90 restart 15
+</code></pre>
+<p><code>maximum-prefix 1100000 90 restart 15</code> : avertir à 90 % de la limite, couper la session si elle est dépassée, et réessayer 15 minutes plus tard. Cela protège la mémoire du routeur si l’opérateur envoie par erreur des millions de routes.</p>
+<p>Beaucoup d’entreprises n’ont pas besoin de la table complète : elles demandent seulement une <strong>route par défaut</strong> à chaque opérateur, ou la route par défaut plus les réseaux de l’opérateur (<em>partial routes</em>).</p>
+<h2 id="route-maps-conditions-et-actions">Route-maps : conditions et actions</h2>
+<pre><code class="language-cisco">ip prefix-list CLOUD-PREFERE seq 10 permit 203.0.113.128/25
+<span class="c">!</span>
+route-map ENTREE-A permit 10
+ match ip address prefix-list CLOUD-PREFERE
+ set local-preference 300           ! ce réseau : préférer l'opérateur A
+route-map ENTREE-A permit 20
+ set local-preference 150           ! le reste : préférence moyenne
+<span class="c">!</span>
+route-map SORTIE-B permit 10
+ match ip address prefix-list MES-RESEAUX
+ set as-path prepend 64512 64512    ! rendre B moins attirant pour le trafic entrant
+<span class="c">!</span>
+router bgp 64512
+ address-family ipv4
+  neighbor 203.0.113.1 route-map ENTREE-A in
+  neighbor 192.0.2.1 route-map SORTIE-B out
+</code></pre>
+<p>Fonctionnement d’une route-map :</p>
+<ul>
+<li>les <strong>séquences</strong> sont évaluées dans l’ordre (10, 20…) ; la première dont les conditions (<code>match</code>) correspondent s’applique ;</li>
+<li><code>permit</code> accepte la route (et applique les <code>set</code>), <code>deny</code> la refuse ;</li>
+<li>une séquence <strong>sans <code>match</code></strong> correspond à tout ;</li>
+<li>une route qui ne correspond à <strong>aucune</strong> séquence est <strong>refusée</strong> (refus implicite).</li>
+</ul>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Oublier la séquence finale <code>permit</code> sans condition (la séquence 20 ci-dessus) est l’erreur la plus fréquente : la route-map ne laisse alors passer <strong>que</strong> les routes explicitement citées, et toutes les autres disparaissent.</p>
+</div>
+<h2 id="les-communautes">Les communautés</h2>
+<p>Une <strong>communauté</strong> est une étiquette (<code>65001:120</code>) attachée à une route. Les opérateurs publient la signification des leurs : « ne pas annoncer à tel partenaire », « baisser la préférence », « <em>blackhole</em> » (jeter tout le trafic vers ce préfixe, pour absorber une attaque). C’est le moyen standard d’agir <strong>chez son opérateur</strong> sans y avoir accès.</p>
+<pre><code class="language-cisco">route-map SORTIE-A permit 10
+ match ip address prefix-list MES-RESEAUX
+ set community 65001:80 additive
+<span class="c">!</span>
+router bgp 64512
+ address-family ipv4
+  neighbor 203.0.113.1 send-community
+</code></pre>
+<h2 id="securiser-lorigine-rpki">Sécuriser l’origine : RPKI</h2>
+<p>Les filtres manuels ne suffisent pas à l’échelle d’Internet. Le <strong>RPKI</strong> permet au titulaire d’un réseau de publier une attestation signée (<strong>ROA</strong>) : « le préfixe <code>198.51.100.0/24</code> peut être annoncé par l’AS 64512, au plus en /24 ». Les routeurs qui valident le RPKI rejettent les annonces <strong>invalides</strong>. Publier des ROA pour ses propres réseaux est aujourd’hui une bonne pratique de base, et de nombreux opérateurs l’exigent.</p>
+<h2 id="verifier-leffet-dun-filtre">Vérifier l’effet d’un filtre</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip bgp neighbors 203.0.113.1 advertised-routes   ! ce que j'annonce
+<span class="k">R1#</span> show ip bgp neighbors 203.0.113.1 received-routes     ! avant filtre (si soft-reconfiguration inbound)
+<span class="k">R1#</span> show ip bgp neighbors 203.0.113.1 routes              ! après filtre
+<span class="k">R1#</span> show ip prefix-list ENTREE-OPERATEUR detail           ! compteurs de correspondances
+<span class="k">R1#</span> clear ip bgp 203.0.113.1 soft in                      ! réappliquer un filtre sans couper la session
+</code></pre>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Écris une prefix-list qui autorise uniquement les /24 inclus dans <code>198.51.100.0/22</code>.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><code>ip prefix-list LES-24 seq 10 permit 198.51.100.0/22 ge 24 le 24</code>. Elle correspond aux quatre /24 : <code>198.51.100.0</code>, <code>.101.0</code>, <code>.102.0</code>, <code>.103.0</code>, et à rien d’autre.</p>
+</details>
+<p><strong>2.</strong> Une route-map appliquée en entrée ne contient qu’une séquence : <code>permit 10</code> avec <code>match ip address prefix-list CLOUD</code> et <code>set local-preference 300</code>. Que deviennent les autres routes de l’opérateur ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Elles sont <strong>refusées</strong> : elles ne correspondent à aucune séquence, et la route-map se termine par un refus implicite. L’entreprise ne reçoit plus que les réseaux de la liste CLOUD. Il faut ajouter une séquence <code>route-map … permit 20</code> sans <code>match</code>.</p>
+</details>
+<p><strong>3.</strong> Pourquoi refuser en entrée les préfixes plus précis que /24 ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Par convention, les préfixes plus précis que /24 (en IPv4) ne sont <strong>pas acceptés</strong> sur Internet : ils gonfleraient les tables de tous les routeurs. Une annonce /25 venant d’un opérateur est donc anormale (erreur, ou tentative de détournement, puisqu’un préfixe plus précis l’emporte toujours). Les refuser protège l’entreprise.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/bgp.html"><small>Fiche précédente</small><strong>BGP</strong></a><a class="apres" href="../niveau-2/vrrp.html"><small>Fiche suivante</small><strong>VRRP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-une-erreur-qui-touche-tout-internet">Le problème : une erreur qui touche tout Internet</a><a href="#les-deux-outils">Les deux outils</a><a href="#exemple-nannoncer-que-son-reseau">Exemple : n’annoncer que son réseau</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#prefix-lists-ge-et-le">Prefix-lists : ge et le</a><a href="#un-filtre-dentree-realiste">Un filtre d’entrée réaliste</a><a href="#route-maps-conditions-et-actions">Route-maps : conditions et actions</a><a href="#les-communautes">Les communautés</a><a href="#securiser-lorigine-rpki">Sécuriser l’origine : RPKI</a><a href="#verifier-leffet-dun-filtre">Vérifier l’effet d’un filtre</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

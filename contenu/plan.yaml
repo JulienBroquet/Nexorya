@@ -1,0 +1,138 @@
+# Plan de Nexorya : niveaux, chapitres et ordre des fiches.
+# Chaque identifiant de fiche correspond au fichier <dossier>/<id>.md.
+
+niveaux:
+  - num: 0
+    dossier: demarrer
+    titre: Je débute
+    chapeau: Huit repères pour comprendre ce qu’est un réseau, sans aucun prérequis. Compte une heure en tout.
+    chapitres:
+      - titre: Le décor
+        but: Ce qu’est un réseau, avec quels appareils, et comment un message voyage.
+        fiches: [bienvenue, reseau, equipements, paquet]
+      - titre: Les adresses et les règles
+        but: Comment les machines se trouvent et se comprennent.
+        fiches: [adresses, protocoles, internet]
+      - titre: Passer à la pratique
+        but: Les commandes que tout le monde utilise pour vérifier une connexion.
+        fiches: [commandes]
+
+  - num: 1
+    dossier: niveau-1
+    titre: Ethernet, switching et Wi-Fi
+    chapeau: Comment les bits traversent un câble, une fibre ou les ondes, et comment un switch livre chaque trame à la bonne machine.
+    chapitres:
+      - titre: Se repérer
+        but: Le modèle en couches qui sert de carte à tout le reste, et la façon de mesurer une connexion.
+        fiches: [osi, mesures]
+      - titre: Câbles, fibre et énergie
+        but: Ce qui transporte le signal, et comment un câble alimente aussi un téléphone ou une caméra.
+        fiches: [cablage, phy, sfp, sfp-plus, dac, poe]
+      - titre: La trame et le switch
+        but: Le format d’une trame Ethernet et la façon dont un switch apprend où sont les machines.
+        fiches: [ethernet, mac, switch]
+      - titre: Découper le réseau avec les VLAN
+        but: Séparer plusieurs réseaux sur les mêmes switches, et les transporter sur un seul câble.
+        fiches: [vlan, 802-1q, mtu, qinq]
+      - titre: Éviter les boucles
+        but: Garder des câbles de secours sans faire tomber le réseau.
+        fiches: [stp, rstp, mstp]
+      - titre: Agréger, découvrir, protéger
+        but: Les protocoles qui rendent un réseau de switches robuste et facile à exploiter.
+        fiches: [lacp, lldp, cdp, vtp, dtp, eee, dhcp-snooping]
+      - titre: Le Wi-Fi
+        but: Comment les ondes remplacent le câble, et pourquoi le Wi-Fi se comporte différemment.
+        fiches: [wifi]
+
+  - num: 2
+    dossier: niveau-2
+    titre: IP et routage
+    chapeau: Comment une adresse IP désigne une machine dans le monde entier, et comment les routeurs choisissent le chemin d’un paquet.
+    chapitres:
+      - titre: Adresser les machines
+        but: Les adresses IPv4 et IPv6, et le découpage en sous-réseaux.
+        fiches: [ipv4, subnet, ipv6, ipv6-pratique]
+      - titre: Trouver ses voisins et diagnostiquer
+        but: Passer de l’adresse IP à l’adresse MAC, et signaler les problèmes.
+        fiches: [arp, ndp, icmp]
+      - titre: Choisir un chemin
+        but: La table de routage, les routes statiques et les protocoles qui s’échangent les routes.
+        fiches: [passerelle, routage-statique, rip, ospf, eigrp, is-is]
+      - titre: Relier les organisations
+        but: Le protocole qui fait tenir Internet ensemble, et la façon de le contrôler.
+        fiches: [bgp, bgp-filtrage]
+      - titre: Une passerelle qui ne tombe jamais
+        but: Rendre la passerelle redondante et détecter les pannes en moins d’une seconde.
+        fiches: [vrrp, hsrp, glbp, bfd, ipsla]
+      - titre: Diffuser à plusieurs, le multicast
+        but: Envoyer un même flux à des centaines de récepteurs sans le copier des centaines de fois.
+        fiches: [multicast, igmp, mld, pim]
+
+  - num: 3
+    dossier: niveau-3
+    titre: Services et applications
+    chapeau: Les protocoles que les utilisateurs utilisent sans le savoir — noms, adresses automatiques, Web, messagerie vocale, partage de fichiers — et la façon de les dépanner.
+    chapitres:
+      - titre: Transporter les données
+        but: Les deux façons d’envoyer des données entre applications, fiable ou rapide.
+        fiches: [tcp, udp]
+      - titre: Noms et adresses automatiques
+        but: Ce qui permet de taper un nom au lieu d’une adresse, et d’obtenir une adresse sans rien configurer.
+        fiches: [dns, dns-avance, dhcp, nat]
+      - titre: Le Web et le chiffrement
+        but: Comment une page Web est demandée, protégée et distribuée.
+        fiches: [http, tls, https, quic, dot, proxy]
+      - titre: Administrer et superviser
+        but: Se connecter aux équipements, garder l’heure juste, collecter journaux et mesures, prouver une panne.
+        fiches: [ssh, rdp, ntp, snmp, syslog, diagnostic]
+      - titre: Transférer, partager, s’identifier
+        but: Copier des fichiers, partager des dossiers et interroger l’annuaire de l’entreprise.
+        fiches: [ftp, tftp, sftp, smb, nfs, ldap]
+      - titre: Voix et mobilité
+        but: Téléphoner sur IP et garder le Wi-Fi quand on se déplace.
+        fiches: [sip, rtp, voip, wifi-entreprise]
+
+  - num: 4
+    dossier: niveau-4
+    titre: Sécurité et identité
+    chapeau: Décider qui entre sur le réseau, prouver son identité, filtrer et chiffrer les échanges, détecter les attaques.
+    chapitres:
+      - titre: Qui a le droit d’entrer ?
+        but: Authentifier chaque utilisateur et chaque appareil avant de lui ouvrir le réseau.
+        fiches: [aaa, radius, tacacs, eap, eap-tls, 802-1x, wpa-entreprise]
+      - titre: Prouver son identité
+        but: Mots de passe à usage unique, clés de sécurité, certificats.
+        fiches: [mfa, otp, fido, fido2, pki, ca]
+      - titre: Filtrer et chiffrer
+        but: Autoriser seulement les flux utiles et protéger ceux qui traversent des réseaux non sûrs.
+        fiches: [acl, segmentation, ipsec, vpn, macsec]
+      - titre: Détecter et bloquer
+        but: Repérer une attaque, l’arrêter, et contrôler les applications.
+        fiches: [ids, ips, ngfw, waf, doh]
+      - titre: Protéger le réseau lui-même
+        but: Empêcher l’usurpation sur les ports, durcir les équipements et ne plus faire confiance par défaut.
+        fiches: [dai, protection-ports, durcissement, zero-trust]
+
+  - num: 5
+    dossier: niveau-5
+    titre: WAN, datacenter et exploitation
+    chapeau: Relier des sites, construire un datacenter moderne, garantir la qualité, observer et automatiser le réseau.
+    chapitres:
+      - titre: Du bâtiment au monde
+        but: Les échelles de réseau et la façon moderne de relier des agences.
+        fiches: [lan, man, wan, sd-wan]
+      - titre: Isoler à grande échelle
+        but: Faire cohabiter des clients ou des services qui utilisent les mêmes adresses.
+        fiches: [mpls, vrf]
+      - titre: Le datacenter moderne
+        but: La fabric leaf-spine, les réseaux virtuels et la redondance des switches.
+        fiches: [ecmp, vxlan, vtep, evpn, redondance-switches]
+      - titre: Garantir la qualité
+        but: Faire passer la voix avant les sauvegardes quand le lien est saturé.
+        fiches: [qos, dscp]
+      - titre: Observer le réseau
+        but: Copier le trafic, mesurer les flux et corréler les signaux pour comprendre un incident.
+        fiches: [span, erspan, netflow, observabilite]
+      - titre: Automatiser et évoluer
+        but: Piloter le réseau par le code, l’étendre au cloud et changer la production sans casse.
+        fiches: [automatisation, netconf, cloud, changement]

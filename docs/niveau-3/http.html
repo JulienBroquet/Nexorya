@@ -1,0 +1,239 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTP — Hypertext Transfer Protocol | Nexorya</title>
+<meta name="description" content="HTTP est le langage du Web — le navigateur envoie une requête (une méthode et une adresse), le serveur répond par un code d’état et un contenu.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http" aria-current="page">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/http">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-3">Le Web et le chiffrement</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>HTTP</h1><p class="nom-complet">Hypertext Transfer Protocol</p>
+<p class="idee">HTTP est le langage du Web — le navigateur envoie une requête (une méthode et une adresse), le serveur répond par un code d’état et un contenu.</p><div class="badges"><span>Couche OSI 7 (TCP 80 ; 443 avec TLS)</span><span>Découvrir : 8 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-3/tcp.html">TCP</a>, <a href="../niveau-3/dns.html">DNS</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-demander-une-page-a-un-serveur">Le problème : demander une page à un serveur</h2>
+<p>Le navigateur doit demander « la page d’accueil de ce site », puis l’image du logo, la feuille de style, les scripts… Le serveur doit répondre « voilà », « cette page a déménagé », ou « je n’ai pas trouvé ». Il faut un format de conversation simple et commun à tous les navigateurs et tous les serveurs.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>HTTP est une conversation question-réponse : le client <strong>demande</strong> une ressource avec une méthode et une adresse, le serveur <strong>répond</strong> avec un code d’état et le contenu.</p>
+</div>
+<h2 id="une-requete-et-sa-reponse">Une requête et sa réponse</h2>
+<pre><code class="language-text">GET /catalogue/index.html HTTP/1.1
+Host: www.exemple.fr
+User-Agent: Mozilla/5.0 …
+Accept: text/html
+Cookie: session=8f3a…
+
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=utf-8
+Content-Length: 18342
+Cache-Control: max-age=300
+
+&lt;!doctype html&gt; …
+</code></pre>
+<ul>
+<li><strong>GET</strong> : la méthode, « donne-moi ».</li>
+<li><strong>Host</strong> : le nom du site demandé. Un même serveur peut héberger des dizaines de sites : c’est cet en-tête qui les distingue.</li>
+<li><strong>200 OK</strong> : le code d’état, « voilà ».</li>
+</ul>
+<h2 id="les-codes-detat-a-connaitre">Les codes d’état à connaître</h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Signification</th>
+<th>Exemple de situation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>200</strong></td>
+<td>OK</td>
+<td>page affichée</td>
+</tr>
+<tr>
+<td><strong>301 / 302</strong></td>
+<td>redirection permanente / temporaire</td>
+<td><code>http://</code> redirigé vers <code>https://</code></td>
+</tr>
+<tr>
+<td><strong>304</strong></td>
+<td>non modifié</td>
+<td>le navigateur réutilise sa copie en cache</td>
+</tr>
+<tr>
+<td><strong>401</strong></td>
+<td>authentification requise</td>
+<td>mot de passe demandé</td>
+</tr>
+<tr>
+<td><strong>403</strong></td>
+<td>interdit</td>
+<td>droits insuffisants, filtrage</td>
+</tr>
+<tr>
+<td><strong>404</strong></td>
+<td>introuvable</td>
+<td>lien cassé</td>
+</tr>
+<tr>
+<td><strong>500</strong></td>
+<td>erreur interne du serveur</td>
+<td>bug applicatif</td>
+</tr>
+<tr>
+<td><strong>502 / 504</strong></td>
+<td>passerelle en erreur / délai dépassé</td>
+<td>le reverse proxy n’obtient pas de réponse du serveur applicatif</td>
+</tr>
+<tr>
+<td><strong>503</strong></td>
+<td>service indisponible</td>
+<td>maintenance, surcharge</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre astuce">
+<p class="encadre-titre">Astuce</p>
+<p>Un code 4xx ou 5xx est une <strong>excellente nouvelle pour l’équipe réseau</strong> : il prouve que la connexion est passée et qu’un serveur HTTP a répondu. Le problème est dans l’application, les droits ou la configuration du serveur.</p>
+</div>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>HTTP</strong> — Protocole de requêtes et de réponses utilisé par le Web.</li>
+<li><strong>Méthode</strong> — Action demandée : GET (lire), POST (envoyer), PUT, DELETE…</li>
+<li><strong>URL</strong> — Adresse complète d’une ressource : <code>https://www.exemple.fr/catalogue/index.html</code>.</li>
+<li><strong>Code d’état</strong> — Nombre à trois chiffres qui résume le résultat d’une requête.</li>
+<li><strong>Cookie</strong> — Petite donnée déposée par le serveur et renvoyée par le navigateur à chaque requête, pour maintenir une session.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un site interne renvoie « 502 Bad Gateway ». Le réseau est-il en cause ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Probablement pas entre l’utilisateur et le site</strong> : un serveur HTTP (en général un <strong>reverse proxy</strong>) a bien répondu. Il signale qu’il n’a pas obtenu de réponse valide du serveur <strong>applicatif</strong> derrière lui. Il faut regarder ce serveur, ou le lien entre le proxy et lui.</p>
+</details>
+<p><strong>2.</strong> Pourquoi l’en-tête <code>Host</code> est-il indispensable ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce qu’un même serveur, avec une même adresse IP, héberge souvent plusieurs sites. Seul l’en-tête <code>Host</code> indique <strong>quel site</strong> le navigateur demande.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-versions">Les versions</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Transport</th>
+<th>Apports</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HTTP/1.1</td>
+<td>TCP</td>
+<td>connexions persistantes ; une requête à la fois par connexion (les navigateurs en ouvrent ~6 par site)</td>
+</tr>
+<tr>
+<td>HTTP/2</td>
+<td>TCP + TLS</td>
+<td><strong>multiplexage</strong> de nombreuses requêtes sur une seule connexion, en-têtes compressés, format binaire</td>
+</tr>
+<tr>
+<td>HTTP/3</td>
+<td><strong>QUIC</strong> (UDP 443)</td>
+<td>plus de blocage en tête de file dû à TCP, connexion plus rapide, migration de connexion ; voir <a href="quic.html">QUIC</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="interroger-un-serveur-a-la-main">Interroger un serveur à la main</h2>
+<pre><code class="language-bash">$ curl -sv https://www.exemple.fr/ -o /dev/null
+*   Trying 203.0.113.10:443...
+* Connected to www.exemple.fr (203.0.113.10) port 443
+* SSL connection using TLSv1.3 / TLS_AES_256_GCM_SHA384
+* Server certificate:
+*  subject: CN=www.exemple.fr
+*  expire date: Feb 12 23:59:59 2027 GMT
+&gt; GET / HTTP/2
+&gt; Host: www.exemple.fr
+&lt; HTTP/2 200
+&lt; content-type: text/html; charset=utf-8
+&lt; server: nginx
+</code></pre>
+<p>Cette seule commande vérifie la <strong>résolution DNS</strong>, la <strong>connexion TCP</strong>, la <strong>négociation TLS</strong> (version, certificat) et la <strong>réponse HTTP</strong>. C’est l’outil de diagnostic le plus efficace pour un service Web.</p>
+<pre><code class="language-bash">$ curl -I http://www.exemple.fr/                       # en-têtes seulement
+HTTP/1.1 301 Moved Permanently
+Location: https://www.exemple.fr/
+$ curl --resolve www.exemple.fr:443:10.20.0.15 https://www.exemple.fr/   # tester un serveur précis
+$ curl -w &quot;dns:%{time_namelookup} tcp:%{time_connect} tls:%{time_appconnect} total:%{time_total}\n&quot; -o /dev/null -s https://www.exemple.fr/
+</code></pre>
+<p>La dernière commande décompose le temps : DNS, connexion TCP, négociation TLS, réponse complète. Elle indique <strong>quelle étape</strong> est lente.</p>
+<h2 id="en-tetes-qui-comptent-pour-lexploitation">En-têtes qui comptent pour l’exploitation</h2>
+<table>
+<thead>
+<tr>
+<th>En-tête</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Host</code></td>
+<td>site demandé</td>
+</tr>
+<tr>
+<td><code>X-Forwarded-For</code> / <code>Forwarded</code></td>
+<td>adresse du client réel, ajoutée par un proxy</td>
+</tr>
+<tr>
+<td><code>Cache-Control</code>, <code>ETag</code></td>
+<td>règles de mise en cache</td>
+</tr>
+<tr>
+<td><code>Strict-Transport-Security</code></td>
+<td>oblige le navigateur à n’utiliser que HTTPS pour ce site (HSTS)</td>
+</tr>
+<tr>
+<td><code>Set-Cookie</code> (<code>Secure</code>, <code>HttpOnly</code>, <code>SameSite</code>)</td>
+<td>protection des cookies de session</td>
+</tr>
+<tr>
+<td><code>Location</code></td>
+<td>cible d’une redirection</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un utilisateur obtient une erreur 403 sur l’intranet, son collègue non. Où chercher ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le serveur a répondu : le réseau fonctionne. Le <strong>403</strong> indique un refus d’autorisation : droits de l’utilisateur (groupe Active Directory), règle d’accès par adresse IP source sur le serveur ou le proxy, ou politique d’un pare-feu applicatif. Comparer les deux utilisateurs et consulter les journaux du serveur.</p>
+</details>
+<p><strong>2.</strong> <code>curl -w</code> montre <code>dns:0.004 tcp:0.012 tls:0.031 total:4.870</code>. Quelle partie est lente ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le DNS (4 ms), le TCP (12 ms) et le TLS (31 ms) sont rapides. Le temps est passé <strong>après</strong> la négociation, à attendre la réponse : c’est le <strong>serveur applicatif</strong> qui met près de 5 secondes à produire la page, pas le réseau.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/nat.html"><small>Fiche précédente</small><strong>NAT</strong></a><a class="apres" href="../niveau-3/tls.html"><small>Fiche suivante</small><strong>TLS</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-demander-une-page-a-un-serveur">Le problème : demander une page à un serveur</a><a href="#une-requete-et-sa-reponse">Une requête et sa réponse</a><a href="#les-codes-detat-a-connaitre">Les codes d’état à connaître</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-versions">Les versions</a><a href="#interroger-un-serveur-a-la-main">Interroger un serveur à la main</a><a href="#en-tetes-qui-comptent-pour-lexploitation">En-têtes qui comptent pour l’exploitation</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

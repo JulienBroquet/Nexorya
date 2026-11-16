@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Routage statique — Routes configurées à la main | Nexorya</title>
+<meta name="description" content="Une route statique est une règle écrite par l’administrateur — « pour ce réseau, passe par ce voisin » ; simple et prévisible, mais elle ne s’adapte pas toute seule aux pannes.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique" aria-current="page">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/routage-statique">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-3">Choisir un chemin</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Routage statique</h1><p class="nom-complet">Routes configurées à la main</p>
+<p class="idee">Une route statique est une règle écrite par l’administrateur — « pour ce réseau, passe par ce voisin » ; simple et prévisible, mais elle ne s’adapte pas toute seule aux pannes.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 7 min</span><span>Approfondir : 15 min</span><span>Avant : <a href="../niveau-2/passerelle.html">La table de routage</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-apprendre-au-routeur-ou-sont-les-reseaux">Le problème : apprendre au routeur où sont les réseaux</h2>
+<p>Un routeur connaît automatiquement les réseaux <strong>directement branchés</strong> sur ses interfaces. Pour tous les autres, il faut lui dire par où passer. La façon la plus simple : l’écrire à la main.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Une route statique est une instruction fixe : « pour joindre tel réseau, envoie les paquets à tel voisin ». Le routeur l’applique sans réfléchir, même si le chemin ne fonctionne plus.</p>
+</div>
+<h2 id="exemple-une-agence-reliee-au-siege">Exemple : une agence reliée au siège</h2>
+<figure class="schema"><svg viewBox="0 0 830.0 286.0" width="830.0" role="img" aria-label="Une agence reliée au siège" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="293.0" y2="50.0"/><text class="tp-etiq" x="201.5" y="38.0" text-anchor="middle">.1</text><line class="tp-lien " x1="293.0" y1="50.0" x2="537.0" y2="50.0"/><text class="tp-etiq" x="415.0" y="38.0" text-anchor="middle">lien 172.16.0.0/30 (.1 et .2)</text><line class="tp-lien " x1="537.0" y1="50.0" x2="720.0" y2="50.0"/><line class="tp-lien " x1="537.0" y1="50.0" x2="537.0" y2="190.0"/><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">LAN agence</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">192.168.20.0/24</text><g transform="translate(293.0 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="293.0" y="90.0" text-anchor="middle">Routeur agence</text><g transform="translate(537.0 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="537.0" y="90.0" text-anchor="middle">Routeur siège</text><g transform="translate(720.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="720.0" y="90.0" text-anchor="middle">LAN siège</text><text class="tp-sous" x="720.0" y="106.0" text-anchor="middle">10.0.0.0/16</text><g transform="translate(537.0 190.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="537.0" y="230.0" text-anchor="middle">Internet</text></svg><figcaption>Une agence reliée au siège</figcaption></figure>
+<p>Sur le <strong>routeur de l’agence</strong>, une seule route suffit : tout ce qui n’est pas local part vers le siège.</p>
+<pre><code class="language-cisco">ip route 0.0.0.0 0.0.0.0 172.16.0.2
+</code></pre>
+<p>Sur le <strong>routeur du siège</strong>, il faut indiquer comment revenir vers l’agence :</p>
+<pre><code class="language-cisco">ip route 192.168.20.0 255.255.255.0 172.16.0.1
+</code></pre>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Oublier la route <strong>retour</strong> est l’erreur la plus fréquente : le paquet arrive au serveur du siège, mais la réponse ne sait pas revenir vers l’agence. Le ping échoue alors que la route « aller » est parfaite. Pense toujours aux deux sens.</p>
+</div>
+<h2 id="avantages-et-limites">Avantages et limites</h2>
+<table>
+<thead>
+<tr>
+<th>Avantages</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Simple à comprendre et à vérifier</td>
+<td>Fastidieux au-delà de quelques réseaux</td>
+</tr>
+<tr>
+<td>Aucune consommation de processeur ni de bande passante</td>
+<td>Ne s’adapte pas aux pannes (sauf liens directs)</td>
+</tr>
+<tr>
+<td>Totalement prévisible</td>
+<td>Chaque nouveau réseau oblige à modifier plusieurs routeurs</td>
+</tr>
+<tr>
+<td>Aucun échange : rien à usurper</td>
+<td>Risque d’erreur humaine</td>
+</tr>
+</tbody>
+</table>
+<p>On l’utilise donc pour la <strong>route par défaut</strong> vers Internet, les <strong>petites agences</strong> reliées en étoile, et comme <strong>secours</strong> d’un protocole dynamique.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Route statique</strong> — Route configurée manuellement par l’administrateur.</li>
+<li><strong>Prochain saut</strong> — Adresse IP du routeur voisin à qui confier le paquet ; <em>next hop</em>.</li>
+<li><strong>Route par défaut</strong> — Route 0.0.0.0/0 qui couvre toutes les destinations sans route plus précise.</li>
+<li><strong>Route retour</strong> — Route nécessaire pour que les réponses reviennent vers l’expéditeur.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Depuis l’agence, un ping vers un serveur du siège échoue. Le routeur de l’agence a bien sa route par défaut vers le siège. Quelle est la première chose à vérifier côté siège ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La <strong>route retour</strong> : le routeur du siège (et, s’il y en a un, le pare-feu ou le switch de cœur) doit savoir que <code>192.168.20.0/24</code> se trouve derrière le routeur de l’agence. Sans elle, les réponses partent vers la route par défaut du siège (Internet) et se perdent.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-formes-de-la-commande-cisco-ios">Les formes de la commande (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="c">! Prochain saut (recommandé sur Ethernet)</span>
+ip route 10.30.0.0 255.255.0.0 10.255.0.6
+<span class="c">! Interface de sortie seule (à réserver aux liens point à point : tunnel, série)</span>
+ip route 10.30.0.0 255.255.0.0 Tunnel0
+<span class="c">! Interface + prochain saut (précis, évite les ambiguïtés)</span>
+ip route 10.30.0.0 255.255.0.0 GigabitEthernet0/0/2 10.255.0.6
+<span class="c">! Route flottante (secours) : distance administrative 200</span>
+ip route 0.0.0.0 0.0.0.0 192.0.2.1 200
+<span class="c">! Route vers nulle part : jeter le trafic (anti-boucle pour un agrégat annoncé)</span>
+ip route 10.0.0.0 255.0.0.0 Null0
+<span class="c">! IPv6</span>
+ipv6 route ::/0 2001:db8:ffff::1
+</code></pre>
+<div class="encadre attention">
+<p class="encadre-titre">Attention en production</p>
+<p>Une route statique vers une <strong>interface Ethernet seule</strong> (sans prochain saut) fait croire au routeur que toutes les destinations sont directement connectées : il envoie une requête ARP pour <strong>chaque</strong> adresse de destination, et dépend du proxy ARP du voisin. Sur Ethernet, indique toujours le prochain saut.</p>
+</div>
+<h2 id="quand-une-route-statique-disparait-elle">Quand une route statique disparaît-elle ?</h2>
+<p>Une route statique reste dans la table tant que <strong>son prochain saut est joignable selon la table de routage</strong> — en pratique, tant que l’interface vers ce voisin est active. Si la panne se trouve <strong>au-delà</strong> (le routeur voisin est en vie mais a perdu son lien vers Internet), la route reste, et le trafic part dans un trou noir.</p>
+<p>La solution : associer la route à une <strong>sonde</strong> qui vérifie le chemin de bout en bout.</p>
+<pre><code class="language-cisco">ip sla 10
+ icmp-echo 198.51.100.1 source-interface GigabitEthernet0/0/0
+ frequency 5
+ip sla schedule 10 life forever start-time now
+track 10 ip sla 10 reachability
+<span class="c">!</span>
+ip route 0.0.0.0 0.0.0.0 203.0.113.1 track 10      ! lien principal
+ip route 0.0.0.0 0.0.0.0 192.0.2.1 200             ! secours flottant
+</code></pre>
+<p>Si la sonde échoue, la route principale est retirée et la route de secours apparaît. Voir <a href="ipsla.html">IP SLA</a>.</p>
+<h2 id="resumer-pour-simplifier">Résumer pour simplifier</h2>
+<p>Plutôt que dix routes vers dix réseaux d’un site (<code>10.30.0.0/24</code>, <code>10.30.1.0/24</code>…), on écrit <strong>une seule route</strong> vers le bloc qui les contient (<code>10.30.0.0/16</code>). C’est possible uniquement si le <strong>plan d’adressage</strong> a été pensé par site : un argument de plus pour un bon <a href="subnet.html">découpage en sous-réseaux</a>.</p>
+<h2 id="verification-et-depannage">Vérification et dépannage</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip route static
+S*    0.0.0.0/0 [1/0] via 203.0.113.1
+S     192.168.20.0/24 [1/0] via 172.16.0.1
+<span class="k">R1#</span> show ip route 192.168.20.5
+<span class="k">R1#</span> ping 192.168.20.5 source GigabitEthernet0/0/1
+<span class="k">R1#</span> traceroute 192.168.20.5
+</code></pre>
+<p>Un <code>ping</code> <strong>depuis le routeur</strong> part par défaut avec l’adresse de l’interface de sortie. Pour tester le chemin comme le ferait un poste du LAN, utilise <code>source</code> avec l’interface LAN : la réponse devra alors trouver la route retour vers ce LAN.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Le siège a les réseaux <code>10.0.0.0/24</code> à <code>10.0.15.0/24</code>. Quelle route unique l’agence peut-elle utiliser pour tous les joindre ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>16 réseaux /24 consécutifs à partir de <code>10.0.0.0</code> = un bloc de 16 × 256 = 4 096 adresses = <strong><code>10.0.0.0/20</code></strong> (masque 255.255.240.0).</p>
+</details>
+<p><strong>2.</strong> Un routeur d’agence a deux routes par défaut : <code>via 203.0.113.1</code> (fibre) et <code>via 192.0.2.1 200</code> (4G). La box fibre est allumée mais n’a plus accès à Internet. Que se passe-t-il, et comment corriger ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>L’interface vers la box reste active : la route principale <strong>reste installée</strong> et le trafic part vers une box qui ne mène nulle part. La 4G n’est jamais utilisée. Corriger avec une sonde <strong>IP SLA</strong> vers une adresse sur Internet, et <code>track</code> sur la route principale.</p>
+</details>
+<p><strong>3.</strong> Un ping depuis le routeur de l’agence vers un serveur du siège fonctionne, mais un ping depuis un PC de l’agence échoue. Quelle hypothèse ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le ping du routeur part avec l’adresse du <strong>lien</strong> (<code>172.16.0.1</code>), que le siège sait joindre (réseau connecté). Le PC utilise une adresse du <strong>LAN de l’agence</strong> (<code>192.168.20.x</code>), pour laquelle le siège n’a <strong>pas de route retour</strong>. Vérifier avec <code>ping … source</code> depuis l’interface LAN de l’agence, puis ajouter la route au siège.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/passerelle.html"><small>Fiche précédente</small><strong>La table de routage</strong></a><a class="apres" href="../niveau-2/rip.html"><small>Fiche suivante</small><strong>RIP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-apprendre-au-routeur-ou-sont-les-reseaux">Le problème : apprendre au routeur où sont les réseaux</a><a href="#exemple-une-agence-reliee-au-siege">Exemple : une agence reliée au siège</a><a href="#avantages-et-limites">Avantages et limites</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-formes-de-la-commande-cisco-ios">Les formes de la commande (Cisco IOS)</a><a href="#quand-une-route-statique-disparait-elle">Quand une route statique disparaît-elle ?</a><a href="#resumer-pour-simplifier">Résumer pour simplifier</a><a href="#verification-et-depannage">Vérification et dépannage</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

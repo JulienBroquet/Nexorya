@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CDP — Cisco Discovery Protocol | Nexorya</title>
+<meta name="description" content="CDP est l’équivalent Cisco de LLDP — chaque équipement Cisco annonce son nom, son modèle, son port et son adresse à ses voisins directs.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp" aria-current="page">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/cdp">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-6">Agréger, découvrir, protéger</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>CDP</h1><p class="nom-complet">Cisco Discovery Protocol</p>
+<p class="idee">CDP est l’équivalent Cisco de LLDP — chaque équipement Cisco annonce son nom, son modèle, son port et son adresse à ses voisins directs.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 5 min</span><span>Approfondir : 10 min</span><span>Avant : <a href="../niveau-1/lldp.html">LLDP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Le même que pour <a href="lldp.html">LLDP</a> : savoir qui est branché en face de chaque port. Cisco a créé CDP avant que LLDP ne soit normalisé, et l’utilise toujours par défaut.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>CDP fait le même travail que LLDP, mais entre équipements Cisco : chacun annonce son identité à ses voisins directs, toutes les 60 secondes.</p>
+</div>
+<h2 id="a-lusage">À l’usage</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show cdp neighbors
+Device ID      Local Intrfce   Holdtme  Capability  Platform     Port ID
+DIST1          Gig 1/0/48      152      R S I       C9500-24Y4C  Ten 1/0/3
+SEP001122AABB  Gig 1/0/5       131      H P M       IP Phone 88  Port 1
+</code></pre>
+<p>La colonne <strong>Platform</strong> donne directement le modèle du voisin : C9500 pour un Catalyst 9500, « IP Phone 88xx » pour un téléphone.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CDP</th>
+<th>LLDP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Norme</td>
+<td>propriétaire Cisco</td>
+<td>IEEE 802.1AB, toutes marques</td>
+</tr>
+<tr>
+<td>Par défaut sur Cisco</td>
+<td>activé</td>
+<td>souvent désactivé</td>
+</tr>
+<tr>
+<td>Fréquence</td>
+<td>60 s</td>
+<td>30 s</td>
+</tr>
+<tr>
+<td>Usage</td>
+<td>réseaux 100 % Cisco</td>
+<td>réseaux multi-constructeurs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>CDP</strong> — <em>Cisco Discovery Protocol</em>, protocole Cisco d’annonce aux voisins directs.</li>
+<li><strong>Holdtime</strong> — Durée pendant laquelle une annonce reste valide sans être renouvelée.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un switch Cisco est relié à un switch d’une autre marque. Que verra-t-on avec <code>show cdp neighbors</code> ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Probablement <strong>rien</strong> pour ce port, car l’autre marque ne parle pas CDP. Il faut activer <strong>LLDP</strong> des deux côtés et utiliser <code>show lldp neighbors</code>.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="ce-que-cdp-apporte-en-plus">Ce que CDP apporte en plus</h2>
+<ul>
+<li><strong>Détection d’incohérences</strong> : CDP compare des paramètres avec le voisin et journalise les écarts.</li>
+</ul>
+<pre><code class="language-text">%CDP-4-NATIVE_VLAN_MISMATCH: Native VLAN mismatch discovered on
+GigabitEthernet1/0/48 (999), with DIST1 TenGigabitEthernet1/0/3 (1).
+%CDP-4-DUPLEX_MISMATCH: duplex mismatch discovered on GigabitEthernet1/0/7 (not full duplex)
+</code></pre>
+<p>Ces messages sont précieux : ils désignent directement un trunk au VLAN natif incohérent (<a href="802-1q.html">802.1Q</a>) ou un désaccord de duplex (<a href="phy.html">PHY</a>).</p>
+<ul>
+<li><strong>Téléphones Cisco</strong> : CDP indique au téléphone le VLAN voix à utiliser et négocie la puissance PoE.</li>
+</ul>
+<h2 id="commandes-utiles-cisco-ios">Commandes utiles (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show cdp neighbors GigabitEthernet1/0/48 detail
+Device ID: DIST1
+Entry address(es):
+  IP address: 10.99.0.2
+Platform: cisco C9500-24Y4C,  Capabilities: Router Switch IGMP
+Interface: GigabitEthernet1/0/48,  Port ID (outgoing port): TenGigabitEthernet1/0/3
+Version :
+Cisco IOS Software [Cupertino], Catalyst L3 Switch Software, Version 17.9.4
+Native VLAN: 1
+Duplex: full
+</code></pre>
+<pre><code class="language-cisco"><span class="c">! Désactiver CDP sur un port exposé, ou globalement</span>
+interface GigabitEthernet0/0/0
+ no cdp enable
+<span class="c">!</span>
+no cdp run
+</code></pre>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>CDP divulgue le modèle, la version logicielle et l’adresse de gestion. Des vulnérabilités ont aussi visé son traitement. Désactive-le sur les ports vers Internet, les opérateurs et les zones non maîtrisées (salles de réunion, invités), en gardant à l’esprit que les téléphones Cisco en ont besoin sur leurs ports.</p>
+</div>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Le journal affiche <code>NATIVE_VLAN_MISMATCH</code> sur l’uplink Gi1/0/48 (999) avec DIST1 Te1/0/3 (1). Quelle correction, et sur quel équipement ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Aligner le <strong>VLAN natif</strong> aux deux extrémités du trunk. Si la norme de l’entreprise est d’utiliser le VLAN 999 comme natif, configurer <code>switchport trunk native vlan 999</code> sur Te1/0/3 de <strong>DIST1</strong>. Faire la modification en fenêtre de maintenance : pendant quelques secondes, les deux côtés seront incohérents.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/lldp.html"><small>Fiche précédente</small><strong>LLDP</strong></a><a class="apres" href="../niveau-1/vtp.html"><small>Fiche suivante</small><strong>VTP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#a-lusage">À l’usage</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#ce-que-cdp-apporte-en-plus">Ce que CDP apporte en plus</a><a href="#commandes-utiles-cisco-ios">Commandes utiles (Cisco IOS)</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

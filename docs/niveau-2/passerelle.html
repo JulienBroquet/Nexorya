@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La table de routage — Passerelle, préfixe le plus long, distance administrative et métrique | Nexorya</title>
+<meta name="description" content="Pour chaque paquet, le routeur choisit dans sa table la route la plus précise ; si plusieurs sources proposent la même, il préfère la plus fiable, puis le chemin le moins coûteux.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle" aria-current="page">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/passerelle">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-3">Choisir un chemin</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>La table de routage</h1><p class="nom-complet">Passerelle, préfixe le plus long, distance administrative et métrique</p>
+<p class="idee">Pour chaque paquet, le routeur choisit dans sa table la route la plus précise ; si plusieurs sources proposent la même, il préfère la plus fiable, puis le chemin le moins coûteux.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 9 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-2/ipv4.html">IPv4</a>, <a href="../niveau-2/subnet.html">Subnetting, CIDR et VLSM</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-quel-chemin-pour-ce-paquet">Le problème : quel chemin pour ce paquet ?</h2>
+<p>Un routeur reçoit un paquet pour <code>10.20.30.5</code>. Il a peut-être plusieurs routes qui conviennent : une vers <code>10.0.0.0/8</code>, une vers <code>10.20.30.0/24</code>, une route par défaut, et peut-être les mêmes apprises par deux protocoles différents. Laquelle choisir ?</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le routeur choisit d’abord la route <strong>la plus précise</strong> ; à précision égale, celle de la <strong>source la plus fiable</strong> ; et au sein d’une même source, la <strong>moins coûteuse</strong>.</p>
+</div>
+<h2 id="la-table-de-routage">La table de routage</h2>
+<p>Chaque ligne de la table dit : « pour joindre <strong>ce réseau</strong>, envoie le paquet <strong>à ce voisin</strong> (ou par cette interface) ».</p>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip route
+Codes: C - connected, L - local, S - static, O - OSPF, * - candidate default
+
+Gateway of last resort is 203.0.113.1 to network 0.0.0.0
+
+S*    0.0.0.0/0 [1/0] via 203.0.113.1
+      10.0.0.0/8 is variably subnetted
+O        10.0.0.0/8 [110/20] via 10.255.0.2, GigabitEthernet0/0/1
+O        10.20.30.0/24 [110/30] via 10.255.0.6, GigabitEthernet0/0/2
+C        10.255.0.0/30 is directly connected, GigabitEthernet0/0/1
+L        10.255.0.1/32 is directly connected, GigabitEthernet0/0/1
+</code></pre>
+<p>Comment lire <code>[110/30]</code> : <strong>110</strong> est la distance administrative (OSPF), <strong>30</strong> la métrique (le coût OSPF).</p>
+<h2 id="regle-1-le-prefixe-le-plus-long">Règle 1 : le préfixe le plus long</h2>
+<p>Pour <code>10.20.30.5</code>, trois routes conviennent : <code>0.0.0.0/0</code>, <code>10.0.0.0/8</code> et <code>10.20.30.0/24</code>. Le routeur choisit <strong><code>/24</code></strong>, la plus précise : elle décrit le chemin vers un réseau plus petit, donc avec plus de certitude.</p>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie des panneaux</p>
+<p>Sur la route, un panneau « Lyon, centre-ville » est plus précis qu’un panneau « Lyon », lui-même plus précis que « Toutes directions ». Tu suis toujours le panneau le plus précis qui correspond à ta destination.</p>
+</div>
+<h2 id="regle-2-la-distance-administrative">Règle 2 : la distance administrative</h2>
+<p>Si deux <strong>sources différentes</strong> proposent exactement le même réseau (même préfixe), le routeur fait confiance à la plus fiable. Chaque source a une note : plus elle est <strong>basse</strong>, plus elle est crue.</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Distance administrative (Cisco)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Réseau directement connecté</td>
+<td>0</td>
+</tr>
+<tr>
+<td>Route statique</td>
+<td>1</td>
+</tr>
+<tr>
+<td>EIGRP</td>
+<td>90</td>
+</tr>
+<tr>
+<td>OSPF</td>
+<td>110</td>
+</tr>
+<tr>
+<td>IS-IS</td>
+<td>115</td>
+</tr>
+<tr>
+<td>RIP</td>
+<td>120</td>
+</tr>
+<tr>
+<td>BGP externe / interne</td>
+<td>20 / 200</td>
+</tr>
+</tbody>
+</table>
+<h2 id="regle-3-la-metrique">Règle 3 : la métrique</h2>
+<p>Si une <strong>même</strong> source propose plusieurs chemins vers le même réseau, elle choisit celui qui a la <strong>métrique</strong> la plus faible. Chaque protocole a sa propre métrique : nombre de sauts pour RIP, coût lié au débit pour OSPF, etc. Si deux chemins ont exactement la même métrique, le routeur peut <strong>les utiliser tous les deux</strong> (partage de charge, ECMP).</p>
+<h2 id="la-passerelle-des-postes-de-travail">La passerelle des postes de travail</h2>
+<p>Un PC a aussi une table de routage, très simple : son réseau local, et une <strong>route par défaut</strong> vers sa passerelle. C’est la règle « tout ce qui n’est pas local va à la passerelle » vue dans les fiches précédentes.</p>
+<pre><code class="language-powershell">C:\&gt; route print -4
+Destination réseau    Masque réseau    Adr. passerelle    Adr. interface  Métrique
+          0.0.0.0          0.0.0.0      192.168.1.1      192.168.1.20      25
+      192.168.1.0    255.255.255.0         On-link      192.168.1.20     281
+</code></pre>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Table de routage</strong> — Liste des réseaux connus par un routeur, avec pour chacun le voisin ou l’interface à utiliser.</li>
+<li><strong>Préfixe le plus long</strong> — Règle qui fait choisir la route la plus précise ; <em>longest prefix match</em>.</li>
+<li><strong>Distance administrative</strong> — Note de fiabilité d’une source de routes ; la plus basse l’emporte.</li>
+<li><strong>Métrique</strong> — Coût d’un chemin selon un protocole de routage ; le plus bas l’emporte.</li>
+<li><strong>Route par défaut</strong> — Route 0.0.0.0/0 utilisée quand aucune route plus précise ne convient ; <em>gateway of last resort</em>.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un routeur a les routes <code>172.16.0.0/16</code> et <code>172.16.5.0/24</code>. Par où part un paquet pour <code>172.16.5.9</code> ? Et pour <code>172.16.6.9</code> ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><code>172.16.5.9</code> → route <strong>/24</strong> (la plus précise). <code>172.16.6.9</code> → seule la <strong>/16</strong> convient.</p>
+</details>
+<p><strong>2.</strong> OSPF et une route statique annoncent tous deux <code>10.50.0.0/24</code>. Laquelle est installée ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La <strong>route statique</strong> : même préfixe, et sa distance administrative (1) est plus faible que celle d’OSPF (110).</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="lordre-exact-des-decisions">L’ordre exact des décisions</h2>
+<p>La distance administrative et la métrique servent à <strong>remplir</strong> la table ; le préfixe le plus long sert à la <strong>consulter</strong> :</p>
+<ol>
+<li>Chaque source (connectée, statique, OSPF, BGP…) propose ses meilleurs chemins <strong>selon sa métrique</strong>.</li>
+<li>Pour un <strong>même préfixe</strong> (même réseau, même longueur), le routeur n’installe que la proposition de la source à la <strong>plus petite distance administrative</strong>.</li>
+<li>Au moment de transmettre un paquet, le routeur cherche dans la table l’entrée au <strong>préfixe le plus long</strong> qui contient la destination.</li>
+</ol>
+<p>Conséquence importante : une route OSPF <code>/24</code> <strong>bat</strong> une route statique <code>/16</code> pour une destination incluse dans le <code>/24</code>. La distance administrative ne compare que des routes <strong>identiques</strong>.</p>
+<h2 id="route-flottante-un-secours-statique">Route flottante : un secours statique</h2>
+<p>En donnant à une route statique une distance administrative <strong>plus grande</strong> que celle du protocole de routage, on crée une route de secours qui n’apparaît que si la route dynamique disparaît.</p>
+<pre><code class="language-cisco"><span class="c">! Route principale apprise par OSPF (AD 110).</span>
+<span class="c">! Secours : route statique vers un lien 4G, AD 250, invisible tant qu'OSPF fonctionne.</span>
+ip route 10.0.0.0 255.0.0.0 192.0.2.1 250
+</code></pre>
+<h2 id="partage-de-charge-a-cout-egal-ecmp">Partage de charge à coût égal (ECMP)</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip route 10.40.0.0
+Routing entry for 10.40.0.0/16
+  Known via &quot;ospf 1&quot;, distance 110, metric 3, type intra area
+  Routing Descriptor Blocks:
+  * 10.255.0.2, from 10.255.255.2, via GigabitEthernet0/0/1
+      Route metric is 3, traffic share count is 1
+    10.255.0.6, from 10.255.255.3, via GigabitEthernet0/0/2
+      Route metric is 3, traffic share count is 1
+</code></pre>
+<p>Deux chemins de même coût sont installés. Comme pour l’agrégation de liens, le routeur répartit <strong>par flux</strong> (hachage des adresses et ports), pour ne pas désordonner les paquets d’une même connexion. Voir <a href="../niveau-5/ecmp.html">ECMP</a>.</p>
+<h2 id="recursivite-et-route-de-dernier-recours">Récursivité et route de dernier recours</h2>
+<p>Une route statique peut désigner un prochain saut <strong>non directement connecté</strong> : le routeur cherche alors comment joindre ce prochain saut (recherche récursive). C’est le cas des routes BGP, dont le prochain saut est souvent une adresse loopback lointaine.</p>
+<p>La ligne <code>Gateway of last resort is …</code> indique la route par défaut active. Si elle affiche <code>not set</code>, tout paquet sans route précise est <strong>jeté</strong> (avec un ICMP Destination Unreachable).</p>
+<h2 id="commandes-de-diagnostic">Commandes de diagnostic</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip route 10.20.30.5          ! quelle route est utilisée pour cette adresse ?
+<span class="k">R1#</span> show ip route longer-prefixes 10.20.0.0 255.255.0.0
+<span class="k">R1#</span> show ip cef 10.20.30.5            ! ce que le matériel utilise réellement
+<span class="k">R1#</span> traceroute 10.20.30.5 source Loopback0
+</code></pre>
+<p><code>show ip route &lt;adresse&gt;</code> applique la règle du préfixe le plus long et montre <strong>la</strong> route choisie : c’est la commande à retenir pour répondre à « par où part ce paquet ? ».</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un routeur possède : <code>S 10.0.0.0/8 [1/0]</code>, <code>O 10.10.0.0/16 [110/20]</code>, <code>S* 0.0.0.0/0 [1/0]</code>. Par où partent les paquets pour 10.10.4.4, 10.99.1.1 et 172.16.0.1 ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<ul>
+<li><code>10.10.4.4</code> → <strong>OSPF /16</strong> (plus précis que la statique /8, même si sa distance administrative est plus grande).</li>
+<li><code>10.99.1.1</code> → <strong>statique /8</strong>.</li>
+<li><code>172.16.0.1</code> → <strong>route par défaut</strong>.</li>
+</ul>
+</details>
+<p><strong>2.</strong> On configure <code>ip route 10.50.0.0 255.255.255.0 10.255.0.9 130</code> alors qu’OSPF annonce aussi <code>10.50.0.0/24</code>. Laquelle est installée ? Que se passe-t-il si OSPF perd ce réseau ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La route <strong>OSPF</strong> (AD 110 &lt; 130). La statique est une <strong>route flottante</strong> : elle n’est pas installée tant qu’OSPF fournit la route. Si OSPF la perd, la statique (AD 130) apparaît et prend le relais.</p>
+</details>
+<p><strong>3.</strong> Après l’ajout d’une route statique <code>10.0.0.0/8</code> sur un routeur, l’accès à <code>10.20.30.0/24</code>, appris par OSPF, fonctionne toujours. Un collègue s’en étonne : la statique n’a-t-elle pas une meilleure distance administrative ? Explique.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La distance administrative ne départage que des routes vers <strong>le même préfixe</strong>. <code>/8</code> et <code>/24</code> sont deux entrées différentes de la table ; pour une destination dans <code>10.20.30.0/24</code>, la règle du <strong>préfixe le plus long</strong> choisit la route OSPF /24.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/icmp.html"><small>Fiche précédente</small><strong>ICMP</strong></a><a class="apres" href="../niveau-2/routage-statique.html"><small>Fiche suivante</small><strong>Routage statique</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-quel-chemin-pour-ce-paquet">Le problème : quel chemin pour ce paquet ?</a><a href="#la-table-de-routage">La table de routage</a><a href="#regle-1-le-prefixe-le-plus-long">Règle 1 : le préfixe le plus long</a><a href="#regle-2-la-distance-administrative">Règle 2 : la distance administrative</a><a href="#regle-3-la-metrique">Règle 3 : la métrique</a><a href="#la-passerelle-des-postes-de-travail">La passerelle des postes de travail</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#lordre-exact-des-decisions">L’ordre exact des décisions</a><a href="#route-flottante-un-secours-statique">Route flottante : un secours statique</a><a href="#partage-de-charge-a-cout-egal-ecmp">Partage de charge à coût égal (ECMP)</a><a href="#recursivite-et-route-de-dernier-recours">Récursivité et route de dernier recours</a><a href="#commandes-de-diagnostic">Commandes de diagnostic</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

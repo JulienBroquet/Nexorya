@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Les protocoles — Des règles communes et des numéros de port | Nexorya</title>
+<meta name="description" content="Un protocole est un ensemble de règles que deux appareils suivent pour se comprendre ; le numéro de port indique à quel service un message est destiné.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l0)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" aria-current=page class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>0</i>Je débute</a><h3>Le décor</h3><ul><li><a href="bienvenue.html" data-fiche="demarrer/bienvenue">Bienvenue</a></li><li><a href="reseau.html" data-fiche="demarrer/reseau">Qu’est-ce qu’un réseau ?</a></li><li><a href="equipements.html" data-fiche="demarrer/equipements">Les équipements</a></li><li><a href="paquet.html" data-fiche="demarrer/paquet">Un message en paquets</a></li></ul><h3>Les adresses et les règles</h3><ul><li><a href="adresses.html" data-fiche="demarrer/adresses">Les trois adresses</a></li><li><a href="protocoles.html" data-fiche="demarrer/protocoles" aria-current="page">Les protocoles</a></li><li><a href="internet.html" data-fiche="demarrer/internet">Ma box et Internet</a></li></ul><h3>Passer à la pratique</h3><ul><li><a href="commandes.html" data-fiche="demarrer/commandes">Les commandes de base</a></li></ul></aside>
+<article class="contenu" data-fiche-id="demarrer/protocoles">
+<p class="fil"><a href="index.html">Je débute</a> › <a href="index.html#chapitre-2">Les adresses et les règles</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Les protocoles</h1><p class="nom-complet">Des règles communes et des numéros de port</p>
+<p class="idee">Un protocole est un ensemble de règles que deux appareils suivent pour se comprendre ; le numéro de port indique à quel service un message est destiné.</p><div class="badges"><span>Découvrir : 8 min</span></div></header>
+
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-se-comprendre-sans-se-connaitre">Le problème : se comprendre sans se connaître</h2>
+<p>Ton téléphone, fabriqué en Corée, affiche un site hébergé sur un serveur américain, à travers des équipements chinois, européens et américains. Pour que cela marche, tous doivent suivre <strong>exactement les mêmes règles</strong>. Ces règles s’appellent des <strong>protocoles</strong>.</p>
+<p>Un protocole précise :</p>
+<ul>
+<li><strong>le format des messages</strong> : quelles informations, dans quel ordre, sur combien d’octets ;</li>
+<li><strong>l’ordre des échanges</strong> : qui parle en premier, comment on répond, que faire en cas d’erreur.</li>
+</ul>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie du coup de téléphone</p>
+<p>Quand tu appelles quelqu’un, il y a un protocole implicite : il décroche et dit « allô », tu te présentes, vous parlez chacun votre tour, vous vous dites au revoir avant de raccrocher. Si l’un des deux ne suit pas ces règles, la conversation devient confuse.</p>
+</div>
+<h2 id="des-protocoles-qui-sempilent">Des protocoles qui s’empilent</h2>
+<p>Aucun protocole ne fait tout. Chacun s’occupe d’une partie du travail, et ils s’empilent comme les enveloppes de la fiche <a href="paquet.html">Un message en paquets</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Rôle</th>
+<th>Protocoles typiques</th>
+<th>Question qu’il résout</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application</td>
+<td>HTTP (Web), DNS (noms), SMTP (e-mails)</td>
+<td>Que veut dire ce message pour l’application ?</td>
+</tr>
+<tr>
+<td>Transport</td>
+<td><strong>TCP</strong> (fiable) ou <strong>UDP</strong> (rapide)</td>
+<td>À quel service le remettre, et faut-il garantir l’arrivée ?</td>
+</tr>
+<tr>
+<td>Réseau</td>
+<td><strong>IP</strong></td>
+<td>Par quel chemin l’envoyer à travers les réseaux ?</td>
+</tr>
+<tr>
+<td>Liaison locale</td>
+<td><strong>Ethernet</strong>, <strong>Wi-Fi</strong></td>
+<td>Comment le transmettre à l’appareil voisin ?</td>
+</tr>
+</tbody>
+</table>
+<p><strong>TCP</strong> et <strong>UDP</strong> méritent un mot dès maintenant :</p>
+<ul>
+<li><strong>TCP</strong> fonctionne comme un recommandé avec accusé de réception : il vérifie que tout est arrivé, dans l’ordre, et renvoie ce qui manque. On l’utilise pour le Web, les e-mails, les fichiers.</li>
+<li><strong>UDP</strong> fonctionne comme une carte postale : envoyée sans vérification, mais sans perte de temps. On l’utilise pour la voix, la vidéo en direct, le DNS.</li>
+</ul>
+<h2 id="le-numero-de-port-quel-service">Le numéro de port : quel service ?</h2>
+<p>Un serveur peut faire plusieurs choses à la fois : héberger un site Web, recevoir des e-mails, permettre la connexion à distance. Comment savoir à quel service un message est destiné ? Grâce au <strong>numéro de port</strong>, inscrit dans l’enveloppe transport.</p>
+<p>Si l’adresse IP est l’adresse de l’immeuble, le port est le <strong>numéro de l’appartement</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Protocole</th>
+<th>Service</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>53</td>
+<td>DNS</td>
+<td>Traduire un nom en adresse IP</td>
+</tr>
+<tr>
+<td>80</td>
+<td>HTTP</td>
+<td>Site Web non chiffré</td>
+</tr>
+<tr>
+<td>443</td>
+<td>HTTPS</td>
+<td>Site Web chiffré (le cadenas du navigateur)</td>
+</tr>
+<tr>
+<td>22</td>
+<td>SSH</td>
+<td>Administrer un serveur ou un équipement à distance</td>
+</tr>
+<tr>
+<td>25 / 587</td>
+<td>SMTP</td>
+<td>Envoyer des e-mails</td>
+</tr>
+<tr>
+<td>3389</td>
+<td>RDP</td>
+<td>Bureau à distance Windows</td>
+</tr>
+</tbody>
+</table>
+<figure class="schema"><svg viewBox="0 0 760 300" width="760" role="img" aria-label="Un message adressé à un service précis" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="300"/><g class="sq-acteur"><rect x="31.0" y="12" width="108.0" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Ordinateur</text></g><line class="sq-vie" x1="675.0" y1="60" x2="675.0" y2="300"/><g class="sq-acteur"><rect x="608.7" y="12" width="132.6" height="48" rx="8"/><text x="675.0" y="33" text-anchor="middle">Serveur (IP</text><text x="675.0" y="50" text-anchor="middle">203.0.113.10)</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. vers 203.0.113.10, port 443 (HTTPS)</text><line x1="85.0" y1="78" x2="663.0" y2="78"/><polygon class="sq-pointe" points="673.0,78 661.0,72 661.0,84"/></g><g class="sq-note"><rect x="554" y="124" width="200" height="86" rx="6"/><text x="654.0" y="143" text-anchor="middle">le système remet le</text><text x="654.0" y="161" text-anchor="middle">message au service qui</text><text x="654.0" y="179" text-anchor="middle">écoute sur le port 443 :</text><text x="654.0" y="197" text-anchor="middle">le serveur Web</text></g><g class="sq-msg rep"><text x="380.0" y="236" text-anchor="middle">2. réponse depuis le port 443</text><line x1="675.0" y1="248" x2="97.0" y2="248"/><polygon class="sq-pointe" points="87.0,248 99.0,242 99.0,254"/></g></svg><figcaption>Un message adressé à un service précis</figcaption></figure>
+<div class="encadre note">
+<p class="encadre-titre">Bon à savoir</p>
+<p>Le mot « port » a deux sens en réseau. Le <strong>port physique</strong> est une prise d’un switch ou d’un routeur. Le <strong>port logique</strong> est un numéro de service (443, 53…). Le contexte permet toujours de savoir lequel est utilisé.</p>
+</div>
+<h2 id="qui-ecrit-ces-regles">Qui écrit ces règles ?</h2>
+<p>Les protocoles d’Internet sont décrits dans des documents publics appelés <strong>RFC</strong> (<em>Request for Comments</em>), publiés par l’IETF. Ethernet et le Wi-Fi sont normalisés par l’<strong>IEEE</strong> (d’où des noms comme 802.3 ou 802.11). Ces normes ouvertes expliquent pourquoi un équipement de n’importe quelle marque peut dialoguer avec n’importe quel autre.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Protocole</strong> — Ensemble de règles qui fixent le format des messages et l’ordre des échanges entre appareils.</li>
+<li><strong>TCP</strong> — <em>Transmission Control Protocol</em>, transport fiable : il vérifie l’arrivée des données et renvoie ce qui manque.</li>
+<li><strong>UDP</strong> — <em>User Datagram Protocol</em>, transport rapide et simple, sans vérification d’arrivée.</li>
+<li><strong>Numéro de port</strong> — Numéro qui désigne le service visé sur une machine (443 pour HTTPS, 53 pour le DNS…).</li>
+<li><strong>RFC</strong> — Document public qui décrit un protocole d’Internet.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un serveur héberge à la fois un site Web sécurisé et le service de connexion à distance SSH. Comment le serveur sait-il à quel service remettre un message entrant ?</p>
+<details>
+<summary>Voir la réponse</summary>
+<p>Grâce au <strong>numéro de port de destination</strong> : 443 pour le site Web sécurisé (HTTPS), 22 pour SSH. L’adresse IP désigne la machine, le port désigne le service sur cette machine.</p>
+</details>
+<p><strong>2.</strong> Pour un appel vidéo en direct, vaut-il mieux renvoyer une image perdue ou passer à la suivante ? Quel transport convient ?</p>
+<details>
+<summary>Voir la réponse</summary>
+<p>Mieux vaut <strong>passer à la suivante</strong> : une image qui arrive une seconde trop tard ne sert plus à rien. On utilise donc plutôt <strong>UDP</strong>, plus rapide, quitte à perdre de temps en temps un petit morceau.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../demarrer/adresses.html"><small>Fiche précédente</small><strong>Les trois adresses</strong></a><a class="apres" href="../demarrer/internet.html"><small>Fiche suivante</small><strong>Ma box et Internet</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-se-comprendre-sans-se-connaitre">Le problème : se comprendre sans se connaître</a><a href="#des-protocoles-qui-sempilent">Des protocoles qui s’empilent</a><a href="#le-numero-de-port-quel-service">Le numéro de port : quel service ?</a><a href="#qui-ecrit-ces-regles">Qui écrit ces règles ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

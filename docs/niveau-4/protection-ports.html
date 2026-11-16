@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Protéger les ports d’accès — Port Security, Storm Control, RA Guard et IP Source Guard | Nexorya</title>
+<meta name="description" content="Les ports où se branchent les utilisateurs sont la première porte d’entrée ; on les protège avec une série de fonctions qui limitent les adresses, les débits de broadcast et les annonces usurpées.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports" aria-current="page">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/protection-ports">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-5">Protéger le réseau lui-même</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Protéger les ports d’accès</h1><p class="nom-complet">Port Security, Storm Control, RA Guard et IP Source Guard</p>
+<p class="idee">Les ports où se branchent les utilisateurs sont la première porte d’entrée ; on les protège avec une série de fonctions qui limitent les adresses, les débits de broadcast et les annonces usurpées.</p><div class="badges"><span>Couche OSI 2 et 3</span><span>Découvrir : 9 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-1/dhcp-snooping.html">DHCP Snooping</a>, <a href="../niveau-2/ndp.html">NDP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-tout-ce-qui-peut-arriver-sur-une-prise">Le problème : tout ce qui peut arriver sur une prise</h2>
+<p>Un port d’accès reçoit normalement le trafic d’un PC et parfois d’un téléphone. Mais on peut aussi y trouver : un petit switch de bureau (boucle possible), une box (faux DHCP), un outil qui génère des milliers d’adresses MAC, une machine qui se déclare routeur IPv6, ou un appareil défaillant qui inonde le VLAN de broadcasts.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Chaque fonction de protection répond à une menace précise ; activées ensemble sur tous les ports d’accès, elles empêchent un seul appareil de perturber ou d’espionner tout le VLAN.</p>
+</div>
+<h2 id="la-boite-a-outils">La boîte à outils</h2>
+<table>
+<thead>
+<tr>
+<th>Menace</th>
+<th>Protection</th>
+<th>Fiche</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Switch branché, boucle</td>
+<td><strong>BPDU Guard</strong></td>
+<td><a href="../niveau-1/stp.html">STP</a></td>
+</tr>
+<tr>
+<td>Saturation de la table MAC, appareils non prévus</td>
+<td><strong>Port Security</strong></td>
+<td>ci-dessous</td>
+</tr>
+<tr>
+<td>Tempête de broadcast</td>
+<td><strong>Storm Control</strong></td>
+<td>ci-dessous</td>
+</tr>
+<tr>
+<td>Faux serveur DHCP</td>
+<td><strong>DHCP Snooping</strong></td>
+<td><a href="../niveau-1/dhcp-snooping.html">DHCP Snooping</a></td>
+</tr>
+<tr>
+<td>Usurpation ARP</td>
+<td><strong>DAI</strong></td>
+<td><a href="dai.html">DAI</a></td>
+</tr>
+<tr>
+<td>Fausse passerelle IPv6</td>
+<td><strong>RA Guard</strong></td>
+<td>ci-dessous</td>
+</tr>
+<tr>
+<td>Usurpation d’adresse IP source</td>
+<td><strong>IP Source Guard</strong></td>
+<td>ci-dessous</td>
+</tr>
+<tr>
+<td>Appareil non autorisé</td>
+<td><strong>802.1X</strong></td>
+<td><a href="802-1x.html">802.1X</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="ra-guard-le-piege-de-lipv6-inexistant">RA Guard : le piège de l’IPv6 « inexistant »</h2>
+<p>Beaucoup de réseaux n’utilisent pas IPv6… mais tous les systèmes récents l’activent par défaut. Un attaquant (ou un logiciel de partage de connexion) qui envoie une <strong>annonce de routeur</strong> IPv6 devient la passerelle IPv6 de tous les postes du VLAN, qui préfèrent alors IPv6 pour joindre les sites qui le proposent. <strong>RA Guard</strong> bloque les annonces de routeur reçues sur les ports d’accès.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Port Security</strong> — Limitation et contrôle des adresses MAC autorisées sur un port.</li>
+<li><strong>Storm Control</strong> — Limitation du débit de broadcast, multicast ou unicast inconnu sur un port.</li>
+<li><strong>RA Guard</strong> — Filtrage des annonces de routeur IPv6 sur les ports où aucun routeur ne doit se trouver.</li>
+<li><strong>IP Source Guard</strong> — Filtrage du trafic dont l’adresse IP source ne correspond pas à celle attribuée au port.</li>
+<li><strong>Défense en profondeur</strong> — Superposition de protections indépendantes.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un réseau n’a jamais déployé IPv6. Pourquoi activer quand même RA Guard ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que les postes ont <strong>IPv6 activé par défaut</strong> : une fausse annonce de routeur suffit à leur donner une passerelle IPv6 contrôlée par l’attaquant, sans que l’IPv4 soit touché. Le réseau « sans IPv6 » est en réalité un réseau IPv6 <strong>non surveillé</strong>.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="un-port-dacces-durci-cisco-ios-xe">Un port d’accès durci (Cisco IOS-XE)</h2>
+<pre><code class="language-cisco"><span class="c">! Politique RA Guard pour les ports d'accès</span>
+ipv6 nd raguard policy HOTES
+ device-role host
+<span class="c">!</span>
+interface range GigabitEthernet1/0/1 - 46
+ switchport mode access
+ switchport nonegotiate
+ switchport access vlan 10
+ switchport voice vlan 20
+<span class="c"> ! Boucles</span>
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+<span class="c"> ! Adresses MAC : PC + téléphone (+ marge)</span>
+ switchport port-security
+ switchport port-security maximum 3
+ switchport port-security violation restrict
+ switchport port-security aging time 10
+ switchport port-security aging type inactivity
+<span class="c"> ! Tempêtes</span>
+ storm-control broadcast level 1.00
+ storm-control multicast level 5.00
+ storm-control action trap
+<span class="c"> ! IPv6</span>
+ ipv6 nd raguard attach-policy HOTES
+<span class="c"> ! DHCP et ARP</span>
+ ip dhcp snooping limit rate 15
+ ip arp inspection limit rate 15
+<span class="c"> ! Usurpation d'IP source</span>
+ ip verify source
+</code></pre>
+<h2 id="les-modes-de-violation-de-port-security">Les modes de violation de Port Security</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Trames des adresses en trop</th>
+<th>Journal</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>protect</code></td>
+<td>jetées</td>
+<td>non</td>
+<td>reste actif</td>
+</tr>
+<tr>
+<td><code>restrict</code></td>
+<td>jetées</td>
+<td><strong>oui</strong></td>
+<td>reste actif</td>
+</tr>
+<tr>
+<td><code>shutdown</code> (défaut)</td>
+<td>—</td>
+<td>oui</td>
+<td><strong>err-disabled</strong></td>
+</tr>
+</tbody>
+</table>
+<p><code>restrict</code> est souvent le meilleur compromis sur les ports utilisateurs : on bloque l’intrus sans couper l’utilisateur légitime, et l’on est prévenu.</p>
+<h2 id="storm-control-choisir-les-seuils">Storm Control : choisir les seuils</h2>
+<p>Les seuils s’expriment en pourcentage du débit du port (ou en paquets par seconde). Un poste normal envoie très peu de broadcast : 1 % d’un lien à 1 Gb/s (10 Mb/s de broadcast) est déjà énorme pour un poste. On mesure d’abord le trafic réel, puis on fixe un seuil confortable. L’action <code>trap</code> journalise ; <code>shutdown</code> coupe le port.</p>
+<h2 id="verifier">Vérifier</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show port-security interface Gi1/0/5
+Port Security              : Enabled
+Port Status                : Secure-up
+Violation Mode             : Restrict
+Maximum MAC Addresses      : 3
+Total MAC Addresses        : 2
+Security Violation Count   : 0
+<span class="k">SW1#</span> show storm-control Gi1/0/5
+Interface  Type       Filter State   Upper        Lower        Current
+---------  ---------  -------------  -----------  -----------  ----------
+Gi1/0/5    Bcast      Forwarding       1.00%        1.00%        0.02%
+<span class="k">SW1#</span> show ipv6 nd raguard policy HOTES
+<span class="k">SW1#</span> show ip verify source interface Gi1/0/5
+</code></pre>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Après l’activation de Port Security (<code>maximum 1</code>, <code>violation shutdown</code>), les ports des postes équipés d’un téléphone passent en err-disabled. Pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le port voit <strong>deux</strong> adresses MAC : celle du téléphone et celle du PC branché derrière. Avec un maximum de 1, la deuxième déclenche la violation et coupe le port. Il faut au moins <code>maximum 2</code> (souvent 3 pour la marge), et de préférence le mode <code>restrict</code>.</p>
+</details>
+<p><strong>2.</strong> Un logiciel de partage de connexion sur un ordinateur portable a rendu les sites Web très lents pour tout un étage, sans toucher l’IPv4. Quelle protection aurait évité l’incident ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>RA Guard</strong> : le portable a émis des <strong>annonces de routeur IPv6</strong> ; les postes du VLAN l’ont pris pour passerelle IPv6 et tentaient de joindre les sites en IPv6 à travers lui, sans succès ou très lentement. RA Guard sur les ports d’accès aurait bloqué ces annonces.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/dai.html"><small>Fiche précédente</small><strong>DAI</strong></a><a class="apres" href="../niveau-4/durcissement.html"><small>Fiche suivante</small><strong>Durcir un équipement</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-tout-ce-qui-peut-arriver-sur-une-prise">Le problème : tout ce qui peut arriver sur une prise</a><a href="#la-boite-a-outils">La boîte à outils</a><a href="#ra-guard-le-piege-de-lipv6-inexistant">RA Guard : le piège de l’IPv6 « inexistant »</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#un-port-dacces-durci-cisco-ios-xe">Un port d’accès durci (Cisco IOS-XE)</a><a href="#les-modes-de-violation-de-port-security">Les modes de violation de Port Security</a><a href="#storm-control-choisir-les-seuils">Storm Control : choisir les seuils</a><a href="#verifier">Vérifier</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

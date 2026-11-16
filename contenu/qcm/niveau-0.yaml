@@ -1,0 +1,137 @@
+# Quiz du parcours « Je débute ». Format : voir CONTRIBUTING.md.
+# La bonne réponse est écrite en premier ; le générateur mélange les propositions.
+niveau: 0
+titre: "Je débute"
+questions:
+
+- niveau: "Découverte"
+  situation: "Chez toi, ton ordinateur, ton téléphone et ta télévision sont reliés à la box."
+  question: "Comment appelle-t-on cet ensemble ?"
+  bonne: ["Un réseau local", "Des appareils proches reliés entre eux pour échanger forment un réseau local (LAN)."]
+  fausses:
+    - ["Internet", "Internet est l’ensemble des réseaux du monde reliés entre eux ; ta maison n’en est qu’un petit morceau."]
+    - ["Un serveur", "Un serveur est un appareil qui rend un service, pas un ensemble d’appareils."]
+    - ["Un protocole", "Un protocole est une règle de communication."]
+  retenir: "Réseau = des appareils reliés pour échanger."
+  fiche: "reseau"
+
+- niveau: "Découverte"
+  situation: "Dans un bureau, dix ordinateurs sont branchés par câble sur le même boîtier, qui transmet chaque message uniquement au bon destinataire."
+  question: "Quel est ce boîtier ?"
+  bonne: ["Un switch", "Le switch relie les appareils d’un même réseau local et envoie chaque trame au bon port."]
+  fausses:
+    - ["Un routeur", "Le routeur relie des réseaux différents entre eux."]
+    - ["Un point d’accès Wi-Fi", "Le point d’accès relie des appareils sans fil."]
+    - ["Un pare-feu", "Le pare-feu filtre le trafic, il ne raccorde pas dix postes."]
+  retenir: "Switch = dans un réseau ; routeur = entre réseaux."
+  fiche: "equipements"
+
+- niveau: "Découverte"
+  situation: "Ta box relie ton réseau de la maison à Internet."
+  question: "Quel rôle joue-t-elle principalement ?"
+  bonne: ["Celui de routeur", "Elle fait passer les paquets de ton réseau local vers d’autres réseaux."]
+  fausses:
+    - ["Celui de serveur Web", "Elle ne publie pas de sites Web."]
+    - ["Celui de câble", "Un câble transporte un signal, il ne décide rien."]
+    - ["Celui de navigateur", "Le navigateur est un logiciel sur ton ordinateur."]
+  retenir: "La box est (entre autres) un routeur."
+  fiche: "equipements"
+
+- niveau: "Découverte"
+  situation: "Tu envoies une grande photo à un ami."
+  question: "Comment voyage-t-elle sur le réseau ?"
+  bonne: ["Découpée en petits paquets qui sont réassemblés à l’arrivée", "Chaque paquet porte l’adresse du destinataire et un numéro pour le remettre en ordre."]
+  fausses:
+    - ["En un seul bloc, d’un coup", "Un gros bloc bloquerait le réseau ; tout est découpé."]
+    - ["Par un câble réservé uniquement à cet envoi", "Les liens sont partagés par tous les échanges."]
+    - ["Sous forme de lien que l’ami doit télécharger ailleurs", "C’est une façon de partager, pas le fonctionnement du réseau."]
+  retenir: "Tout voyage en paquets."
+  fiche: "paquet"
+
+- niveau: "Découverte"
+  situation: "Un paquet doit arriver au bon ordinateur, quelque part dans le monde."
+  question: "Quelle information lui permet d’être acheminé ?"
+  bonne: ["L’adresse IP de destination", "Les routeurs lisent cette adresse pour choisir la direction."]
+  fausses:
+    - ["Le nom du fichier", "Le nom du fichier ne dit pas où aller."]
+    - ["La couleur du câble", "La couleur du câble n’a aucune signification pour l’acheminement."]
+    - ["Le nom de l’utilisateur", "Le réseau ne route pas selon les personnes."]
+  retenir: "L’adresse IP dit où va le paquet."
+  fiche: "adresses"
+
+- niveau: "Découverte"
+  situation: "On trouve deux sortes d’adresses : l’une est gravée dans la carte réseau, l’autre dépend du réseau où l’on se trouve."
+  question: "Laquelle change quand tu emportes ton portable dans un autre bâtiment ?"
+  bonne: ["L’adresse IP", "Elle dépend du réseau où tu te connectes, comme une adresse postale."]
+  fausses:
+    - ["L’adresse MAC", "Elle est liée à la carte réseau et reste en principe la même."]
+    - ["Aucune des deux", "L’adresse IP change d’un réseau à l’autre."]
+    - ["Les deux, toujours", "L’adresse MAC ne dépend pas du réseau."]
+  retenir: "MAC = identité de la carte ; IP = adresse dans le réseau."
+  fiche: "adresses"
+
+- niveau: "Découverte"
+  situation: "Tu tapes « www.exemple.fr » dans ton navigateur."
+  question: "Quel service transforme ce nom en adresse IP ?"
+  bonne: ["Le DNS", "Il fonctionne comme un annuaire : nom → adresse."]
+  fausses:
+    - ["Le DHCP", "Le DHCP donne une adresse à ton appareil, il ne traduit pas les noms des sites."]
+    - ["Le Wi-Fi", "Le Wi-Fi transporte les données sans fil."]
+    - ["Le switch", "Le switch ne connaît pas les noms des sites Web."]
+  retenir: "DNS = annuaire des noms."
+  fiche: "protocoles"
+
+- niveau: "Découverte"
+  situation: "Ton téléphone se connecte au Wi-Fi d’un café et reçoit automatiquement une adresse IP."
+  question: "Quel service la lui a donnée ?"
+  bonne: ["Le DHCP", "Il attribue automatiquement une adresse, un masque, une passerelle et des serveurs DNS."]
+  fausses:
+    - ["Le DNS", "Le DNS traduit des noms, il ne distribue pas d’adresses."]
+    - ["Le HTTP", "HTTP sert à échanger des pages Web."]
+    - ["Le téléphone l’invente lui-même au hasard", "Il en reçoit une du réseau ; sinon il ne pourrait pas communiquer correctement."]
+  retenir: "DHCP = adresse automatique à la connexion."
+  fiche: "protocoles"
+
+- niveau: "Découverte"
+  situation: "Un ami dit : « Internet, c’est un énorme ordinateur central qui stocke tous les sites. »"
+  question: "Qu’est-ce qui est plus juste ?"
+  bonne: ["Internet est un réseau de réseaux, reliés par des routeurs et des opérateurs", "Les sites sont hébergés sur de nombreux serveurs, partout dans le monde."]
+  fausses:
+    - ["Il a raison", "Il n’existe pas d’ordinateur central unique."]
+    - ["Internet est un seul grand câble qui fait le tour du monde", "Il y a une multitude de liaisons, maillées entre elles."]
+    - ["Internet et le Web sont exactement la même chose", "Le Web n’est qu’un des services qui utilisent Internet."]
+  retenir: "Internet = réseau de réseaux ; le Web = un service parmi d’autres."
+  fiche: "internet"
+
+- niveau: "Pratique"
+  situation: "Tu veux savoir si un autre ordinateur du réseau répond."
+  question: "Quelle commande utiliser en premier ?"
+  bonne: ["ping", "Elle envoie un petit message et attend la réponse, en mesurant le temps."]
+  fausses:
+    - ["ipconfig", "Elle affiche ta propre configuration, sans tester l’autre ordinateur."]
+    - ["nslookup", "Elle interroge le DNS sur un nom."]
+    - ["exit", "Elle ferme la fenêtre de commandes."]
+  retenir: "Répond-il ? → ping."
+  fiche: "commandes"
+
+- niveau: "Pratique"
+  situation: "Ton PC n’accède plus à Internet. Tu veux d’abord voir l’adresse IP qu’il a reçue."
+  question: "Quelle commande Windows utiliser ?"
+  bonne: ["ipconfig", "Elle affiche l’adresse IP, le masque et la passerelle de chaque carte."]
+  fausses:
+    - ["tracert", "Elle montre le chemin vers une destination, pas ta configuration."]
+    - ["ping", "Elle teste une destination, sans afficher ta configuration."]
+    - ["dir", "Elle liste les fichiers d’un dossier."]
+  retenir: "Ma configuration ? → ipconfig (Windows), ip a (Linux)."
+  fiche: "commandes"
+
+- niveau: "Pratique"
+  situation: "ipconfig montre une adresse qui commence par 169.254."
+  question: "Que signifie-t-elle ?"
+  bonne: ["Le PC n’a reçu aucune adresse du serveur DHCP et s’en est donné une lui-même", "Il faut vérifier le câble ou le Wi-Fi, puis le serveur DHCP."]
+  fausses:
+    - ["Le PC est connecté à Internet en direct", "Cette adresse ne permet pas de sortir sur Internet."]
+    - ["C’est l’adresse de la box", "La box a généralement une adresse en 192.168…"]
+    - ["Tout fonctionne normalement", "C’est justement le signe d’un problème d’obtention d’adresse."]
+  retenir: "169.254.x.x = pas de réponse DHCP."
+  fiche: "commandes"

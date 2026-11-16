@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DAC — Direct Attach Copper | Nexorya</title>
+<meta name="description" content="Un DAC est un câble court dont les deux extrémités sont déjà des modules SFP+ ou QSFP ; il relie deux équipements d’une même baie sans optique.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac" aria-current="page">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/dac">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-2">Câbles, fibre et énergie</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>DAC</h1><p class="nom-complet">Direct Attach Copper</p>
+<p class="idee">Un DAC est un câble court dont les deux extrémités sont déjà des modules SFP+ ou QSFP ; il relie deux équipements d’une même baie sans optique.</p><div class="badges"><span>Couche OSI 1</span><span>Découvrir : 5 min</span><span>Approfondir : 8 min</span><span>Avant : <a href="../niveau-1/sfp-plus.html">SFP+ et au-delà</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-deux-metres-de-cable-deux-modules-optiques">Le problème : deux mètres de câble, deux modules optiques ?</h2>
+<p>Dans une baie de datacenter, un serveur est souvent à un ou deux mètres de son switch. Acheter deux modules optiques et une fibre pour une si courte distance coûte cher et consomme de l’énergie pour rien.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le DAC est un câble cuivre spécial <strong>avec les modules déjà soudés aux deux bouts</strong> : on le branche directement dans les cages SFP+, SFP28 ou QSFP des deux équipements.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<p>Le câble contient des paires de cuivre <strong>twinax</strong> (deux conducteurs blindés) qui transportent directement le signal électrique d’un port à l’autre, sans conversion en lumière. Les « modules » aux extrémités ne contiennent presque rien : juste une petite mémoire qui annonce le type de câble.</p>
+<figure class="schema"><svg viewBox="0 0 586.0 286.0" width="586.0" role="img" aria-label="DAC dans une baie, fibre entre les baies" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="190.0" x2="171.0" y2="50.0"/><text class="tp-etiq" x="152.5" y="124.0" text-anchor="start">DAC 2 m</text><line class="tp-lien " x1="232.0" y1="190.0" x2="171.0" y2="50.0"/><text class="tp-etiq" x="213.5" y="124.0" text-anchor="start">DAC 1 m</text><line class="tp-lien " x1="171.0" y1="50.0" x2="476.0" y2="50.0"/><text class="tp-etiq" x="323.5" y="38.0" text-anchor="middle">fibre + modules SR</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">Serveur 1</text><g transform="translate(232.0 190.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="232.0" y="230.0" text-anchor="middle">Serveur 2</text><g transform="translate(171.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="171.0" y="90.0" text-anchor="middle">Switch de baie</text><text class="tp-sous" x="171.0" y="106.0" text-anchor="middle">top of rack</text><g transform="translate(476.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">Switch d’agrégation</text><text class="tp-sous" x="476.0" y="106.0" text-anchor="middle">autre rangée</text></svg><figcaption>DAC dans une baie, fibre entre les baies</figcaption></figure>
+<h2 id="dac-aoc-ou-fibre">DAC, AOC ou fibre ?</h2>
+<table>
+<thead>
+<tr>
+<th>Solution</th>
+<th>Distance</th>
+<th>Avantages</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DAC passif</strong></td>
+<td>jusqu’à 5 m environ</td>
+<td>très bon marché, aucune consommation</td>
+<td>rigide, longueur fixe</td>
+</tr>
+<tr>
+<td><strong>DAC actif</strong></td>
+<td>jusqu’à 7–10 m</td>
+<td>un peu plus long</td>
+<td>consomme un peu</td>
+</tr>
+<tr>
+<td><strong>AOC</strong> (câble optique actif)</td>
+<td>jusqu’à 30–100 m</td>
+<td>fin, léger</td>
+<td>modules fixés au câble, plus cher</td>
+</tr>
+<tr>
+<td><strong>Modules + fibre</strong></td>
+<td>de 100 m à des km</td>
+<td>souple, réparable, longues distances</td>
+<td>le plus cher</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>DAC</strong> — <em>Direct Attach Copper</em>, câble cuivre à connecteurs SFP+ ou QSFP intégrés, pour les très courtes distances.</li>
+<li><strong>Twinax</strong> — Câble cuivre à deux conducteurs blindés, utilisé dans les DAC.</li>
+<li><strong>AOC</strong> — <em>Active Optical Cable</em>, câble optique à modules intégrés, pour des distances moyennes.</li>
+<li><strong>ToR</strong> — <em>Top of Rack</em>, switch placé en haut d’une baie pour relier les serveurs de cette baie.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Il faut relier un serveur à un switch situé dans une autre rangée, à 25 m. Un DAC convient-il ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non</strong>, un DAC est limité à quelques mètres. À 25 m, on choisit un <strong>AOC</strong> ou des <strong>modules optiques avec une fibre</strong>.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="compatibilite">Compatibilité</h2>
+<p>Un DAC annonce dans sa mémoire le constructeur et le type de câble. Les équipements de certaines marques n’acceptent que des DAC « codés » pour eux. Entre deux équipements de marques différentes, on utilise un DAC dont chaque extrémité est codée pour l’équipement correspondant, ou l’on vérifie les listes de compatibilité.</p>
+<p>À 25 Gb/s, les DAC sont classés selon leur perte (CA-N, CA-S, CA-L) et imposent un <strong>mode FEC</strong> : un DAC « CA-L » exige généralement RS-FEC des deux côtés. Un lien DAC qui ne monte pas est souvent un problème de FEC ou d’auto-négociation, pas un câble défectueux.</p>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show interfaces Ethernet1/5 transceiver
+Ethernet1/5
+    transceiver is present
+    type is SFP-H25G-CU2M
+    name is CISCO-LEONI
+    cable length is 2 m
+</code></pre>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Pourquoi un DAC a-t-il une latence légèrement plus faible et consomme-t-il moins qu’un lien optique de même longueur ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce qu’il n’y a <strong>aucune conversion électrique-optique</strong> : pas de laser à alimenter ni de photodiode, et moins de traitement du signal. Le signal électrique du port est transporté tel quel sur le cuivre twinax.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/sfp-plus.html"><small>Fiche précédente</small><strong>SFP+ et au-delà</strong></a><a class="apres" href="../niveau-1/poe.html"><small>Fiche suivante</small><strong>PoE</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-deux-metres-de-cable-deux-modules-optiques">Le problème : deux mètres de câble, deux modules optiques ?</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#dac-aoc-ou-fibre">DAC, AOC ou fibre ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#compatibilite">Compatibilité</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

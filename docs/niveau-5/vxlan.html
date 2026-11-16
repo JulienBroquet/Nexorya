@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VXLAN — Virtual Extensible LAN | Nexorya</title>
+<meta name="description" content="VXLAN transporte des trames Ethernet dans des paquets UDP à travers un réseau routé ; on peut ainsi offrir un même segment de niveau 2 à des machines situées dans des baies différentes, sans étendre de VLAN ni de Spanning Tree.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan" aria-current="page">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/vxlan">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-3">Le datacenter moderne</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>VXLAN</h1><p class="nom-complet">Virtual Extensible LAN</p>
+<p class="idee">VXLAN transporte des trames Ethernet dans des paquets UDP à travers un réseau routé ; on peut ainsi offrir un même segment de niveau 2 à des machines situées dans des baies différentes, sans étendre de VLAN ni de Spanning Tree.</p><div class="badges"><span>Couche OSI tunnel de niveau 2 dans UDP 4789</span><span>Découvrir : 9 min</span><span>Approfondir : 20 min</span><span>Avant : <a href="../niveau-1/vlan.html">VLAN</a>, <a href="../niveau-5/ecmp.html">ECMP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Dans un datacenter, une machine virtuelle doit pouvoir être déplacée d’un serveur à un autre, dans une autre baie, <strong>sans changer d’adresse IP</strong>. Il faut donc que son réseau de niveau 2 existe partout. Étendre un VLAN dans tout le datacenter ramène les problèmes de STP, des grands domaines de diffusion… et la limite de 4 094 VLAN quand on héberge des centaines de clients.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>VXLAN emballe chaque trame Ethernet dans un paquet UDP et l’envoie à travers un réseau entièrement routé ; à l’arrivée, la trame est déballée comme si elle avait traversé un simple switch.</p>
+</div>
+<h2 id="overlay-et-underlay">Overlay et underlay</h2>
+<figure class="schema"><svg viewBox="0 0 830.0 328.0" width="830.0" role="img" aria-label="Deux VM du même segment dans deux baies" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="232.0" x2="232.0" y2="134.0"/><line class="tp-lien " x1="232.0" y1="134.0" x2="415.0" y2="50.0"/><line class="tp-lien " x1="415.0" y1="50.0" x2="598.0" y2="134.0"/><line class="tp-lien " x1="598.0" y1="134.0" x2="720.0" y2="232.0"/><line class="tp-lien logique" x1="232.0" y1="134.0" x2="598.0" y2="134.0"/><text class="tp-etiq" x="415.0" y="122.0" text-anchor="middle">tunnel VXLAN</text><g transform="translate(110.0 232.0)"><rect class="tp-ico" x="-20" y="-15" width="40" height="30" rx="4" stroke-dasharray="4 3"/><path class="tp-ico-trait" d="M-9 -2 h18 M-9 5 h12"/></g><text class="tp-lib" x="110.0" y="272.0" text-anchor="middle">VM A</text><text class="tp-sous" x="110.0" y="288.0" text-anchor="middle">VNI 10100</text><g transform="translate(232.0 134.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="232.0" y="174.0" text-anchor="middle">Leaf 1</text><text class="tp-sous" x="232.0" y="190.0" text-anchor="middle">VTEP 10.255.0.11</text><g transform="translate(415.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="415.0" y="90.0" text-anchor="middle">Spines</text><text class="tp-sous" x="415.0" y="106.0" text-anchor="middle">underlay routé</text><g transform="translate(598.0 134.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="598.0" y="174.0" text-anchor="middle">Leaf 2</text><text class="tp-sous" x="598.0" y="190.0" text-anchor="middle">VTEP 10.255.0.12</text><g transform="translate(720.0 232.0)"><rect class="tp-ico" x="-20" y="-15" width="40" height="30" rx="4" stroke-dasharray="4 3"/><path class="tp-ico-trait" d="M-9 -2 h18 M-9 5 h12"/></g><text class="tp-lib" x="720.0" y="272.0" text-anchor="middle">VM B</text><text class="tp-sous" x="720.0" y="288.0" text-anchor="middle">VNI 10100</text></svg><figcaption>Deux VM du même segment dans deux baies</figcaption></figure>
+<ul>
+<li><strong>Underlay</strong> : le réseau physique, routé (OSPF, IS-IS ou BGP), qui relie les VTEP entre eux. Il ne connaît que les adresses des VTEP.</li>
+<li><strong>Overlay</strong> : les segments virtuels (VNI) transportés dans les tunnels. Les VM s’y voient comme si elles étaient sur le même switch.</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>VXLAN</strong> — Encapsulation de trames Ethernet dans UDP pour créer des réseaux de niveau 2 virtuels sur un réseau routé.</li>
+<li><strong>VNI</strong> — <em>VXLAN Network Identifier</em>, numéro de segment sur 24 bits.</li>
+<li><strong>VTEP</strong> — Équipement qui encapsule et désencapsule le VXLAN.</li>
+<li><strong>Underlay / overlay</strong> — Réseau physique de transport / réseau virtuel construit au-dessus.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi VXLAN utilise-t-il UDP plutôt que de transporter directement les trames dans IP ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que le <strong>port source UDP</strong> varie selon le flux encapsulé : les switches de l’underlay, qui hachent sur les ports, répartissent ainsi les différents flux sur tous les chemins <strong>ECMP</strong>. Une encapsulation sans ports serait toujours hachée de la même façon.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="lencapsulation">L’encapsulation</h2>
+<pre><code class="language-text">┌──────────────┬──────────────┬─────────────┬──────────────┬────────────────────────────┐
+│ Ethernet ext.│ IP externe   │ UDP         │ VXLAN        │ Trame Ethernet d’origine   │
+│ 14 octets    │ 20 octets    │ 8 octets    │ 8 octets     │ (MAC VM A → MAC VM B…)     │
+│              │ VTEP1→VTEP2  │ dst 4789    │ VNI = 10100  │                            │
+└──────────────┴──────────────┴─────────────┴──────────────┴────────────────────────────┘
+                            ≈ 50 octets ajoutés
+</code></pre>
+<h2 id="comment-un-vtep-apprend-ou-envoyer">Comment un VTEP apprend où envoyer</h2>
+<p>Le VTEP doit savoir derrière quel autre VTEP se trouve chaque adresse MAC du segment. Deux approches :</p>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Principe</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Apprentissage par inondation</strong></td>
+<td>le trafic inconnu est envoyé à tous les VTEP du VNI (multicast underlay ou réplication en tête), et l’on apprend les MAC au retour</td>
+<td>historique, petits déploiements</td>
+</tr>
+<tr>
+<td><strong>Plan de contrôle EVPN</strong></td>
+<td>les VTEP s’annoncent leurs MAC et IP en BGP</td>
+<td>standard actuel ; voir <a href="evpn.html">EVPN</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-simplifiee-nx-os-avec-evpn">Configuration simplifiée (NX-OS, avec EVPN)</h2>
+<pre><code class="language-text">feature nv overlay
+feature vn-segment-vlan-based
+nv overlay evpn
+<span class="c">!</span>
+vlan 100
+  vn-segment 10100
+<span class="c">!</span>
+interface nve1
+  no shutdown
+  host-reachability protocol bgp
+  source-interface loopback1
+  member vni 10100
+    ingress-replication protocol bgp
+</code></pre>
+<h2 id="mtu-lerreur-classique">MTU : l’erreur classique</h2>
+<p>Les VM envoient des trames de 1 500 octets ; encapsulées, elles font environ 1 550 octets. Si l’underlay reste à 1 500, <strong>les petits paquets passent, les gros sont perdus</strong> : pings OK, transferts bloqués. Il faut une MTU d’au moins 1 550 (en pratique <strong>9 216</strong>) sur <strong>tous</strong> les liens de l’underlay. Voir <a href="../niveau-1/mtu.html">MTU</a>.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Les VTEP se pinguent entre eux, mais deux VM du même VNI ne communiquent pas. Quelles vérifications faire ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Que le <strong>VNI</strong> est identique et bien associé au bon VLAN sur les deux leafs ; que les VTEP connaissent les MAC distantes (<strong>EVPN</strong> : routes type 2 reçues) ; que l’<strong>UDP 4789</strong> n’est pas filtré ; que la <strong>MTU</strong> de l’underlay accepte les paquets encapsulés (tester avec un ping de grande taille sans fragmentation entre loopbacks des VTEP).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/ecmp.html"><small>Fiche précédente</small><strong>ECMP</strong></a><a class="apres" href="../niveau-5/vtep.html"><small>Fiche suivante</small><strong>VTEP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#overlay-et-underlay">Overlay et underlay</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#lencapsulation">L’encapsulation</a><a href="#comment-un-vtep-apprend-ou-envoyer">Comment un VTEP apprend où envoyer</a><a href="#configuration-simplifiee-nx-os-avec-evpn">Configuration simplifiée (NX-OS, avec EVPN)</a><a href="#mtu-lerreur-classique">MTU : l’erreur classique</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

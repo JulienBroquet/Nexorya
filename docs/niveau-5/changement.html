@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Gestion du changement — Changer le réseau sans le casser | Nexorya</title>
+<meta name="description" content="La plupart des pannes viennent d’une modification ; un changement bien préparé décrit ce qu’on fait, comment on vérifie et comment on revient en arrière.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement" aria-current="page">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/changement">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-6">Automatiser et évoluer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Gestion du changement</h1><p class="nom-complet">Changer le réseau sans le casser</p>
+<p class="idee">La plupart des pannes viennent d’une modification ; un changement bien préparé décrit ce qu’on fait, comment on vérifie et comment on revient en arrière.</p><div class="badges"><span>Couche OSI transversal</span><span>Découvrir : 7 min</span><span>Approfondir : 14 min</span><span>Avant : <a href="../niveau-3/diagnostic.html">Démontrer une panne</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-je-nai-change-quune-ligne">Le problème : « je n’ai changé qu’une ligne »</h2>
+<p>Un vendredi à 17 h, un administrateur ajoute une ligne à une ACL sur le routeur d’une agence, à distance. La ligne est fausse, la connexion SSH tombe, l’agence est coupée tout le week-end, et personne d’autre ne sait ce qui a été fait.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Avant de toucher au réseau, on sait <strong>ce qu’on va faire</strong>, <strong>comment on saura que ça marche</strong>, et <strong>comment on revient en arrière</strong> si ce n’est pas le cas.</p>
+</div>
+<h2 id="la-fiche-de-changement">La fiche de changement</h2>
+<table>
+<thead>
+<tr>
+<th>Rubrique</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Objectif</strong></td>
+<td>autoriser l’agence de Lyon à joindre le nouveau serveur ERP</td>
+</tr>
+<tr>
+<td><strong>Équipements</strong></td>
+<td>R-LYON-01</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>aucune coupure attendue ; risque : perte d’accès à l’agence si l’ACL est fausse</td>
+</tr>
+<tr>
+<td><strong>Fenêtre</strong></td>
+<td>mardi 19 h – 19 h 30</td>
+</tr>
+<tr>
+<td><strong>Plan</strong></td>
+<td>1. sauvegarde ; 2. <code>reload in 10</code> ; 3. ajout de la ligne ; 4. vérifications ; 5. <code>reload cancel</code> ; 6. enregistrement</td>
+</tr>
+<tr>
+<td><strong>Vérifications</strong></td>
+<td>test HTTPS vers l’ERP depuis l’agence, compteurs de l’ACL, accès Internet de l’agence</td>
+</tr>
+<tr>
+<td><strong>Retour arrière</strong></td>
+<td>retirer la ligne ; si l’accès est perdu, redémarrage automatique au bout de 10 min</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>équipe ERP et responsable d’agence prévenus</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Changement</strong> — Toute modification apportée à la configuration ou à l’infrastructure.</li>
+<li><strong>Fenêtre de maintenance</strong> — Créneau convenu pendant lequel un impact est accepté.</li>
+<li><strong>Plan de retour arrière</strong> — Procédure qui ramène à l’état précédent.</li>
+<li><strong>Post-mortem</strong> — Analyse écrite d’un incident pour en tirer des améliorations.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi définir les vérifications avant le changement, et pas après ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce qu’après, on vérifie souvent seulement ce qu’on pensait modifier, et l’on oublie les <strong>effets de bord</strong> (l’accès Internet de l’agence, la voix…). Les décider à froid, avant, oblige à réfléchir à tout ce qui pourrait être touché — et à relever l’état « avant » pour pouvoir comparer.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-filets-de-securite">Les filets de sécurité</h2>
+<pre><code class="language-cisco"><span class="c">! Cisco IOS : redémarrage programmé si l'on perd la main</span>
+<span class="k">R-LYON-01#</span> copy running-config startup-config
+<span class="k">R-LYON-01#</span> reload in 10
+<span class="k">R-LYON-01#</span> configure terminal
+<span class="k">R-LYON-01(config)#</span> ... modifications ...
+<span class="k">R-LYON-01(config)#</span> end
+<span class="c">! Tout fonctionne ? On annule le redémarrage puis on enregistre.</span>
+<span class="k">R-LYON-01#</span> reload cancel
+<span class="k">R-LYON-01#</span> copy running-config startup-config
+</code></pre>
+<pre><code class="language-text"><span class="c"># Junos : la validation est annulée automatiquement si elle n'est pas confirmée</span>
+[edit]
+<span class="k">admin@r1#</span> commit confirmed 5
+<span class="c"># ... vérifications ...</span>
+<span class="k">admin@r1#</span> commit
+</code></pre>
+<p>Autres bonnes pratiques :</p>
+<ul>
+<li><strong>Archiver</strong> la configuration avant/après (<code>archive</code> sur Cisco, Git avec l’automatisation) et comparer (<code>show archive config differences</code>).</li>
+<li>Utiliser <code>configure replace</code> pour revenir proprement à une configuration complète sauvegardée.</li>
+<li>Garder un <strong>accès hors bande</strong> (console, réseau de gestion séparé, modem 4G) aux sites importants.</li>
+</ul>
+<h2 id="relever-letat-avant">Relever l’état « avant »</h2>
+<p>Avant le changement, noter ce qui doit rester identique : voisins OSPF/BGP, nombre de routes, interfaces up, tables MAC, sessions VPN. Après, comparer. Un écart inattendu (un voisin en moins, 200 routes de moins) se voit immédiatement.</p>
+<pre><code class="language-cisco">show ip ospf neighbor
+show ip route summary
+show ip interface brief | include up
+show crypto session brief
+</code></pre>
+<h2 id="les-categories-de-changement">Les catégories de changement</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Exemple</th>
+<th>Validation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Standard</strong></td>
+<td>ajouter un port d’accès dans un VLAN existant</td>
+<td>procédure pré-approuvée, sans comité</td>
+</tr>
+<tr>
+<td><strong>Normal</strong></td>
+<td>nouveau VLAN sur un site, nouvelle règle de pare-feu</td>
+<td>relecture par un pair, fenêtre planifiée</td>
+</tr>
+<tr>
+<td><strong>Majeur</strong></td>
+<td>migration du cœur, changement de protocole de routage</td>
+<td>comité, plan détaillé, répétition en laboratoire</td>
+</tr>
+<tr>
+<td><strong>Urgent</strong></td>
+<td>correctif de sécurité critique, contournement de panne</td>
+<td>validation rapide, documentation a posteriori</td>
+</tr>
+</tbody>
+</table>
+<h2 id="le-post-mortem">Le post-mortem</h2>
+<p>Quand un changement provoque un incident, on écrit une analyse : chronologie, cause, impact, ce qui a bien fonctionné, ce qui a manqué, et des <strong>actions</strong> concrètes (une vérification ajoutée à la procédure, un test automatique, une formation). On ne cherche pas un coupable : on cherche ce qui, dans le processus, a permis l’erreur.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Rédige le plan de retour arrière d’un changement qui remplace la route par défaut d’un site (du lien MPLS vers un lien SD-WAN), réalisé à distance.</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<ol>
+<li>Sauvegarde de la configuration et relevé de la table de routage avant.</li>
+<li><code>reload in 15</code> (ou équivalent) avant toute modification.</li>
+<li>Ajouter la nouvelle route avec une <strong>distance administrative plus élevée</strong> (route flottante), vérifier qu’elle est valide.</li>
+<li>Basculer en retirant l’ancienne route (ou en inversant les distances) ; vérifier l’accès au siège, à Internet, la voix.</li>
+<li>Si tout est bon : <code>reload cancel</code>, enregistrement. Sinon : remettre l’ancienne route ; si l’accès est perdu, le redémarrage automatique restaure la configuration enregistrée.</li>
+</ol>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/cloud.html"><small>Fiche précédente</small><strong>Réseau cloud</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-je-nai-change-quune-ligne">Le problème : « je n’ai changé qu’une ligne »</a><a href="#la-fiche-de-changement">La fiche de changement</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-filets-de-securite">Les filets de sécurité</a><a href="#relever-letat-avant">Relever l’état « avant »</a><a href="#les-categories-de-changement">Les catégories de changement</a><a href="#le-post-mortem">Le post-mortem</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

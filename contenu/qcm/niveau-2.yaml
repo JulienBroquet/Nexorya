@@ -1,0 +1,338 @@
+# QCM du niveau 2 — IP et routage. Format : voir CONTRIBUTING.md.
+# La bonne réponse est écrite en premier ; le générateur mélange les propositions.
+niveau: 2
+titre: "IP et routage"
+questions:
+
+# ------------------------------------------------------------------ Découverte
+- niveau: "Découverte"
+  situation: "Le PC de Hugo a l’adresse 192.168.1.20 avec le masque 255.255.255.0. Il veut joindre 192.168.2.5."
+  question: "Que fait le PC de ce paquet ?"
+  bonne: ["Il le confie à sa passerelle, car la destination est dans un autre réseau", "Avec un /24, le réseau du PC est 192.168.1.0 : seules les adresses 192.168.1.x sont locales. 192.168.2.5 est ailleurs, donc le paquet part vers la passerelle."]
+  fausses:
+    - ["Il l’envoie directement au destinataire par le switch", "Ce serait le cas si les deux adresses étaient dans le même réseau. Ici, le troisième octet diffère et le masque /24 le prend en compte."]
+    - ["Il l’envoie en broadcast à tout le réseau", "Un paquet IP ordinaire n’est jamais envoyé en broadcast : soit il va directement au destinataire local, soit à la passerelle."]
+    - ["Il le jette car le destinataire est inconnu", "Une machine ne jette pas un paquet vers un autre réseau : elle a une route par défaut vers sa passerelle."]
+  retenir: "Même réseau → envoi direct ; autre réseau → passerelle."
+  fiche: "ipv4"
+
+- niveau: "Découverte"
+  situation: "Un administrateur prépare le réseau d’un étage en 10.20.0.0/24."
+  question: "Combien de machines peut-il adresser dans ce réseau ?"
+  bonne: ["254", "Un /24 laisse 8 bits pour les machines, soit 256 adresses. On retire l’adresse du réseau (.0) et celle de broadcast (.255) : 254 adresses utilisables."]
+  fausses:
+    - ["256", "256 est le nombre total d’adresses ; deux sont réservées (réseau et broadcast)."]
+    - ["255", "Il faut retirer **deux** adresses, pas une : la première (réseau) et la dernière (broadcast)."]
+    - ["24", "24 est le nombre de bits de la partie réseau, pas le nombre de machines."]
+  retenir: "Hôtes = 2^(32 − préfixe) − 2."
+  fiche: "subnet"
+
+- niveau: "Découverte"
+  situation: "Un collègue te montre une adresse 192.168.40.77/26."
+  question: "À quel sous-réseau appartient-elle ?"
+  bonne: ["192.168.40.64/26", "/26 donne des blocs de 256 − 192 = 64 adresses : .0, .64, .128, .192. 77 est entre 64 et 128, donc le réseau est .64 (hôtes .65 à .126, broadcast .127)."]
+  fausses:
+    - ["192.168.40.0/26", "Ce bloc va de .0 à .63 ; 77 est au-delà."]
+    - ["192.168.40.77/26", "Une adresse de machine n’est pas l’adresse du réseau : il faut l’arrondir au multiple de la taille du bloc."]
+    - ["192.168.40.128/26", "Ce bloc commence à .128 ; 77 est avant."]
+  retenir: "Taille du bloc = 256 − octet du masque ; le réseau est le multiple juste en dessous."
+  fiche: "subnet"
+
+- niveau: "Découverte"
+  situation: "Le PC 192.168.1.20 veut envoyer un paquet à sa passerelle 192.168.1.1, mais son cache ARP est vide."
+  question: "Quel message envoie-t-il en premier ?"
+  bonne: ["Une requête ARP en broadcast « qui a 192.168.1.1 ? »", "Pour fabriquer la trame, le PC doit connaître la MAC de la passerelle. Il la demande à tout le réseau local ; seule la passerelle répondra."]
+  fausses:
+    - ["Une requête DNS pour le nom de la passerelle", "La passerelle est déjà connue par son adresse IP ; c’est son adresse MAC qui manque, et le DNS ne la fournit pas."]
+    - ["Un ping vers 192.168.1.1", "Le ping lui-même aurait besoin de la MAC pour partir : ARP passe avant."]
+    - ["Une requête DHCP", "DHCP sert à obtenir une adresse IP ; le PC en a déjà une."]
+  retenir: "ARP traduit une IP du réseau local en adresse MAC."
+  fiche: "arp"
+
+- niveau: "Découverte"
+  situation: "Une adresse s’affiche sous la forme 2001:0db8:0000:0000:0000:0000:0000:0025."
+  question: "Quelle est son écriture abrégée correcte ?"
+  bonne: ["2001:db8::25", "On supprime les zéros en tête de chaque groupe, puis on remplace la suite de groupes nuls par « :: », une seule fois."]
+  fausses:
+    - ["2001:db8::0::25", "Le « :: » ne peut apparaître qu’une fois, sinon on ne sait plus combien de groupes il remplace."]
+    - ["2001:db8:25", "Il manque le « :: » : cette écriture n’a que trois groupes, ce n’est pas une adresse valide."]
+    - ["21:db8::25", "On ne supprime que les zéros **en tête** d’un groupe : 2001 reste 2001."]
+  retenir: "IPv6 — zéros de tête supprimés, un seul « :: »."
+  fiche: "ipv6"
+
+- niveau: "Découverte"
+  situation: "Un ping vers un serveur renvoie « TTL expiré lors du transit »."
+  question: "Que faut-il suspecter ?"
+  bonne: ["Une boucle de routage entre des routeurs", "Chaque routeur décrémente le TTL ; s’il tombe à 0, c’est que le paquet a traversé un nombre anormal de routeurs, typiquement en tournant en rond."]
+  fausses:
+    - ["Un serveur éteint", "Un serveur éteint ne provoque pas d’expiration de TTL ; on aurait plutôt un délai d’attente dépassé ou « hôte inaccessible »."]
+    - ["Un câble défectueux sur le poste", "Un problème physique local empêche tout envoi ; il ne fait pas expirer le TTL plus loin."]
+    - ["Un nom DNS incorrect", "Le DNS est résolu avant l’envoi ; un mauvais nom donne « hôte inconnu »."]
+  retenir: "TTL expiré en transit → boucle de routage (à confirmer avec traceroute)."
+  fiche: "icmp"
+
+- niveau: "Découverte"
+  situation: "Un routeur connaît les routes 10.0.0.0/8 et 10.20.30.0/24."
+  question: "Laquelle utilise-t-il pour un paquet destiné à 10.20.30.5 ?"
+  bonne: ["La route /24, la plus précise", "La règle du préfixe le plus long s’applique : /24 décrit plus précisément la destination que /8."]
+  fausses:
+    - ["La route /8, car elle couvre plus d’adresses", "Couvrir plus d’adresses rend la route moins précise, pas meilleure."]
+    - ["La première route configurée", "L’ordre de configuration n’a aucune influence sur le choix."]
+    - ["Les deux à tour de rôle", "Le partage de charge concerne des chemins de même préfixe et de même coût, pas des préfixes différents."]
+  retenir: "Le préfixe le plus long l’emporte toujours."
+  fiche: "passerelle"
+
+- niveau: "Découverte"
+  situation: "Une agence n’a qu’un seul lien vers le siège, et aucun autre réseau derrière elle."
+  question: "Quelle configuration de routage est la plus simple et suffisante sur son routeur ?"
+  bonne: ["Une route statique par défaut vers le siège", "Tout ce qui n’est pas local doit de toute façon passer par l’unique lien : une seule route 0.0.0.0/0 suffit."]
+  fausses:
+    - ["BGP avec le siège", "BGP sert à relier des organisations ou des réseaux complexes ; ici, il ajouterait de la complexité sans bénéfice."]
+    - ["Une route statique par réseau du siège", "Cela fonctionne, mais demande des dizaines de lignes à maintenir alors qu’une route par défaut suffit."]
+    - ["Aucune route, le routeur trouvera tout seul", "Sans route ni protocole de routage, le routeur ne connaît que ses réseaux directement connectés."]
+  retenir: "Site en bout de réseau → une route par défaut suffit."
+  fiche: "routage-statique"
+
+- niveau: "Découverte"
+  situation: "Deux routeurs Cisco protègent la passerelle d’un VLAN. Les postes utilisent 10.10.0.1, qui n’est l’adresse réelle d’aucun des deux routeurs."
+  question: "Comment appelle-t-on cette adresse ?"
+  bonne: ["Une adresse IP virtuelle de passerelle (HSRP/VRRP)", "Les routeurs partagent une adresse virtuelle ; l’un d’eux, actif, la porte. En cas de panne, l’autre la reprend."]
+  fausses:
+    - ["Une adresse de broadcast", "Le broadcast est la dernière adresse du réseau et sert à atteindre toutes les machines, pas à router."]
+    - ["Une adresse multicast", "Les adresses multicast commencent par 224 à 239 et désignent des groupes de récepteurs."]
+    - ["Une adresse de lien local", "Le lien local concerne IPv6 (fe80::) ou 169.254.x.x en IPv4, pas une passerelle partagée."]
+  retenir: "HSRP / VRRP — une passerelle virtuelle partagée par plusieurs routeurs."
+  fiche: "hsrp"
+
+- niveau: "Découverte"
+  situation: "Une vidéo interne doit être diffusée en direct dans 200 bureaux."
+  question: "Quel mode d’envoi évite d’envoyer 200 copies depuis le serveur ?"
+  bonne: ["Le multicast", "La source envoie une seule copie vers une adresse de groupe ; le réseau la duplique seulement aux embranchements qui mènent aux abonnés."]
+  fausses:
+    - ["L’unicast", "En unicast, le serveur enverrait une copie par spectateur : 200 flux identiques."]
+    - ["Le broadcast", "Le broadcast atteint toutes les machines du réseau local, abonnées ou non, et ne traverse pas les routeurs."]
+    - ["L’anycast", "L’anycast fait joindre le serveur le plus proche parmi plusieurs ; il ne diffuse pas un flux à plusieurs récepteurs."]
+  retenir: "Un flux pour plusieurs récepteurs → multicast."
+  fiche: "multicast"
+
+# ------------------------------------------------------------------ Pratique
+- niveau: "Pratique"
+  situation: "OSPF et une route statique annoncent tous deux 10.50.0.0/24 sur le même routeur."
+  question: "Quelle route est installée dans la table ?"
+  bonne: ["La route statique, grâce à sa distance administrative plus faible", "À préfixe identique, la source la plus fiable gagne : statique 1, OSPF 110."]
+  fausses:
+    - ["La route OSPF, car elle est dynamique", "Être dynamique ne donne aucun avantage : c’est la distance administrative qui compte."]
+    - ["Celle qui a la plus petite métrique", "On ne compare pas les métriques de sources différentes ; chaque protocole a les siennes."]
+    - ["Les deux, en partage de charge", "Le partage de charge se fait entre chemins d’une même source et de même métrique."]
+  retenir: "Même préfixe, sources différentes → distance administrative la plus faible."
+  fiche: "passerelle"
+
+- niveau: "Pratique"
+  situation: "Depuis une agence, un PC ne joint pas un serveur du siège. Le routeur de l’agence a bien une route par défaut vers le siège. Un ping lancé depuis le routeur de l’agence vers le serveur fonctionne."
+  question: "Quelle est la cause la plus probable ?"
+  bonne: ["Le siège n’a pas de route retour vers le réseau du PC de l’agence", "Le ping du routeur part avec l’adresse du lien, que le siège connaît ; celui du PC part avec une adresse du LAN de l’agence, que le siège ne sait pas joindre."]
+  fausses:
+    - ["Le câble du serveur est débranché", "Le ping depuis le routeur de l’agence réussit : le serveur est joignable."]
+    - ["Le DNS de l’agence est en panne", "Le problème se produit avec des adresses IP ; le DNS n’intervient pas."]
+    - ["La route par défaut de l’agence est fausse", "Le ping du routeur emprunte la même route et réussit."]
+  retenir: "Toujours vérifier la route retour — tester avec « ping … source <interface LAN> »."
+  fiche: "routage-statique"
+
+- niveau: "Pratique"
+  situation: "Deux routeurs OSPF restent bloqués à l’état EXSTART/EXCHANGE après qu’on a changé la MTU d’une interface."
+  question: "Quelle hypothèse faut-il tester en premier ?"
+  bonne: ["Une MTU différente des deux côtés du lien", "Pendant l’échange des descriptions de base (DBD), chaque routeur compare la MTU annoncée ; un écart bloque l’adjacence à cet état."]
+  fausses:
+    - ["Une zone OSPF différente", "Une zone différente empêche même d’atteindre l’état 2-Way : les Hello sont ignorés."]
+    - ["Un router-ID identique", "Un router-ID dupliqué provoque d’autres symptômes (base instable, messages de doublon)."]
+    - ["Une authentification manquante", "Une authentification incohérente empêche aussi la formation de l’adjacence dès les Hello."]
+  retenir: "OSPF bloqué en ExStart/Exchange → MTU."
+  fiche: "ospf"
+
+- niveau: "Pratique"
+  situation: "Avec la configuration OSPF par défaut, un lien à 1 Gb/s et un lien à 10 Gb/s ont tous deux le coût 1."
+  question: "Que faut-il corriger pour qu’OSPF préfère le lien le plus rapide ?"
+  bonne: ["Relever la bande passante de référence sur tous les routeurs (auto-cost reference-bandwidth)", "La référence par défaut est 100 Mb/s : tout lien plus rapide coûte 1. En la relevant (par exemple à 100 Gb/s) sur tous les routeurs, chaque vitesse obtient un coût distinct."]
+  fausses:
+    - ["Passer le lien à 10 Gb/s en zone 1", "Changer de zone ne modifie pas le coût du lien et compliquerait la topologie."]
+    - ["Augmenter la distance administrative d’OSPF", "La distance administrative compare des sources, pas des chemins d’un même protocole."]
+    - ["Activer BFD sur le lien rapide", "BFD détecte les pannes ; il n’influence pas le choix du chemin."]
+  retenir: "Coût OSPF = référence ÷ débit ; même référence partout."
+  fiche: "ospf"
+
+- niveau: "Pratique"
+  situation: "Une session eBGP avec l’opérateur est « Established » mais n’installe aucun préfixe reçu."
+  question: "Que faut-il vérifier en priorité ?"
+  bonne: ["Les filtres d’entrée (prefix-list, route-map) et la joignabilité du prochain saut", "La session fonctionne ; si les routes n’apparaissent pas, c’est qu’elles sont refusées par une politique ou jugées inutilisables (prochain saut injoignable)."]
+  fausses:
+    - ["Le câble vers l’opérateur", "La session est établie : la liaison physique et TCP fonctionnent."]
+    - ["Le numéro d’AS de l’opérateur", "Un numéro d’AS incorrect empêche l’établissement de la session."]
+    - ["Le serveur DHCP du LAN", "DHCP n’a aucun rôle dans les échanges BGP."]
+  retenir: "BGP établi mais pas de routes → politiques et prochain saut."
+  fiche: "bgp"
+
+- niveau: "Pratique"
+  situation: "Une route-map appliquée en entrée sur une session BGP contient une seule séquence — « permit 10, match prefix-list CLOUD, set local-preference 300 »."
+  question: "Que deviennent les routes qui ne sont pas dans la liste CLOUD ?"
+  bonne: ["Elles sont refusées", "Une route-map se termine par un refus implicite : une route qui ne correspond à aucune séquence est rejetée. Il manque une séquence « permit » sans condition."]
+  fausses:
+    - ["Elles sont acceptées sans modification", "Ce serait le cas avec une séquence finale « permit » sans match ; elle n’existe pas ici."]
+    - ["Elles reçoivent une local-preference de 100", "Elles n’ont pas l’occasion de recevoir une valeur : elles sont rejetées avant."]
+    - ["La session BGP est coupée", "Un filtre ne coupe pas la session ; il agit seulement sur les routes."]
+  retenir: "Route-map — refus implicite à la fin ; terminer par un permit général si nécessaire."
+  fiche: "bgp-filtrage"
+
+- niveau: "Pratique"
+  situation: "R1 est la passerelle HSRP active (priorité 110). Son lien vers le cœur de réseau tombe, mais il reste actif et le VLAN perd l’accès aux autres réseaux."
+  question: "Que manque-t-il le plus souvent ?"
+  bonne: ["Un suivi (track) de l’uplink qui baisse la priorité de R1, avec la préemption sur R2", "Sans suivi, R1 reste actif tant que les Hello passent sur le VLAN, même s’il ne peut plus acheminer le trafic."]
+  fausses:
+    - ["Une seconde adresse IP virtuelle", "Ajouter une adresse ne fait pas basculer le rôle actif."]
+    - ["Un serveur DNS secondaire", "Le DNS n’est pas en cause : c’est la sortie du VLAN qui est coupée."]
+    - ["Une MTU plus grande sur le VLAN", "La MTU n’a aucun rapport avec la bascule de passerelle."]
+  retenir: "HSRP/VRRP sans suivi ne voit pas les pannes au-delà du VLAN."
+  fiche: "hsrp"
+
+- niveau: "Pratique"
+  situation: "Une agence a une fibre principale et une 4G de secours (route statique avec distance 200). La box fibre reste allumée mais l’opérateur ne transporte plus rien."
+  question: "Pourquoi la 4G n’est-elle pas utilisée ?"
+  bonne: ["L’interface vers la box reste active, donc la route principale reste installée", "Une route statique ne disparaît que si son prochain saut devient injoignable localement. Il faut une sonde IP SLA vers une cible lointaine pour détecter la panne."]
+  fausses:
+    - ["La 4G a une distance administrative trop faible", "Une distance plus faible la rendrait au contraire prioritaire."]
+    - ["Le DNS de l’agence pointe vers la fibre", "Le DNS ne choisit pas la route utilisée."]
+    - ["Il faut redémarrer le routeur pour basculer", "Une route flottante bascule automatiquement… à condition que la route principale disparaisse."]
+  retenir: "Lien « up » ≠ chemin fonctionnel → IP SLA + track."
+  fiche: "ipsla"
+
+- niveau: "Pratique"
+  situation: "Un ping vers un serveur échoue, mais son site Web s’affiche normalement."
+  question: "Quelle est l’explication la plus probable ?"
+  bonne: ["Le serveur ou un pare-feu bloque les requêtes ICMP Echo", "Le serveur répond sur le port du site Web ; seul le ping est filtré. Un ping qui échoue ne prouve pas qu’une machine est injoignable."]
+  fausses:
+    - ["Le serveur est en panne", "Le site s’affiche : le serveur fonctionne."]
+    - ["La route vers le serveur est absente", "Sans route, le site ne s’afficherait pas non plus."]
+    - ["L’adresse MAC du serveur a changé", "Un changement de MAC affecterait tous les échanges, pas seulement le ping."]
+  retenir: "ICMP est souvent filtré — tester aussi le port du service."
+  fiche: "icmp"
+
+- niveau: "Pratique"
+  situation: "Un poste IPv6 a une adresse globale fournie par DHCPv6, mais aucune route par défaut IPv6."
+  question: "Où est le problème ?"
+  bonne: ["Le poste ne reçoit pas d’annonces de routeur (RA)", "En IPv6, la passerelle est toujours apprise par les RA, jamais par DHCPv6. Il faut que le routeur annonce sur ce réseau et que rien ne bloque ces annonces."]
+  fausses:
+    - ["Le serveur DHCPv6 doit fournir l’option passerelle", "Cette option n’existe pas dans DHCPv6 : c’est le rôle des RA."]
+    - ["Le poste doit activer ARP", "IPv6 n’utilise pas ARP ; il utilise NDP."]
+    - ["Le préfixe doit être en /48", "Un réseau local IPv6 est en /64 ; la longueur n’explique pas l’absence de passerelle."]
+  retenir: "IPv6 — passerelle par RA, toujours."
+  fiche: "ipv6-pratique"
+
+- niveau: "Pratique"
+  situation: "Dans un VLAN sans routeur multicast, une application de diffusion fonctionne quelques minutes puis s’arrête pour tout le monde. IGMP Snooping est actif sur le switch."
+  question: "Que faut-il activer ?"
+  bonne: ["Un querier IGMP dans le VLAN", "Sans querier, personne n’envoie de Query ; les postes ne renouvellent pas leurs abonnements et le switch les supprime à expiration."]
+  fausses:
+    - ["Désactiver STP sur le VLAN", "STP n’a pas de rôle dans l’expiration des abonnements multicast."]
+    - ["Passer le VLAN en /16", "La taille du sous-réseau n’influence pas IGMP."]
+    - ["Configurer HSRP", "HSRP gère la passerelle, pas les abonnements multicast."]
+  retenir: "IGMP Snooping sans querier → les flux coupent au bout de quelques minutes."
+  fiche: "igmp"
+
+- niveau: "Pratique"
+  situation: "Sur un routeur Cisco, « show ip arp » affiche « Incomplete » pour un serveur qui devrait être dans le VLAN 30."
+  question: "Que signifie cet état ?"
+  bonne: ["Le routeur a demandé la MAC du serveur en ARP, mais personne n’a répondu", "Le serveur est éteint, dans un autre VLAN, ou mal configuré (adresse, masque)."]
+  fausses:
+    - ["Le serveur utilise IPv6", "L’état Incomplete concerne une résolution ARP IPv4 en échec."]
+    - ["La table ARP est pleine", "Une table pleine ne produit pas cet état pour une entrée précise."]
+    - ["Le serveur a deux adresses MAC", "Deux MAC donneraient des réponses, pas une absence de réponse."]
+  retenir: "ARP Incomplete → aucune réponse : vérifier VLAN, adressage, présence de la machine."
+  fiche: "arp"
+
+# ------------------------------------------------------------------ Expert
+- niveau: "Expert"
+  situation: "Un routeur a « S 10.0.0.0/8 [1/0] » et « O 10.10.0.0/16 [110/20] »."
+  question: "Par où part un paquet destiné à 10.10.4.4 ?"
+  bonne: ["Par la route OSPF /16", "Les deux routes ne visent pas le même préfixe : la distance administrative ne les départage pas. Pour 10.10.4.4, la /16 est plus précise que la /8."]
+  fausses:
+    - ["Par la route statique, car sa distance administrative est plus faible", "La distance administrative ne compare que des routes vers le même préfixe."]
+    - ["Par les deux, en partage de charge", "Le partage de charge concerne des chemins vers le même préfixe, de même métrique."]
+    - ["Par la route par défaut", "Deux routes plus précises existent ; la route par défaut n’est utilisée qu’en dernier recours."]
+  retenir: "Préfixe le plus long d’abord ; la distance administrative ne départage que des préfixes identiques."
+  fiche: "passerelle"
+
+- niveau: "Expert"
+  situation: "Une entreprise multihomée (AS 64512) n’a aucun filtre en sortie sur ses sessions BGP avec ses deux opérateurs."
+  question: "Quel est le risque principal ?"
+  bonne: ["Réannoncer à un opérateur les routes apprises de l’autre et devenir un chemin de transit", "Par défaut, BGP réannonce ses meilleures routes à ses voisins eBGP. L’entreprise pourrait attirer du trafic d’Internet qui ne la concerne pas."]
+  fausses:
+    - ["Ne plus recevoir de routes", "Le filtre manquant concerne la sortie ; la réception n’est pas affectée."]
+    - ["Que la session BGP ne s’établisse pas", "L’absence de filtre n’empêche pas la session de s’établir."]
+    - ["Une boucle de niveau 2", "BGP agit au niveau du routage ; il ne crée pas de boucle Ethernet."]
+  retenir: "Multihoming — n’annoncer que ses propres préfixes (prefix-list en sortie)."
+  fiche: "bgp-filtrage"
+
+- niveau: "Expert"
+  situation: "Un routeur EIGRP a une FD de 26 368 vers un réseau. Un second voisin annonce ce réseau avec une RD de 30 000."
+  question: "Ce voisin peut-il être successeur possible (feasible successor) ?"
+  bonne: ["Non, car sa RD n’est pas inférieure à la FD", "La condition de faisabilité exige RD < FD : c’est la preuve que le voisin est plus proche de la destination et ne renverra pas le trafic vers le routeur."]
+  fausses:
+    - ["Oui, car il annonce bien le réseau", "Annoncer un réseau ne suffit pas : il faut satisfaire la condition de faisabilité."]
+    - ["Oui, si sa métrique totale est inférieure à 30 000", "C’est la distance **annoncée** (RD) qui est comparée à la FD."]
+    - ["Non, car EIGRP n’a jamais de chemin de secours", "Le successeur possible est justement le secours pré-calculé d’EIGRP."]
+  retenir: "EIGRP — successeur possible si RD < FD."
+  fiche: "eigrp"
+
+- niveau: "Expert"
+  situation: "Une sonde IP SLA surveille la fibre et retire la route principale en cas d’échec. Pendant une panne, la route par défaut alterne sans cesse entre la fibre et la 4G."
+  question: "Quelle correction manque ?"
+  bonne: ["Une route d’hôte qui force la cible de la sonde à sortir par la fibre", "Sans elle, la sonde passe par la 4G dès que la route principale disparaît, réussit, fait revenir la route principale, puis échoue à nouveau."]
+  fausses:
+    - ["Augmenter la fréquence de la sonde", "Sonder plus souvent ferait osciller plus vite."]
+    - ["Baisser la distance administrative de la 4G", "La 4G deviendrait prioritaire en permanence."]
+    - ["Activer HSRP sur le WAN", "HSRP concerne la passerelle d’un VLAN, pas le choix de la route par défaut."]
+  retenir: "Une sonde de suivi doit toujours tester le chemin qu’elle surveille."
+  fiche: "ipsla"
+
+- niveau: "Expert"
+  situation: "Un flux multicast arrive sur un routeur par Gi0/1, mais la route unicast vers la source passe par Gi0/2. Le compteur « RPF failed » augmente."
+  question: "Que fait le routeur de ce flux ?"
+  bonne: ["Il le jette, car il n’arrive pas par l’interface qui mène vers la source", "Le contrôle RPF protège des boucles multicast : seuls les paquets arrivant par l’interface RPF sont acceptés."]
+  fausses:
+    - ["Il le transmet normalement", "Le compteur RPF failed indique justement des paquets rejetés."]
+    - ["Il le renvoie vers la source", "Un routeur ne renvoie pas un flux multicast vers son émetteur."]
+    - ["Il le convertit en unicast", "Aucun mécanisme standard ne fait cette conversion ici."]
+  retenir: "Multicast — le flux doit arriver par l’interface RPF."
+  fiche: "pim"
+
+- niveau: "Expert"
+  situation: "Deux routeurs sont reliés par le réseau d’un opérateur. Un équipement tombe au milieu ; les interfaces des deux routeurs restent « up »."
+  question: "Quel mécanisme permet à OSPF de réagir en moins d’une seconde ?"
+  bonne: ["BFD", "BFD échange des messages très fréquents (par exemple toutes les 300 ms) et prévient OSPF dès que trois sont manqués, sans attendre les 40 s du Dead interval."]
+  fausses:
+    - ["Augmenter la priorité OSPF", "La priorité sert à l’élection du DR ; elle n’accélère pas la détection."]
+    - ["Passer le lien en zone 0", "La zone ne change pas le délai de détection."]
+    - ["Une route statique flottante", "Elle ne s’activerait qu’une fois la route OSPF retirée, donc après la détection."]
+  retenir: "Panne invisible pour l’interface → BFD."
+  fiche: "bfd"
+
+- niveau: "Expert"
+  situation: "Un poste reçoit un ping avec TTL=118."
+  question: "Quelle est l’interprétation la plus probable ?"
+  bonne: ["La machine distante est probablement un Windows situé à environ 10 routeurs", "Windows utilise un TTL initial de 128 : 128 − 118 = 10 routeurs traversés. Un TTL initial de 255 supposerait 137 routeurs, invraisemblable."]
+  fausses:
+    - ["La machine est un Linux à 54 routeurs", "Avec un TTL initial de 64, on obtiendrait un TTL inférieur à 64, pas 118."]
+    - ["Il y a une boucle de routage", "Une boucle ferait expirer le TTL ; ici le paquet est arrivé."]
+    - ["Le TTL ne donne aucune information", "Les valeurs initiales courantes (64, 128, 255) permettent une estimation."]
+  retenir: "TTL initial courant — 64 (Linux), 128 (Windows), 255 (équipements réseau)."
+  fiche: "ipv4"
+
+- niveau: "Expert"
+  situation: "Une prefix-list contient la ligne « permit 10.0.0.0/8 ge 24 le 24 »."
+  question: "Quels préfixes sélectionne-t-elle ?"
+  bonne: ["Tous les /24 inclus dans 10.0.0.0/8, et seulement eux", "« ge 24 le 24 » impose une longueur exactement égale à 24, et le préfixe doit être contenu dans 10.0.0.0/8."]
+  fausses:
+    - ["Uniquement 10.0.0.0/8", "Ce serait « permit 10.0.0.0/8 » sans ge ni le."]
+    - ["Tous les préfixes de 10.0.0.0/8 jusqu’à /24", "Ce serait « le 24 » sans « ge 24 »."]
+    - ["Toutes les routes d’Internet de longueur 24", "Le préfixe doit d’abord être inclus dans 10.0.0.0/8."]
+  retenir: "Prefix-list — l’adresse fixe le bloc, ge/le fixent les longueurs acceptées."
+  fiche: "bgp-filtrage"

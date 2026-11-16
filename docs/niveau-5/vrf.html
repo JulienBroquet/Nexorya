@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VRF — Virtual Routing and Forwarding | Nexorya</title>
+<meta name="description" content="Une VRF crée plusieurs tables de routage indépendantes dans un même routeur ; c’est l’équivalent, pour le routage, de ce que les VLAN sont pour les switches.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf" aria-current="page">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/vrf">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-2">Isoler à grande échelle</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>VRF</h1><p class="nom-complet">Virtual Routing and Forwarding</p>
+<p class="idee">Une VRF crée plusieurs tables de routage indépendantes dans un même routeur ; c’est l’équivalent, pour le routage, de ce que les VLAN sont pour les switches.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 7 min</span><span>Approfondir : 15 min</span><span>Avant : <a href="../niveau-2/passerelle.html">La table de routage</a>, <a href="../niveau-1/vlan.html">VLAN</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Sur un switch de cœur, tous les VLAN sont routés entre eux par une seule table de routage. Pour isoler fortement certaines zones (administration, partenaires, objets connectés), une ACL est possible mais fragile : une erreur, et tout se mélange. Et un hébergeur voudrait accueillir plusieurs clients qui utilisent les mêmes adresses.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Une VRF découpe un routeur en plusieurs routeurs virtuels, chacun avec sa propre table de routage : ce qui est dans une VRF ne voit pas ce qui est dans une autre.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 708.0 328.0" width="708.0" role="img" aria-label="Un switch de cœur, trois routeurs virtuels" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="354.0" y2="50.0"/><line class="tp-lien " x1="354.0" y1="50.0" x2="598.0" y2="50.0"/><line class="tp-lien " x1="354.0" y1="50.0" x2="354.0" y2="232.0"/><text class="tp-etiq" x="366.0" y="145.0" text-anchor="start">passage obligé entre VRF</text><line class="tp-lien " x1="354.0" y1="50.0" x2="598.0" y2="232.0"/><g transform="translate(354.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">Cœur</text><g transform="translate(354.0 232.0)"><rect class="tp-ico" x="-26" y="-16" width="52" height="32" rx="3"/><path class="tp-ico-trait" d="M-26 -5 h52 M-26 6 h52 M-9 -16 v11 M9 -16 v11 M0 -5 v11 M-17 -5 v11 M17 -5 v11 M-9 6 v10 M9 6 v10"/></g><text class="tp-lib" x="354.0" y="272.0" text-anchor="middle">Pare-feu</text><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">VLAN utilisateurs</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">VRF UTILISATEURS</text><g transform="translate(598.0 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="598.0" y="90.0" text-anchor="middle">Serveurs</text><text class="tp-sous" x="598.0" y="106.0" text-anchor="middle">VRF SERVEURS</text><g transform="translate(598.0 232.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="598.0" y="272.0" text-anchor="middle">Administration</text><text class="tp-sous" x="598.0" y="288.0" text-anchor="middle">VRF GESTION</text></svg><figcaption>Un switch de cœur, trois routeurs virtuels</figcaption></figure>
+<ol>
+<li>On crée des VRF : <code>UTILISATEURS</code>, <code>SERVEURS</code>, <code>GESTION</code>.</li>
+<li>On rattache chaque interface (SVI, port routé) à une VRF.</li>
+<li>Chaque VRF a sa table : une route présente dans <code>UTILISATEURS</code> n’existe pas dans <code>SERVEURS</code>.</li>
+<li>Pour communiquer, le trafic passe par un <strong>pare-feu</strong> relié aux deux VRF : toute communication entre zones est contrôlée.</li>
+</ol>
+<h2 id="vlan-et-vrf">VLAN et VRF</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>VLAN</th>
+<th>VRF</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Couche</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Sépare</td>
+<td>les domaines de diffusion</td>
+<td>les tables de routage</td>
+</tr>
+<tr>
+<td>Analogie</td>
+<td>plusieurs switches virtuels</td>
+<td>plusieurs routeurs virtuels</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>VRF</strong> — <em>Virtual Routing and Forwarding</em>, table de routage indépendante dans un routeur.</li>
+<li><strong>VRF-Lite</strong> — Usage des VRF sans MPLS, dans un réseau d’entreprise.</li>
+<li><strong>Fuite de routes</strong> — Partage contrôlé de certaines routes entre deux VRF ; <em>route leaking</em>.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Deux VRF contiennent le préfixe <code>10.10.0.0/16</code>. Est-ce une erreur ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> Les deux tables sont <strong>indépendantes</strong> : le même préfixe peut exister dans chacune. C’est justement ce qui permet à un hébergeur ou un opérateur d’accueillir des clients aux adresses qui se chevauchent.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-cisco-ios-xe-vrf-lite">Configuration (Cisco IOS-XE, VRF-Lite)</h2>
+<pre><code class="language-cisco">vrf definition GESTION
+ address-family ipv4
+<span class="c">!</span>
+vrf definition SERVEURS
+ address-family ipv4
+<span class="c">!</span>
+interface Vlan99
+ vrf forwarding GESTION              ! attention : retire l'adresse IP existante de l'interface
+ ip address 10.99.0.1 255.255.255.0
+<span class="c">!</span>
+interface Vlan20
+ vrf forwarding SERVEURS
+ ip address 10.20.0.1 255.255.255.0
+<span class="c">!</span>
+ip route vrf GESTION 0.0.0.0 0.0.0.0 10.99.255.1
+router ospf 20 vrf SERVEURS
+ network 10.20.0.0 0.0.255.255 area 0
+</code></pre>
+<div class="encadre attention">
+<p class="encadre-titre">Attention en production</p>
+<p><code>vrf forwarding</code> sur une interface <strong>efface son adresse IP</strong>. Si c’est l’interface par laquelle tu administres l’équipement, tu perds la main. Prépare la configuration complète, utilise la console ou une autre interface.</p>
+</div>
+<h2 id="verifier-et-tester-dans-une-vrf">Vérifier et tester dans une VRF</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show vrf
+  Name                Default RD    Protocols   Interfaces
+  GESTION             &lt;not set&gt;     ipv4        Vl99
+  SERVEURS            &lt;not set&gt;     ipv4        Vl20
+<span class="k">SW1#</span> show ip route vrf SERVEURS
+<span class="k">SW1#</span> ping vrf GESTION 10.99.0.50
+<span class="k">SW1#</span> traceroute vrf SERVEURS 10.20.0.40
+</code></pre>
+<p>Toutes les commandes de test doivent préciser la VRF : un <code>ping</code> sans <code>vrf</code> part de la table <strong>globale</strong>, où la destination n’existe peut-être pas.</p>
+<h2 id="gestion-hors-bande">Gestion hors bande</h2>
+<p>Beaucoup d’équipements ont un port de gestion dédié, placé d’office dans une VRF de gestion (<code>Mgmt-vrf</code>, <code>management</code>). Les services d’administration (SSH, SNMP, Syslog, NTP, TACACS+) doivent alors être configurés <strong>dans cette VRF</strong>, sinon ils tentent de sortir par la table globale :</p>
+<pre><code class="language-cisco">ip ssh source-interface GigabitEthernet0/0
+logging host 10.99.0.60 vrf Mgmt-vrf
+ntp server vrf Mgmt-vrf 10.99.0.123
+ip tacacs source-interface GigabitEthernet0/0 vrf Mgmt-vrf
+</code></pre>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> <code>ping 10.20.0.40</code> échoue depuis le switch de cœur, alors que le serveur répond aux postes. Le VLAN 20 est dans la VRF SERVEURS. Pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le <code>ping</code> sans précision utilise la <strong>table globale</strong>, où <code>10.20.0.0/24</code> n’existe pas. Il faut <code>ping vrf SERVEURS 10.20.0.40</code>.</p>
+</details>
+<p><strong>2.</strong> Pourquoi les VRF sont-elles un bon moyen d’obliger tout le trafic entre utilisateurs et serveurs à passer par le pare-feu ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que la VRF UTILISATEURS ne contient <strong>aucune route</strong> vers les serveurs, sauf une route (souvent par défaut) qui pointe vers le pare-feu ; et réciproquement. Aucune erreur d’ACL ne peut créer un raccourci : le seul chemin entre les deux zones passe physiquement par le pare-feu.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/mpls.html"><small>Fiche précédente</small><strong>MPLS</strong></a><a class="apres" href="../niveau-5/ecmp.html"><small>Fiche suivante</small><strong>ECMP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#vlan-et-vrf">VLAN et VRF</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-cisco-ios-xe-vrf-lite">Configuration (Cisco IOS-XE, VRF-Lite)</a><a href="#verifier-et-tester-dans-une-vrf">Vérifier et tester dans une VRF</a><a href="#gestion-hors-bande">Gestion hors bande</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

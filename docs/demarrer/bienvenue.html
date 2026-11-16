@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bienvenue — Comment utiliser Nexorya | Nexorya</title>
+<meta name="description" content="Nexorya t’emmène du tout premier câble jusqu’au datacenter, une notion à la fois, en expliquant toujours le pourquoi avant le comment.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l0)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" aria-current=page class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>0</i>Je débute</a><h3>Le décor</h3><ul><li><a href="bienvenue.html" data-fiche="demarrer/bienvenue" aria-current="page">Bienvenue</a></li><li><a href="reseau.html" data-fiche="demarrer/reseau">Qu’est-ce qu’un réseau ?</a></li><li><a href="equipements.html" data-fiche="demarrer/equipements">Les équipements</a></li><li><a href="paquet.html" data-fiche="demarrer/paquet">Un message en paquets</a></li></ul><h3>Les adresses et les règles</h3><ul><li><a href="adresses.html" data-fiche="demarrer/adresses">Les trois adresses</a></li><li><a href="protocoles.html" data-fiche="demarrer/protocoles">Les protocoles</a></li><li><a href="internet.html" data-fiche="demarrer/internet">Ma box et Internet</a></li></ul><h3>Passer à la pratique</h3><ul><li><a href="commandes.html" data-fiche="demarrer/commandes">Les commandes de base</a></li></ul></aside>
+<article class="contenu" data-fiche-id="demarrer/bienvenue">
+<p class="fil"><a href="index.html">Je débute</a> › <a href="index.html#chapitre-1">Le décor</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Bienvenue</h1><p class="nom-complet">Comment utiliser Nexorya</p>
+<p class="idee">Nexorya t’emmène du tout premier câble jusqu’au datacenter, une notion à la fois, en expliquant toujours le pourquoi avant le comment.</p><div class="badges"><span>Découvrir : 5 min</span></div></header>
+
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="a-qui-sadresse-nexorya">À qui s’adresse Nexorya ?</h2>
+<p>À toute personne qui veut <strong>comprendre</strong> les réseaux informatiques, pas seulement réciter des sigles :</p>
+<ul>
+<li>tu découvres le sujet et tu veux savoir ce qui se passe quand tu ouvres une page Web ;</li>
+<li>tu prépares un diplôme ou une certification (CCNA, BTS SIO, CFC informaticien, licence pro…) ;</li>
+<li>tu es technicien ou administrateur et tu veux combler des trous ;</li>
+<li>tu es ingénieur et tu cherches un rappel précis, des sorties de commande annotées et des pièges de production.</li>
+</ul>
+<p>Le même contenu sert tout le monde, parce que <strong>chaque fiche se lit en deux temps</strong>.</p>
+<h2 id="decouvrir-puis-approfondir">Découvrir, puis approfondir</h2>
+<p>En haut de chaque fiche, deux onglets :</p>
+<table>
+<thead>
+<tr>
+<th>Onglet</th>
+<th>Ce que tu y trouves</th>
+<th>Pour qui</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Découvrir</strong></td>
+<td>Le problème que la technologie résout, l’idée en une phrase, une analogie, un exemple concret, les mots à connaître et quelques questions corrigées.</td>
+<td>Tout le monde, en premier.</td>
+</tr>
+<tr>
+<td><strong>Approfondir</strong></td>
+<td>Le fonctionnement exact, les formats de messages, la configuration commentée, la lecture des sorties de commande, la méthode de dépannage et des exercices de niveau professionnel.</td>
+<td>Quand l’essentiel est clair.</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre astuce">
+<p class="encadre-titre">Conseil de lecture</p>
+<p>Ne passe pas à « Approfondir » tant que tu ne peux pas expliquer la partie « Découvrir » à voix haute, avec tes propres mots, à quelqu’un qui n’y connaît rien. C’est le meilleur test de compréhension qui existe.</p>
+</div>
+<h2 id="le-parcours">Le parcours</h2>
+<p>Le plan de l’accueil montre six lignes, comme un plan de métro :</p>
+<ol start="0">
+<li><strong>Je débute</strong> — ce que tu lis en ce moment : huit repères sans prérequis.</li>
+<li><strong>Ethernet, switching et Wi-Fi</strong> — les câbles, les switches, les VLAN.</li>
+<li><strong>IP et routage</strong> — les adresses IP et la façon dont les paquets trouvent leur chemin.</li>
+<li><strong>Services et applications</strong> — DNS, DHCP, le Web, la téléphonie, le partage de fichiers.</li>
+<li><strong>Sécurité et identité</strong> — qui a le droit d’entrer, comment filtrer et chiffrer.</li>
+<li><strong>WAN, datacenter et exploitation</strong> — relier des sites, construire un datacenter, automatiser.</li>
+</ol>
+<p>Chaque ligne est découpée en chapitres. Une station du plan s’allume quand tu as lu toutes les fiches du chapitre.</p>
+<h2 id="ce-que-tu-trouveras-dans-les-fiches">Ce que tu trouveras dans les fiches</h2>
+<ul>
+<li><strong>Des schémas</strong> : des topologies (qui est relié à qui) et des diagrammes d’échanges (qui envoie quoi à qui, dans quel ordre). Lis les messages numérotés de haut en bas.</li>
+<li><strong>Des encadrés</strong> de couleur : « À retenir », « Astuce », « Piège à éviter », « Attention en production ».</li>
+<li><strong>Des exercices</strong> avec un corrigé caché. Réfléchis avant de l’ouvrir : c’est l’effort qui fait apprendre.</li>
+<li><strong>Des commandes</strong> Cisco, Windows et Linux. Elles sont là pour comprendre et pour pratiquer en laboratoire. N’applique jamais une configuration sur un réseau de production sans autorisation ni plan de retour arrière.</li>
+</ul>
+<h2 id="ta-progression">Ta progression</h2>
+<ul>
+<li>Le bouton <strong>Marquer cette fiche comme lue</strong>, en bas de chaque fiche, allume les stations du plan.</li>
+<li>Chaque niveau se termine par un <strong>QCM</strong> qui part de situations réelles et t’explique chaque mauvaise réponse.</li>
+<li>Quand les cinq QCM atteignent 80 %, tu peux éditer une <strong>attestation</strong> (non officielle) depuis la page <strong>Ma progression</strong>.</li>
+</ul>
+<p>Ta progression est enregistrée <strong>dans ton navigateur</strong>, sur cet appareil. Rien n’est envoyé sur Internet. Tu peux l’exporter depuis « Ma progression » pour la retrouver ailleurs.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Réseau informatique</strong> — Ensemble d’appareils reliés entre eux pour échanger des informations.</li>
+<li><strong>Protocole</strong> — Ensemble de règles que deux appareils suivent pour se comprendre.</li>
+<li><strong>Sigle</strong> — Abréviation formée des initiales d’un nom, comme IP pour <em>Internet Protocol</em>. Le réseau en utilise énormément : le <a href="../lexique.html">lexique</a> les explique tous.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Tu lis une fiche sur le Wi-Fi. La partie « Découvrir » est claire, sauf un passage sur les canaux. Que fais-tu ?</strong></p>
+<details>
+<summary>Voir la réponse</summary>
+<p>Relis ce passage, regarde le schéma, puis cherche les mots inconnus dans le lexique. Passe à « Approfondir » seulement quand tu peux expliquer le passage avec tes mots. Comprendre une chose à fond vaut mieux qu’en survoler trois.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a class="apres" href="../demarrer/reseau.html"><small>Fiche suivante</small><strong>Qu’est-ce qu’un réseau ?</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#a-qui-sadresse-nexorya">À qui s’adresse Nexorya ?</a><a href="#decouvrir-puis-approfondir">Découvrir, puis approfondir</a><a href="#le-parcours">Le parcours</a><a href="#ce-que-tu-trouveras-dans-les-fiches">Ce que tu trouveras dans les fiches</a><a href="#ta-progression">Ta progression</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

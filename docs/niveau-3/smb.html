@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SMB — Server Message Block | Nexorya</title>
+<meta name="description" content="SMB est le protocole des partages de fichiers et d’imprimantes Windows — les lecteurs réseau comme `\\serveur\partage` reposent sur lui.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb" aria-current="page">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/smb">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-5">Transférer, partager, s’identifier</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>SMB</h1><p class="nom-complet">Server Message Block</p>
+<p class="idee">SMB est le protocole des partages de fichiers et d’imprimantes Windows — les lecteurs réseau comme `\\serveur\partage` reposent sur lui.</p><div class="badges"><span>Couche OSI 7 (TCP 445)</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-3/tcp.html">TCP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Les employés partagent des dossiers d’équipe, des modèles de documents, des imprimantes. Il faut un protocole qui permette d’ouvrir, de modifier et de verrouiller des fichiers sur un serveur comme s’ils étaient sur le disque local, en respectant les droits de chacun.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>SMB permet à un poste d’utiliser les fichiers et les imprimantes d’un serveur à travers le réseau, avec l’identité de l’utilisateur pour contrôler les droits.</p>
+</div>
+<h2 id="les-versions">Les versions</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Statut</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SMB 1 (CIFS)</td>
+<td><strong>à désactiver</strong> : utilisé par le rançongiciel WannaCry en 2017</td>
+</tr>
+<tr>
+<td>SMB 2.x</td>
+<td>performant, encore courant</td>
+</tr>
+<tr>
+<td>SMB 3.x</td>
+<td><strong>chiffrement</strong>, signature renforcée, basculement transparent entre serveurs</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>SMB</strong> — Protocole de partage de fichiers et d’imprimantes des environnements Windows.</li>
+<li><strong>Partage</strong> — Dossier rendu accessible sur le réseau, noté <code>\\serveur\nom</code>.</li>
+<li><strong>UNC</strong> — Notation des chemins réseau Windows : <code>\\serveur\partage\dossier</code>.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi bloquer le port 445 entre Internet et le réseau de l’entreprise, dans les deux sens ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Vers l’intérieur : pour que personne ne puisse attaquer les partages et les vulnérabilités de SMB depuis Internet. Vers l’extérieur : pour qu’un poste piégé (lien malveillant vers <code>\\serveur-attaquant\…</code>) n’envoie pas les <strong>éléments d’authentification</strong> de l’utilisateur à un serveur pirate.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="diagnostiquer-un-partage-inaccessible">Diagnostiquer un partage inaccessible</h2>
+<pre><code class="language-powershell">PS&gt; Test-NetConnection srv-fichiers -Port 445
+PS&gt; Get-SmbConnection                          # connexions SMB actives et version (Dialect)
+ServerName    ShareName  UserName          Dialect
+srv-fichiers  Equipe     EXEMPLE\alice     3.1.1
+PS&gt; Get-SmbServerConfiguration | Select EnableSMB1Protocol, EncryptData, RequireSecuritySignature
+PS&gt; net use \\srv-fichiers\Equipe
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Piste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>« Chemin réseau introuvable »</td>
+<td>DNS, port 445 filtré, service Serveur arrêté</td>
+</tr>
+<tr>
+<td>« Accès refusé »</td>
+<td>droits de partage ou NTFS, groupe de l’utilisateur</td>
+</tr>
+<tr>
+<td>Erreur d’authentification sur un nom court mais pas sur l’adresse IP (ou l’inverse)</td>
+<td>Kerberos (nom) contre NTLM (adresse IP) ; SPN, heure du poste</td>
+</tr>
+<tr>
+<td>Lenteurs</td>
+<td>latence (SMB est bavard), signature ou chiffrement sur un serveur ancien</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bonnes-pratiques">Bonnes pratiques</h2>
+<ul>
+<li>Désactiver SMB 1 partout (<code>Set-SmbServerConfiguration -EnableSMB1Protocol $false</code>).</li>
+<li>Exiger la <strong>signature</strong> SMB, activer le <strong>chiffrement</strong> sur les partages sensibles.</li>
+<li>Limiter les flux 445 aux <strong>serveurs de fichiers</strong> : les postes n’ont pas besoin de s’échanger du SMB entre eux. Cela freine fortement la propagation d’un rançongiciel.</li>
+</ul>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un rançongiciel se propage de poste en poste par SMB. Quelle règle de segmentation simple aurait limité sa diffusion ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Interdire le TCP 445 entre postes de travail</strong> (pare-feu Windows et ACL entre VLAN) et ne l’autoriser que vers les serveurs de fichiers. Les postes n’ont pas besoin de partager des fichiers directement entre eux.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/sftp.html"><small>Fiche précédente</small><strong>SFTP</strong></a><a class="apres" href="../niveau-3/nfs.html"><small>Fiche suivante</small><strong>NFS</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#les-versions">Les versions</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#diagnostiquer-un-partage-inaccessible">Diagnostiquer un partage inaccessible</a><a href="#bonnes-pratiques">Bonnes pratiques</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

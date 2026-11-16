@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SPAN — Port miroir | Nexorya</title>
+<meta name="description" content="Le SPAN copie le trafic d’un ou plusieurs ports d’un switch vers un port d’analyse, où l’on branche un ordinateur avec Wireshark ou une sonde de sécurité.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span" aria-current="page">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/span">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-5">Observer le réseau</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>SPAN</h1><p class="nom-complet">Port miroir</p>
+<p class="idee">Le SPAN copie le trafic d’un ou plusieurs ports d’un switch vers un port d’analyse, où l’on branche un ordinateur avec Wireshark ou une sonde de sécurité.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-1/switch.html">Penser comme un switch</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-voir-ce-qui-passe">Le problème : voir ce qui passe</h2>
+<p>Pour comprendre une panne applicative, il faut souvent <strong>voir les paquets</strong> échangés entre un poste et un serveur. Mais si l’on branche un PC d’analyse sur un port libre du switch, il ne voit rien : le switch ne lui envoie que ce qui lui est destiné (et les broadcasts).</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le SPAN demande au switch de <strong>recopier</strong> le trafic d’un port choisi vers le port où est branché l’analyseur.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 586.0 314.0" width="586.0" role="img" aria-label="Observer le trafic d’un serveur" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="293.0" y2="50.0"/><line class="tp-lien " x1="293.0" y1="50.0" x2="476.0" y2="50.0"/><line class="tp-lien logique" x1="293.0" y1="50.0" x2="293.0" y2="218.0"/><text class="tp-etiq" x="305.0" y="138.0" text-anchor="start">copie</text><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">Serveur</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">Gi1/0/10 (source)</text><g transform="translate(293.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="293.0" y="90.0" text-anchor="middle">Switch</text><g transform="translate(476.0 50.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">Reste du réseau</text><g transform="translate(293.0 218.0)"><rect class="tp-ico" x="-18" y="-15" width="36" height="22" rx="3"/><path class="tp-ico" d="M-25 9 h50 l-4 6 h-42 z"/></g><text class="tp-lib" x="293.0" y="258.0" text-anchor="middle">PC d’analyse</text><text class="tp-sous" x="293.0" y="274.0" text-anchor="middle">Gi1/0/48 (destination)</text></svg><figcaption>Observer le trafic d’un serveur</figcaption></figure>
+<pre><code class="language-cisco">monitor session 1 source interface GigabitEthernet1/0/10 both
+monitor session 1 destination interface GigabitEthernet1/0/48
+</code></pre>
+<p>Le PC d’analyse, avec Wireshark, voit alors tout ce que le serveur envoie et reçoit.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>SPAN</strong> — <em>Switched Port Analyzer</em>, recopie du trafic d’un port vers un port d’analyse ; on dit aussi port miroir.</li>
+<li><strong>TAP</strong> — Boîtier passif inséré sur un lien, qui en fournit une copie complète.</li>
+<li><strong>Wireshark</strong> — Logiciel de capture et d’analyse de paquets.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>On copie un port à 10 Gb/s, chargé à 6 Gb/s dans chaque sens, vers un port destination à 10 Gb/s. La capture est-elle complète ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> La source « both » produit 6 + 6 = 12 Gb/s de trafic à recopier, plus que les 10 Gb/s du port destination : le switch <strong>perd</strong> une partie des copies. La capture semblera montrer des pertes ou des retransmissions qui n’existent pas dans la réalité.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="variantes-et-precautions">Variantes et précautions</h2>
+<table>
+<thead>
+<tr>
+<th>Variante</th>
+<th>Principe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SPAN local</td>
+<td>source et destination sur le même switch</td>
+</tr>
+<tr>
+<td><strong>RSPAN</strong></td>
+<td>la copie est transportée dans un VLAN dédié vers un autre switch</td>
+</tr>
+<tr>
+<td><strong>ERSPAN</strong></td>
+<td>la copie est encapsulée dans GRE et routée vers n’importe quelle destination IP ; voir <a href="erspan.html">ERSPAN</a></td>
+</tr>
+<tr>
+<td>SPAN de VLAN</td>
+<td>copie de tout le trafic d’un VLAN (attention au volume)</td>
+</tr>
+</tbody>
+</table>
+<p>Précautions :</p>
+<ul>
+<li>Le port destination ne sert <strong>qu’à</strong> recevoir la copie : il ne transmet plus de trafic normal.</li>
+<li>Le SPAN est <strong>moins prioritaire</strong> que le trafic réel : en cas de charge, ce sont les copies qui sont sacrifiées.</li>
+<li>Certaines trames (en erreur, trop courtes) ne sont pas recopiées : pour diagnostiquer un problème physique, il faut un TAP.</li>
+<li>Retirer la session après usage : <code>no monitor session 1</code>.</li>
+</ul>
+<h2 id="span-ou-tap">SPAN ou TAP ?</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>SPAN</th>
+<th>TAP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Coût</td>
+<td>gratuit (fonction du switch)</td>
+<td>boîtier à acheter et insérer</td>
+</tr>
+<tr>
+<td>Fidélité</td>
+<td>perte possible en charge, trames en erreur absentes</td>
+<td>copie complète, y compris les erreurs</td>
+</tr>
+<tr>
+<td>Mise en place</td>
+<td>par configuration, à distance</td>
+<td>coupure du lien pour l’insérer</td>
+</tr>
+<tr>
+<td>Usage</td>
+<td>dépannage ponctuel</td>
+<td>sondes de sécurité permanentes, analyse exigeante</td>
+</tr>
+</tbody>
+</table>
+<h2 id="verifier">Vérifier</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show monitor session 1
+Session 1
+---------
+Type                     : Local Session
+Source Ports             :
+    Both                 : Gi1/0/10
+Destination Ports        : Gi1/0/48
+    Encapsulation        : Native
+          Ingress        : Disabled
+</code></pre>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Une capture faite par SPAN montre de nombreuses retransmissions TCP entre un poste et un serveur, mais les deux machines n’en voient aucune dans leurs propres captures. Explication ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La session SPAN <strong>perd des copies</strong> (port destination saturé ou SPAN de faible priorité) : l’analyseur voit des « trous » qui n’existent pas en réalité, et Wireshark les interprète comme des pertes. Il faut réduire la source (un seul sens, filtrer), utiliser un port destination plus rapide, ou un TAP.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/dscp.html"><small>Fiche précédente</small><strong>DSCP</strong></a><a class="apres" href="../niveau-5/erspan.html"><small>Fiche suivante</small><strong>ERSPAN</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-voir-ce-qui-passe">Le problème : voir ce qui passe</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#variantes-et-precautions">Variantes et précautions</a><a href="#span-ou-tap">SPAN ou TAP ?</a><a href="#verifier">Vérifier</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

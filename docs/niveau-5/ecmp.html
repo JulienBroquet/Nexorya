@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ECMP — Equal-Cost Multi-Path | Nexorya</title>
+<meta name="description" content="Quand plusieurs chemins ont exactement le même coût, le routeur les utilise tous en même temps, en répartissant les flux ; c’est la base des datacenters modernes.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp" aria-current="page">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/ecmp">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-3">Le datacenter moderne</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>ECMP</h1><p class="nom-complet">Equal-Cost Multi-Path</p>
+<p class="idee">Quand plusieurs chemins ont exactement le même coût, le routeur les utilise tous en même temps, en répartissant les flux ; c’est la base des datacenters modernes.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-2/ospf.html">OSPF</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Un switch a quatre liens de 100 Gb/s vers quatre switches de cœur. Si le routage n’en utilisait qu’un, on gaspillerait 75 % de la capacité, et une panne demanderait une reconvergence. On veut utiliser <strong>tous</strong> les liens en même temps.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Si plusieurs chemins ont le même coût, le routeur les garde tous et répartit les flux entre eux ; si l’un tombe, les flux se répartissent sur les autres.</p>
+</div>
+<h2 id="la-fabric-leaf-spine">La fabric leaf-spine</h2>
+<figure class="schema"><svg viewBox="0 0 708.0 328.0" width="708.0" role="img" aria-label="Leaf-spine — chaque leaf est relié à chaque spine" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="232.0" y1="50.0" x2="110.0" y2="232.0"/><line class="tp-lien " x1="232.0" y1="50.0" x2="272.26" y2="232.0"/><line class="tp-lien " x1="232.0" y1="50.0" x2="434.52000000000004" y2="232.0"/><line class="tp-lien " x1="232.0" y1="50.0" x2="598.0" y2="232.0"/><line class="tp-lien " x1="476.0" y1="50.0" x2="110.0" y2="232.0"/><line class="tp-lien " x1="476.0" y1="50.0" x2="272.26" y2="232.0"/><line class="tp-lien " x1="476.0" y1="50.0" x2="434.52000000000004" y2="232.0"/><line class="tp-lien " x1="476.0" y1="50.0" x2="598.0" y2="232.0"/><g transform="translate(232.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="232.0" y="90.0" text-anchor="middle">Spine 1</text><g transform="translate(476.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">Spine 2</text><g transform="translate(110.0 232.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="272.0" text-anchor="middle">Leaf 1</text><g transform="translate(272.26 232.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="272.26" y="272.0" text-anchor="middle">Leaf 2</text><g transform="translate(434.52000000000004 232.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="434.52000000000004" y="272.0" text-anchor="middle">Leaf 3</text><g transform="translate(598.0 232.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="598.0" y="272.0" text-anchor="middle">Leaf 4</text></svg><figcaption>Leaf-spine — chaque leaf est relié à chaque spine</figcaption></figure>
+<p>Entre deux leafs, il y a autant de chemins de même coût que de spines (ici deux). Le trafic est réparti sur tous ; ajouter un spine ajoute de la capacité.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>ECMP</strong> — Utilisation simultanée de plusieurs chemins de même coût vers une destination.</li>
+<li><strong>Leaf-spine</strong> — Architecture de datacenter où chaque switch d’accès (leaf) est relié à tous les switches de cœur (spine).</li>
+<li><strong>Hachage</strong> — Calcul qui attribue chaque flux à un chemin, à partir de ses adresses et ports.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi ECMP répartit-il par flux plutôt que paquet par paquet ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Pour que les paquets d’une même connexion suivent <strong>le même chemin</strong> et arrivent <strong>dans l’ordre</strong>. Des chemins de latences légèrement différentes désordonneraient les paquets, ce que TCP interprète comme des pertes.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="verifier">Vérifier</h2>
+<pre><code class="language-cisco"><span class="k">LEAF1#</span> show ip route 10.40.3.0
+Routing entry for 10.40.3.0/24
+  Known via &quot;ospf 1&quot;, distance 110, metric 3
+  * 10.255.1.0, via Ethernet1/49
+    10.255.2.0, via Ethernet1/50
+<span class="k">LEAF1#</span> show ip load-sharing
+<span class="k">LEAF1#</span> show ip cef exact-route 10.40.1.15 10.40.3.20     ! quel lien pour ce couple ?
+</code></pre>
+<h2 id="les-limites">Les limites</h2>
+<ul>
+<li><strong>Flux éléphants</strong> : quelques très gros flux peuvent tomber sur le même lien et le saturer pendant que les autres sont peu chargés. Solutions : plus de flux parallèles, hachage incluant plus de champs, techniques de répartition dynamique (<em>flowlet</em>).</li>
+<li><strong>Polarisation</strong> : si tous les routeurs utilisent la même fonction de hachage, les flux qui ont pris le lien 1 au premier niveau prennent aussi le lien 1 au niveau suivant. On varie le hachage (<em>seed</em>) par équipement.</li>
+<li><strong>Coût vraiment égal</strong> : un lien plus lent avec le même coût (mauvaise référence de bande passante) reçoit autant de flux que les autres. En BGP, l’ECMP demande <code>maximum-paths</code> et des attributs identiques.</li>
+</ul>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Dans une fabric à 4 spines, un leaf perd son lien vers le spine 2. Que deviennent les flux qui passaient par ce lien ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le chemin par le spine 2 disparaît de la table : il reste <strong>trois</strong> chemins de même coût, et les flux concernés sont redistribués sur eux (rehachage). La capacité vers les autres leafs baisse d’un quart, sans coupure prolongée.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/vrf.html"><small>Fiche précédente</small><strong>VRF</strong></a><a class="apres" href="../niveau-5/vxlan.html"><small>Fiche suivante</small><strong>VXLAN</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#la-fabric-leaf-spine">La fabric leaf-spine</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#verifier">Vérifier</a><a href="#les-limites">Les limites</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

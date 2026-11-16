@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>OSPF — Open Shortest Path First | Nexorya</title>
+<meta name="description" content="Avec OSPF, chaque routeur reçoit la carte complète du réseau, puis calcule lui-même le chemin le plus rapide vers chaque destination ; après une panne, la carte est mise à jour en quelques secondes.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf" aria-current="page">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/ospf">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-3">Choisir un chemin</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>OSPF</h1><p class="nom-complet">Open Shortest Path First</p>
+<p class="idee">Avec OSPF, chaque routeur reçoit la carte complète du réseau, puis calcule lui-même le chemin le plus rapide vers chaque destination ; après une panne, la carte est mise à jour en quelques secondes.</p><div class="badges"><span>Couche OSI 3 (protocole IP 89)</span><span>Découvrir : 12 min</span><span>Approfondir : 30 min</span><span>Avant : <a href="../niveau-2/passerelle.html">La table de routage</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-choisir-le-chemin-le-plus-rapide-et-vite">Le problème : choisir le chemin le plus rapide, et vite</h2>
+<p>Le <a href="routage-statique.html">routage statique</a> ne s’adapte pas aux pannes, et <a href="rip.html">RIP</a> choisit mal ses chemins et réagit lentement. Une entreprise avec plusieurs bâtiments et des liens redondants a besoin d’un protocole qui <strong>connaît la vitesse des liens</strong>, qui <strong>réagit en secondes</strong> et qui fonctionne avec <strong>toutes les marques</strong> d’équipements.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Chaque routeur OSPF décrit ses propres liens à tous les autres. Tous obtiennent ainsi <strong>la même carte</strong> du réseau, et chacun calcule dessus ses meilleurs chemins.</p>
+</div>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie du GPS</p>
+<p>RIP, c’est demander son chemin aux passants, qui ne connaissent que la direction à prendre. OSPF, c’est un GPS : chaque routeur a la <strong>carte complète</strong> avec la vitesse de chaque route, et calcule lui-même l’itinéraire le plus rapide.</p>
+</div>
+<h2 id="comment-ca-marche-etape-par-etape">Comment ça marche, étape par étape</h2>
+<ol>
+<li><strong>Trouver ses voisins.</strong> Chaque routeur envoie des messages <strong>Hello</strong> toutes les 10 secondes sur ses interfaces OSPF. Deux routeurs qui s’entendent et sont compatibles deviennent <strong>voisins</strong>.</li>
+<li><strong>Échanger la carte.</strong> Les voisins s’échangent la description de tous les liens qu’ils connaissent (les <strong>LSA</strong>). Chaque routeur construit une <strong>base de données</strong> de la topologie, identique chez tous.</li>
+<li><strong>Calculer.</strong> Chaque routeur applique l’algorithme de <strong>Dijkstra</strong> (« plus court chemin d’abord », d’où le nom <em>Shortest Path First</em>) pour trouver le meilleur chemin vers chaque réseau.</li>
+<li><strong>Réagir.</strong> Si un lien tombe, les routeurs concernés envoient immédiatement une mise à jour ; tous recalculent. La convergence prend quelques secondes.</li>
+</ol>
+<h2 id="le-cout-la-vitesse-compte">Le coût : la vitesse compte</h2>
+<p>Le coût d’un lien vaut, par défaut, <strong>100 Mb/s ÷ débit du lien</strong> (avec un minimum de 1). Le chemin retenu est celui dont la <strong>somme des coûts</strong> est la plus faible.</p>
+<figure class="schema"><svg viewBox="0 0 586.0 286.0" width="586.0" role="img" aria-label="OSPF préfère deux liens rapides à un lien lent" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="354.0" y2="50.0"/><text class="tp-etiq" x="232.0" y="38.0" text-anchor="middle">10 Mb/s : coût 10</text><line class="tp-lien actif" x1="110.0" y1="50.0" x2="232.0" y2="190.0"/><text class="tp-etiq" x="180.0" y="112.1" text-anchor="start">1 Gb/s : coût 1*</text><line class="tp-lien actif" x1="232.0" y1="190.0" x2="354.0" y2="50.0"/><text class="tp-etiq" x="284.0" y="112.1" text-anchor="end">1 Gb/s : coût 1*</text><line class="tp-lien " x1="354.0" y1="50.0" x2="476.0" y2="50.0"/><g transform="translate(110.0 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">R1</text><g transform="translate(354.0 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">R2</text><g transform="translate(232.0 190.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="232.0" y="230.0" text-anchor="middle">R3</text><g transform="translate(476.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">10.9.0.0/24</text></svg><figcaption>OSPF préfère deux liens rapides à un lien lent</figcaption></figure>
+<p>Chemin direct R1 → R2 : coût 10. Chemin R1 → R3 → R2 : coût 1 + 1 = 2. OSPF choisit <strong>le chemin par R3</strong>, plus long en sauts mais bien plus rapide.</p>
+<p>* Avec la référence par défaut de 100 Mb/s, tous les liens de 100 Mb/s et plus coûtent 1 : on ne distingue plus 1 Gb/s de 100 Gb/s. En pratique, on <strong>relève la référence</strong> (voir « Approfondir »).</p>
+<h2 id="les-zones">Les zones</h2>
+<p>Dans un grand réseau, chaque changement oblige tous les routeurs à recalculer. On découpe donc le réseau en <strong>zones</strong> (<em>areas</em>). Toutes les zones se raccrochent à la <strong>zone 0</strong>, l’épine dorsale. Les routeurs d’une zone connaissent le détail de leur zone, et seulement un <strong>résumé</strong> des autres. Dans une PME, une seule zone 0 suffit souvent.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>OSPF</strong> — <em>Open Shortest Path First</em>, protocole de routage standard à état de liens.</li>
+<li><strong>État de liens</strong> — Famille de protocoles où chaque routeur connaît la topologie complète ; <em>link state</em>.</li>
+<li><strong>LSA</strong> — <em>Link State Advertisement</em>, description d’un lien ou d’un réseau diffusée par un routeur OSPF.</li>
+<li><strong>Coût</strong> — Métrique OSPF d’un lien, d’autant plus faible que le lien est rapide.</li>
+<li><strong>Zone</strong> — Partie d’un réseau OSPF ; la zone 0 est l’épine dorsale à laquelle les autres se raccrochent.</li>
+<li><strong>Voisin / adjacence</strong> — Relation établie entre deux routeurs OSPF compatibles qui échangent leurs bases.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Deux routeurs reliés par un câble n’arrivent pas à devenir voisins OSPF. L’un est configuré dans la zone 0, l’autre dans la zone 1 sur ce lien. Pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les deux extrémités d’un lien doivent être <strong>dans la même zone</strong>. Le numéro de zone est inscrit dans les messages Hello : s’il diffère, les routeurs ignorent les Hello de l’autre.</p>
+</details>
+<p><strong>2.</strong> Pourquoi OSPF converge-t-il beaucoup plus vite que RIP ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce qu’un changement est <strong>diffusé immédiatement</strong> à tous les routeurs, et que chacun <strong>recalcule</strong> seul sur une carte complète, sans attendre que l’information se propage de voisin en voisin toutes les 30 secondes.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="la-formation-dune-adjacence">La formation d’une adjacence</h2>
+<figure class="schema"><svg viewBox="0 0 760 496" width="760" role="img" aria-label="États d’une adjacence OSPF" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="496"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">R1</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="496"/><g class="sq-acteur"><rect x="635.0" y="12" width="80" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">R2</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. Hello (router-id 1.1.1.1, zone 0, temporisateurs) — état Init chez R2</text><line x1="85.0" y1="78" x2="663.0" y2="78"/><polygon class="sq-pointe" points="673.0,78 661.0,72 661.0,84"/></g><g class="sq-msg "><text x="380.0" y="116" text-anchor="middle">2. Hello qui cite 1.1.1.1 comme voisin vu — état 2-Way</text><line x1="675.0" y1="128" x2="97.0" y2="128"/><polygon class="sq-pointe" points="87.0,128 99.0,122 99.0,134"/></g><g class="sq-note"><rect x="10.0" y="174" width="740.0" height="32" rx="6"/><text x="380.0" y="193" text-anchor="middle">sur un réseau multi-accès, élection DR/BDR</text></g><g class="sq-msg "><text x="380.0" y="232" text-anchor="middle">3. DBD : négociation maître / esclave — état ExStart (MTU comparée ici)</text><line x1="85.0" y1="244" x2="663.0" y2="244"/><polygon class="sq-pointe" points="673.0,244 661.0,238 661.0,250"/></g><g class="sq-msg "><text x="380.0" y="282" text-anchor="middle">4. DBD : résumé de la base — état Exchange</text><line x1="675.0" y1="294" x2="97.0" y2="294"/><polygon class="sq-pointe" points="87.0,294 99.0,288 99.0,300"/></g><g class="sq-msg "><text x="380.0" y="332" text-anchor="middle">5. LSR : « envoie-moi ces LSA » — état Loading</text><line x1="85.0" y1="344" x2="663.0" y2="344"/><polygon class="sq-pointe" points="673.0,344 661.0,338 661.0,350"/></g><g class="sq-msg rep"><text x="380.0" y="382" text-anchor="middle">6. LSU contenant les LSA demandées</text><line x1="675.0" y1="394" x2="97.0" y2="394"/><polygon class="sq-pointe" points="87.0,394 99.0,388 99.0,400"/></g><g class="sq-msg rep"><text x="380.0" y="432" text-anchor="middle">7. LSAck — état Full</text><line x1="85.0" y1="444" x2="663.0" y2="444"/><polygon class="sq-pointe" points="673.0,444 661.0,438 661.0,450"/></g></svg><figcaption>États d’une adjacence OSPF</figcaption></figure>
+<p>Les conditions pour devenir voisins :</p>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Doit être identique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Zone et type de zone (stub…)</td>
+<td>oui</td>
+</tr>
+<tr>
+<td>Sous-réseau et masque de l’interface</td>
+<td>oui (sauf liens point à point non numérotés)</td>
+</tr>
+<tr>
+<td>Hello / Dead interval</td>
+<td>oui (10 / 40 s par défaut sur Ethernet)</td>
+</tr>
+<tr>
+<td>Authentification</td>
+<td>oui</td>
+</tr>
+<tr>
+<td>MTU</td>
+<td>oui, sinon blocage en <strong>ExStart/Exchange</strong></td>
+</tr>
+<tr>
+<td>Router-ID</td>
+<td>doit être <strong>différent</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="dr-et-bdr">DR et BDR</h2>
+<p>Sur un segment multi-accès (Ethernet partagé avec plusieurs routeurs), chaque routeur ne forme une adjacence complète qu’avec un <strong>routeur désigné</strong> (DR) et un secours (BDR), pour éviter un maillage complet. L’élection se fait sur la <strong>priorité</strong> d’interface (1 par défaut, 0 = jamais DR) puis le <strong>router-ID</strong>. Elle n’est <strong>pas préemptive</strong> : un routeur à priorité plus haute qui arrive plus tard ne prend pas la place.</p>
+<p>Sur un lien entre <strong>deux</strong> routeurs seulement, l’élection est inutile : on configure <code>ip ospf network point-to-point</code>, qui accélère aussi la formation de l’adjacence.</p>
+<h2 id="types-de-lsa-principaux">Types de LSA principaux</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Nom</th>
+<th>Émis par</th>
+<th>Contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Router</td>
+<td>chaque routeur</td>
+<td>ses liens dans la zone</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Network</td>
+<td>le DR</td>
+<td>les routeurs d’un segment multi-accès</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Summary</td>
+<td>les ABR (routeurs de bordure de zone)</td>
+<td>les réseaux des autres zones</td>
+</tr>
+<tr>
+<td>5</td>
+<td>External</td>
+<td>les ASBR</td>
+<td>les routes importées (statiques, autre protocole)</td>
+</tr>
+<tr>
+<td>7</td>
+<td>NSSA External</td>
+<td>ASBR d’une zone NSSA</td>
+<td>routes externes dans une zone « not so stubby »</td>
+</tr>
+</tbody>
+</table>
+<p>Les <strong>zones stub</strong> refusent les LSA 5 (et les remplacent par une route par défaut) ; les <strong>totally stubby</strong> refusent aussi les LSA 3. Cela réduit la taille des bases dans les sites distants.</p>
+<h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco">router ospf 1
+ router-id 10.255.255.1
+ auto-cost reference-bandwidth 100000     ! 100 Gb/s : 1 Gb/s coûte 100, 10 Gb/s coûte 10
+ passive-interface default                ! pas de Hello vers les LAN utilisateurs
+ no passive-interface GigabitEthernet0/0/1
+ default-information originate            ! propager la route par défaut
+<span class="c">!</span>
+interface GigabitEthernet0/0/1
+ ip address 10.255.0.1 255.255.255.252
+ ip ospf network point-to-point
+ ip ospf 1 area 0
+ ip ospf authentication message-digest
+ ip ospf message-digest-key 1 md5 Un-Secret
+<span class="c">!</span>
+interface Vlan10
+ ip ospf 1 area 0                         ! le réseau est annoncé, sans Hello (passive)
+</code></pre>
+<ul>
+<li><code>reference-bandwidth</code> doit être <strong>la même sur tous les routeurs</strong>, sinon les coûts sont incohérents.</li>
+<li><code>passive-interface default</code> empêche un poste malveillant de se faire passer pour un routeur sur un VLAN d’utilisateurs.</li>
+<li>Les versions récentes privilégient l’authentification par <strong>trousseau de clés en SHA</strong> (<code>ip ospf authentication key-chain</code>).</li>
+</ul>
+<h2 id="verification">Vérification</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip ospf neighbor
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+10.255.255.2      0   FULL/  -        00:00:36    10.255.0.2      Gi0/0/1
+10.255.255.3      1   FULL/BDR        00:00:33    10.10.0.3       Vl10
+
+<span class="k">R1#</span> show ip ospf interface brief
+Interface    PID   Area   IP Address/Mask    Cost  State Nbrs F/C
+Gi0/0/1      1     0      10.255.0.1/30      100   P2P   1/1
+Vl10         1     0      10.10.0.1/24       100   DR    0/0
+
+<span class="k">R1#</span> show ip route ospf
+O     10.9.0.0/24 [110/200] via 10.255.0.2, 01:12:44, GigabitEthernet0/0/1
+O IA  10.40.0.0/16 [110/300] via 10.255.0.2, 01:12:44, GigabitEthernet0/0/1
+O E2  0.0.0.0/0 [110/1] via 10.255.0.2, 01:12:44, GigabitEthernet0/0/1
+</code></pre>
+<p><code>O IA</code> : route d’une autre zone (<em>inter-area</em>). <code>O E2</code> : route externe, importée par un ASBR (son coût ne tient pas compte du chemin interne).</p>
+<h2 id="depannage-par-symptome">Dépannage par symptôme</h2>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Cause probable</th>
+<th>Vérifier</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aucun voisin</td>
+<td>interface passive, zone, sous-réseau, Hello/Dead, ACL bloquant le protocole 89, authentification</td>
+<td><code>show ip ospf interface</code>, <code>debug ip ospf adj</code></td>
+</tr>
+<tr>
+<td>Voisin bloqué en <strong>ExStart/Exchange</strong></td>
+<td><strong>MTU différente</strong></td>
+<td><code>show interfaces</code>, <code>ip mtu</code></td>
+</tr>
+<tr>
+<td>Voisin bloqué en <strong>2-Way</strong></td>
+<td>normal entre deux DROTHER sur un segment multi-accès</td>
+<td>rien à corriger</td>
+</tr>
+<tr>
+<td>Voisin FULL mais route absente</td>
+<td>réseau non annoncé, filtrage, type de zone</td>
+<td><code>show ip ospf database</code>, <code>network</code> / <code>ip ospf area</code></td>
+</tr>
+<tr>
+<td>Chemin inattendu</td>
+<td>coûts par défaut (référence de 100 Mb/s)</td>
+<td><code>show ip ospf interface brief</code></td>
+</tr>
+<tr>
+<td>Router-ID dupliqué</td>
+<td>deux routeurs avec le même ID</td>
+<td>journal <code>%OSPF-4-DUP_RTRID</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Avec <code>auto-cost reference-bandwidth 100000</code>, quel est le coût d’un lien à 1 Gb/s, à 10 Gb/s et à 40 Gb/s ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Référence 100 000 Mb/s. 1 Gb/s : 100 000 / 1 000 = <strong>100</strong>. 10 Gb/s : <strong>10</strong>. 40 Gb/s : 100 000 / 40 000 = 2,5, arrondi à <strong>2</strong>.</p>
+</details>
+<p><strong>2.</strong> Deux routeurs restent indéfiniment en état EXSTART. L’un a une interface en MTU 1500, l’autre en 9000. Explique et propose deux corrections.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Pendant l’échange des descriptions de base (DBD), chaque routeur annonce sa MTU ; un routeur rejette les DBD dont la MTU annoncée dépasse la sienne. L’échange ne progresse pas. Corriger en <strong>alignant la MTU</strong> des deux côtés (solution propre), ou, en dernier recours, avec <code>ip ospf mtu-ignore</code>, qui masque le problème mais peut provoquer des pertes de gros paquets OSPF.</p>
+</details>
+<p><strong>3.</strong> Après l’ajout d’un routeur, <code>show ip ospf neighbor</code> affiche des voisins qui apparaissent et disparaissent, et le journal mentionne un router-ID dupliqué. Que s’est-il passé ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le nouveau routeur a été configuré (souvent par copie d’une configuration existante) avec le <strong>même router-ID</strong> qu’un autre. Les LSA des deux routeurs s’écrasent mutuellement : la base est instable. Corriger le router-ID (<code>router-id</code>), puis <code>clear ip ospf process</code> sur le routeur modifié.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/rip.html"><small>Fiche précédente</small><strong>RIP</strong></a><a class="apres" href="../niveau-2/eigrp.html"><small>Fiche suivante</small><strong>EIGRP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-choisir-le-chemin-le-plus-rapide-et-vite">Le problème : choisir le chemin le plus rapide, et vite</a><a href="#comment-ca-marche-etape-par-etape">Comment ça marche, étape par étape</a><a href="#le-cout-la-vitesse-compte">Le coût : la vitesse compte</a><a href="#les-zones">Les zones</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#la-formation-dune-adjacence">La formation d’une adjacence</a><a href="#dr-et-bdr">DR et BDR</a><a href="#types-de-lsa-principaux">Types de LSA principaux</a><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#verification">Vérification</a><a href="#depannage-par-symptome">Dépannage par symptôme</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

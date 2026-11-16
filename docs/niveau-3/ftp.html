@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FTP — File Transfer Protocol | Nexorya</title>
+<meta name="description" content="FTP transfère des fichiers avec deux connexions — une pour les commandes, une pour les données ; ancien et non chiffré, il est remplacé par SFTP ou HTTPS.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp" aria-current="page">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/ftp">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-5">Transférer, partager, s’identifier</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>FTP</h1><p class="nom-complet">File Transfer Protocol</p>
+<p class="idee">FTP transfère des fichiers avec deux connexions — une pour les commandes, une pour les données ; ancien et non chiffré, il est remplacé par SFTP ou HTTPS.</p><div class="badges"><span>Couche OSI 7 (TCP 21 pour les commandes)</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-3/tcp.html">TCP</a>, <a href="../niveau-3/nat.html">NAT</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Pendant des décennies, FTP a été le moyen standard d’échanger des fichiers entre machines. On le rencontre encore : vieux automates, imprimantes multifonctions qui déposent des numérisations, échanges avec des partenaires. Il pose deux problèmes : il est <strong>en clair</strong>, et il <strong>traverse mal</strong> les pare-feu.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>FTP ouvre une connexion pour les <strong>commandes</strong> (« donne-moi tel fichier ») et une autre pour les <strong>données</strong> (le fichier lui-même) ; cette seconde connexion est la source de la plupart des difficultés.</p>
+</div>
+<h2 id="actif-ou-passif">Actif ou passif</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Qui ouvre la connexion de données ?</th>
+<th>Problème</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Actif</strong></td>
+<td>le <strong>serveur</strong> se connecte au client, sur un port annoncé par le client</td>
+<td>le pare-feu ou le NAT du client bloque la connexion entrante</td>
+</tr>
+<tr>
+<td><strong>Passif</strong></td>
+<td>le <strong>client</strong> se connecte au serveur, sur un port annoncé par le serveur</td>
+<td>le pare-feu du serveur doit autoriser une plage de ports</td>
+</tr>
+</tbody>
+</table>
+<p>Le mode <strong>passif</strong> est le choix par défaut aujourd’hui.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>FTP</strong> — Protocole historique de transfert de fichiers, sans chiffrement.</li>
+<li><strong>Canal de contrôle / de données</strong> — Les deux connexions de FTP : commandes et transfert.</li>
+<li><strong>Mode passif</strong> — Mode où c’est le client qui ouvre la connexion de données.</li>
+<li><strong>FTPS</strong> — FTP protégé par TLS (à ne pas confondre avec SFTP).</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un transfert FTP réussit dans le réseau local mais échoue à travers le pare-feu : la connexion et la liste des dossiers fonctionnent… sauf qu’elle reste vide et que les téléchargements se figent. Pourquoi ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le <strong>canal de contrôle</strong> (TCP 21) passe, mais pas le <strong>canal de données</strong>, ouvert sur un autre port. Il faut le mode <strong>passif</strong> et, côté serveur, une plage de ports passifs autorisée au pare-feu (ou un pare-feu qui comprend FTP).</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="ce-qui-se-passe-sur-le-reseau">Ce qui se passe sur le réseau</h2>
+<figure class="schema"><svg viewBox="0 0 760 464" width="760" role="img" aria-label="Connexion FTP en mode passif" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="464"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Client</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="464"/><g class="sq-acteur"><rect x="616.9" y="12" width="116.19999999999999" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Serveur FTP</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. TCP 21 : USER, PASS (en clair)</text><line x1="85.0" y1="78" x2="663.0" y2="78"/><polygon class="sq-pointe" points="673.0,78 661.0,72 661.0,84"/></g><g class="sq-msg "><text x="380.0" y="116" text-anchor="middle">2. PASV</text><line x1="85.0" y1="128" x2="663.0" y2="128"/><polygon class="sq-pointe" points="673.0,128 661.0,122 661.0,134"/></g><g class="sq-msg rep"><text x="380.0" y="166" text-anchor="middle">3. 227 Entering Passive Mode (203,0,113,20,195,80)</text><line x1="675.0" y1="178" x2="97.0" y2="178"/><polygon class="sq-pointe" points="87.0,178 99.0,172 99.0,184"/></g><g class="sq-note"><rect x="6" y="224" width="200" height="50" rx="6"/><text x="106.0" y="243" text-anchor="middle">port de données = 195 ×</text><text x="106.0" y="261" text-anchor="middle">256 + 80 = 50 000</text></g><g class="sq-msg "><text x="380.0" y="300" text-anchor="middle">4. nouvelle connexion TCP vers le port 50 000</text><line x1="85.0" y1="312" x2="663.0" y2="312"/><polygon class="sq-pointe" points="673.0,312 661.0,306 661.0,318"/></g><g class="sq-msg "><text x="380.0" y="350" text-anchor="middle">5. RETR rapport.pdf (sur le canal de contrôle)</text><line x1="85.0" y1="362" x2="663.0" y2="362"/><polygon class="sq-pointe" points="673.0,362 661.0,356 661.0,368"/></g><g class="sq-msg rep"><text x="380.0" y="400" text-anchor="middle">6. contenu du fichier sur la connexion de données</text><line x1="675.0" y1="412" x2="97.0" y2="412"/><polygon class="sq-pointe" points="87.0,412 99.0,406 99.0,418"/></g></svg><figcaption>Connexion FTP en mode passif</figcaption></figure>
+<p>Le serveur <strong>écrit son adresse IP</strong> dans la réponse PASV. Derrière un NAT, s’il annonce son adresse <strong>privée</strong>, le client tente de se connecter à une adresse injoignable : il faut configurer le serveur pour annoncer son adresse publique (<code>pasv_address</code> sous vsftpd).</p>
+<h2 id="pare-feu-et-ftp">Pare-feu et FTP</h2>
+<ul>
+<li><strong>Côté serveur</strong> : ouvrir TCP 21 et une <strong>plage</strong> de ports passifs déclarée dans le serveur (<code>pasv_min_port</code>, <code>pasv_max_port</code>).</li>
+<li><strong>Inspection FTP</strong> (<em>ALG</em>) : de nombreux pare-feu lisent le canal de contrôle et ouvrent dynamiquement le bon port. Avec <strong>FTPS</strong>, le contrôle est chiffré : l’ALG ne peut plus lire les ports, d’où la nécessité de la plage fixe.</li>
+</ul>
+<h2 id="remplacer-ftp">Remplacer FTP</h2>
+<table>
+<thead>
+<tr>
+<th>Besoin</th>
+<th>Alternative</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Échange de fichiers avec authentification</td>
+<td><strong>SFTP</strong> (sur SSH, un seul port 22)</td>
+</tr>
+<tr>
+<td>Dépôt par une application ou un partenaire</td>
+<td>HTTPS avec une API, ou SFTP</td>
+</tr>
+<tr>
+<td>Mise à disposition publique de fichiers</td>
+<td>HTTPS</td>
+</tr>
+<tr>
+<td>Équipement ancien qui ne sait faire que FTP</td>
+<td>FTP limité à un réseau isolé, compte dédié, serveur qui ne sert qu’à cela</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un serveur FTP derrière un NAT répond <code>227 Entering Passive Mode (10,20,0,30,195,80)</code>. Un client sur Internet n’arrive pas à télécharger. Pourquoi ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le serveur annonce son adresse <strong>privée</strong> <code>10.20.0.30</code> : le client tente de se connecter à cette adresse, injoignable depuis Internet. Il faut configurer l’adresse annoncée en mode passif (adresse publique), ou utiliser un pare-feu dont l’inspection FTP réécrit l’adresse.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/diagnostic.html"><small>Fiche précédente</small><strong>Démontrer une panne</strong></a><a class="apres" href="../niveau-3/tftp.html"><small>Fiche suivante</small><strong>TFTP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#actif-ou-passif">Actif ou passif</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#ce-qui-se-passe-sur-le-reseau">Ce qui se passe sur le réseau</a><a href="#pare-feu-et-ftp">Pare-feu et FTP</a><a href="#remplacer-ftp">Remplacer FTP</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

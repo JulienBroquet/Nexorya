@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VLAN — Virtual Local Area Network (IEEE 802.1Q) | Nexorya</title>
+<meta name="description" content="Un VLAN découpe un switch physique en plusieurs réseaux locaux séparés ; les machines de deux VLAN différents ne se voient pas sans passer par un routeur.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan" aria-current="page">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/vlan">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-4">Découper le réseau avec les VLAN</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>VLAN</h1><p class="nom-complet">Virtual Local Area Network (IEEE 802.1Q)</p>
+<p class="idee">Un VLAN découpe un switch physique en plusieurs réseaux locaux séparés ; les machines de deux VLAN différents ne se voient pas sans passer par un routeur.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 8 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-1/switch.html">Penser comme un switch</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-separer-sans-racheter-des-switches">Le problème : séparer sans racheter des switches</h2>
+<p>Dans une entreprise, les postes des employés, les téléphones, les imprimantes, les caméras et les visiteurs sont branchés sur les mêmes switches. Pourtant, on ne veut pas qu’un visiteur puisse voir les ordinateurs de la comptabilité, ni qu’une caméra piratée puisse attaquer un serveur. Acheter un switch séparé pour chaque groupe serait coûteux et absurde.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Un VLAN découpe un switch en <strong>plusieurs switches virtuels</strong>. Chaque port est rangé dans un VLAN ; les machines de VLAN différents ne se voient pas, comme si elles étaient sur des switches distincts.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<ol>
+<li>L’administrateur crée des VLAN, chacun avec un <strong>numéro</strong> et un nom : VLAN 10 « Employés », VLAN 20 « Téléphones », VLAN 30 « Invités ».</li>
+<li>Il range chaque <strong>port d’accès</strong> dans un VLAN : le port 3 dans le VLAN 10, le port 4 dans le VLAN 30…</li>
+<li>Le switch ne transmet une trame <strong>qu’aux ports du même VLAN</strong>. Les broadcasts aussi restent dans le VLAN.</li>
+<li>Pour qu’un employé imprime sur une imprimante d’un autre VLAN, le trafic passe par un <strong>routeur</strong> (ou un switch de niveau 3), qui peut appliquer des règles de filtrage.</li>
+</ol>
+<figure class="schema"><svg viewBox="0 0 586.0 286.0" width="586.0" role="img" aria-label="Un seul switch, trois réseaux séparés" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="293.0" y1="50.0" x2="110.0" y2="190.0"/><line class="tp-lien " x1="293.0" y1="50.0" x2="232.0" y2="190.0"/><line class="tp-lien " x1="293.0" y1="50.0" x2="354.0" y2="190.0"/><line class="tp-lien " x1="293.0" y1="50.0" x2="476.0" y2="190.0"/><g transform="translate(293.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="293.0" y="90.0" text-anchor="middle">Switch d’étage</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">Employé</text><text class="tp-sous" x="110.0" y="246.0" text-anchor="middle">VLAN 10</text><g transform="translate(232.0 190.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="232.0" y="230.0" text-anchor="middle">Employé</text><text class="tp-sous" x="232.0" y="246.0" text-anchor="middle">VLAN 10</text><g transform="translate(354.0 190.0)"><rect class="tp-ico" x="-13" y="-20" width="26" height="40" rx="5"/><rect class="tp-ico-plein" x="-8" y="-14" width="16" height="12" rx="2" opacity=".35"/></g><text class="tp-lib" x="354.0" y="230.0" text-anchor="middle">Téléphone</text><text class="tp-sous" x="354.0" y="246.0" text-anchor="middle">VLAN 20</text><g transform="translate(476.0 190.0)"><rect class="tp-ico" x="-18" y="-15" width="36" height="22" rx="3"/><path class="tp-ico" d="M-25 9 h50 l-4 6 h-42 z"/></g><text class="tp-lib" x="476.0" y="230.0" text-anchor="middle">Visiteur</text><text class="tp-sous" x="476.0" y="246.0" text-anchor="middle">VLAN 30</text></svg><figcaption>Un seul switch, trois réseaux séparés</figcaption></figure>
+<p>Les deux employés communiquent directement. Le visiteur, lui, ne reçoit rien des employés, même branché sur le même switch.</p>
+<h2 id="port-dacces-et-port-trunk">Port d’accès et port trunk</h2>
+<table>
+<thead>
+<tr>
+<th>Type de port</th>
+<th>VLAN transportés</th>
+<th>Branché vers</th>
+<th>Les trames portent-elles une étiquette ?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accès</strong></td>
+<td>un seul</td>
+<td>un PC, une imprimante, une caméra</td>
+<td>non, l’appareil ne sait même pas qu’il est dans un VLAN</td>
+</tr>
+<tr>
+<td><strong>Trunk</strong></td>
+<td>plusieurs</td>
+<td>un autre switch, un routeur, un serveur de virtualisation</td>
+<td>oui, une étiquette indique le VLAN de chaque trame</td>
+</tr>
+</tbody>
+</table>
+<p>Le fonctionnement des étiquettes est expliqué dans la fiche <a href="802-1q.html">802.1Q</a>.</p>
+<h2 id="un-vlan-un-sous-reseau">Un VLAN, un sous-réseau</h2>
+<p>En pratique, chaque VLAN reçoit sa propre plage d’adresses IP : VLAN 10 = <code>10.10.0.0/24</code>, VLAN 20 = <code>10.20.0.0/24</code>… C’est logique : un VLAN est un domaine de diffusion, et un sous-réseau IP aussi. Une astuce courante consiste à reprendre le numéro de VLAN dans l’adresse, pour s’y retrouver d’un coup d’œil.</p>
+<h2 id="erreurs-frequentes">Erreurs fréquentes</h2>
+<ul>
+<li><strong>Croire qu’un VLAN est une protection suffisante.</strong> Dès qu’un routeur relie les VLAN sans filtrage, tout le monde peut à nouveau communiquer. La séparation devient réelle avec des règles de filtrage (ACL, pare-feu).</li>
+<li><strong>Oublier de créer le VLAN sur tous les switches</strong> traversés : le trafic s’arrête au premier switch qui ne le connaît pas.</li>
+<li><strong>Laisser des ports inutilisés dans le VLAN par défaut (VLAN 1)</strong> : n’importe qui peut s’y brancher.</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>VLAN</strong> — Réseau local virtuel : groupe de ports d’un ou plusieurs switches qui forment un réseau séparé des autres.</li>
+<li><strong>Port d’accès</strong> — Port de switch rangé dans un seul VLAN, pour brancher un appareil final.</li>
+<li><strong>Trunk</strong> — Lien entre équipements qui transporte plusieurs VLAN, chaque trame portant l’étiquette de son VLAN.</li>
+<li><strong>VLAN 1</strong> — VLAN par défaut de tous les ports d’un switch neuf.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un visiteur est branché sur le port 12 (VLAN 30) et un serveur sur le port 13 (VLAN 10) du même switch. Le visiteur peut-il joindre le serveur ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Pas directement.</strong> Ils sont dans deux VLAN différents : le switch ne transmet pas les trames de l’un à l’autre. Il faudrait passer par un routeur… qui, s’il existe, doit justement <strong>bloquer</strong> ce trafic avec une règle.</p>
+</details>
+<p><strong>2.</strong> Pourquoi met-on les téléphones IP dans un VLAN différent de celui des ordinateurs ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Pour <strong>donner la priorité</strong> à la voix (qualité de service appliquée au VLAN voix), pour <strong>limiter</strong> les broadcasts que les téléphones reçoivent, et pour <strong>filtrer</strong> plus facilement les échanges entre les deux mondes. Un téléphone n’a pas besoin de joindre les postes de travail.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-numeros-de-vlan">Les numéros de VLAN</h2>
+<table>
+<thead>
+<tr>
+<th>Plage</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0 et 4095</td>
+<td>réservés (0 = trame de priorité sans VLAN)</td>
+</tr>
+<tr>
+<td>1</td>
+<td>VLAN par défaut ; ne peut pas être supprimé sur Cisco</td>
+</tr>
+<tr>
+<td>2 à 1001</td>
+<td>plage normale</td>
+</tr>
+<tr>
+<td>1002 à 1005</td>
+<td>réservés historiquement (Token Ring, FDDI) sur Cisco</td>
+</tr>
+<tr>
+<td>1006 à 4094</td>
+<td>plage étendue</td>
+</tr>
+</tbody>
+</table>
+<p>Le numéro est codé sur <strong>12 bits</strong> dans l’étiquette 802.1Q : 4 094 VLAN utilisables au maximum. Cette limite explique l’existence de <a href="qinq.html">QinQ</a> chez les opérateurs et de VXLAN dans les datacenters.</p>
+<h2 id="configurer-des-vlan-cisco-ios">Configurer des VLAN (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="c">! Créer et nommer les VLAN</span>
+vlan 10
+ name EMPLOYES
+vlan 20
+ name VOIX
+vlan 30
+ name INVITES
+vlan 999
+ name PARKING
+<span class="c">!</span>
+<span class="c">! Port d'un poste de travail avec téléphone IP chaîné</span>
+interface GigabitEthernet1/0/5
+ description Bureau 214
+ switchport mode access
+ switchport access vlan 10
+ switchport voice vlan 20
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+<span class="c">!</span>
+<span class="c">! Ports inutilisés : VLAN « parking » sans routage, et port éteint</span>
+interface range GigabitEthernet1/0/40 - 48
+ switchport mode access
+ switchport access vlan 999
+ shutdown
+</code></pre>
+<ul>
+<li><code>switchport mode access</code> fixe le port en accès : il ne négociera jamais de trunk (voir <a href="dtp.html">DTP</a>).</li>
+<li><code>switchport voice vlan 20</code> : le téléphone envoie ses trames <strong>étiquetées</strong> VLAN 20 (il l’apprend par CDP ou LLDP-MED), le PC branché derrière lui envoie des trames <strong>non étiquetées</strong>, rangées dans le VLAN 10.</li>
+</ul>
+<h2 id="verifier">Vérifier</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show vlan brief
+VLAN Name                             Status    Ports
+---- -------------------------------- --------- -------------------------------
+1    default                          active
+10   EMPLOYES                         active    Gi1/0/5, Gi1/0/6, Gi1/0/7
+20   VOIX                             active    Gi1/0/5, Gi1/0/6
+30   INVITES                          active    Gi1/0/12
+999  PARKING                          active    Gi1/0/40, Gi1/0/41, …
+
+<span class="k">SW1#</span> show interfaces GigabitEthernet1/0/5 switchport
+Administrative Mode: static access
+Operational Mode: static access
+Access Mode VLAN: 10 (EMPLOYES)
+Voice VLAN: 20 (VOIX)
+</code></pre>
+<p><code>show vlan brief</code> ne liste que les ports <strong>d’accès</strong> : les trunks n’y apparaissent pas. Pour eux, utilise <code>show interfaces trunk</code>.</p>
+<h2 id="plan-de-vlan-type-pour-une-pme">Plan de VLAN type pour une PME</h2>
+<table>
+<thead>
+<tr>
+<th>VLAN</th>
+<th>Nom</th>
+<th>Sous-réseau</th>
+<th>Passerelle</th>
+<th>Remarque</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>EMPLOYES</td>
+<td>10.10.0.0/24</td>
+<td>10.10.0.1</td>
+<td>postes de travail</td>
+</tr>
+<tr>
+<td>20</td>
+<td>VOIX</td>
+<td>10.20.0.0/24</td>
+<td>10.20.0.1</td>
+<td>téléphones, QoS prioritaire</td>
+</tr>
+<tr>
+<td>30</td>
+<td>INVITES</td>
+<td>10.30.0.0/24</td>
+<td>10.30.0.1</td>
+<td>accès Internet seulement</td>
+</tr>
+<tr>
+<td>40</td>
+<td>IMPRIMANTES</td>
+<td>10.40.0.0/24</td>
+<td>10.40.0.1</td>
+<td>joignables depuis le VLAN 10 seulement</td>
+</tr>
+<tr>
+<td>50</td>
+<td>CAMERAS</td>
+<td>10.50.0.0/24</td>
+<td>10.50.0.1</td>
+<td>vers l’enregistreur seulement</td>
+</tr>
+<tr>
+<td>99</td>
+<td>GESTION</td>
+<td>10.99.0.0/24</td>
+<td>10.99.0.1</td>
+<td>administration des équipements, accès restreint</td>
+</tr>
+<tr>
+<td>999</td>
+<td>PARKING</td>
+<td>—</td>
+<td>—</td>
+<td>ports inutilisés, aucun routage</td>
+</tr>
+</tbody>
+</table>
+<h2 id="depannage-dun-vlan">Dépannage d’un VLAN</h2>
+<p>Un utilisateur n’a pas de réseau, ses voisins oui :</p>
+<ol>
+<li><strong>Le port</strong> : <code>show interfaces Gi1/0/x status</code> — connecté ? dans quel VLAN ?</li>
+<li><strong>Le VLAN existe</strong> sur ce switch : <code>show vlan brief</code>. Un port affecté à un VLAN inexistant est <strong>inactif</strong>.</li>
+<li><strong>Le VLAN traverse les trunks</strong> jusqu’au switch de cœur : <code>show interfaces trunk</code> sur chaque lien (VLAN autorisé, actif et en forwarding).</li>
+<li><strong>La passerelle</strong> (SVI) existe et est active : <code>show ip interface brief | include Vlan</code>.</li>
+<li><strong>L’adressage</strong> du poste correspond au sous-réseau du VLAN (DHCP, ou erreur de configuration manuelle).</li>
+</ol>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Le port Gi1/0/8 est configuré <code>switchport access vlan 60</code>, mais le VLAN 60 n’a jamais été créé. Que se passe-t-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Selon les versions, le switch crée le VLAN automatiquement ou laisse le port <strong>inactif</strong> (<code>show interfaces switchport</code> affiche « Inactive »). Dans tous les cas, le VLAN n’existe pas sur les autres switches ni sur les trunks : le poste ne joindra pas sa passerelle. Il faut créer le VLAN partout où il doit passer.</p>
+</details>
+<p><strong>2.</strong> On veut que les imprimantes (VLAN 40) soient joignables depuis les employés (VLAN 10) mais pas depuis les invités (VLAN 30). Où applique-t-on cette règle ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Sur l’équipement qui <strong>route</strong> entre les VLAN (switch de niveau 3 ou pare-feu), avec une <strong>ACL</strong> : autoriser 10.10.0.0/24 vers 10.40.0.0/24 sur les ports d’impression, refuser 10.30.0.0/24 vers les réseaux internes. Le VLAN sépare, le filtrage décide de ce qui est autorisé entre les morceaux.</p>
+</details>
+<p><strong>3.</strong> Un PC branché derrière un téléphone IP obtient une adresse du réseau voix (10.20.0.x). Quelle erreur de configuration soupçonnes-tu ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le port est probablement configuré avec le VLAN 20 comme <strong>VLAN d’accès</strong> (<code>switchport access vlan 20</code>) au lieu de <code>voice vlan 20</code>. Les trames non étiquetées du PC tombent alors dans le VLAN voix. Corriger : <code>switchport access vlan 10</code> et <code>switchport voice vlan 20</code>.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/switch.html"><small>Fiche précédente</small><strong>Penser comme un switch</strong></a><a class="apres" href="../niveau-1/802-1q.html"><small>Fiche suivante</small><strong>802.1Q</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-separer-sans-racheter-des-switches">Le problème : séparer sans racheter des switches</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#port-dacces-et-port-trunk">Port d’accès et port trunk</a><a href="#un-vlan-un-sous-reseau">Un VLAN, un sous-réseau</a><a href="#erreurs-frequentes">Erreurs fréquentes</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-numeros-de-vlan">Les numéros de VLAN</a><a href="#configurer-des-vlan-cisco-ios">Configurer des VLAN (Cisco IOS)</a><a href="#verifier">Vérifier</a><a href="#plan-de-vlan-type-pour-une-pme">Plan de VLAN type pour une PME</a><a href="#depannage-dun-vlan">Dépannage d’un VLAN</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

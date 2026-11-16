@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QoS — Qualité de service | Nexorya</title>
+<meta name="description" content="Quand un lien est saturé, la QoS décide quels paquets passent en premier ; la voix et la vidéo passent devant les sauvegardes, et les applications importantes ont une part garantie.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos" aria-current="page">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/qos">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-4">Garantir la qualité</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>QoS</h1><p class="nom-complet">Qualité de service</p>
+<p class="idee">Quand un lien est saturé, la QoS décide quels paquets passent en premier ; la voix et la vidéo passent devant les sauvegardes, et les applications importantes ont une part garantie.</p><div class="badges"><span>Couche OSI 2 et 3</span><span>Découvrir : 10 min</span><span>Approfondir : 22 min</span><span>Avant : <a href="../niveau-1/mesures.html">Mesurer une connexion</a>, <a href="../niveau-3/voip.html">La téléphonie sur IP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-la-file-dattente-unique">Le problème : la file d’attente unique</h2>
+<p>Sur un lien de 100 Mb/s vers une agence, tout va bien tant que le trafic reste sous 100 Mb/s. Quand la sauvegarde du soir démarre et réclame tout le lien, une <strong>file d’attente</strong> se forme dans le routeur. Les paquets de voix y attendent derrière des milliers de paquets de sauvegarde : la conversation devient hachée, alors que la voix ne représente que 1 % du trafic.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>La QoS crée <strong>plusieurs files d’attente</strong> avec des règles de passage : la voix passe toujours en premier, les applications métier ont une part garantie, et les flux qui peuvent attendre attendent.</p>
+</div>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie du péage</p>
+<p>Sans QoS, toutes les voitures font la queue au même guichet, y compris l’ambulance. Avec QoS, il y a une voie réservée aux véhicules prioritaires (limitée en nombre), des voies pour les abonnés, et une voie pour tout le monde.</p>
+</div>
+<h2 id="les-etapes">Les étapes</h2>
+<table>
+<thead>
+<tr>
+<th>Étape</th>
+<th>Question</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Classifier</strong></td>
+<td>de quel type de trafic s’agit-il ?</td>
+<td>voix (RTP), visio, ERP, Web, sauvegarde</td>
+</tr>
+<tr>
+<td><strong>Marquer</strong></td>
+<td>comment l’indiquer aux équipements suivants ?</td>
+<td>champ <strong>DSCP</strong> de l’en-tête IP : 46 (EF) pour la voix</td>
+</tr>
+<tr>
+<td><strong>Mettre en file et ordonnancer</strong></td>
+<td>qui passe en premier ?</td>
+<td>file prioritaire pour la voix, parts garanties pour les autres</td>
+</tr>
+<tr>
+<td><strong>Lisser / limiter</strong></td>
+<td>comment respecter un débit contractuel ?</td>
+<td>lisser à 100 Mb/s sur un lien physique à 1 Gb/s</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ou-la-qos-est-elle-utile">Où la QoS est-elle utile ?</h2>
+<p>Partout où un lien peut être <strong>saturé</strong> : principalement les liens <strong>WAN</strong> (bien plus lents que le LAN), les liaisons montantes des switches d’accès, et les liens Wi-Fi. Sur un lien jamais chargé, elle ne fait rien… et ne coûte rien.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>QoS</strong> — <em>Quality of Service</em>, ensemble de mécanismes qui traitent différemment les flux selon leur importance.</li>
+<li><strong>Congestion</strong> — Situation où plus de trafic arrive qu’un lien ne peut en écouler.</li>
+<li><strong>Classification</strong> — Identification du type de trafic d’un paquet.</li>
+<li><strong>Marquage</strong> — Inscription d’une priorité dans le paquet (DSCP) ou la trame (CoS).</li>
+<li><strong>LLQ</strong> — <em>Low Latency Queuing</em>, file à priorité stricte pour la voix et la vidéo interactive.</li>
+<li><strong>Lissage</strong> — Mise en attente du trafic pour respecter un débit maximal ; <em>shaping</em>.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un lien n’est jamais chargé à plus de 30 %. La QoS y améliore-t-elle la voix ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non</strong>, en principe : sans congestion, il n’y a pas de file d’attente, donc rien à prioriser. Attention toutefois aux <strong>rafales</strong> : une moyenne à 30 % peut cacher des pics à 100 % de quelques secondes, pendant lesquels la QoS est utile.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="un-modele-de-classes-simple">Un modèle de classes simple</h2>
+<table>
+<thead>
+<tr>
+<th>Classe</th>
+<th>Exemples</th>
+<th>DSCP</th>
+<th>Traitement sur le WAN</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Voix</td>
+<td>RTP audio</td>
+<td><strong>EF (46)</strong></td>
+<td>file prioritaire stricte, ≤ 10–33 % du lien</td>
+</tr>
+<tr>
+<td>Visioconférence</td>
+<td>RTP vidéo interactive</td>
+<td>AF41 (34)</td>
+<td>part garantie importante</td>
+</tr>
+<tr>
+<td>Signalisation</td>
+<td>SIP, H.323</td>
+<td>CS3 (24)</td>
+<td>petite part garantie</td>
+</tr>
+<tr>
+<td>Applications métier</td>
+<td>ERP, bureau à distance</td>
+<td>AF21 (18)</td>
+<td>part garantie</td>
+</tr>
+<tr>
+<td>Défaut</td>
+<td>navigation, e-mail</td>
+<td>0 (BE)</td>
+<td>ce qui reste</td>
+</tr>
+<tr>
+<td>Moins que le défaut</td>
+<td>sauvegardes, mises à jour</td>
+<td>CS1 (8)</td>
+<td>petite part, passe après tout le monde</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-mqc-cisco-ios">Configuration MQC (Cisco IOS)</h2>
+<pre><code class="language-cisco">class-map match-any VOIX
+ match dscp ef
+class-map match-any VISIO
+ match dscp af41
+class-map match-any METIER
+ match dscp af21
+class-map match-any ARRIERE-PLAN
+ match dscp cs1
+<span class="c">!</span>
+policy-map WAN-SORTIE
+ class VOIX
+  priority percent 20                 ! file prioritaire (LLQ), plafonnée à 20 %
+ class VISIO
+  bandwidth remaining percent 30
+ class METIER
+  bandwidth remaining percent 30
+ class ARRIERE-PLAN
+  bandwidth remaining percent 5
+ class class-default
+  bandwidth remaining percent 35
+  fair-queue
+<span class="c">!</span>
+<span class="c">! Le lien physique est à 1 Gb/s mais le contrat est de 100 Mb/s : lisser d'abord</span>
+policy-map WAN-LISSAGE
+ class class-default
+  shape average 100000000
+  service-policy WAN-SORTIE
+<span class="c">!</span>
+interface GigabitEthernet0/0/0
+ service-policy output WAN-LISSAGE
+</code></pre>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Sans <strong>lissage</strong> au débit du contrat, la congestion n’a pas lieu dans <strong>ton</strong> routeur (qui envoie à 1 Gb/s), mais chez l’opérateur, qui jette les paquets sans tenir compte de tes priorités. La QoS doit s’appliquer là où la file d’attente se forme réellement : on la <strong>déplace</strong> chez soi grâce au lissage.</p>
+</div>
+<h2 id="verifier-quelle-fonctionne">Vérifier qu’elle fonctionne</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show policy-map interface GigabitEthernet0/0/0 output
+  Class-map: VOIX (match-any)
+    1832940 packets, 366588000 bytes
+    5 minute offered rate 1792000 bps, drop rate 0000 bps
+    Priority: 20% (20000 kbps), burst bytes 500000, b/w exceed drops: 0
+  Class-map: ARRIERE-PLAN (match-any)
+    5 minute offered rate 71540000 bps, drop rate 18320000 bps
+</code></pre>
+<p>Ici, la voix ne subit <strong>aucun rejet</strong> pendant que la sauvegarde (arrière-plan) en subit beaucoup : la politique fait exactement son travail.</p>
+<h2 id="faire-confiance-au-marquage">Faire confiance au marquage ?</h2>
+<p>Les téléphones marquent leur trafic en EF. Mais un PC pourrait marquer tout son trafic en EF pour passer devant les autres. On définit donc une <strong>frontière de confiance</strong> : on fait confiance au marquage des téléphones (détectés par CDP/LLDP), et l’on <strong>remarque</strong> (ou remet à zéro) celui des PC. Voir <a href="dscp.html">DSCP</a>.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Pendant les sauvegardes, la voix reste hachée malgré une politique QoS appliquée en sortie du routeur WAN. Le lien physique est à 1 Gb/s, le contrat opérateur à 50 Mb/s, et les compteurs de la politique ne montrent aucun rejet. Pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le routeur envoie à 1 Gb/s : <strong>aucune congestion</strong> n’a lieu chez lui, donc ses files ne servent à rien. La congestion se produit chez l’<strong>opérateur</strong>, qui limite à 50 Mb/s sans tenir compte des priorités. Il faut un <strong>lissage</strong> à 50 Mb/s avec la politique de files à l’intérieur.</p>
+</details>
+<p><strong>2.</strong> Pourquoi limite-t-on la file prioritaire à une fraction du lien, au lieu de lui laisser tout ce qu’elle demande ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce qu’une file à priorité <strong>stricte</strong> passe toujours avant les autres : si elle n’était pas plafonnée, un flux mal marqué ou une augmentation imprévue pourrait <strong>affamer</strong> toutes les autres classes. Le plafond protège le reste du trafic, et oblige à dimensionner la voix correctement.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/redondance-switches.html"><small>Fiche précédente</small><strong>Redondance de switches</strong></a><a class="apres" href="../niveau-5/dscp.html"><small>Fiche suivante</small><strong>DSCP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-la-file-dattente-unique">Le problème : la file d’attente unique</a><a href="#les-etapes">Les étapes</a><a href="#ou-la-qos-est-elle-utile">Où la QoS est-elle utile ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#un-modele-de-classes-simple">Un modèle de classes simple</a><a href="#configuration-mqc-cisco-ios">Configuration MQC (Cisco IOS)</a><a href="#verifier-quelle-fonctionne">Vérifier qu’elle fonctionne</a><a href="#faire-confiance-au-marquage">Faire confiance au marquage ?</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

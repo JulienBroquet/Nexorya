@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Labo 6 — Chasse aux pannes | Nexorya</title>
+<meta name="description" content="Explore les réseaux. Maîtrise l’infrastructure.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" aria-current=page class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="page"><p class="fil"><a href="../index.html">Accueil</a> › <a href=index.html>Pratique</a></p><h1>Labo 6 — Chasse aux pannes</h1><p class=chapeau>Dix pannes classiques, telles qu’on les rencontre en entreprise. Pour chacune, un symptôme rapporté par un utilisateur. À toi de trouver la cause avec méthode.</p><div class="prose"><div class="encadre retenir">
+<p class="encadre-titre">La méthode</p>
+<ol>
+<li><strong>Délimiter</strong> : qui est touché, depuis quand, pour quoi ?</li>
+<li><strong>Remonter les couches</strong> : lien physique → adresse → passerelle → routage → nom (DNS) → application.</li>
+<li><strong>Une hypothèse à la fois</strong>, vérifiée par une commande.</li>
+<li><strong>Corriger</strong>, puis vérifier que le symptôme a disparu <strong>et</strong> que rien d’autre n’est cassé.</li>
+<li><strong>Noter</strong> la cause et la correction.</li>
+</ol>
+</div>
+<p><strong>Comment faire</strong> : à deux, l’un introduit une panne dans le réseau du <a href="labo-4-routage.html">labo 4</a> ou du <a href="labo-2-vlan.html">labo 2</a> sans rien dire, l’autre la cherche. Seul, lis le symptôme, écris ton hypothèse et les commandes que tu taperais avant d’ouvrir la solution. <strong>Fiches utiles</strong> : <a href="../demarrer/commandes.html">Les commandes de base</a>, <a href="../niveau-3/diagnostic.html">Diagnostic</a>.</p>
+<h2 id="les-pannes">Les pannes</h2>
+<p><strong>1. « Mon PC n’a plus Internet. »</strong> <code>ipconfig</code> affiche <code>169.254.31.7</code>.</p>
+<details>
+<summary>Piste et solution</summary>
+<p>Pas de réponse DHCP. Vérifier le lien (voyant, <code>show interfaces status</code>), le VLAN du port, puis le relais (<code>ip helper-address</code>) et le serveur. <strong>Cause posée</strong> : port du PC placé dans un mauvais VLAN, où aucun DHCP ne répond.</p>
+</details>
+<p><strong>2. « Je joins les autres PC de mon service, mais rien au-delà. »</strong></p>
+<details>
+<summary>Piste et solution</summary>
+<p>Le réseau local fonctionne, la sortie non : <strong>passerelle</strong>. <code>ipconfig</code> → passerelle absente ou fausse ; <code>ping</code> de la passerelle. <strong>Cause posée</strong> : option passerelle erronée dans la plage DHCP.</p>
+</details>
+<p><strong>3. « Nantes ne joint plus ni Lyon ni le siège depuis ce matin. »</strong> Les postes de Nantes joignent bien leur passerelle.</p>
+<details>
+<summary>Piste et solution</summary>
+<p>Le réseau local va bien ; c’est le <strong>routage</strong>. <code>show ip route</code> sur R-NANTES : aucune route <strong>O</strong>. <code>show ip ospf neighbor</code> : aucun voisin. <code>show ip ospf interface brief</code> : les interfaces sont en <strong>zone 1</strong>, alors que tout le réseau est en zone 0. <strong>Cause posée</strong> : instruction <code>network … area 1</code> saisie lors d’une modification de la veille. Les voisins OSPF doivent être dans la même zone (et avoir les mêmes temporisateurs, le même masque, la même authentification).</p>
+</details>
+<p><strong>4. « Internet marche avec les adresses IP, mais pas avec les noms. »</strong></p>
+<details>
+<summary>Piste et solution</summary>
+<p><code>ping 8.8.8.8</code> répond, <code>nslookup www.exemple.fr</code> échoue : <strong>DNS</strong>. Vérifier le serveur DNS distribué par DHCP et son accessibilité (une ACL qui bloque UDP 53 ?). <strong>Cause posée</strong> : ACL sans la ligne autorisant le DNS.</p>
+</details>
+<p><strong>5. « Le réseau est très lent, tous les voyants du switch clignotent en même temps. »</strong></p>
+<details>
+<summary>Piste et solution</summary>
+<p><strong>Boucle</strong> de niveau 2 : tempête de broadcast. <code>show spanning-tree</code> (spanning tree désactivé ?), <code>show interfaces</code> (compteurs de broadcast qui explosent). Débrancher le lien suspect. <strong>Cause posée</strong> : petit switch de bureau branché en boucle sur deux prises, avec STP désactivé sur les ports. Prévention : BPDU Guard.</p>
+</details>
+<p><strong>6. « L’imprimante est injoignable pour tout le monde. »</strong> Elle est sur SW2, en VLAN 30.</p>
+<details>
+<summary>Piste et solution</summary>
+<p><code>show interfaces trunk</code> sur SW1 et SW2 : le VLAN 30 n’est plus dans la liste autorisée sur le trunk entre eux. <strong>Cause posée</strong> : <code>switchport trunk allowed vlan 10,20</code> au lieu de <code>add 30</code>.</p>
+</details>
+<p><strong>7. « Mon PC marche une minute, puis plus rien, puis ça revient. »</strong> Un collègue vient de recevoir le même PC portable que lui.</p>
+<details>
+<summary>Piste et solution</summary>
+<p><strong>Conflit d’adresse IP</strong> : deux machines avec la même adresse fixe. <code>arp -a</code> montre l’adresse MAC associée changer ; le journal du switch peut signaler l’oscillation. <strong>Cause posée</strong> : adresse fixe dans la plage du DHCP.</p>
+</details>
+<p><strong>8. « Le SSH vers R-NANTES ne marche plus depuis le PC d’admin. »</strong> Le ping fonctionne.</p>
+<details>
+<summary>Piste et solution</summary>
+<p>Le réseau passe, l’accès est filtré : <code>show access-lists</code> et <code>show running-config | section line vty</code>. <strong>Cause posée</strong> : <code>access-class</code> qui référence une ACL dont le réseau d’administration a été mal saisi (<code>10.0.9.0</code> au lieu de <code>10.0.99.0</code>).</p>
+</details>
+<p><strong>9. « Un port du bureau 12 ne fonctionne plus du tout. »</strong> Le voyant est éteint, le câble est bon.</p>
+<details>
+<summary>Piste et solution</summary>
+<p><code>show interfaces status</code> : le port est <strong>err-disabled</strong>. <code>show port-security interface</code> ou le journal indique la cause (violation de port-security, BPDU Guard). <strong>Cause posée</strong> : un utilisateur a branché un switch personnel. Retirer l’appareil, puis <code>shutdown</code> / <code>no shutdown</code>.</p>
+</details>
+<p><strong>10. « Les PC de Lyon ont Internet, ceux de Nantes non. »</strong> Les deux sites joignent le siège.</p>
+<details>
+<summary>Piste et solution</summary>
+<p>Le routage interne fonctionne ; la sortie dépend du <strong>NAT</strong> et de la route par défaut. <code>show ip nat translations</code> ne montre aucune traduction pour 10.2.x.x ; l’ACL du NAT ne couvre que <code>10.1.0.0</code>. <strong>Cause posée</strong> : <code>access-list 1 permit 10.1.0.0 0.0.255.255</code> au lieu de l’ensemble de 10.0.0.0/8.</p>
+</details>
+<h2 id="ton-bilan">Ton bilan</h2>
+<p>Pour chaque panne, compare ta démarche à la méthode : as-tu commencé par délimiter ? As-tu testé une seule hypothèse à la fois ? Les pannes que tu as trouvées le plus vite sont celles où tu as <strong>remonté les couches dans l’ordre</strong>.</p></div></div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

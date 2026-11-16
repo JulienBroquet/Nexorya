@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ma box et Internet — Le voyage d’une page Web, de bout en bout | Nexorya</title>
+<meta name="description" content="Pour afficher une page, ton ordinateur obtient une adresse, traduit le nom du site, envoie la demande à sa box, qui la fait suivre de réseau en réseau jusqu’au serveur.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l0)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" aria-current=page class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>0</i>Je débute</a><h3>Le décor</h3><ul><li><a href="bienvenue.html" data-fiche="demarrer/bienvenue">Bienvenue</a></li><li><a href="reseau.html" data-fiche="demarrer/reseau">Qu’est-ce qu’un réseau ?</a></li><li><a href="equipements.html" data-fiche="demarrer/equipements">Les équipements</a></li><li><a href="paquet.html" data-fiche="demarrer/paquet">Un message en paquets</a></li></ul><h3>Les adresses et les règles</h3><ul><li><a href="adresses.html" data-fiche="demarrer/adresses">Les trois adresses</a></li><li><a href="protocoles.html" data-fiche="demarrer/protocoles">Les protocoles</a></li><li><a href="internet.html" data-fiche="demarrer/internet" aria-current="page">Ma box et Internet</a></li></ul><h3>Passer à la pratique</h3><ul><li><a href="commandes.html" data-fiche="demarrer/commandes">Les commandes de base</a></li></ul></aside>
+<article class="contenu" data-fiche-id="demarrer/internet">
+<p class="fil"><a href="index.html">Je débute</a> › <a href="index.html#chapitre-2">Les adresses et les règles</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Ma box et Internet</h1><p class="nom-complet">Le voyage d’une page Web, de bout en bout</p>
+<p class="idee">Pour afficher une page, ton ordinateur obtient une adresse, traduit le nom du site, envoie la demande à sa box, qui la fait suivre de réseau en réseau jusqu’au serveur.</p><div class="badges"><span>Découvrir : 10 min</span></div></header>
+
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="ce-qui-se-passe-en-une-seconde">Ce qui se passe en une seconde</h2>
+<p>Tu ouvres ton navigateur et tu tapes <code>www.exemple.fr</code>. Moins d’une seconde plus tard, la page s’affiche. Entre-temps, une dizaine d’échanges ont eu lieu. Les voici, dans l’ordre, en reprenant tout ce que tu as vu dans les fiches précédentes.</p>
+<h2 id="etape-1-obtenir-une-adresse">Étape 1 — Obtenir une adresse</h2>
+<p>Quand ton ordinateur se connecte au réseau de la maison, il n’a pas encore d’adresse IP. Il demande à la box, qui joue le rôle de serveur <strong>DHCP</strong> :</p>
+<figure class="schema"><svg viewBox="0 0 760 280" width="760" role="img" aria-label="L’ordinateur reçoit sa configuration réseau" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="280"/><g class="sq-acteur"><rect x="31.0" y="12" width="108.0" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Ordinateur</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="280"/><g class="sq-acteur"><rect x="635.0" y="12" width="80" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Box</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. « Je viens d’arriver, quelqu’un peut me donner une adresse ? »</text><line x1="85.0" y1="78" x2="663.0" y2="78"/><polygon class="sq-pointe" points="673.0,78 661.0,72 661.0,84"/></g><g class="sq-msg rep"><text x="380.0" y="116" text-anchor="middle">2. « Prends 192.168.1.20 »</text><line x1="675.0" y1="128" x2="97.0" y2="128"/><polygon class="sq-pointe" points="87.0,128 99.0,122 99.0,134"/></g><g class="sq-msg "><text x="380.0" y="166" text-anchor="middle">3. « D’accord, je la prends »</text><line x1="85.0" y1="178" x2="663.0" y2="178"/><polygon class="sq-pointe" points="673.0,178 661.0,172 661.0,184"/></g><g class="sq-msg rep"><text x="380.0" y="216" text-anchor="middle">4. « Confirmé. Passerelle 192.168.1.1, DNS 192.168.1.1 »</text><line x1="675.0" y1="228" x2="97.0" y2="228"/><polygon class="sq-pointe" points="87.0,228 99.0,222 99.0,234"/></g></svg><figcaption>L’ordinateur reçoit sa configuration réseau</figcaption></figure>
+<p>Il reçoit trois informations essentielles : <strong>son adresse IP</strong>, <strong>l’adresse de la passerelle</strong> (la box, pour sortir du réseau) et <strong>l’adresse du serveur DNS</strong> (pour traduire les noms).</p>
+<h2 id="etape-2-traduire-le-nom">Étape 2 — Traduire le nom</h2>
+<p>Le navigateur demande au DNS l’adresse IP de <code>www.exemple.fr</code>. La box transmet la question au DNS de ton fournisseur d’accès, qui répond par exemple <code>203.0.113.10</code>.</p>
+<h2 id="etape-3-sortir-du-reseau-local">Étape 3 — Sortir du réseau local</h2>
+<p>L’ordinateur compare l’adresse <code>203.0.113.10</code> avec la sienne : elle n’est pas dans son réseau <code>192.168.1.x</code>. Il confie donc le paquet à sa <strong>passerelle</strong>, la box.</p>
+<h2 id="etape-4-la-box-traduit-ladresse">Étape 4 — La box traduit l’adresse</h2>
+<p>Les adresses <code>192.168.x.x</code> sont des <strong>adresses privées</strong> : elles peuvent exister dans des millions de maisons en même temps, et ne sont donc pas utilisables sur Internet. La box remplace l’adresse privée de l’expéditeur par <strong>son adresse publique</strong>, unique au monde, attribuée par le fournisseur d’accès. Elle note la correspondance pour savoir à qui rendre la réponse. Cette traduction s’appelle le <strong>NAT</strong>.</p>
+<figure class="schema"><svg viewBox="0 0 830.0 286.0" width="830.0" role="img" aria-label="Une seule adresse publique pour toute la maison" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="354.0" y2="50.0"/><line class="tp-lien sansfil" x1="110.0" y1="190.0" x2="354.0" y2="50.0"/><text class="tp-etiq" x="226.0" y="109.6" text-anchor="end">Wi-Fi</text><line class="tp-lien " x1="354.0" y1="50.0" x2="476.0" y2="50.0"/><text class="tp-etiq" x="415.0" y="38.0" text-anchor="middle">fibre</text><line class="tp-lien " x1="476.0" y1="50.0" x2="598.0" y2="190.0"/><line class="tp-lien " x1="598.0" y1="190.0" x2="720.0" y2="50.0"/><line class="tp-lien " x1="476.0" y1="50.0" x2="720.0" y2="50.0"/><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">Ordinateur</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">192.168.1.20</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-18" y="-15" width="36" height="22" rx="3"/><path class="tp-ico" d="M-25 9 h50 l-4 6 h-42 z"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">Téléphone</text><text class="tp-sous" x="110.0" y="246.0" text-anchor="middle">192.168.1.21</text><g transform="translate(354.0 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">Box</text><text class="tp-sous" x="354.0" y="106.0" text-anchor="middle">publique 198.51.100.7</text><g transform="translate(476.0 50.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">Fournisseur d’accès</text><g transform="translate(720.0 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="720.0" y="90.0" text-anchor="middle">Serveur Web</text><text class="tp-sous" x="720.0" y="106.0" text-anchor="middle">203.0.113.10</text><g transform="translate(598.0 190.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="598.0" y="230.0" text-anchor="middle">Autres réseaux</text></svg><figcaption>Une seule adresse publique pour toute la maison</figcaption></figure>
+<h2 id="etape-5-de-reseau-en-reseau">Étape 5 — De réseau en réseau</h2>
+<p>Le paquet traverse le réseau de ton fournisseur d’accès, puis éventuellement ceux d’autres opérateurs. À chaque étape, un <strong>routeur</strong> lit l’adresse IP de destination et l’envoie vers le routeur suivant le plus proche de la destination. Il y a souvent entre 8 et 20 routeurs sur le chemin.</p>
+<h2 id="etape-6-le-serveur-repond">Étape 6 — Le serveur répond</h2>
+<p>Le serveur Web reçoit la demande sur son <strong>port 443</strong> (HTTPS), prépare la page et la renvoie à l’adresse publique de ta box. La box consulte sa table de traduction, retrouve que la demande venait de <code>192.168.1.20</code>, et lui remet la réponse. Le navigateur affiche la page.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">Les questions à te poser quand « Internet ne marche pas »</p>
+<ol>
+<li>Mon appareil a-t-il une adresse IP ? (étape 1)</li>
+<li>Le nom du site est-il traduit ? (étape 2)</li>
+<li>Est-ce que j’atteins ma box ? (étape 3)</li>
+<li>Est-ce que la box atteint Internet ? (étapes 4 et 5)</li>
+<li>Le site lui-même répond-il ? (étape 6)</li>
+</ol>
+<p>La fiche <a href="commandes.html">Les commandes de base</a> te montre comment répondre à chacune de ces questions.</p>
+</div>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Adresse privée</strong> — Adresse IP réservée aux réseaux internes (192.168.x.x, 10.x.x.x, 172.16 à 31.x.x), inutilisable directement sur Internet.</li>
+<li><strong>Adresse publique</strong> — Adresse IP unique au monde, attribuée par un fournisseur d’accès, joignable sur Internet.</li>
+<li><strong>NAT</strong> — <em>Network Address Translation</em>, traduction des adresses privées en adresse publique par la box ou le routeur.</li>
+<li><strong>Fournisseur d’accès</strong> — Opérateur qui relie ton réseau à Internet (FAI, ou <em>ISP</em> en anglais).</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Chez toi, ton ordinateur a l’adresse <code>192.168.1.20</code>. Un site Web qui affiche « ton adresse IP » indique <code>198.51.100.7</code>. Pourquoi ces deux adresses sont-elles différentes ?</p>
+<details>
+<summary>Voir la réponse</summary>
+<p><code>192.168.1.20</code> est l’adresse <strong>privée</strong> de ton ordinateur dans ton réseau local. <code>198.51.100.7</code> est l’adresse <strong>publique</strong> de ta box : c’est elle que voit le site, parce que la box a traduit l’adresse au passage (NAT).</p>
+</details>
+<p><strong>2.</strong> Ton ordinateur obtient l’adresse <code>169.254.12.34</code> au lieu de <code>192.168.1.x</code>. Quelle étape a échoué ?</p>
+<details>
+<summary>Voir la réponse</summary>
+<p><strong>L’étape 1.</strong> Une adresse en <code>169.254.x.x</code> est une adresse que l’ordinateur s’attribue lui-même quand <strong>personne ne lui a répondu en DHCP</strong>. Il faut vérifier la connexion à la box (câble, Wi-Fi) et le service DHCP de la box.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../demarrer/protocoles.html"><small>Fiche précédente</small><strong>Les protocoles</strong></a><a class="apres" href="../demarrer/commandes.html"><small>Fiche suivante</small><strong>Les commandes de base</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#ce-qui-se-passe-en-une-seconde">Ce qui se passe en une seconde</a><a href="#etape-1-obtenir-une-adresse">Étape 1 — Obtenir une adresse</a><a href="#etape-2-traduire-le-nom">Étape 2 — Traduire le nom</a><a href="#etape-3-sortir-du-reseau-local">Étape 3 — Sortir du réseau local</a><a href="#etape-4-la-box-traduit-ladresse">Étape 4 — La box traduit l’adresse</a><a href="#etape-5-de-reseau-en-reseau">Étape 5 — De réseau en réseau</a><a href="#etape-6-le-serveur-repond">Étape 6 — Le serveur répond</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

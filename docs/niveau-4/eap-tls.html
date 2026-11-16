@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EAP-TLS — Authentification par certificats | Nexorya</title>
+<meta name="description" content="Avec EAP-TLS, le poste et le serveur se présentent chacun un certificat ; il n’y a plus de mot de passe à voler, et l’on peut retirer l’accès d’un appareil en révoquant son certificat.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls" aria-current="page">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/eap-tls">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-1">Qui a le droit d’entrer ?</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>EAP-TLS</h1><p class="nom-complet">Authentification par certificats</p>
+<p class="idee">Avec EAP-TLS, le poste et le serveur se présentent chacun un certificat ; il n’y a plus de mot de passe à voler, et l’on peut retirer l’accès d’un appareil en révoquant son certificat.</p><div class="badges"><span>Couche OSI 2 (dans EAP)</span><span>Découvrir : 7 min</span><span>Approfondir : 15 min</span><span>Avant : <a href="../niveau-4/eap.html">EAP</a>, <a href="../niveau-4/pki.html">PKI</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Les méthodes par mot de passe ont des faiblesses : mots de passe faibles ou réutilisés, hameçonnage, faux serveurs. Et lorsqu’un ordinateur portable est volé, comment être sûr qu’il ne pourra plus jamais se connecter au réseau ?</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Chaque poste reçoit un <strong>certificat</strong> personnel, qu’il présente au serveur ; le serveur présente le sien au poste. Personne ne tape de mot de passe, et un certificat révoqué ne passe plus.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<ol>
+<li>Le poste reçoit automatiquement un <strong>certificat machine</strong> (et éventuellement utilisateur) délivré par l’autorité de certification de l’entreprise.</li>
+<li>À la connexion (filaire 802.1X ou Wi-Fi), le serveur RADIUS présente <strong>son</strong> certificat ; le poste le vérifie.</li>
+<li>Le poste présente <strong>son</strong> certificat ; le serveur vérifie qu’il est signé par l’autorité de l’entreprise, valide, non révoqué, et prévu pour l’authentification client.</li>
+<li>Le serveur applique la politique (VLAN, ACL) selon les informations du certificat ou de l’annuaire.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>EAP-TLS</strong> — Méthode EAP d’authentification mutuelle par certificats.</li>
+<li><strong>Certificat machine</strong> — Certificat qui identifie un ordinateur, utilisé avant l’ouverture de session.</li>
+<li><strong>Révocation</strong> — Annulation d’un certificat avant sa date d’expiration.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un portable de l’entreprise est volé. Comment l’empêcher de se connecter au réseau avec EAP-TLS ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Révoquer</strong> son certificat dans la PKI (et désactiver le compte machine dans l’annuaire). Le serveur RADIUS, qui vérifie la révocation (liste CRL ou OCSP), refusera ensuite la connexion.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="ce-que-verifie-le-serveur">Ce que vérifie le serveur</h2>
+<table>
+<thead>
+<tr>
+<th>Vérification</th>
+<th>Échec typique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Chaîne de confiance</td>
+<td>l’autorité qui a signé le certificat du poste n’est pas déclarée sur le serveur</td>
+</tr>
+<tr>
+<td>Dates de validité</td>
+<td>certificat expiré (renouvellement automatique en panne) ou horloge fausse</td>
+</tr>
+<tr>
+<td>Usage étendu (EKU)</td>
+<td>le certificat n’a pas l’usage « Authentification client »</td>
+</tr>
+<tr>
+<td>Révocation</td>
+<td>CRL ou OCSP injoignable depuis le serveur, ou certificat révoqué</td>
+</tr>
+<tr>
+<td>Correspondance avec l’annuaire</td>
+<td>le nom du certificat ne correspond à aucun compte machine actif</td>
+</tr>
+</tbody>
+</table>
+<h2 id="ce-que-verifie-le-poste">Ce que vérifie le poste</h2>
+<ul>
+<li>le certificat du serveur RADIUS est signé par une autorité <strong>explicitement approuvée</strong> dans le profil ;</li>
+<li>son nom correspond au nom attendu ;</li>
+<li>il a l’usage « Authentification serveur ».</li>
+</ul>
+<h2 id="deploiement-a-grande-echelle">Déploiement à grande échelle</h2>
+<ul>
+<li><strong>Windows / Active Directory</strong> : inscription automatique des certificats machine et utilisateur (<em>autoenrollment</em>) par GPO ; profil filaire et Wi-Fi par GPO.</li>
+<li><strong>Postes et mobiles gérés</strong> : SCEP ou ACME via l’outil de gestion (Intune, Jamf…).</li>
+<li><strong>Supervision</strong> : alertes sur les certificats bientôt expirés et sur les taux d’échec EAP-TLS.</li>
+</ul>
+<h2 id="exemple-de-diagnostic">Exemple de diagnostic</h2>
+<p>Après le déploiement d’une <strong>nouvelle autorité de certification</strong>, les postes échouent en masse. Le journal RADIUS indique « unknown CA ». Le serveur RADIUS n’a pas encore la <strong>nouvelle autorité</strong> dans sa liste de confiance : on l’ajoute (en gardant l’ancienne pendant la transition). Si l’erreur était « certificate expired » sur tous les postes au même moment, on vérifierait l’<strong>heure du serveur RADIUS</strong>.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Les postes Windows passent bien en EAP-TLS, mais les Mac gérés échouent avec « certificat client sans usage d’authentification ». Que corriger ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le <strong>modèle de certificat</strong> utilisé pour les Mac (via SCEP) ne contient pas l’usage étendu <strong>Client Authentication</strong> (EKU 1.3.6.1.5.5.7.3.2). Corriger le modèle, puis redélivrer les certificats.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/eap.html"><small>Fiche précédente</small><strong>EAP</strong></a><a class="apres" href="../niveau-4/802-1x.html"><small>Fiche suivante</small><strong>802.1X</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#ce-que-verifie-le-serveur">Ce que vérifie le serveur</a><a href="#ce-que-verifie-le-poste">Ce que vérifie le poste</a><a href="#deploiement-a-grande-echelle">Déploiement à grande échelle</a><a href="#exemple-de-diagnostic">Exemple de diagnostic</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

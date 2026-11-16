@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Subnetting, CIDR et VLSM — Découper un réseau sans se tromper | Nexorya</title>
+<meta name="description" content="Le préfixe (/24, /26…) indique combien de bits désignent le réseau ; en le déplaçant, on découpe un bloc d’adresses en sous-réseaux de la taille voulue.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet" aria-current="page">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/subnet">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-1">Adresser les machines</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Subnetting, CIDR et VLSM</h1><p class="nom-complet">Découper un réseau sans se tromper</p>
+<p class="idee">Le préfixe (/24, /26…) indique combien de bits désignent le réseau ; en le déplaçant, on découpe un bloc d’adresses en sous-réseaux de la taille voulue.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 15 min</span><span>Approfondir : 30 min</span><span>Avant : <a href="../niveau-2/ipv4.html">IPv4</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Une adresse IPv4 contient deux informations : <strong>le réseau</strong> (le « quartier ») et <strong>l’hôte</strong> (la « maison »). Le <strong>préfixe</strong> indique combien de bits, en partant de la gauche, désignent le réseau. Tout le subnetting consiste à déplacer cette frontière.</p>
+</div>
+<h2 id="pourquoi-decouper-un-reseau">Pourquoi découper un réseau ?</h2>
+<p>Une PME reçoit le bloc <code>192.168.40.0/24</code> : 256 adresses. Elle pourrait tout mettre dans un seul réseau, mais :</p>
+<ul>
+<li><strong>les broadcasts</strong> (ARP, DHCP…) atteindraient toutes les machines : plus le réseau est grand, plus ce bruit augmente ;</li>
+<li><strong>la sécurité</strong> serait impossible à organiser : on ne peut filtrer qu’entre deux réseaux, au niveau du routeur ou du pare-feu ;</li>
+<li><strong>l’organisation</strong> serait illisible : impossible de savoir, à la vue d’une adresse, s’il s’agit d’une imprimante ou d’un serveur.</li>
+</ul>
+<p>On découpe donc le bloc en <strong>sous-réseaux</strong> (<em>subnets</em>) : un pour le personnel, un pour les imprimantes, un pour l’administration des équipements, etc. En général, <strong>un VLAN = un sous-réseau</strong>.</p>
+<h2 id="ladresse-en-binaire-la-seule-chose-a-vraiment-comprendre">L’adresse en binaire : la seule chose à vraiment comprendre</h2>
+<p>Une adresse IPv4 fait <strong>32 bits</strong>, écrits en 4 octets décimaux. Chaque octet vaut de 0 à 255 et correspond à 8 bits dont les « poids » sont :</p>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>1ᵉʳ</th>
+<th>2ᵉ</th>
+<th>3ᵉ</th>
+<th>4ᵉ</th>
+<th>5ᵉ</th>
+<th>6ᵉ</th>
+<th>7ᵉ</th>
+<th>8ᵉ</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Poids</strong></td>
+<td>128</td>
+<td>64</td>
+<td>32</td>
+<td>16</td>
+<td>8</td>
+<td>4</td>
+<td>2</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>Exemple : <code>77</code> = 64 + 8 + 4 + 1 → <code>0100 1101</code>.</p>
+<p>Le <strong>masque</strong> est une suite de bits à 1 (la partie réseau) suivie de bits à 0 (la partie hôte). Le <strong>préfixe</strong> (/26) donne simplement le <strong>nombre de 1</strong> :</p>
+<table>
+<thead>
+<tr>
+<th>Préfixe</th>
+<th>Masque</th>
+<th>Dernier octet en binaire</th>
+<th>Adresses par sous-réseau</th>
+<th>Hôtes utilisables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>/24</td>
+<td>255.255.255.0</td>
+<td><code>0000 0000</code></td>
+<td>256</td>
+<td>254</td>
+</tr>
+<tr>
+<td>/25</td>
+<td>255.255.255.128</td>
+<td><code>1000 0000</code></td>
+<td>128</td>
+<td>126</td>
+</tr>
+<tr>
+<td>/26</td>
+<td>255.255.255.192</td>
+<td><code>1100 0000</code></td>
+<td>64</td>
+<td>62</td>
+</tr>
+<tr>
+<td>/27</td>
+<td>255.255.255.224</td>
+<td><code>1110 0000</code></td>
+<td>32</td>
+<td>30</td>
+</tr>
+<tr>
+<td>/28</td>
+<td>255.255.255.240</td>
+<td><code>1111 0000</code></td>
+<td>16</td>
+<td>14</td>
+</tr>
+<tr>
+<td>/29</td>
+<td>255.255.255.248</td>
+<td><code>1111 1000</code></td>
+<td>8</td>
+<td>6</td>
+</tr>
+<tr>
+<td>/30</td>
+<td>255.255.255.252</td>
+<td><code>1111 1100</code></td>
+<td>4</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Pourquoi « − 2 » ?</strong> Dans chaque sous-réseau classique, deux adresses sont réservées :</p>
+<ul>
+<li>la <strong>première</strong> (tous les bits d’hôte à 0) est l’<strong>adresse du réseau</strong> : elle désigne le sous-réseau lui-même, dans les tables de routage ;</li>
+<li>la <strong>dernière</strong> (tous les bits d’hôte à 1) est l’<strong>adresse de broadcast</strong> : un paquet qui lui est envoyé atteint toutes les machines du sous-réseau.</li>
+</ul>
+<p><strong>Formules :</strong> nombre d’adresses = 2^(32 − préfixe) ; hôtes utilisables = 2^(32 − préfixe) − 2.</p>
+<h2 id="la-methode-du-nombre-magique-sans-binaire">La méthode du « nombre magique » (sans binaire)</h2>
+<p>Pour un masque qui « coupe » dans le dernier octet :</p>
+<ol>
+<li><strong>Taille du bloc</strong> = 256 − valeur du masque dans l’octet coupé. Pour /26 : 256 − 192 = <strong>64</strong>.</li>
+<li>Les sous-réseaux commencent aux <strong>multiples</strong> de cette taille : .0, .64, .128, .192.</li>
+<li>Le sous-réseau d’une adresse est le <strong>multiple juste en dessous</strong> (ou égal).</li>
+<li>Le broadcast est <strong>le multiple suivant − 1</strong>.</li>
+</ol>
+<h3 id="exemple-resolu-a-quel-sous-reseau-appartient-192-168-40-77-26">Exemple résolu : à quel sous-réseau appartient 192.168.40.77/26 ?</h3>
+<ul>
+<li>Taille du bloc : 256 − 192 = 64. Multiples : 0, <strong>64</strong>, 128, 192.</li>
+<li>77 est entre 64 et 128 → <strong>réseau <code>192.168.40.64</code></strong>.</li>
+<li>Broadcast : 128 − 1 = <strong><code>192.168.40.127</code></strong>.</li>
+<li>Hôtes utilisables : <strong><code>.65</code> à <code>.126</code></strong> (62 adresses). La passerelle prend souvent la première : <code>.65</code>.</li>
+</ul>
+<p><strong>Vérification en binaire</strong> (ce que fait réellement l’ordinateur, avec un ET logique bit à bit) :</p>
+<pre><code class="language-text">Adresse  77  = 0100 1101
+Masque  192  = 1100 0000
+ET logique   = 0100 0000  = 64   → réseau 192.168.40.64
+</code></pre>
+<p>Le ET garde les bits de l’adresse là où le masque vaut 1 et met les autres à 0 : on obtient exactement l’adresse du réseau.</p>
+<div class="encadre note">
+<p class="encadre-titre">Comment un PC décide-t-il d’utiliser sa passerelle ?</p>
+<p>Il applique son masque à sa propre adresse <strong>et</strong> à l’adresse de destination. Si les deux résultats sont identiques, la destination est dans son réseau : il la joint directement (via ARP). Sinon, il envoie le paquet à sa <strong>passerelle</strong>. Un masque faux, et ce choix devient faux.</p>
+</div>
+<h2 id="choisir-le-bon-prefixe-pour-un-besoin">Choisir le bon préfixe pour un besoin</h2>
+<p>Question à se poser : <strong>quelle est la plus petite puissance de 2 qui, moins 2, couvre le besoin (avec une marge de croissance) ?</strong></p>
+<table>
+<thead>
+<tr>
+<th>Besoin</th>
+<th>Calcul</th>
+<th>Préfixe retenu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>50 postes</td>
+<td>2⁶ − 2 = 62 ≥ 50 (2⁵ − 2 = 30 trop petit)</td>
+<td><strong>/26</strong></td>
+</tr>
+<tr>
+<td>20 imprimantes</td>
+<td>2⁵ − 2 = 30 ≥ 20</td>
+<td><strong>/27</strong></td>
+</tr>
+<tr>
+<td>10 équipements à administrer</td>
+<td>2⁴ − 2 = 14 ≥ 10</td>
+<td><strong>/28</strong></td>
+</tr>
+<tr>
+<td>Lien entre deux routeurs</td>
+<td>2 adresses</td>
+<td><strong>/30</strong> (ou /31, voir plus bas)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Sous-réseau</strong> — Partie d’un bloc d’adresses, découpée avec un préfixe plus long ; <em>subnet</em>.</li>
+<li><strong>Préfixe</strong> — Nombre de bits de la partie réseau, noté après une barre oblique : /26.</li>
+<li><strong>VLSM</strong> — <em>Variable Length Subnet Mask</em>, découpage d’un bloc en sous-réseaux de tailles différentes.</li>
+<li><strong>Taille de bloc</strong> — Nombre d’adresses d’un sous-réseau ; 64 pour un /26. On l’appelle aussi « nombre magique ».</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Combien d’hôtes utilisables dans un /28 ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>32 − 28 = 4 bits d’hôte → 2⁴ = 16 adresses → <strong>14 hôtes</strong>.</p>
+</details>
+<p><strong>2.</strong> À quel sous-réseau appartient <code>192.168.40.130/26</code> ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Taille du bloc : 256 − 192 = 64. Multiples : 0, 64, <strong>128</strong>, 192. 130 est entre 128 et 192 → réseau <strong>192.168.40.128</strong>, broadcast .191, hôtes .129 à .190.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="vlsm-des-sous-reseaux-de-tailles-differentes">VLSM : des sous-réseaux de tailles différentes</h2>
+<p><strong>VLSM</strong> (<em>Variable Length Subnet Mask</em>) permet d’utiliser des préfixes différents dans un même bloc. Règle d’or : <strong>placer les plus grands sous-réseaux en premier</strong>, chacun commençant à un multiple de sa propre taille. Sinon, on crée des trous ou des chevauchements.</p>
+<h3 id="exemple-resolu-decouper-192-168-40-0-24">Exemple résolu : découper 192.168.40.0/24</h3>
+<table>
+<thead>
+<tr>
+<th>Ordre</th>
+<th>Besoin</th>
+<th>Préfixe</th>
+<th>Réseau</th>
+<th>Plage d’hôtes</th>
+<th>Broadcast</th>
+<th>Passerelle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Personnel (50)</td>
+<td>/26</td>
+<td>192.168.40.<strong>0</strong></td>
+<td>.1 – .62</td>
+<td>.63</td>
+<td>.1</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Imprimantes (20)</td>
+<td>/27</td>
+<td>192.168.40.<strong>64</strong></td>
+<td>.65 – .94</td>
+<td>.95</td>
+<td>.65</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Gestion (10)</td>
+<td>/28</td>
+<td>192.168.40.<strong>96</strong></td>
+<td>.97 – .110</td>
+<td>.111</td>
+<td>.97</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Lien vers le routeur WAN</td>
+<td>/30</td>
+<td>192.168.40.<strong>112</strong></td>
+<td>.113 – .114</td>
+<td>.115</td>
+<td>—</td>
+</tr>
+<tr>
+<td>—</td>
+<td><strong>Libre pour la croissance</strong></td>
+<td></td>
+<td>.116 à .255</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Contrôle : chaque réseau commence juste après le broadcast du précédent (.63 → .64, .95 → .96, .111 → .112) et à un multiple de sa taille (64, 32, 16, 4). Aucun chevauchement.</p>
+<div class="encadre piege">
+<p class="encadre-titre">Attention à l’espace libre</p>
+<p>De .116 à .255, tout n’est pas utilisable n’importe comment : un futur /26 (64 adresses) doit commencer à un multiple de 64, donc à <strong>.128</strong> — pas à .116.</p>
+</div>
+<h2 id="verifier-sur-un-equipement-cisco">Vérifier sur un équipement Cisco</h2>
+<pre><code class="language-cisco">show ip interface brief
+show ip interface vlan 10
+show ip route connected
+</code></pre>
+<ul>
+<li><code>show ip interface vlan 10</code> affiche <code>Internet address is 192.168.40.1/26</code> : vérifier <strong>l’adresse ET le préfixe</strong>.</li>
+<li><code>show ip route connected</code> liste les réseaux directement connectés : <code>C 192.168.40.0/26 is directly connected, Vlan10</code>. Si le préfixe affiché n’est pas celui du plan d’adressage, le masque est faux.</li>
+</ul>
+<p><strong>Symptôme typique d’un masque erroné :</strong> la passerelle est configurée en /26, un PC en /24. Le PC croit que <code>192.168.40.70</code> est dans son réseau et tente de le joindre directement par ARP au lieu de passer par la passerelle. Résultat : certaines destinations fonctionnent, d’autres non. <strong>Toujours comparer les masques aux deux extrémités</strong> avant d’ajouter une route.</p>
+<h2 id="cas-particuliers-et-pieges">Cas particuliers et pièges</h2>
+<ul>
+<li><strong>/31</strong> (RFC 3021) : sur un lien point à point, les deux adresses sont utilisables, il n’y a ni adresse de réseau ni broadcast. Courant entre routeurs, pour économiser les adresses.</li>
+<li><strong>/32</strong> : une seule adresse — on l’utilise pour une <strong>route d’hôte</strong> ou une interface <em>loopback</em>.</li>
+<li><strong>Masque qui coupe un autre octet.</strong> <code>172.16.0.0/22</code> : masque 255.255.<strong>252</strong>.0, taille du bloc 256 − 252 = <strong>4</strong> dans le <strong>3ᵉ octet</strong>. Le réseau va de 172.16.<strong>0</strong>.0 à 172.16.<strong>3</strong>.255 : 1024 adresses, 1022 hôtes. <code>172.16.2.255</code> y est une adresse d’hôte valide, pas un broadcast.</li>
+<li><strong>Ne pas confondre</strong> « nombre d’adresses » et « nombre d’hôtes » : un /26 contient 64 adresses mais 62 hôtes.</li>
+</ul>
+<h2 id="exercices-progressifs">Exercices progressifs</h2>
+<p>Essaie de répondre sur papier avant d’ouvrir chaque corrigé. Tu peux ensuite vérifier avec le <a href="../outils/cidr.html">calculateur de sous-réseaux</a>.</p>
+<p><strong>Exercice 1 (découverte).</strong> Combien d’hôtes utilisables dans un /29 ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>32 − 29 = 3 bits d’hôte → 2³ = 8 adresses → <strong>8 − 2 = 6 hôtes</strong> utilisables.</p>
+</details>
+<p><strong>Exercice 2 (découverte).</strong> Un service compte 100 postes. Quel est le plus petit préfixe adapté ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>2⁶ − 2 = 62 : insuffisant. 2⁷ − 2 = 126 ≥ 100 → 7 bits d’hôte → <strong>/25</strong> (masque 255.255.255.128).</p>
+</details>
+<p><strong>Exercice 3 (pratique).</strong> Donne le réseau, le broadcast et la plage d’hôtes de <code>10.0.5.200/27</code>.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Masque /27 = 255.255.255.224 → taille du bloc 256 − 224 = <strong>32</strong>. Multiples : …, 160, <strong>192</strong>, 224. 200 est entre 192 et 224.
+<strong>Réseau <code>10.0.5.192</code></strong>, <strong>broadcast <code>10.0.5.223</code></strong>, hôtes <strong><code>.193</code> à <code>.222</code></strong>.</p>
+</details>
+<p><strong>Exercice 4 (pratique).</strong> <code>192.168.1.10/25</code> et <code>192.168.1.130/25</code> peuvent-ils communiquer sans routeur ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>/25 → bloc de 128 : sous-réseaux <code>.0</code> (<code>.0</code>–<code>.127</code>) et <code>.128</code> (<code>.128</code>–<code>.255</code>). <code>.10</code> est dans le premier, <code>.130</code> dans le second. <strong>Non</strong> : ce sont deux réseaux différents, il faut passer par un routeur (la passerelle).</p>
+</details>
+<p><strong>Exercice 5 (diagnostic).</strong> Un PC est configuré en <code>192.168.1.10/24</code> avec la passerelle <code>192.168.2.1</code>. Il joint les machines de son réseau, mais pas Internet. Pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La passerelle <strong>doit appartenir au même réseau que le PC</strong>. Avec /24, le réseau du PC est <code>192.168.1.0</code> (<code>.1</code> à <code>.254</code>) ; <code>192.168.2.1</code> est hors de ce réseau. Le PC ne peut pas la joindre en ARP et ne peut donc rien lui confier. Il faut corriger la passerelle (probablement <code>192.168.1.1</code>) — ou le masque, si c’est lui qui est faux.</p>
+</details>
+<p><strong>Exercice 6 (expert — VLSM).</strong> Découpe <code>10.20.0.0/24</code> pour : un VLAN de 120 postes, un de 60 postes, un de 25 caméras et deux liens point à point en /30. Donne chaque réseau.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>On trie du plus grand au plus petit, et chaque réseau commence à un multiple de sa taille :</p>
+<table>
+<thead>
+<tr>
+<th>Besoin</th>
+<th>Préfixe</th>
+<th>Réseau</th>
+<th>Hôtes</th>
+<th>Broadcast</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>120 postes</td>
+<td>/25 (126)</td>
+<td>10.20.0.0</td>
+<td>.1 – .126</td>
+<td>.127</td>
+</tr>
+<tr>
+<td>60 postes</td>
+<td>/26 (62)</td>
+<td>10.20.0.128</td>
+<td>.129 – .190</td>
+<td>.191</td>
+</tr>
+<tr>
+<td>25 caméras</td>
+<td>/27 (30)</td>
+<td>10.20.0.192</td>
+<td>.193 – .222</td>
+<td>.223</td>
+</tr>
+<tr>
+<td>Lien 1</td>
+<td>/30</td>
+<td>10.20.0.224</td>
+<td>.225 – .226</td>
+<td>.227</td>
+</tr>
+<tr>
+<td>Lien 2</td>
+<td>/30</td>
+<td>10.20.0.228</td>
+<td>.229 – .230</td>
+<td>.231</td>
+</tr>
+</tbody>
+</table>
+<p>Reste libre : <code>10.20.0.232</code> à <code>10.20.0.255</code>. Remarque : 60 postes dans un /26 ne laisse que 2 adresses de marge ; en production, on discuterait d’un /25 pour ce VLAN si la croissance est probable.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/ipv4.html"><small>Fiche précédente</small><strong>IPv4</strong></a><a class="apres" href="../niveau-2/ipv6.html"><small>Fiche suivante</small><strong>IPv6</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#pourquoi-decouper-un-reseau">Pourquoi découper un réseau ?</a><a href="#ladresse-en-binaire-la-seule-chose-a-vraiment-comprendre">L’adresse en binaire : la seule chose à vraiment comprendre</a><a href="#la-methode-du-nombre-magique-sans-binaire">La méthode du « nombre magique » (sans binaire)</a><a href="#choisir-le-bon-prefixe-pour-un-besoin">Choisir le bon préfixe pour un besoin</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#vlsm-des-sous-reseaux-de-tailles-differentes">VLSM : des sous-réseaux de tailles différentes</a><a href="#verifier-sur-un-equipement-cisco">Vérifier sur un équipement Cisco</a><a href="#cas-particuliers-et-pieges">Cas particuliers et pièges</a><a href="#exercices-progressifs">Exercices progressifs</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

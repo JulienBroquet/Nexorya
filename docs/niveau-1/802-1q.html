@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>802.1Q — L’étiquetage des VLAN sur les trunks | Nexorya</title>
+<meta name="description" content="Sur un lien trunk, chaque trame reçoit une étiquette de 4 octets qui indique son numéro de VLAN ; le switch d’en face la lit pour ranger la trame dans le bon VLAN.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q" aria-current="page">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/802-1q">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-4">Découper le réseau avec les VLAN</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>802.1Q</h1><p class="nom-complet">L’étiquetage des VLAN sur les trunks</p>
+<p class="idee">Sur un lien trunk, chaque trame reçoit une étiquette de 4 octets qui indique son numéro de VLAN ; le switch d’en face la lit pour ranger la trame dans le bon VLAN.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 7 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-1/vlan.html">VLAN</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-plusieurs-vlan-un-seul-cable">Le problème : plusieurs VLAN, un seul câble</h2>
+<p>Deux switches d’étage portent chacun les VLAN 10 (employés), 20 (téléphones) et 30 (invités). Faut-il trois câbles entre eux, un par VLAN ? Et avec 50 VLAN, 50 câbles ? Évidemment non : on utilise <strong>un seul lien</strong>, qui transporte tous les VLAN. Mais alors, comment le switch qui reçoit une trame sait-il à quel VLAN elle appartient ?</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Sur un lien <strong>trunk</strong>, le switch qui émet glisse dans chaque trame une <strong>étiquette</strong> portant le numéro de VLAN. Le switch qui reçoit lit l’étiquette, la retire et range la trame dans le bon VLAN.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 760 452" width="760" role="img" aria-label="Une trame du VLAN 20 traverse un trunk" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="452"/><g class="sq-acteur"><rect x="35.1" y="12" width="99.8" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Téléphone</text></g><line class="sq-vie" x1="281.66666666666663" y1="43" x2="281.66666666666663" y2="452"/><g class="sq-acteur"><rect x="241.66666666666663" y="12" width="80" height="31" rx="8"/><text x="281.66666666666663" y="33" text-anchor="middle">SW1</text></g><line class="sq-vie" x1="478.3333333333333" y1="43" x2="478.3333333333333" y2="452"/><g class="sq-acteur"><rect x="438.3333333333333" y="12" width="80" height="31" rx="8"/><text x="478.3333333333333" y="33" text-anchor="middle">SW2</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="452"/><g class="sq-acteur"><rect x="596.4" y="12" width="157.2" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Serveur d’appels</text></g><g class="sq-msg "><text x="183.33333333333331" y="66" text-anchor="middle">1. trame (port d’accès</text><text x="183.33333333333331" y="84" text-anchor="middle">voix, VLAN 20)</text><line x1="85.0" y1="96" x2="269.66666666666663" y2="96"/><polygon class="sq-pointe" points="279.66666666666663,96 267.66666666666663,90 267.66666666666663,102"/></g><g class="sq-note"><rect x="181.66666666666663" y="142" width="200" height="50" rx="6"/><text x="281.66666666666663" y="161" text-anchor="middle">ajoute l’étiquette « VLAN</text><text x="281.66666666666663" y="179" text-anchor="middle">20 »</text></g><g class="sq-msg "><text x="380.0" y="218" text-anchor="middle">2. trame étiquetée VLAN</text><text x="380.0" y="236" text-anchor="middle">20 sur le trunk</text><line x1="281.66666666666663" y1="248" x2="466.3333333333333" y2="248"/><polygon class="sq-pointe" points="476.3333333333333,248 464.3333333333333,242 464.3333333333333,254"/></g><g class="sq-note"><rect x="378.3333333333333" y="294" width="200" height="50" rx="6"/><text x="478.3333333333333" y="313" text-anchor="middle">lit « VLAN 20 », retire</text><text x="478.3333333333333" y="331" text-anchor="middle">l’étiquette</text></g><g class="sq-msg "><text x="576.6666666666666" y="370" text-anchor="middle">3. trame normale, dans</text><text x="576.6666666666666" y="388" text-anchor="middle">le VLAN 20</text><line x1="478.3333333333333" y1="400" x2="663.0" y2="400"/><polygon class="sq-pointe" points="673.0,400 661.0,394 661.0,406"/></g></svg><figcaption>Une trame du VLAN 20 traverse un trunk</figcaption></figure>
+<ul>
+<li>Les <strong>appareils finaux</strong> (PC, imprimantes) ne voient jamais d’étiquette : les ports d’accès les retirent.</li>
+<li>Les <strong>trunks</strong> relient des équipements qui comprennent les étiquettes : switches, routeurs, serveurs de virtualisation, bornes Wi-Fi.</li>
+</ul>
+<h2 id="le-vlan-natif-lexception-sans-etiquette">Le VLAN natif : l’exception sans étiquette</h2>
+<p>Sur un trunk, <strong>un</strong> VLAN voyage sans étiquette : c’est le <strong>VLAN natif</strong> (le VLAN 1 par défaut). Toute trame reçue <strong>sans</strong> étiquette sur un trunk est rangée dans le VLAN natif.</p>
+<p>Conséquence : les deux extrémités doivent avoir <strong>le même VLAN natif</strong>. Sinon, une trame non étiquetée envoyée dans le VLAN 1 d’un côté arrive dans le VLAN 99 de l’autre : les deux réseaux se mélangent.</p>
+<h2 id="exemple-le-vlan-qui-ne-passe-pas">Exemple : le VLAN qui ne passe pas</h2>
+<p>Entre SW1 et SW2, le VLAN 10 fonctionne mais pas le VLAN 20. Sur SW1, <code>show interfaces trunk</code> affiche :</p>
+<pre><code class="language-text">Port        Vlans allowed on trunk
+Gi1/0/48    10,30
+</code></pre>
+<p>Le VLAN 20 n’est pas dans la <strong>liste des VLAN autorisés</strong> sur le trunk. La correction :</p>
+<pre><code class="language-cisco">interface GigabitEthernet1/0/48
+ switchport trunk allowed vlan add 20
+</code></pre>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Sans le mot <code>add</code>, la commande <code>switchport trunk allowed vlan 20</code> <strong>remplace</strong> toute la liste par « 20 » : les VLAN 10 et 30 sont coupés immédiatement. C’est l’une des erreurs les plus classiques en production.</p>
+</div>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>802.1Q</strong> — Norme IEEE qui définit l’étiquette de VLAN insérée dans les trames sur un trunk.</li>
+<li><strong>Étiquette (tag)</strong> — Champ de 4 octets ajouté à une trame pour indiquer son VLAN.</li>
+<li><strong>VLAN natif</strong> — VLAN dont les trames circulent sans étiquette sur un trunk.</li>
+<li><strong>Liste des VLAN autorisés</strong> — VLAN qu’un trunk accepte de transporter.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un PC reçoit-il des trames étiquetées 802.1Q ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non</strong>, en général. Il est branché sur un port d’accès, qui retire l’étiquette. Seuls les équipements reliés par un trunk (switches, routeurs, hyperviseurs) voient les étiquettes.</p>
+</details>
+<p><strong>2.</strong> SW1 a le VLAN natif 1, SW2 le VLAN natif 99 sur le même trunk. Quel risque ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les trames non étiquetées passent <strong>du VLAN 1 d’un côté au VLAN 99 de l’autre</strong> : une fuite entre deux réseaux qui devraient être séparés. Les switches Cisco signalent l’incohérence avec le message <code>%CDP-4-NATIVE_VLAN_MISMATCH</code>.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="format-de-letiquette">Format de l’étiquette</h2>
+<p>L’étiquette s’insère <strong>entre l’adresse MAC source et le type</strong> :</p>
+<pre><code class="language-text">┌──────────┬──────────┬──────────────────────────────┬────────┬─────────┬─────┐
+│ MAC dest │ MAC src  │ Étiquette 802.1Q (4 octets)   │ Type   │ Données │ FCS │
+└──────────┴──────────┼──────────┬─────┬─────┬───────┼────────┴─────────┴─────┘
+                      │ TPID     │ PCP │ DEI │ VID   │
+                      │ 0x8100   │ 3 b │ 1 b │ 12 b  │
+                      │ 16 bits  │     │     │       │
+                      └──────────┴─────┴─────┴───────┘
+</code></pre>
+<ul>
+<li><strong>TPID</strong> (<code>0x8100</code>) : signale qu’une étiquette suit. Il occupe la place où un récepteur s’attendrait à trouver l’EtherType.</li>
+<li><strong>PCP</strong> (<em>Priority Code Point</em>, 3 bits) : priorité de 0 à 7, aussi appelée <strong>CoS</strong>. Les téléphones IP marquent souvent 5 pour la voix.</li>
+<li><strong>DEI</strong> (1 bit) : indique qu’une trame peut être jetée en priorité en cas de congestion.</li>
+<li><strong>VID</strong> (12 bits) : numéro de VLAN, de 1 à 4094.</li>
+</ul>
+<p>L’étiquette ajoute 4 octets : la trame maximale passe de 1 518 à <strong>1 522 octets</strong>. Le FCS est recalculé à l’insertion et au retrait de l’étiquette.</p>
+<h2 id="configurer-un-trunk-cisco-ios">Configurer un trunk (Cisco IOS)</h2>
+<pre><code class="language-cisco">interface GigabitEthernet1/0/48
+ description Uplink vers DIST1 Gi1/0/3
+ switchport trunk encapsulation dot1q    ! seulement sur les plateformes qui proposent aussi ISL
+ switchport mode trunk
+ switchport nonegotiate                  ! pas de DTP
+ switchport trunk native vlan 999        ! VLAN natif inutilisé, identique des deux côtés
+ switchport trunk allowed vlan 10,20,30,99
+<span class="c">!</span>
+vlan dot1q tag native                    ! option globale : étiqueter aussi le VLAN natif
+</code></pre>
+<p>Bonnes pratiques :</p>
+<ul>
+<li><strong>Limiter</strong> les VLAN autorisés à ceux qui sont nécessaires : un VLAN inutile sur un trunk étend inutilement son domaine de diffusion (et son arbre STP).</li>
+<li>Choisir un <strong>VLAN natif inutilisé</strong> (999), différent du VLAN 1, et identique aux deux extrémités.</li>
+<li><strong>Désactiver la négociation</strong> (DTP) sur les trunks et les ports d’accès.</li>
+</ul>
+<h2 id="verifier-show-interfaces-trunk">Vérifier : <code>show interfaces trunk</code></h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show interfaces trunk
+
+Port        Mode         Encapsulation  Status        Native vlan
+Gi1/0/48    on           802.1q         trunking      999
+
+Port        Vlans allowed on trunk
+Gi1/0/48    10,20,30,99
+
+Port        Vlans allowed and active in management domain
+Gi1/0/48    10,20,30,99
+
+Port        Vlans in spanning tree forwarding state and not pruned
+Gi1/0/48    10,30,99
+</code></pre>
+<p>Lis les quatre blocs <strong>dans l’ordre</strong> : c’est un entonnoir.</p>
+<table>
+<thead>
+<tr>
+<th>Bloc</th>
+<th>Question</th>
+<th>Ici</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Le port est-il en trunk, avec quel VLAN natif ?</td>
+<td>oui, natif 999</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Quels VLAN sont autorisés ?</td>
+<td>10, 20, 30, 99</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Parmi eux, lesquels <strong>existent</strong> sur ce switch ?</td>
+<td>tous</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Parmi eux, lesquels sont <strong>en forwarding</strong> (non bloqués par STP, non élagués) ?</td>
+<td>le VLAN 20 manque</td>
+</tr>
+</tbody>
+</table>
+<p>Le VLAN 20 est autorisé et existe, mais il n’est pas en forwarding sur ce lien : STP le bloque (chemin redondant ailleurs ?) ou il est élagué par VTP. On poursuit avec <code>show spanning-tree vlan 20</code>.</p>
+<h2 id="le-saut-de-vlan-vlan-hopping">Le saut de VLAN (VLAN hopping)</h2>
+<p>Deux attaques exploitent les trunks mal configurés :</p>
+<table>
+<thead>
+<tr>
+<th>Attaque</th>
+<th>Principe</th>
+<th>Parade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Usurpation de switch</strong></td>
+<td>Le PC de l’attaquant négocie un trunk via DTP et reçoit tous les VLAN.</td>
+<td><code>switchport mode access</code> sur tous les ports utilisateurs, <code>switchport nonegotiate</code>.</td>
+</tr>
+<tr>
+<td><strong>Double étiquetage</strong></td>
+<td>L’attaquant, dans le VLAN natif, envoie une trame avec deux étiquettes. Le premier switch retire la première (VLAN natif) et transmet ; le suivant lit la seconde et la livre dans un autre VLAN. Attaque à sens unique.</td>
+<td>VLAN natif <strong>inutilisé</strong> par les utilisateurs, ou étiquetage du VLAN natif (<code>vlan dot1q tag native</code>).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un administrateur tape <code>switchport trunk allowed vlan 40</code> pour ajouter le VLAN 40 à un trunk qui portait les VLAN 10 à 30. Conséquence, et comment réparer ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La liste est <strong>remplacée</strong> : le trunk ne transporte plus que le VLAN 40, les VLAN 10 à 30 sont coupés. Réparer : <code>switchport trunk allowed vlan 10-30,40</code> (ou <code>add 10-30</code>). Pour éviter l’erreur : toujours <code>add</code> et <code>remove</code>, et vérifier avec <code>show interfaces trunk</code> avant et après.</p>
+</details>
+<p><strong>2.</strong> Calcule la taille maximale d’une trame étiquetée portant 1 500 octets de données.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>6 (MAC dest) + 6 (MAC src) + 4 (étiquette) + 2 (type) + 1 500 (données) + 4 (FCS) = <strong>1 522 octets</strong>. Un équipement qui refuse les trames de plus de 1 518 octets les compterait comme « giants ».</p>
+</details>
+<p><strong>3.</strong> Le VLAN 30 apparaît dans les trois premiers blocs de <code>show interfaces trunk</code>, mais pas dans le quatrième, sur un seul des deux uplinks d’un switch d’accès. Est-ce forcément un problème ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Pas forcément.</strong> Si le switch a deux uplinks vers deux switches de distribution, STP bloque normalement le VLAN 30 sur l’un d’eux pour éviter une boucle. C’est un problème seulement si le VLAN 30 n’est en forwarding <strong>sur aucun</strong> uplink, ou si le blocage est inattendu au regard du design (racine mal placée).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/vlan.html"><small>Fiche précédente</small><strong>VLAN</strong></a><a class="apres" href="../niveau-1/mtu.html"><small>Fiche suivante</small><strong>MTU</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-plusieurs-vlan-un-seul-cable">Le problème : plusieurs VLAN, un seul câble</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#le-vlan-natif-lexception-sans-etiquette">Le VLAN natif : l’exception sans étiquette</a><a href="#exemple-le-vlan-qui-ne-passe-pas">Exemple : le VLAN qui ne passe pas</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#format-de-letiquette">Format de l’étiquette</a><a href="#configurer-un-trunk-cisco-ios">Configurer un trunk (Cisco IOS)</a><a href="#verifier-show-interfaces-trunk">Vérifier : show interfaces trunk</a><a href="#le-saut-de-vlan-vlan-hopping">Le saut de VLAN (VLAN hopping)</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

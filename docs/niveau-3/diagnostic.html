@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Démontrer une panne — Les outils de diagnostic Windows et Linux | Nexorya</title>
+<meta name="description" content="Pour dépanner vite, on remonte les couches avec une poignée d’outils — adresse, voisin, route, nom, port, application — et l’on garde la preuve de chaque étape.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic" aria-current="page">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/diagnostic">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-4">Administrer et superviser</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Démontrer une panne</h1><p class="nom-complet">Les outils de diagnostic Windows et Linux</p>
+<p class="idee">Pour dépanner vite, on remonte les couches avec une poignée d’outils — adresse, voisin, route, nom, port, application — et l’on garde la preuve de chaque étape.</p><div class="badges"><span>Couche OSI 1 à 7</span><span>Découvrir : 10 min</span><span>Approfondir : 20 min</span><span>Avant : <a href="../demarrer/commandes.html">Les commandes de base</a>, <a href="../niveau-1/osi.html">Les modèles OSI et TCP/IP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-ca-ne-marche-pas">Le problème : « ça ne marche pas »</h2>
+<p>Un utilisateur appelle : « l’application de facturation ne fonctionne plus ». Redémarrer le poste, puis le switch, puis le serveur, au hasard, fait perdre du temps et ne prouve rien. Un professionnel <strong>localise</strong> la panne avec une méthode, et <strong>démontre</strong> où elle se trouve.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>On vérifie les étapes dans l’ordre où une connexion se construit, chacune avec un outil précis ; la première étape qui échoue désigne la zone à corriger.</p>
+</div>
+<h2 id="la-methode-en-six-questions">La méthode en six questions</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Windows</th>
+<th>Linux / macOS</th>
+<th>Si ça échoue…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Ai-je une adresse correcte ?</td>
+<td><code>ipconfig /all</code></td>
+<td><code>ip a</code> / <code>ifconfig</code></td>
+<td>câble, Wi-Fi, VLAN, DHCP</td>
+</tr>
+<tr>
+<td>2. Je joins ma passerelle ?</td>
+<td><code>ping &lt;passerelle&gt;</code>, <code>arp -a</code></td>
+<td><code>ping</code>, <code>ip neigh</code></td>
+<td>réseau local : port, VLAN, switch</td>
+</tr>
+<tr>
+<td>3. Ai-je une route vers la destination ?</td>
+<td><code>route print</code>, <code>tracert</code></td>
+<td><code>ip route get &lt;ip&gt;</code>, <code>traceroute</code></td>
+<td>routage, VPN, pare-feu en chemin</td>
+</tr>
+<tr>
+<td>4. Le nom est-il traduit ?</td>
+<td><code>nslookup</code>, <code>Resolve-DnsName</code></td>
+<td><code>dig</code>, <code>getent hosts</code></td>
+<td>DNS</td>
+</tr>
+<tr>
+<td>5. Le port du service est-il ouvert ?</td>
+<td><code>Test-NetConnection -Port</code></td>
+<td><code>nc -zv</code>, <code>curl -v telnet://h:p</code></td>
+<td>pare-feu, service arrêté</td>
+</tr>
+<tr>
+<td>6. L’application répond-elle bien ?</td>
+<td>navigateur, <code>curl.exe -v</code></td>
+<td><code>curl -v</code></td>
+<td>application, certificat, droits</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre astuce">
+<p class="encadre-titre">Astuce</p>
+<p>Teste la même chose <strong>depuis un poste qui fonctionne</strong>. Si l’autre poste réussit à l’étape 5 et pas celui de l’utilisateur, le problème est lié à ce poste (pare-feu local, proxy, VLAN, droits), pas au serveur.</p>
+</div>
+<h2 id="exemple-complet-lapplication-de-facturation">Exemple complet : l’application de facturation</h2>
+<pre><code class="language-powershell">PS&gt; Resolve-DnsName facturation.exemple.fr
+Name                      Type   TTL   IPAddress
+facturation.exemple.fr    A      3600  10.20.0.40          # étape 4 : OK
+
+PS&gt; Test-NetConnection facturation.exemple.fr -Port 443
+ComputerName     : facturation.exemple.fr
+RemoteAddress    : 10.20.0.40
+PingSucceeded    : True                                    # étapes 1 à 3 : OK
+TcpTestSucceeded : False                                   # étape 5 : ÉCHEC
+</code></pre>
+<p>Le nom est traduit, le serveur répond au ping, mais le <strong>port 443 n’est pas joignable</strong>. On a localisé la panne : soit le service Web est arrêté sur le serveur, soit un pare-feu bloque le port. On le vérifie depuis un poste du même réseau que le serveur : si le port y est ouvert, c’est un pare-feu sur le chemin.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Diagnostic par couches</strong> — Méthode qui vérifie les couches réseau dans l’ordre pour localiser une panne.</li>
+<li><strong>Capture réseau</strong> — Enregistrement des paquets qui passent sur une interface, pour les analyser.</li>
+<li><strong>Wireshark</strong> — Logiciel graphique de capture et d’analyse de paquets ; tcpdump est son équivalent en ligne de commande.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong><code>Test-NetConnection srv -Port 445</code> renvoie <code>PingSucceeded: False</code> et <code>TcpTestSucceeded: True</code>. Le serveur est-il joignable ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Oui</strong> : la connexion TCP au port 445 réussit. Le ping échoue seulement parce que le serveur (ou un pare-feu) <strong>bloque l’ICMP</strong>. Un ping qui échoue n’est jamais une preuve suffisante.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="la-boite-a-outils-detaillee">La boîte à outils détaillée</h2>
+<h3 id="windows-powershell">Windows (PowerShell)</h3>
+<pre><code class="language-powershell">Get-NetIPConfiguration -Detailed                    # adresses, passerelle, DNS, profil
+Get-NetNeighbor -State Reachable,Stale              # cache ARP / NDP
+Find-NetRoute -RemoteIPAddress 10.20.0.40           # route et interface choisies
+Resolve-DnsName facturation.exemple.fr -Server 10.99.0.53 -DnsOnly
+Test-NetConnection 10.20.0.40 -Port 443 -InformationLevel Detailed
+Test-NetConnection 10.20.0.40 -TraceRoute
+Get-NetTCPConnection -RemotePort 443 -State Established
+netsh winhttp show proxy                            # proxy système
+pathping 10.20.0.40                                 # pertes par saut
+pktmon start --capture --comp nics -f C:\cap.etl    # capture intégrée à Windows
+</code></pre>
+<h3 id="linux">Linux</h3>
+<pre><code class="language-bash">ip -br a                         # adresses, résumé
+ip route get 10.20.0.40          # route et adresse source utilisées
+ip neigh                         # voisins
+resolvectl query facturation.exemple.fr    # ou dig, selon le système
+nc -zv 10.20.0.40 443            # test de port TCP
+curl -v https://facturation.exemple.fr/
+mtr -rwc 50 10.20.0.40           # latence et pertes par saut
+ss -tanp                         # connexions et processus
+sudo tcpdump -ni eth0 host 10.20.0.40 and port 443 -w cap.pcap
+</code></pre>
+<h2 id="lire-une-capture-pour-trancher">Lire une capture pour trancher</h2>
+<p>On capture <strong>sur le poste</strong>, puis si possible <strong>côté serveur</strong>, pendant que l’on reproduit le problème.</p>
+<table>
+<thead>
+<tr>
+<th>Ce que montre la capture du poste</th>
+<th>Interprétation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SYN envoyés, aucune réponse</td>
+<td>les paquets sont perdus ou filtrés en route, ou la réponse ne revient pas</td>
+</tr>
+<tr>
+<td>SYN envoyé, <strong>RST</strong> reçu</td>
+<td>le serveur (ou un pare-feu) refuse explicitement : port fermé</td>
+</tr>
+<tr>
+<td>SYN, SYN-ACK, ACK, puis <strong>TLS Alert</strong></td>
+<td>problème de certificat ou de version TLS</td>
+</tr>
+<tr>
+<td>Connexion établie, requête HTTP, réponse <strong>4xx / 5xx</strong></td>
+<td>l’application répond : problème applicatif</td>
+</tr>
+<tr>
+<td>Requêtes DNS sans réponse</td>
+<td>résolveur injoignable ou UDP 53 filtré</td>
+</tr>
+</tbody>
+</table>
+<p>Si la capture <strong>côté serveur</strong> montre les SYN arrivant et les SYN-ACK repartant, mais que le poste ne les reçoit jamais : le <strong>chemin retour</strong> est en cause (route asymétrique, pare-feu qui ne voit qu’un sens).</p>
+<h2 id="documenter-la-preuve">Documenter la preuve</h2>
+<p>Un bon ticket d’incident contient, pour chaque étape testée : la <strong>commande</strong>, sa <strong>sortie</strong>, l’<strong>heure</strong>, la <strong>machine source</strong> et la <strong>destination</strong>. C’est ce qui permet de transmettre le dossier à l’équipe suivante (système, sécurité, opérateur) sans qu’elle recommence tout, et d’éviter les « chez nous tout va bien ».</p>
+<pre><code class="language-text">2026-11-15 09:41 — Poste PC-COMPTA-12 (10.10.0.57) → facturation.exemple.fr (10.20.0.40)
+- DNS : OK (Resolve-DnsName → 10.20.0.40)
+- ICMP : OK (4/4, 1 ms)
+- TCP 443 : ÉCHEC (Test-NetConnection : TcpTestSucceeded False)
+- Depuis SRV-ADMIN-01 (10.20.0.5, même VLAN que le serveur) : TCP 443 OK
+- Capture poste : SYN ×3 sans réponse
+→ Conclusion : filtrage entre 10.10.0.0/24 et 10.20.0.40:443. Transmis à l’équipe pare-feu.
+</code></pre>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un poste obtient une adresse, joint sa passerelle et Internet par IP, mais « aucun site ne fonctionne ». <code>nslookup www.exemple.fr</code> répond par délai d’attente. Quelle est l’étape en échec, et quelles sont les deux causes les plus probables ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>L’étape 4 (<strong>DNS</strong>). Causes probables : le poste utilise un <strong>serveur DNS injoignable ou arrêté</strong> (mauvaise option DHCP, serveur en panne), ou le <strong>trafic DNS est filtré</strong> (UDP/TCP 53). Tester avec <code>nslookup www.exemple.fr &lt;autre résolveur&gt;</code> pour distinguer les deux.</p>
+</details>
+<p><strong>2.</strong> La capture côté serveur montre les SYN du client et les SYN-ACK du serveur. La capture côté client ne montre que les SYN. Où chercher ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Sur le <strong>chemin retour</strong> : la réponse du serveur part, mais n’arrive jamais. Typiquement, le serveur a une passerelle ou une route différente de celle par laquelle la requête est arrivée (<strong>routage asymétrique</strong>), et un pare-feu à états jette la réponse qu’il n’a pas vue partir, ou elle prend un chemin qui ne mène pas au client.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/syslog.html"><small>Fiche précédente</small><strong>Syslog</strong></a><a class="apres" href="../niveau-3/ftp.html"><small>Fiche suivante</small><strong>FTP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-ca-ne-marche-pas">Le problème : « ça ne marche pas »</a><a href="#la-methode-en-six-questions">La méthode en six questions</a><a href="#exemple-complet-lapplication-de-facturation">Exemple complet : l’application de facturation</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#la-boite-a-outils-detaillee">La boîte à outils détaillée</a><a href="#lire-une-capture-pour-trancher">Lire une capture pour trancher</a><a href="#documenter-la-preuve">Documenter la preuve</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

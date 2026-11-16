@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RTP — Real-time Transport Protocol | Nexorya</title>
+<meta name="description" content="RTP transporte la voix et la vidéo en temps réel sur UDP ; il numérote et horodate chaque paquet pour que le récepteur détecte les pertes et restitue le son au bon rythme.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp" aria-current="page">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/rtp">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-6">Voix et mobilité</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>RTP</h1><p class="nom-complet">Real-time Transport Protocol</p>
+<p class="idee">RTP transporte la voix et la vidéo en temps réel sur UDP ; il numérote et horodate chaque paquet pour que le récepteur détecte les pertes et restitue le son au bon rythme.</p><div class="badges"><span>Couche OSI 7 (sur UDP, ports dynamiques)</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-3/udp.html">UDP</a>, <a href="../niveau-3/sip.html">SIP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>La voix est découpée en petits morceaux de 20 ms. Ils doivent être joués <strong>au même rythme</strong> qu’ils ont été enregistrés, même si le réseau les livre irrégulièrement, en désordre, ou en perd quelques-uns. UDP ne fournit aucune de ces informations.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>RTP étiquette chaque paquet de voix avec un <strong>numéro</strong> et une <strong>heure de capture</strong> : le récepteur remet les paquets dans l’ordre, repère les manquants et les joue au bon moment.</p>
+</div>
+<h2 id="ce-que-fait-le-recepteur">Ce que fait le récepteur</h2>
+<ol>
+<li>Il range les paquets dans un <strong>tampon de gigue</strong> de quelques dizaines de millisecondes.</li>
+<li>Il les joue dans l’ordre des numéros, au rythme des horodatages.</li>
+<li>Si un paquet manque au moment de le jouer, il <strong>masque</strong> le trou (répétition, interpolation).</li>
+<li>Si un paquet arrive trop tard, il est jeté : il ne sert plus à rien.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>RTP</strong> — Protocole de transport des flux audio et vidéo en temps réel.</li>
+<li><strong>RTCP</strong> — Protocole compagnon de RTP qui échange des statistiques de qualité.</li>
+<li><strong>SRTP</strong> — Version chiffrée et authentifiée de RTP.</li>
+<li><strong>Codec</strong> — Algorithme qui code et décode la voix ou la vidéo (G.711, G.722, Opus…).</li>
+<li><strong>Tampon de gigue</strong> — Mémoire qui absorbe les variations de délai avant de jouer les paquets.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi un paquet de voix qui arrive avec 300 ms de retard est-il jeté au lieu d’être joué ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le moment où il devait être joué est <strong>passé</strong> : le tampon de gigue a déjà joué (ou masqué) cet instant. Le jouer plus tard décalerait toute la conversation. En temps réel, une donnée en retard est une donnée perdue.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="len-tete-rtp-12-octets">L’en-tête RTP (12 octets)</h2>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Version, drapeaux</td>
+<td>version 2</td>
+</tr>
+<tr>
+<td>Payload Type</td>
+<td>codec : 0 = G.711 µ-law, 8 = G.711 A-law, 9 = G.722, 96–127 = dynamique (Opus…)</td>
+</tr>
+<tr>
+<td><strong>Numéro de séquence</strong></td>
+<td>+1 à chaque paquet : détection des pertes et du désordre</td>
+</tr>
+<tr>
+<td><strong>Horodatage</strong></td>
+<td>instant d’échantillonnage : restitution au bon rythme</td>
+</tr>
+<tr>
+<td>SSRC</td>
+<td>identifiant de la source du flux</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bande-passante-dun-appel">Bande passante d’un appel</h2>
+<pre><code class="language-text">G.711 (64 kb/s) avec des paquets de 20 ms
+  charge audio : 160 octets
+  + RTP 12 + UDP 8 + IP 20 = 200 octets par paquet (couche 3)
+  50 paquets/s × 200 octets × 8 = 80 kb/s par sens (sans en-tête Ethernet)
+  avec Ethernet (+18 octets) : ≈ 87 kb/s par sens
+</code></pre>
+<p>Les en-têtes représentent un quart du débit : c’est pour cela que les codecs compressés à très bas débit ne divisent pas la bande passante réelle autant que leur débit nominal le laisse croire.</p>
+<h2 id="mesurer-la-qualite">Mesurer la qualité</h2>
+<p>Le <strong>MOS</strong> (<em>Mean Opinion Score</em>, de 1 à 5) estime la qualité perçue. On vise <strong>au-dessus de 4</strong>. Il se dégrade avec la latence (au-delà de 150 ms dans un sens), la gigue (au-delà de 30 ms) et les pertes (au-delà de 1 %). Les téléphones, les IPBX et les sondes IP SLA <code>udp-jitter</code> le calculent.</p>
+<p>Dans Wireshark : <strong>Téléphonie → RTP → Flux RTP → Analyser</strong> affiche pour chaque flux les pertes, la gigue maximale et moyenne, et les numéros de séquence manquants.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>L’analyse d’un flux RTP montre 0 % de perte mais une gigue qui atteint 120 ms par moments. L’utilisateur entend des coupures. Comment est-ce possible sans perte réseau ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les paquets arrivent tous, mais certains <strong>trop tard</strong> pour le tampon de gigue (souvent 40 à 60 ms) : le téléphone les jette, ce qui produit des coupures. La cause est la <strong>congestion</strong> (files d’attente) sur le chemin. La solution est la <strong>QoS</strong> : priorité stricte pour la voix, et éventuellement un tampon de gigue adaptatif.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/sip.html"><small>Fiche précédente</small><strong>SIP</strong></a><a class="apres" href="../niveau-3/voip.html"><small>Fiche suivante</small><strong>La téléphonie sur IP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#ce-que-fait-le-recepteur">Ce que fait le récepteur</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#len-tete-rtp-12-octets">L’en-tête RTP (12 octets)</a><a href="#bande-passante-dun-appel">Bande passante d’un appel</a><a href="#mesurer-la-qualite">Mesurer la qualité</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

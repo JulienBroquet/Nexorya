@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IPv4 — Internet Protocol version 4 | Nexorya</title>
+<meta name="description" content="IPv4 donne à chaque machine une adresse de 32 bits composée d’une partie réseau et d’une partie machine ; les routeurs lisent la partie réseau pour faire avancer le paquet.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4" aria-current="page">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/ipv4">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-1">Adresser les machines</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>IPv4</h1><p class="nom-complet">Internet Protocol version 4</p>
+<p class="idee">IPv4 donne à chaque machine une adresse de 32 bits composée d’une partie réseau et d’une partie machine ; les routeurs lisent la partie réseau pour faire avancer le paquet.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 10 min</span><span>Approfondir : 20 min</span><span>Avant : <a href="../niveau-1/osi.html">Les modèles OSI et TCP/IP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-trouver-une-machine-dans-le-monde-entier">Le problème : trouver une machine dans le monde entier</h2>
+<p>Une adresse MAC suffit pour livrer une trame sur le réseau local. Mais elle ne dit rien de <strong>l’endroit</strong> où se trouve la machine : impossible, à partir d’une adresse MAC, de savoir s’il faut aller vers Paris ou vers Tokyo. Il faut une adresse <strong>organisée</strong> comme une adresse postale : d’abord la ville et la rue (le réseau), puis le numéro (la machine).</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Une adresse IPv4 contient <strong>deux parties</strong> : le numéro du réseau, que les routeurs utilisent pour trouver le chemin, et le numéro de la machine dans ce réseau.</p>
+</div>
+<h2 id="a-quoi-ressemble-une-adresse-ipv4">À quoi ressemble une adresse IPv4 ?</h2>
+<p><code>192.168.1.20</code> : quatre nombres de 0 à 255, séparés par des points. Chaque nombre représente <strong>8 bits</strong> (un octet), soit 32 bits au total. Il existe environ 4,3 milliards d’adresses IPv4 possibles — moins que le nombre d’appareils connectés aujourd’hui, d’où l’arrivée d’IPv6.</p>
+<h2 id="partie-reseau-et-partie-machine">Partie réseau et partie machine</h2>
+<p>Le <strong>masque</strong> indique où s’arrête la partie réseau. On l’écrit de deux façons :</p>
+<ul>
+<li>en notation décimale : <code>255.255.255.0</code> ;</li>
+<li>en notation <strong>CIDR</strong>, plus courante : <code>/24</code>, qui signifie « les 24 premiers bits désignent le réseau ».</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Adresse</th>
+<th>Masque</th>
+<th>Réseau</th>
+<th>Machine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>192.168.1.20/24</td>
+<td>255.255.255.0</td>
+<td>192.168.1</td>
+<td>20</td>
+</tr>
+<tr>
+<td>10.20.30.40/16</td>
+<td>255.255.0.0</td>
+<td>10.20</td>
+<td>30.40</td>
+</tr>
+<tr>
+<td>10.20.30.40/8</td>
+<td>255.0.0.0</td>
+<td>10</td>
+<td>20.30.40</td>
+</tr>
+</tbody>
+</table>
+<p>Dans chaque réseau, deux adresses sont réservées : la <strong>première</strong> désigne le réseau lui-même (<code>192.168.1.0</code>) et la <strong>dernière</strong> est l’adresse de <strong>broadcast</strong> (<code>192.168.1.255</code>), qui atteint toutes les machines du réseau.</p>
+<h2 id="meme-reseau-ou-pas-la-decision-de-chaque-machine">Même réseau ou pas ? La décision de chaque machine</h2>
+<p>Avant d’envoyer un paquet, une machine compare la partie réseau de l’adresse de destination avec la sienne :</p>
+<ul>
+<li><strong>même réseau</strong> : elle envoie directement le paquet à la machine (elle cherche son adresse MAC avec <a href="arp.html">ARP</a>) ;</li>
+<li><strong>réseau différent</strong> : elle confie le paquet à sa <strong>passerelle</strong> (le routeur).</li>
+</ul>
+<figure class="schema"><svg viewBox="0 0 830.0 286.0" width="830.0" role="img" aria-label="Deux réseaux reliés par un routeur" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="232.0" y2="120.0"/><line class="tp-lien " x1="110.0" y1="190.0" x2="232.0" y2="120.0"/><line class="tp-lien " x1="232.0" y1="120.0" x2="415.0" y2="120.0"/><text class="tp-etiq" x="323.5" y="108.0" text-anchor="middle">192.168.1.0/24</text><line class="tp-lien " x1="415.0" y1="120.0" x2="598.0" y2="120.0"/><text class="tp-etiq" x="506.5" y="108.0" text-anchor="middle">10.0.0.0/24</text><line class="tp-lien " x1="598.0" y1="120.0" x2="720.0" y2="120.0"/><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">PC A</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">192.168.1.20/24</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">PC B</text><text class="tp-sous" x="110.0" y="246.0" text-anchor="middle">192.168.1.30/24</text><g transform="translate(232.0 120.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="232.0" y="160.0" text-anchor="middle">Switch</text><g transform="translate(415.0 120.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="415.0" y="160.0" text-anchor="middle">Routeur</text><text class="tp-sous" x="415.0" y="176.0" text-anchor="middle">.1 | .1</text><g transform="translate(598.0 120.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="598.0" y="160.0" text-anchor="middle">Switch</text><g transform="translate(720.0 120.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="720.0" y="160.0" text-anchor="middle">Serveur</text><text class="tp-sous" x="720.0" y="176.0" text-anchor="middle">10.0.0.50/24</text></svg><figcaption>Deux réseaux reliés par un routeur</figcaption></figure>
+<ul>
+<li>A → B : même réseau <code>192.168.1.0/24</code>, échange direct par le switch.</li>
+<li>A → Serveur : réseau différent, A envoie le paquet au routeur (sa passerelle <code>192.168.1.1</code>), qui le fait suivre vers <code>10.0.0.0/24</code>.</li>
+</ul>
+<h2 id="adresses-publiques-et-adresses-privees">Adresses publiques et adresses privées</h2>
+<p>Certaines plages sont <strong>réservées aux réseaux internes</strong> et ne sont jamais acheminées sur Internet :</p>
+<table>
+<thead>
+<tr>
+<th>Plage privée</th>
+<th>Notation</th>
+<th>Usage typique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10.0.0.0 à 10.255.255.255</td>
+<td>10.0.0.0/8</td>
+<td>grandes entreprises</td>
+</tr>
+<tr>
+<td>172.16.0.0 à 172.31.255.255</td>
+<td>172.16.0.0/12</td>
+<td>entreprises, cloud</td>
+</tr>
+<tr>
+<td>192.168.0.0 à 192.168.255.255</td>
+<td>192.168.0.0/16</td>
+<td>maisons, petites entreprises</td>
+</tr>
+</tbody>
+</table>
+<p>Pour sortir sur Internet, ces adresses sont traduites en adresse publique par le routeur ou le pare-feu : c’est le <a href="../niveau-3/nat.html">NAT</a>.</p>
+<p>Deux autres plages à reconnaître : <code>127.0.0.1</code> (<em>localhost</em>, la machine elle-même) et <code>169.254.x.x</code> (adresse que s’attribue une machine quand <strong>aucun serveur DHCP</strong> ne lui a répondu).</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Adresse IPv4</strong> — Adresse de 32 bits, écrite en quatre octets décimaux, qui identifie une interface sur un réseau IP.</li>
+<li><strong>Masque de sous-réseau</strong> — Valeur qui indique quels bits de l’adresse désignent le réseau ; par exemple 255.255.255.0.</li>
+<li><strong>CIDR</strong> — Notation du masque par un nombre de bits après une barre oblique : /24, /16…</li>
+<li><strong>Adresse de réseau</strong> — Première adresse d’un réseau, qui désigne le réseau lui-même.</li>
+<li><strong>Adresse de broadcast</strong> — Dernière adresse d’un réseau, qui atteint toutes ses machines.</li>
+<li><strong>Adresse privée</strong> — Adresse réservée aux réseaux internes, non acheminée sur Internet.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Le PC <code>192.168.1.20/24</code> veut joindre <code>192.168.2.5</code>. Envoie-t-il le paquet directement ou à sa passerelle ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>À sa passerelle.</strong> Avec un /24, son réseau est <code>192.168.1.0</code> : seules les adresses <code>192.168.1.x</code> sont dans son réseau. <code>192.168.2.5</code> est dans un autre réseau.</p>
+</details>
+<p><strong>2.</strong> Combien de machines peut-on adresser dans un réseau /24 ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>8 bits pour la partie machine = 256 adresses, moins l’adresse de réseau et le broadcast = <strong>254 machines</strong>.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="len-tete-ipv4">L’en-tête IPv4</h2>
+<pre><code class="language-text"> 0                   1                   2                   3
+ 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1 2 3 4 5 6 7 8 9 0 1
++-------+-------+---------------+-------------------------------+
+|Version|  IHL  |  DSCP   |ECN  |        Longueur totale        |
++-------+-------+---------------+-----+-------------------------+
+|        Identification         |Flags|  Décalage de fragment   |
++---------------+---------------+-----+-------------------------+
+|      TTL      |   Protocole   |     Somme de contrôle d’en-tête |
++---------------+---------------+-------------------------------+
+|                        Adresse IP source                      |
++---------------------------------------------------------------+
+|                     Adresse IP destination                    |
++---------------------------------------------------------------+
+|                   Options (rares) + bourrage                  |
++---------------------------------------------------------------+
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Rôle</th>
+<th>À retenir</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IHL</td>
+<td>longueur de l’en-tête en mots de 32 bits</td>
+<td>5 = 20 octets, sans options</td>
+</tr>
+<tr>
+<td>DSCP / ECN</td>
+<td>qualité de service, notification de congestion</td>
+<td>voir <a href="../niveau-5/dscp.html">DSCP</a></td>
+</tr>
+<tr>
+<td>Identification, Flags, Décalage</td>
+<td>fragmentation</td>
+<td>bit <strong>DF</strong> = ne pas fragmenter</td>
+</tr>
+<tr>
+<td><strong>TTL</strong></td>
+<td>durée de vie : chaque routeur le décrémente ; à 0, le paquet est jeté et un ICMP <em>Time Exceeded</em> est renvoyé</td>
+<td>empêche les boucles de routage infinies ; base de <code>traceroute</code></td>
+</tr>
+<tr>
+<td>Protocole</td>
+<td>contenu : 1 ICMP, 6 TCP, 17 UDP, 47 GRE, 50 ESP, 89 OSPF</td>
+<td>démultiplexage</td>
+</tr>
+<tr>
+<td>Somme de contrôle</td>
+<td>protège <strong>l’en-tête</strong> seulement, recalculée à chaque routeur (le TTL change)</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Les valeurs initiales de TTL révèlent souvent le système d’origine : <strong>64</strong> (Linux, macOS), <strong>128</strong> (Windows), <strong>255</strong> (équipements réseau). Un <code>ping</code> qui revient avec un TTL de 118 vient probablement d’une machine Windows située à 10 routeurs.</p>
+<h2 id="calculer-ladresse-de-reseau-le-et-logique">Calculer l’adresse de réseau : le ET logique</h2>
+<p>Une machine calcule son réseau en appliquant un <strong>ET bit à bit</strong> entre son adresse et son masque :</p>
+<pre><code class="language-text">Adresse   192.168.1.77   = 11000000.10101000.00000001.01001101
+Masque    255.255.255.192 = 11111111.11111111.11111111.11000000
+ET        192.168.1.64   = 11000000.10101000.00000001.01000000
+</code></pre>
+<p>Elle fait le même calcul avec l’adresse de destination. Si les deux résultats sont égaux, la destination est locale. Toute la mécanique du découpage en sous-réseaux est détaillée dans <a href="subnet.html">Subnetting, CIDR et VLSM</a>.</p>
+<h2 id="plages-speciales-rfc-6890">Plages spéciales (RFC 6890)</h2>
+<table>
+<thead>
+<tr>
+<th>Plage</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0.0.0.0/8</td>
+<td>« cette machine » (source au démarrage DHCP) ; <code>0.0.0.0/0</code> = route par défaut</td>
+</tr>
+<tr>
+<td>127.0.0.0/8</td>
+<td>boucle locale</td>
+</tr>
+<tr>
+<td>169.254.0.0/16</td>
+<td>lien local (APIPA), sans DHCP</td>
+</tr>
+<tr>
+<td>100.64.0.0/10</td>
+<td>CGNAT chez les opérateurs</td>
+</tr>
+<tr>
+<td>192.0.2.0/24, 198.51.100.0/24, 203.0.113.0/24</td>
+<td>documentation (utilisées dans Nexorya)</td>
+</tr>
+<tr>
+<td>224.0.0.0/4</td>
+<td><a href="multicast.html">multicast</a></td>
+</tr>
+<tr>
+<td>255.255.255.255</td>
+<td>broadcast limité au lien local</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configurer-et-verifier-cisco-ios-et-systemes">Configurer et vérifier (Cisco IOS et systèmes)</h2>
+<pre><code class="language-cisco">interface GigabitEthernet0/0/1
+ description LAN utilisateurs
+ ip address 192.168.1.1 255.255.255.0
+ no shutdown
+<span class="c">!</span>
+<span class="k">R1#</span> show ip interface brief
+Interface              IP-Address      OK? Method Status                Protocol
+GigabitEthernet0/0/0   203.0.113.2     YES manual up                    up
+GigabitEthernet0/0/1   192.168.1.1     YES manual up                    up
+</code></pre>
+<pre><code class="language-bash"><span class="c"># Linux</span>
+ip -4 addr show dev eth0
+sudo ip addr add 192.168.1.50/24 dev eth0
+ip route            # la ligne &quot;default via&quot; est la passerelle
+</code></pre>
+<pre><code class="language-powershell"><span class="c"># Windows</span>
+Get-NetIPConfiguration
+New-NetIPAddress -InterfaceAlias &quot;Ethernet&quot; -IPAddress 192.168.1.50 -PrefixLength 24 -DefaultGateway 192.168.1.1
+</code></pre>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un ping revient avec <code>TTL=57</code>. Combien de routeurs, au minimum, sépare-t-on de la machine distante, et de quel type de système s’agit-il probablement ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le TTL initial le plus probable est <strong>64</strong> (Linux ou macOS) : 64 − 57 = <strong>7 routeurs</strong>. Un TTL initial de 128 supposerait 71 routeurs, ce qui est invraisemblable.</p>
+</details>
+<p><strong>2.</strong> Une machine a l’adresse <code>172.20.5.9/12</code>. Est-ce une adresse privée ? Quelle est l’adresse de son réseau ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Oui</strong>, elle est dans <code>172.16.0.0/12</code> (172.16 à 172.31). Avec un /12, le masque est 255.240.0.0 : le deuxième octet 20 ET 240 = 16. Réseau : <strong>172.16.0.0/12</strong>.</p>
+</details>
+<p><strong>3.</strong> Le PC A est configuré en <code>192.168.1.20/24</code>, le PC B en <code>192.168.1.30/25</code>. A peut-il joindre B ? Et B peut-il joindre A ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>A (/24) considère <code>.30</code> comme local : il l’envoie directement. B (/25, réseau <code>192.168.1.0</code>, adresses .0 à .127) considère aussi <code>.20</code> comme local. <strong>Les deux échanges fonctionnent ici</strong>, mais par chance. Si B avait l’adresse <code>.200/25</code>, il placerait A hors de son réseau et passerait par sa passerelle : la communication deviendrait asymétrique ou échouerait. Un masque incohérent est un défaut à corriger même quand « ça marche ».</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/wifi.html"><small>Fiche précédente</small><strong>Le Wi-Fi</strong></a><a class="apres" href="../niveau-2/subnet.html"><small>Fiche suivante</small><strong>Subnetting, CIDR et VLSM</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-trouver-une-machine-dans-le-monde-entier">Le problème : trouver une machine dans le monde entier</a><a href="#a-quoi-ressemble-une-adresse-ipv4">À quoi ressemble une adresse IPv4 ?</a><a href="#partie-reseau-et-partie-machine">Partie réseau et partie machine</a><a href="#meme-reseau-ou-pas-la-decision-de-chaque-machine">Même réseau ou pas ? La décision de chaque machine</a><a href="#adresses-publiques-et-adresses-privees">Adresses publiques et adresses privées</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#len-tete-ipv4">L’en-tête IPv4</a><a href="#calculer-ladresse-de-reseau-le-et-logique">Calculer l’adresse de réseau : le ET logique</a><a href="#plages-speciales-rfc-6890">Plages spéciales (RFC 6890)</a><a href="#configurer-et-verifier-cisco-ios-et-systemes">Configurer et vérifier (Cisco IOS et systèmes)</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TCP — Transmission Control Protocol | Nexorya</title>
+<meta name="description" content="TCP établit une connexion entre deux applications et garantit que toutes les données arrivent, dans l’ordre, en renvoyant ce qui se perd et en ralentissant quand le réseau sature.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp" aria-current="page">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/tcp">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-1">Transporter les données</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>TCP</h1><p class="nom-complet">Transmission Control Protocol</p>
+<p class="idee">TCP établit une connexion entre deux applications et garantit que toutes les données arrivent, dans l’ordre, en renvoyant ce qui se perd et en ralentissant quand le réseau sature.</p><div class="badges"><span>Couche OSI 4</span><span>Découvrir : 10 min</span><span>Approfondir : 22 min</span><span>Avant : <a href="../niveau-2/ipv4.html">IPv4</a>, <a href="../demarrer/protocoles.html">Les protocoles</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-ip-ne-garantit-rien">Le problème : IP ne garantit rien</h2>
+<p>IP fait de son mieux pour livrer chaque paquet, mais sans aucune promesse : un paquet peut se perdre, arriver en double ou après le suivant. Pour une page Web, un e-mail ou un fichier, c’est inacceptable : il manquerait des morceaux. Il faut une couche qui <strong>vérifie</strong> et <strong>répare</strong>.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>TCP numérote les données, attend des accusés de réception, renvoie ce qui manque et remet tout dans l’ordre : l’application reçoit un flux complet, comme si le réseau était parfait.</p>
+</div>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie du recommandé</p>
+<p>TCP, c’est un envoi en recommandé avec accusé de réception, page par page. Chaque page est numérotée. Si l’accusé d’une page n’arrive pas, on la renvoie. Le destinataire range les pages dans l’ordre avant de lire.</p>
+</div>
+<h2 id="ouvrir-une-connexion-la-poignee-de-main-en-trois-temps">Ouvrir une connexion : la poignée de main en trois temps</h2>
+<figure class="schema"><svg viewBox="0 0 760 296" width="760" role="img" aria-label="Ouverture d’une connexion TCP" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="296"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Client</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="296"/><g class="sq-acteur"><rect x="590.0" y="12" width="170" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Serveur (port 443)</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. SYN : « je veux me connecter, mon numéro de départ est 1000 »</text><line x1="85.0" y1="78" x2="663.0" y2="78"/><polygon class="sq-pointe" points="673.0,78 661.0,72 661.0,84"/></g><g class="sq-msg rep"><text x="380.0" y="116" text-anchor="middle">2. SYN-ACK : « d’accord, le mien est 5000, j’attends ton 1001 »</text><line x1="675.0" y1="128" x2="97.0" y2="128"/><polygon class="sq-pointe" points="87.0,128 99.0,122 99.0,134"/></g><g class="sq-msg "><text x="380.0" y="166" text-anchor="middle">3. ACK : « bien reçu, j’attends ton 5001 »</text><line x1="85.0" y1="178" x2="663.0" y2="178"/><polygon class="sq-pointe" points="673.0,178 661.0,172 661.0,184"/></g><g class="sq-note"><rect x="10.0" y="224" width="740.0" height="32" rx="6"/><text x="380.0" y="243" text-anchor="middle">la connexion est ouverte : les données peuvent circuler</text></g></svg><figcaption>Ouverture d’une connexion TCP</figcaption></figure>
+<p>Avant d’envoyer la moindre donnée, les deux côtés se mettent d’accord sur leurs <strong>numéros de départ</strong>. C’est ce qui permettra ensuite de repérer les manques et les doublons.</p>
+<h2 id="envoyer-accuser-renvoyer">Envoyer, accuser, renvoyer</h2>
+<ol>
+<li>L’émetteur envoie des segments numérotés.</li>
+<li>Le destinataire répond par un <strong>accusé de réception</strong> (ACK) qui indique le prochain numéro attendu.</li>
+<li>Si un accusé n’arrive pas à temps, l’émetteur <strong>renvoie</strong> le segment.</li>
+<li>Le destinataire remet les données <strong>dans l’ordre</strong> à l’application.</li>
+</ol>
+<h2 id="ne-pas-noyer-le-destinataire-ni-le-reseau">Ne pas noyer le destinataire ni le réseau</h2>
+<ul>
+<li><strong>La fenêtre</strong> : le destinataire annonce combien de données il peut encore recevoir. L’émetteur n’envoie pas plus.</li>
+<li><strong>Le contrôle de congestion</strong> : l’émetteur démarre doucement, accélère tant que tout va bien, et <strong>ralentit fortement</strong> dès qu’il constate des pertes. C’est pour cela qu’un lien qui perd un peu de paquets fait chuter le débit des transferts.</li>
+</ul>
+<h2 id="fermer">Fermer</h2>
+<p>La fermeture se fait par des segments <strong>FIN</strong> (fermeture polie, chaque côté termine) ou <strong>RST</strong> (coupure brutale, souvent signe d’un refus : port fermé, pare-feu, application plantée).</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>TCP</strong> — Protocole de transport fiable, orienté connexion.</li>
+<li><strong>Segment</strong> — Unité de données de TCP.</li>
+<li><strong>Poignée de main en trois temps</strong> — Ouverture d’une connexion TCP par SYN, SYN-ACK, ACK.</li>
+<li><strong>Accusé de réception (ACK)</strong> — Message qui confirme les données reçues en indiquant le prochain numéro attendu.</li>
+<li><strong>Retransmission</strong> — Nouvel envoi d’un segment dont l’accusé n’est pas arrivé.</li>
+<li><strong>Fenêtre</strong> — Quantité de données que l’émetteur peut envoyer sans attendre d’accusé.</li>
+<li><strong>Port</strong> — Numéro qui identifie l’application à chaque extrémité.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un poste envoie des SYN vers un serveur sur le port 443, mais ne reçoit jamais de SYN-ACK. Où chercher ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le serveur ne répond pas à l’ouverture : il est injoignable, son service n’écoute pas, ou un <strong>pare-feu</strong> jette les SYN (ou les réponses). Si le serveur répondait par un <strong>RST</strong>, ce serait plutôt « port fermé » ou refus explicite.</p>
+</details>
+<p><strong>2.</strong> Pourquoi un lien qui perd 2 % des paquets peut-il diviser par dix le débit d’un téléchargement ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que TCP interprète chaque perte comme un signe de <strong>congestion</strong> et <strong>réduit fortement</strong> son débit avant de remonter progressivement. Avec des pertes répétées, il passe son temps à ralentir.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="len-tete-tcp">L’en-tête TCP</h2>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Port source / destination</td>
+<td>identifient les applications</td>
+</tr>
+<tr>
+<td>Numéro de séquence</td>
+<td>position du premier octet du segment dans le flux</td>
+</tr>
+<tr>
+<td>Numéro d’acquittement</td>
+<td>prochain octet attendu de l’autre côté</td>
+</tr>
+<tr>
+<td>Longueur d’en-tête</td>
+<td>20 octets sans options, jusqu’à 60</td>
+</tr>
+<tr>
+<td>Drapeaux</td>
+<td><strong>SYN</strong>, <strong>ACK</strong>, <strong>FIN</strong>, <strong>RST</strong>, PSH, URG, ECE, CWR</td>
+</tr>
+<tr>
+<td>Fenêtre</td>
+<td>espace disponible en réception (multiplié par le facteur d’échelle négocié)</td>
+</tr>
+<tr>
+<td>Somme de contrôle</td>
+<td>sur l’en-tête, les données et un pseudo-en-tête IP</td>
+</tr>
+<tr>
+<td>Options</td>
+<td><strong>MSS</strong>, <strong>window scale</strong>, <strong>SACK</strong> (accusés sélectifs), horodatages</td>
+</tr>
+</tbody>
+</table>
+<h2 id="le-cycle-de-vie-dune-connexion">Le cycle de vie d’une connexion</h2>
+<table>
+<thead>
+<tr>
+<th>État</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>LISTEN</td>
+<td>serveur en attente de connexions</td>
+</tr>
+<tr>
+<td>SYN-SENT / SYN-RECEIVED</td>
+<td>poignée de main en cours</td>
+</tr>
+<tr>
+<td>ESTABLISHED</td>
+<td>connexion ouverte</td>
+</tr>
+<tr>
+<td>FIN-WAIT-1/2, CLOSE-WAIT, LAST-ACK</td>
+<td>fermeture en cours</td>
+</tr>
+<tr>
+<td>TIME-WAIT</td>
+<td>côté qui a fermé en premier : attend 2 × MSL avant de libérer le couple de ports</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-bash">$ ss -tan state established '( dport = :443 )'
+Recv-Q Send-Q  Local Address:Port    Peer Address:Port
+0      0       10.10.0.57:51544      203.0.113.10:443
+$ ss -tln            # ports TCP en écoute
+</code></pre>
+<pre><code class="language-powershell">PS&gt; Get-NetTCPConnection -State Listen | Sort LocalPort | Select LocalAddress, LocalPort, OwningProcess
+PS&gt; Test-NetConnection srv-erp -Port 443        # TcpTestSucceeded : True / False
+</code></pre>
+<p>Un grand nombre de connexions en <strong>CLOSE-WAIT</strong> côté serveur désigne une application qui ne ferme pas ses connexions ; une accumulation de <strong>SYN-RECEIVED</strong> peut signaler une attaque par inondation de SYN.</p>
+<h2 id="fiabilite-retransmissions-rapides-et-sack">Fiabilité : retransmissions rapides et SACK</h2>
+<ul>
+<li>Le délai de retransmission (<strong>RTO</strong>) s’adapte à la latence mesurée.</li>
+<li><strong>Retransmission rapide</strong> : après <strong>trois ACK dupliqués</strong> (le destinataire redemande toujours le même octet), l’émetteur renvoie le segment manquant sans attendre le RTO.</li>
+<li><strong>SACK</strong> : le destinataire précise quels blocs il a reçus après le trou ; seul le manque est renvoyé.</li>
+</ul>
+<h2 id="controle-de-congestion">Contrôle de congestion</h2>
+<p>L’émetteur tient une <strong>fenêtre de congestion</strong> (cwnd), distincte de la fenêtre annoncée par le destinataire ; il envoie au plus le minimum des deux.</p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Comportement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Démarrage lent (<em>slow start</em>)</td>
+<td>cwnd double à chaque aller-retour</td>
+</tr>
+<tr>
+<td>Évitement de congestion</td>
+<td>cwnd augmente d’environ un segment par aller-retour</td>
+</tr>
+<tr>
+<td>Perte détectée</td>
+<td>cwnd est fortement réduite (divisée par deux, ou plus selon l’algorithme)</td>
+</tr>
+</tbody>
+</table>
+<p>Les algorithmes modernes (<strong>CUBIC</strong>, défaut sous Linux et Windows ; <strong>BBR</strong>, qui estime le débit et la latence plutôt que de réagir aux pertes) se comportent mieux sur les liens rapides et lointains.</p>
+<h2 id="ce-que-montre-une-capture">Ce que montre une capture</h2>
+<p>Dans Wireshark, les filtres suivants vont droit au problème :</p>
+<table>
+<thead>
+<tr>
+<th>Filtre</th>
+<th>Ce qu’il révèle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tcp.flags.syn==1 &amp;&amp; tcp.flags.ack==0</code></td>
+<td>tentatives de connexion</td>
+</tr>
+<tr>
+<td><code>tcp.flags.reset==1</code></td>
+<td>connexions refusées ou coupées</td>
+</tr>
+<tr>
+<td><code>tcp.analysis.retransmission</code></td>
+<td>pertes sur le chemin</td>
+</tr>
+<tr>
+<td><code>tcp.analysis.zero_window</code></td>
+<td>le récepteur est saturé (problème applicatif, pas réseau)</td>
+</tr>
+<tr>
+<td><code>tcp.analysis.duplicate_ack</code></td>
+<td>trous dans le flux</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre astuce">
+<p class="encadre-titre">Astuce</p>
+<p>Une <strong>fenêtre nulle</strong> (<em>zero window</em>) signifie que l’application réceptrice ne lit pas assez vite : le réseau n’y est pour rien. Des <strong>retransmissions</strong>, au contraire, désignent des pertes sur le chemin. Savoir les distinguer évite des semaines d’accusations mutuelles entre équipes.</p>
+</div>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Une capture montre : SYN du client, puis RST-ACK immédiat du serveur. Que signifie-t-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le serveur est <strong>joignable</strong> mais <strong>aucune application n’écoute</strong> sur ce port (ou un équipement répond à sa place pour refuser). Le problème n’est pas le réseau : vérifier le service sur le serveur et le numéro de port.</p>
+</details>
+<p><strong>2.</strong> Un transfert vers un serveur de sauvegarde ralentit ; la capture montre beaucoup de « TCP ZeroWindow » envoyés par le serveur, et aucune retransmission. Qui doit enquêter ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>L’équipe <strong>système ou applicative</strong> du serveur de sauvegarde : il annonce qu’il ne peut plus rien recevoir parce que son application (ou son disque) ne suit pas. Le réseau ne perd rien.</p>
+</details>
+<p><strong>3.</strong> Calcule le débit maximal d’une connexion TCP avec une fenêtre de 256 Ko et une latence aller-retour de 40 ms.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>256 × 1 024 × 8 = 2 097 152 bits par aller-retour. 2 097 152 / 0,04 ≈ <strong>52 Mb/s</strong>, quelle que soit la vitesse du lien.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/pim.html"><small>Fiche précédente</small><strong>PIM</strong></a><a class="apres" href="../niveau-3/udp.html"><small>Fiche suivante</small><strong>UDP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-ip-ne-garantit-rien">Le problème : IP ne garantit rien</a><a href="#ouvrir-une-connexion-la-poignee-de-main-en-trois-temps">Ouvrir une connexion : la poignée de main en trois temps</a><a href="#envoyer-accuser-renvoyer">Envoyer, accuser, renvoyer</a><a href="#ne-pas-noyer-le-destinataire-ni-le-reseau">Ne pas noyer le destinataire ni le réseau</a><a href="#fermer">Fermer</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#len-tete-tcp">L’en-tête TCP</a><a href="#le-cycle-de-vie-dune-connexion">Le cycle de vie d’une connexion</a><a href="#fiabilite-retransmissions-rapides-et-sack">Fiabilité : retransmissions rapides et SACK</a><a href="#controle-de-congestion">Contrôle de congestion</a><a href="#ce-que-montre-une-capture">Ce que montre une capture</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IP SLA et suivi — Sondes, tracking et bascule intelligente | Nexorya</title>
+<meta name="description" content="IP SLA fait envoyer par un routeur des sondes régulières vers une destination lointaine ; si elles échouent, le suivi (track) retire une route ou baisse une priorité pour basculer sur le secours.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla" aria-current="page">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/ipsla">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-5">Une passerelle qui ne tombe jamais</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>IP SLA et suivi</h1><p class="nom-complet">Sondes, tracking et bascule intelligente</p>
+<p class="idee">IP SLA fait envoyer par un routeur des sondes régulières vers une destination lointaine ; si elles échouent, le suivi (track) retire une route ou baisse une priorité pour basculer sur le secours.</p><div class="badges"><span>Couche OSI 3 et 4</span><span>Découvrir : 8 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-2/routage-statique.html">Routage statique</a>, <a href="../niveau-2/hsrp.html">HSRP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-la-box-allumee-qui-ne-mene-nulle-part">Le problème : la box allumée qui ne mène nulle part</h2>
+<p>Une agence a deux accès : une fibre principale et une 4G de secours. Un matin, la fibre ne transporte plus rien chez l’opérateur, mais la box reste allumée : l’interface du routeur reste <strong>active</strong>. La route par défaut vers la fibre reste en place, la 4G n’est jamais utilisée, et l’agence est coupée.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le routeur vérifie lui-même, en permanence, qu’il atteint vraiment Internet à travers la fibre. Si les vérifications échouent, il retire la route principale et la route de secours prend le relais.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 708.0 286.0" width="708.0" role="img" aria-label="Une sonde décide de la route par défaut" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien actif" x1="110.0" y1="120.0" x2="354.0" y2="50.0"/><text class="tp-etiq" x="228.7" y="73.5" text-anchor="middle">route principale (track 10)</text><line class="tp-lien " x1="110.0" y1="120.0" x2="354.0" y2="190.0"/><text class="tp-etiq" x="235.3" y="143.5" text-anchor="middle">route de secours (AD 200)</text><line class="tp-lien bloque" x1="354.0" y1="50.0" x2="598.0" y2="120.0"/><path class="sq-croix" d="M469.0 78.0 l14 14 M483.0 78.0 l-14 14"/><text class="tp-etiq ko" x="479.3" y="73.5" text-anchor="middle">coupure chez l’opérateur</text><line class="tp-lien " x1="354.0" y1="190.0" x2="598.0" y2="120.0"/><g transform="translate(110.0 120.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="110.0" y="160.0" text-anchor="middle">Routeur d’agence</text><g transform="translate(354.0 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">Box fibre</text><g transform="translate(354.0 190.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="354.0" y="230.0" text-anchor="middle">Routeur 4G</text><g transform="translate(598.0 120.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="598.0" y="160.0" text-anchor="middle">Internet</text><text class="tp-sous" x="598.0" y="176.0" text-anchor="middle">cible de sonde : 198.51.100.1</text></svg><figcaption>Une sonde décide de la route par défaut</figcaption></figure>
+<ol>
+<li><strong>La sonde</strong> : toutes les 5 secondes, le routeur envoie un ping vers une adresse sur Internet, <strong>en sortant par la fibre</strong>.</li>
+<li><strong>Le suivi</strong> : un objet <code>track</code> passe à « down » si la sonde échoue plusieurs fois de suite.</li>
+<li><strong>L’action</strong> : la route par défaut principale est liée au track. Quand il passe à down, la route est retirée, et la route de secours (distance administrative plus élevée) apparaît.</li>
+<li><strong>Le retour</strong> : quand la sonde réussit à nouveau, la route principale revient.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>IP SLA</strong> — Fonction Cisco qui envoie des sondes régulières et mesure leur résultat (joignabilité, délai, gigue, pertes).</li>
+<li><strong>Sonde</strong> — Test automatique envoyé vers une cible : ping, connexion TCP, requête HTTP ou DNS.</li>
+<li><strong>Track (objet de suivi)</strong> — Objet dont l’état up/down dépend d’une sonde ou d’une interface, et auquel on rattache des actions.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi choisir une cible de sonde sur Internet plutôt que l’adresse de la box fibre elle-même ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que la box répond tant qu’elle est allumée, même si la fibre derrière elle ne transporte plus rien. Une cible <strong>au-delà</strong> de l’opérateur prouve que <strong>le chemin complet</strong> fonctionne. On en choisit idéalement deux, fiables, pour ne pas basculer à tort si une seule cible tombe.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-complete-cisco-ios">Configuration complète (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="c">! 1. La sonde : ping vers une cible fiable, en sortant par la fibre</span>
+ip sla 10
+ icmp-echo 198.51.100.1 source-interface GigabitEthernet0/0/0
+ frequency 5
+ threshold 1000
+ timeout 1000
+ip sla schedule 10 life forever start-time now
+<span class="c">!</span>
+<span class="c">! 2. L'objet de suivi, avec un délai anti-oscillation</span>
+track 10 ip sla 10 reachability
+ delay down 10 up 60
+<span class="c">!</span>
+<span class="c">! 3. Les routes : principale suivie, secours flottant</span>
+ip route 0.0.0.0 0.0.0.0 203.0.113.1 track 10
+ip route 0.0.0.0 0.0.0.0 192.0.2.1 200
+<span class="c">!</span>
+<span class="c">! 4. La cible de la sonde doit toujours sortir par la fibre</span>
+ip route 198.51.100.1 255.255.255.255 203.0.113.1
+</code></pre>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>L’étape 4 est indispensable. Sans elle, quand la route principale est retirée, la sonde vers <code>198.51.100.1</code> part… par la 4G, <strong>réussit</strong>, remet le track à up, la route principale revient, la sonde repart par la fibre et échoue : la route <strong>oscille</strong> sans fin. La route d’hôte force la sonde à toujours tester la fibre.</p>
+</div>
+<p><code>delay down 10 up 60</code> : on déclare la panne après 10 s d’échec, et le retour seulement après 60 s de succès continus. Un lien instable ne fait pas basculer le trafic toutes les secondes.</p>
+<h2 id="combiner-plusieurs-sondes">Combiner plusieurs sondes</h2>
+<pre><code class="language-cisco">track 11 ip sla 11 reachability       ! seconde cible
+track 20 list boolean or
+ object 10
+ object 11
+ip route 0.0.0.0 0.0.0.0 203.0.113.1 track 20
+</code></pre>
+<p>Avec <code>boolean or</code>, la route reste tant qu’<strong>une</strong> des deux cibles répond : la panne d’un seul serveur distant ne provoque pas de bascule inutile.</p>
+<h2 id="suivi-et-passerelle-redondante">Suivi et passerelle redondante</h2>
+<pre><code class="language-cisco">interface Vlan10
+ standby 10 track 10 decrement 30
+</code></pre>
+<p>Si la sonde du routeur actif échoue, sa priorité HSRP baisse et l’autre routeur devient la passerelle des postes. Voir <a href="hsrp.html">HSRP</a>.</p>
+<h2 id="mesurer-la-qualite-dun-lien">Mesurer la qualité d’un lien</h2>
+<p>IP SLA sait aussi mesurer la qualité, pas seulement la joignabilité :</p>
+<pre><code class="language-cisco">ip sla 30
+ udp-jitter 10.20.0.1 16384 codec g711alaw
+ frequency 60
+ip sla schedule 30 life forever start-time now
+<span class="c">!</span>
+<span class="k">R1#</span> show ip sla statistics 30
+Round Trip Time (RTT) for       Index 30
+        Latest RTT: 24 milliseconds
+Voice Scores:
+        ICPIF: 1        MOS Score: 4.34
+Jitter Time:
+        Source to Destination Jitter Min/Avg/Max: 0/2/9 milliseconds
+Packet Loss Values:
+        Loss Source to Destination: 0
+</code></pre>
+<p>La sonde <code>udp-jitter</code> simule un appel vocal et calcule un <strong>score MOS</strong> (qualité perçue, de 1 à 5). Le routeur distant doit avoir <code>ip sla responder</code>.</p>
+<h2 id="verification">Vérification</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip sla summary
+ID           Type        Destination       Stats       Return      Last
+                                           (ms)        Code        Run
+-----------------------------------------------------------------------
+*10          icmp-echo   198.51.100.1      RTT=12      OK          3 seconds ago
+
+<span class="k">R1#</span> show track 10
+Track 10
+  IP SLA 10 reachability
+  Reachability is Up
+    3 changes, last change 2d04h
+  Delay up 60 secs, down 10 secs
+  Tracked by:
+    Static IP Routing 0
+</code></pre>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Après la mise en place d’une sonde, la route par défaut alterne toutes les quelques secondes entre la fibre et la 4G pendant une panne de la fibre. Que manque-t-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La <strong>route d’hôte</strong> qui force la sonde à sortir par la fibre. Sans elle, la sonde réussit par la 4G une fois la route principale retirée, ce qui la fait revenir, etc. Ajouter <code>ip route &lt;cible&gt; 255.255.255.255 &lt;prochain saut fibre&gt;</code> et un délai <code>up</code> sur le track.</p>
+</details>
+<p><strong>2.</strong> On veut que le routeur HSRP actif cède sa place si l’accès Internet de l’agence ne fonctionne plus, même si son uplink reste up. Comment ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Créer une sonde IP SLA vers une cible sur Internet, un <code>track</code> basé sur cette sonde, et <code>standby 10 track &lt;n&gt; decrement &lt;valeur&gt;</code> avec une valeur qui fait passer la priorité sous celle du second routeur (qui doit avoir <code>preempt</code>).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/bfd.html"><small>Fiche précédente</small><strong>BFD</strong></a><a class="apres" href="../niveau-2/multicast.html"><small>Fiche suivante</small><strong>Multicast</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-la-box-allumee-qui-ne-mene-nulle-part">Le problème : la box allumée qui ne mène nulle part</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-complete-cisco-ios">Configuration complète (Cisco IOS)</a><a href="#combiner-plusieurs-sondes">Combiner plusieurs sondes</a><a href="#suivi-et-passerelle-redondante">Suivi et passerelle redondante</a><a href="#mesurer-la-qualite-dun-lien">Mesurer la qualité d’un lien</a><a href="#verification">Vérification</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

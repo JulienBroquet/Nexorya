@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Proxy et répartiteur de charge — Proxy, reverse proxy et load balancer | Nexorya</title>
+<meta name="description" content="Un proxy fait les requêtes à la place des postes pour les contrôler ; un reverse proxy reçoit les requêtes à la place des serveurs pour les protéger et répartir la charge entre eux.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy" aria-current="page">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/proxy">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-3">Le Web et le chiffrement</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Proxy et répartiteur de charge</h1><p class="nom-complet">Proxy, reverse proxy et load balancer</p>
+<p class="idee">Un proxy fait les requêtes à la place des postes pour les contrôler ; un reverse proxy reçoit les requêtes à la place des serveurs pour les protéger et répartir la charge entre eux.</p><div class="badges"><span>Couche OSI 4 à 7</span><span>Découvrir : 8 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-3/http.html">HTTP</a>, <a href="../niveau-3/tls.html">TLS</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Deux besoins différents, une même idée :</p>
+<ul>
+<li><strong>Côté utilisateurs</strong>, l’entreprise veut contrôler la navigation : bloquer des catégories de sites, analyser les téléchargements, journaliser.</li>
+<li><strong>Côté serveurs</strong>, un site très fréquenté a besoin de <strong>plusieurs</strong> serveurs, sans que l’utilisateur le sache, et l’on veut les protéger d’un accès direct depuis Internet.</li>
+</ul>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Un proxy est un intermédiaire qui termine la connexion d’un côté et en ouvre une nouvelle de l’autre : il peut donc observer, filtrer, transformer et répartir.</p>
+</div>
+<h2 id="proxy-direct-et-reverse-proxy">Proxy direct et reverse proxy</h2>
+<figure class="schema"><svg viewBox="0 0 854.4 356.0" width="854.4" role="img" aria-label="Proxy côté utilisateurs, reverse proxy côté serveurs" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="268.6" y2="50.0"/><line class="tp-lien " x1="268.6" y1="50.0" x2="427.2" y2="120.0"/><line class="tp-lien " x1="268.6" y1="190.0" x2="427.2" y2="120.0"/><line class="tp-lien " x1="427.2" y1="120.0" x2="585.8" y2="190.0"/><line class="tp-lien actif" x1="585.8" y1="190.0" x2="744.4" y2="120.0"/><line class="tp-lien actif" x1="585.8" y1="190.0" x2="744.4" y2="260.0"/><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">Postes</text><g transform="translate(268.6 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="268.6" y="90.0" text-anchor="middle">Proxy</text><text class="tp-sous" x="268.6" y="106.0" text-anchor="middle">filtrage Web</text><g transform="translate(427.2 120.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="427.2" y="160.0" text-anchor="middle">Internet</text><g transform="translate(585.8 190.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="585.8" y="230.0" text-anchor="middle">Reverse proxy</text><text class="tp-sous" x="585.8" y="246.0" text-anchor="middle">load balancer</text><g transform="translate(744.4 120.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="744.4" y="160.0" text-anchor="middle">Serveur Web 1</text><g transform="translate(744.4 260.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="744.4" y="300.0" text-anchor="middle">Serveur Web 2</text><g transform="translate(268.6 190.0)"><rect class="tp-ico" x="-18" y="-15" width="36" height="22" rx="3"/><path class="tp-ico" d="M-25 9 h50 l-4 6 h-42 z"/></g><text class="tp-lib" x="268.6" y="230.0" text-anchor="middle">Client externe</text></svg><figcaption>Proxy côté utilisateurs, reverse proxy côté serveurs</figcaption></figure>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Proxy (direct)</th>
+<th>Reverse proxy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Placé devant…</td>
+<td>les <strong>utilisateurs</strong></td>
+<td>les <strong>serveurs</strong></td>
+</tr>
+<tr>
+<td>Qui le configure ?</td>
+<td>les postes (ou le réseau, en mode transparent)</td>
+<td>personne : le nom du site pointe vers lui</td>
+</tr>
+<tr>
+<td>Rôle</td>
+<td>filtrer, journaliser, mettre en cache la navigation</td>
+<td>publier, protéger, répartir, terminer TLS</td>
+</tr>
+</tbody>
+</table>
+<h2 id="le-repartiteur-de-charge">Le répartiteur de charge</h2>
+<p>Un <strong>load balancer</strong> est un reverse proxy spécialisé. Il :</p>
+<ol>
+<li>reçoit les requêtes sur une <strong>adresse virtuelle</strong> (VIP), celle que pointe le DNS du site ;</li>
+<li>choisit un serveur parmi un <strong>groupe</strong> (<em>pool</em>), selon une méthode (à tour de rôle, le moins chargé…) ;</li>
+<li>vérifie en permanence la <strong>santé</strong> de chaque serveur (une requête de test toutes les quelques secondes) et retire ceux qui échouent ;</li>
+<li>peut garder un même utilisateur sur le même serveur (<strong>persistance</strong>), si l’application l’exige.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Proxy</strong> — Intermédiaire qui effectue les requêtes des utilisateurs vers Internet.</li>
+<li><strong>Reverse proxy</strong> — Intermédiaire placé devant des serveurs, qui reçoit les requêtes à leur place.</li>
+<li><strong>Load balancer</strong> — Équipement ou logiciel qui répartit les requêtes entre plusieurs serveurs.</li>
+<li><strong>VIP</strong> — Adresse IP virtuelle sur laquelle le répartiteur reçoit les requêtes.</li>
+<li><strong>Sonde de santé</strong> — Test régulier qui vérifie qu’un serveur répond correctement ; <em>health check</em>.</li>
+<li><strong>Persistance</strong> — Maintien d’un utilisateur sur le même serveur pendant sa session.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un site est servi par deux serveurs derrière un load balancer. Le serveur 2 tombe en panne. Que voient les utilisateurs ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Si les <strong>sondes de santé</strong> sont bien configurées, le répartiteur retire le serveur 2 en quelques secondes : les utilisateurs ne voient presque rien (ceux qui étaient sur le serveur 2 peuvent perdre leur session si elle n’est pas partagée). Sans sonde, une requête sur deux échouerait.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="niveau-4-ou-niveau-7">Niveau 4 ou niveau 7 ?</h2>
+<table>
+<thead>
+<tr>
+<th>Répartition</th>
+<th>Ce que voit l’équipement</th>
+<th>Possibilités</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Niveau 4</strong> (TCP/UDP)</td>
+<td>adresses et ports</td>
+<td>très rapide ; pas de lecture du contenu ; TLS traversé tel quel</td>
+</tr>
+<tr>
+<td><strong>Niveau 7</strong> (HTTP)</td>
+<td>URL, en-têtes, cookies</td>
+<td>routage selon le chemin (<code>/api</code> vers un groupe, <code>/images</code> vers un autre), réécriture, compression, WAF, <strong>terminaison TLS</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-type-haproxy">Configuration type (HAProxy)</h2>
+<pre><code class="language-text">frontend site_public
+    bind :443 ssl crt /etc/haproxy/certs/www.exemple.fr.pem alpn h2,http/1.1
+    http-request redirect scheme https unless { ssl_fc }
+    default_backend web
+
+backend web
+    balance leastconn
+    option httpchk GET /sante
+    http-check expect status 200
+    http-request set-header X-Forwarded-Proto https
+    option forwardfor                       # ajoute X-Forwarded-For
+    server web1 10.20.0.11:8080 check inter 3s fall 3 rise 2
+    server web2 10.20.0.12:8080 check inter 3s fall 3 rise 2
+</code></pre>
+<ul>
+<li><code>check inter 3s fall 3 rise 2</code> : une sonde toutes les 3 s ; retiré après 3 échecs, réintégré après 2 succès.</li>
+<li>La sonde vise une page <code>/sante</code> qui vérifie réellement l’application (base de données comprise), pas seulement que le serveur Web tourne.</li>
+</ul>
+<h2 id="les-pieges-classiques">Les pièges classiques</h2>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Les journaux du serveur ne montrent que l’adresse du proxy</td>
+<td>lire <code>X-Forwarded-For</code> (et ne lui faire confiance que s’il vient du proxy)</td>
+</tr>
+<tr>
+<td>L’application génère des liens en <code>http://</code></td>
+<td>elle ne sait pas que le client est en HTTPS : transmettre <code>X-Forwarded-Proto</code></td>
+</tr>
+<tr>
+<td>Les utilisateurs sont déconnectés au hasard</td>
+<td>sessions stockées localement sur chaque serveur, sans persistance ni stockage partagé</td>
+</tr>
+<tr>
+<td>502/504 sur certains appels longs</td>
+<td>délais d’attente du proxy plus courts que le temps de traitement</td>
+</tr>
+<tr>
+<td>Le serveur répond, mais pas au load balancer</td>
+<td>retour asymétrique : la passerelle du serveur n’est pas le load balancer en mode routé</td>
+</tr>
+</tbody>
+</table>
+<h2 id="proxy-direct-explicite-ou-transparent">Proxy direct : explicite ou transparent</h2>
+<ul>
+<li><strong>Explicite</strong> : les navigateurs sont configurés (manuellement, par GPO, par fichier PAC ou WPAD) pour envoyer leurs requêtes au proxy, sur le port 3128 ou 8080. Pour HTTPS, le navigateur demande un tunnel avec la méthode <code>CONNECT</code>.</li>
+<li><strong>Transparent</strong> : le réseau redirige le trafic Web vers le proxy sans configuration des postes ; plus simple à déployer, plus délicat avec HTTPS.</li>
+</ul>
+<p>Aujourd’hui, le filtrage Web est souvent assuré par un <strong>service cloud</strong> (SWG, SSE) plutôt que par un proxy installé dans l’entreprise.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un groupe de deux serveurs est sondé par une requête TCP sur le port 8080. L’application du serveur 1 renvoie des erreurs 500, mais il reste dans le groupe. Pourquoi, et que corriger ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Une sonde <strong>TCP</strong> ne vérifie que l’ouverture du port : le serveur Web écoute, donc il est jugé sain, même si l’application échoue. Utiliser une sonde <strong>HTTP</strong> sur une page de santé qui teste réellement l’application, et attendre un code 200.</p>
+</details>
+<p><strong>2.</strong> Les administrateurs d’une application ont bloqué les adresses de quelques utilisateurs, mais le blocage ne fonctionne pas depuis que le site est derrière un reverse proxy. Expliquer.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le serveur voit <strong>toutes</strong> les connexions venir de l’adresse du reverse proxy. Les règles fondées sur l’adresse source doivent soit être appliquées <strong>sur le proxy</strong>, soit lire l’en-tête <code>X-Forwarded-For</code> côté serveur (en ne faisant confiance qu’au proxy pour cet en-tête).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/dot.html"><small>Fiche précédente</small><strong>DoT</strong></a><a class="apres" href="../niveau-3/ssh.html"><small>Fiche suivante</small><strong>SSH</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#proxy-direct-et-reverse-proxy">Proxy direct et reverse proxy</a><a href="#le-repartiteur-de-charge">Le répartiteur de charge</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#niveau-4-ou-niveau-7">Niveau 4 ou niveau 7 ?</a><a href="#configuration-type-haproxy">Configuration type (HAProxy)</a><a href="#les-pieges-classiques">Les pièges classiques</a><a href="#proxy-direct-explicite-ou-transparent">Proxy direct : explicite ou transparent</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

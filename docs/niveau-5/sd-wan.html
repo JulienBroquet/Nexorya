@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SD-WAN — Le WAN piloté par logiciel | Nexorya</title>
+<meta name="description" content="Le SD-WAN combine plusieurs accès (fibre, MPLS, 4G) dans un même réseau chiffré, piloté depuis une console centrale, et envoie chaque application sur le lien le plus adapté à cet instant.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan" aria-current="page">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/sd-wan">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-1">Du bâtiment au monde</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>SD-WAN</h1><p class="nom-complet">Le WAN piloté par logiciel</p>
+<p class="idee">Le SD-WAN combine plusieurs accès (fibre, MPLS, 4G) dans un même réseau chiffré, piloté depuis une console centrale, et envoie chaque application sur le lien le plus adapté à cet instant.</p><div class="badges"><span>Couche OSI 3 à 7</span><span>Découvrir : 8 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-5/wan.html">WAN</a>, <a href="../niveau-4/ipsec.html">IPsec</a>, <a href="../niveau-5/qos.html">QoS</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Une agence a une fibre Internet et une 4G. Avec un routeur classique, la 4G ne sert que si la fibre tombe complètement. Mais quand la fibre est <strong>dégradée</strong> (pertes, latence), les appels sont hachés alors que la 4G est parfaite. Et configurer 200 agences à la main, avec des tunnels IPsec et des règles de routage, prend des semaines.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le SD-WAN mesure en permanence la qualité de tous les liens d’un site et choisit, pour chaque application, le meilleur lien du moment, le tout configuré depuis une console centrale.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 586.0 454.0" width="586.0" role="img" aria-label="Une agence SD-WAN à deux accès" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien actif" x1="110.0" y1="190.0" x2="293.0" y2="50.0"/><text class="tp-etiq" x="194.2" y="110.5" text-anchor="end">voix : latence 18 ms, 0 % perte</text><line class="tp-lien " x1="110.0" y1="190.0" x2="293.0" y2="330.0"/><text class="tp-etiq" x="208.8" y="250.5" text-anchor="start">secours, pertes 0,5 %</text><line class="tp-lien logique" x1="293.0" y1="50.0" x2="476.0" y2="190.0"/><text class="tp-etiq" x="391.8" y="110.5" text-anchor="start">tunnel</text><line class="tp-lien logique" x1="293.0" y1="330.0" x2="476.0" y2="190.0"/><text class="tp-etiq" x="377.2" y="250.5" text-anchor="end">tunnel</text><line class="tp-lien logique" x1="476.0" y1="358.0" x2="110.0" y2="190.0"/><line class="tp-lien logique" x1="476.0" y1="358.0" x2="476.0" y2="190.0"/><g transform="translate(110.0 190.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">Équipement SD-WAN agence</text><g transform="translate(293.0 50.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="293.0" y="90.0" text-anchor="middle">Internet fibre</text><g transform="translate(293.0 330.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="293.0" y="370.0" text-anchor="middle">4G</text><g transform="translate(476.0 190.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="476.0" y="230.0" text-anchor="middle">Équipement SD-WAN siège</text><g transform="translate(476.0 358.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="476.0" y="398.0" text-anchor="middle">Contrôleur</text><text class="tp-sous" x="476.0" y="414.0" text-anchor="middle">politiques centrales</text></svg><figcaption>Une agence SD-WAN à deux accès</figcaption></figure>
+<ol>
+<li>Les équipements de chaque site établissent des <strong>tunnels chiffrés</strong> sur tous leurs liens.</li>
+<li>Ils envoient des <strong>sondes</strong> dans chaque tunnel et mesurent latence, gigue et pertes.</li>
+<li>Le <strong>contrôleur</strong> distribue les politiques : « la voix doit avoir moins de 150 ms et moins de 1 % de pertes », « les sauvegardes passent par le lien le moins cher ».</li>
+<li>Chaque flux est <strong>classé</strong> par application et envoyé sur le lien qui respecte sa politique. Si la fibre se dégrade, les appels basculent sur la 4G en quelques secondes, sans couper la sauvegarde.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>SD-WAN</strong> — <em>Software-Defined WAN</em>, réseau étendu piloté par une couche logicielle centrale.</li>
+<li><strong>Overlay</strong> — Réseau logique (tunnels) construit au-dessus des liens de transport.</li>
+<li><strong>Underlay / transport</strong> — Les liens physiques ou d’opérateur utilisés par l’overlay (fibre, MPLS, 4G).</li>
+<li><strong>Zero touch provisioning</strong> — Mise en service automatique d’un équipement dès son branchement.</li>
+<li><strong>Routage par application</strong> — Choix du lien en fonction de l’application et de la qualité mesurée.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Quelle différence avec une route de secours classique (route flottante ou IP SLA) ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Une route de secours ne bascule qu’en cas de <strong>panne</strong> (ou d’échec d’une sonde), et pour <strong>tout</strong> le trafic. Le SD-WAN réagit à une <strong>dégradation</strong> de la qualité et décide <strong>application par application</strong> : la voix peut basculer pendant que les autres flux restent sur la fibre.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-composants">Les composants</h2>
+<table>
+<thead>
+<tr>
+<th>Composant</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Équipement de bordure</strong> (edge)</td>
+<td>dans chaque site : tunnels, mesures, classification, application des politiques</td>
+</tr>
+<tr>
+<td><strong>Contrôleur</strong></td>
+<td>distribue les routes, les clés et les politiques aux équipements</td>
+</tr>
+<tr>
+<td><strong>Orchestrateur / console</strong></td>
+<td>interface d’administration, modèles de configuration, supervision</td>
+</tr>
+<tr>
+<td><strong>Passerelles cloud</strong></td>
+<td>points de présence pour accéder efficacement aux applications SaaS et au cloud</td>
+</tr>
+</tbody>
+</table>
+<h2 id="une-politique-type">Une politique type</h2>
+<table>
+<thead>
+<tr>
+<th>Classe d’application</th>
+<th>Exigence</th>
+<th>Lien préféré</th>
+<th>Repli</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Voix, visioconférence</td>
+<td>latence &lt; 150 ms, gigue &lt; 30 ms, pertes &lt; 1 %</td>
+<td>le meilleur lien mesuré</td>
+<td>tout lien conforme</td>
+</tr>
+<tr>
+<td>Applications métier</td>
+<td>latence &lt; 100 ms</td>
+<td>MPLS ou fibre</td>
+<td>4G</td>
+</tr>
+<tr>
+<td>Navigation Web, SaaS</td>
+<td>—</td>
+<td>sortie Internet locale (avec sécurité cloud)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>Sauvegardes, mises à jour</td>
+<td>—</td>
+<td>lien le moins cher</td>
+<td>jamais la 4G</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sd-wan-et-securite-sase">SD-WAN et sécurité : SASE</h2>
+<p>Avec la sortie Internet <strong>locale</strong> dans chaque agence, le filtrage ne peut plus se faire uniquement au siège. On associe donc le SD-WAN à des services de sécurité dans le cloud (proxy, CASB, ZTNA, pare-feu) : c’est l’approche <strong>SASE</strong> (<em>Secure Access Service Edge</em>).</p>
+<h2 id="points-de-vigilance">Points de vigilance</h2>
+<ul>
+<li>La <strong>QoS sur Internet</strong> n’existe que dans votre propre équipement : le SD-WAN choisit le meilleur lien, mais ne garantit rien chez l’opérateur.</li>
+<li>Les tunnels ajoutent un en-tête : surveiller la <strong>MTU</strong>.</li>
+<li>La <strong>visibilité</strong> dépend de la classification des applications, qui doit être tenue à jour.</li>
+</ul>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Une agence perd 3 % des paquets sur sa fibre depuis une heure, sans coupure. Que fait un SD-WAN correctement configuré pour les appels en cours et pour la sauvegarde ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les sondes mesurent 3 % de pertes : la fibre ne respecte plus la politique de la <strong>voix</strong> (&lt; 1 %). Les nouveaux appels, et souvent les appels en cours, sont envoyés sur le <strong>lien conforme</strong> (la 4G, par exemple). La <strong>sauvegarde</strong>, qui tolère les pertes et ne doit jamais passer par la 4G, reste sur la fibre.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/wan.html"><small>Fiche précédente</small><strong>WAN</strong></a><a class="apres" href="../niveau-5/mpls.html"><small>Fiche suivante</small><strong>MPLS</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-composants">Les composants</a><a href="#une-politique-type">Une politique type</a><a href="#sd-wan-et-securite-sase">SD-WAN et sécurité : SASE</a><a href="#points-de-vigilance">Points de vigilance</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

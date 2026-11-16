@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WPA Entreprise — WPA2 et WPA3-Enterprise | Nexorya</title>
+<meta name="description" content="Le Wi-Fi des salariés n’utilise pas un mot de passe partagé, mais une authentification individuelle 802.1X ; chaque utilisateur ou appareil a ses propres clés, et un départ se gère en désactivant un seul compte.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise" aria-current="page">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/wpa-entreprise">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-1">Qui a le droit d’entrer ?</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>WPA Entreprise</h1><p class="nom-complet">WPA2 et WPA3-Enterprise</p>
+<p class="idee">Le Wi-Fi des salariés n’utilise pas un mot de passe partagé, mais une authentification individuelle 802.1X ; chaque utilisateur ou appareil a ses propres clés, et un départ se gère en désactivant un seul compte.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 7 min</span><span>Approfondir : 15 min</span><span>Avant : <a href="../niveau-4/802-1x.html">802.1X</a>, <a href="../niveau-1/wifi.html">Le Wi-Fi</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-le-mot-de-passe-wi-fi-que-tout-le-monde-connait">Le problème : le mot de passe Wi-Fi que tout le monde connaît</h2>
+<p>Un mot de passe Wi-Fi partagé finit toujours par circuler : affiché en salle de pause, donné à un prestataire, gardé par un ancien salarié. Le changer oblige à reconfigurer tous les appareils. Et tous ceux qui le connaissent peuvent, en théorie, déchiffrer le trafic des autres.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>En WPA-Entreprise, chaque personne (ou appareil) se connecte avec <strong>sa propre identité</strong>, vérifiée par le serveur RADIUS : pas de secret partagé, et des clés de chiffrement différentes pour chacun.</p>
+</div>
+<h2 id="personnel-ou-entreprise">Personnel ou Entreprise ?</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>WPA2/WPA3-Personnel</th>
+<th>WPA2/WPA3-Entreprise</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authentification</td>
+<td>mot de passe partagé</td>
+<td>802.1X : identifiants ou certificat par personne</td>
+</tr>
+<tr>
+<td>Départ d’un salarié</td>
+<td>changer le mot de passe pour tous</td>
+<td>désactiver un compte</td>
+</tr>
+<tr>
+<td>Attribution de droits</td>
+<td>identique pour tous</td>
+<td>VLAN et ACL selon l’identité</td>
+</tr>
+<tr>
+<td>Usage</td>
+<td>domicile, petites structures, objets connectés</td>
+<td>salariés</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>WPA2 / WPA3</strong> — Protocoles de sécurité du Wi-Fi.</li>
+<li><strong>WPA-Entreprise</strong> — Mode où chaque client s’authentifie individuellement via 802.1X et RADIUS.</li>
+<li><strong>SAE</strong> — <em>Simultaneous Authentication of Equals</em>, échange de WPA3-Personnel qui résiste aux attaques par dictionnaire hors ligne.</li>
+<li><strong>PMF</strong> — <em>Protected Management Frames</em>, protection des trames de gestion (empêche les déconnexions forcées).</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi le départ d’un salarié est-il plus simple à gérer en WPA-Entreprise ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Il suffit de <strong>désactiver son compte</strong> (ou de révoquer son certificat) : il ne peut plus se connecter, sans rien changer pour les autres. Avec un mot de passe partagé, il faudrait le changer et reconfigurer tous les appareils.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="dou-viennent-les-cles">D’où viennent les clés</h2>
+<ol>
+<li>L’authentification 802.1X/EAP aboutit : le serveur RADIUS et le client ont dérivé une clé maîtresse (<strong>PMK</strong>), propre à cette session.</li>
+<li>Le serveur transmet la PMK à la borne (dans l’Access-Accept, protégée par le secret RADIUS).</li>
+<li>La borne et le client font la <strong>poignée de main à 4 messages</strong> pour dériver les clés de chiffrement du trafic.</li>
+</ol>
+<p>En WPA-Personnel, la PMK dérive du mot de passe et du SSID : tous ceux qui connaissent le mot de passe connaissent la PMK.</p>
+<h2 id="les-apports-de-wpa3">Les apports de WPA3</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Apport</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>WPA3-Personnel</td>
+<td><strong>SAE</strong> remplace le PSK : capturer une connexion ne permet plus de tester des mots de passe hors ligne ; PMF obligatoire</td>
+</tr>
+<tr>
+<td>WPA3-Entreprise</td>
+<td>PMF obligatoire, validation du certificat serveur renforcée ; mode <strong>192 bits</strong> (CNSA) pour les environnements sensibles</td>
+</tr>
+<tr>
+<td>Wi-Fi 6E / 7 (6 GHz)</td>
+<td>WPA3 <strong>obligatoire</strong></td>
+</tr>
+<tr>
+<td>OWE (<em>Enhanced Open</em>)</td>
+<td>chiffrement sans mot de passe pour les réseaux ouverts (invités)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="un-design-de-ssid-type">Un design de SSID type</h2>
+<table>
+<thead>
+<tr>
+<th>SSID</th>
+<th>Sécurité</th>
+<th>VLAN</th>
+<th>Accès</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entreprise</td>
+<td>WPA3-Entreprise (transition WPA2/3), EAP-TLS</td>
+<td>attribué par RADIUS</td>
+<td>selon le profil</td>
+</tr>
+<tr>
+<td>Invités</td>
+<td>OWE ou portail, isolation des clients</td>
+<td>30</td>
+<td>Internet, débit limité</td>
+</tr>
+<tr>
+<td>Objets</td>
+<td>WPA2/3-Personnel avec <strong>clé par appareil</strong> (iPSK, DPSK)</td>
+<td>50</td>
+<td>serveurs nécessaires seulement</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Le mode de <strong>transition</strong> (WPA2 et WPA3 sur le même SSID) est pratique pour la compatibilité, mais un attaquant peut forcer un client à utiliser WPA2. Planifie le passage au WPA3 seul dès que le parc le permet.</p>
+</div>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Des objets connectés ne gèrent que WPA2-Personnel. Comment éviter qu’ils partagent tous le même mot de passe ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Utiliser une <strong>clé par appareil</strong> (identity PSK, DPSK, MPSK selon les constructeurs) : le serveur RADIUS associe une clé différente à chaque adresse MAC ou groupe d’appareils, et peut attribuer le VLAN correspondant. Une clé compromise ne concerne qu’un appareil.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/802-1x.html"><small>Fiche précédente</small><strong>802.1X</strong></a><a class="apres" href="../niveau-4/mfa.html"><small>Fiche suivante</small><strong>MFA</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-le-mot-de-passe-wi-fi-que-tout-le-monde-connait">Le problème : le mot de passe Wi-Fi que tout le monde connaît</a><a href="#personnel-ou-entreprise">Personnel ou Entreprise ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#dou-viennent-les-cles">D’où viennent les clés</a><a href="#les-apports-de-wpa3">Les apports de WPA3</a><a href="#un-design-de-ssid-type">Un design de SSID type</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

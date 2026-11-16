@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Labo 5 — Sécuriser | Nexorya</title>
+<meta name="description" content="Explore les réseaux. Maîtrise l’infrastructure.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" aria-current=page class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="page"><p class="fil"><a href="../index.html">Accueil</a> › <a href=index.html>Pratique</a></p><h1>Labo 5 — Sécuriser</h1><p class=chapeau>Le réseau du labo 4 fonctionne, mais n’importe qui peut s’y brancher et administrer les équipements. Tu vas le durcir.</p><div class="prose"><div class="encadre retenir">
+<p class="encadre-titre">Objectif</p>
+<p>Remplacer Telnet par SSH avec des comptes nominatifs, filtrer l’administration, filtrer le trafic entre sites avec une ACL, et protéger les ports d’accès.</p>
+</div>
+<p><strong>Durée</strong> : 1 heure. <strong>Fiches utiles</strong> : <a href="../niveau-3/ssh.html">SSH</a>, <a href="../niveau-4/acl.html">ACL</a>, <a href="../niveau-4/protection-ports.html">Protection des ports</a>, <a href="../niveau-4/durcissement.html">Durcissement</a>.</p>
+<p>Repars de la topologie du <a href="labo-4-routage.html">labo 4</a>, en ajoutant un switch d’accès entre R-LYON et le PC de Lyon, et un <strong>PC d’administration</strong> au siège, dans le réseau <code>10.0.99.0/24</code>.</p>
+<h2 id="etape-1-ssh-et-comptes">Étape 1 — SSH et comptes</h2>
+<p>Sur chaque équipement :</p>
+<pre><code class="language-cisco"><span class="k">R-LYON(config)#</span> hostname R-LYON
+<span class="k">R-LYON(config)#</span> ip domain-name lumen.local
+<span class="k">R-LYON(config)#</span> crypto key generate rsa modulus 2048
+<span class="k">R-LYON(config)#</span> ip ssh version 2
+<span class="k">R-LYON(config)#</span> username alice privilege 15 secret Un-Vrai-Mot-De-Passe
+<span class="k">R-LYON(config)#</span> enable secret Un-Autre-Secret
+<span class="k">R-LYON(config)#</span> service password-encryption
+<span class="k">R-LYON(config)#</span> line vty 0 4
+<span class="k">R-LYON(config-line)#</span> transport input ssh
+<span class="k">R-LYON(config-line)#</span> login local
+<span class="k">R-LYON(config-line)#</span> exec-timeout 10 0
+</code></pre>
+<p>Teste depuis le PC d’administration : <code>ssh -l alice 10.255.0.2</code>. Un <code>telnet</code> doit être refusé.</p>
+<h2 id="etape-2-limiter-qui-peut-administrer">Étape 2 — Limiter qui peut administrer</h2>
+<pre><code class="language-cisco"><span class="k">R-LYON(config)#</span> ip access-list standard ADMIN
+<span class="k">R-LYON(config-std-nacl)#</span> permit 10.0.99.0 0.0.0.255
+<span class="k">R-LYON(config-std-nacl)#</span> deny any log
+<span class="k">R-LYON(config)#</span> line vty 0 4
+<span class="k">R-LYON(config-line)#</span> access-class ADMIN in
+</code></pre>
+<p>Depuis le PC de Lyon, la connexion SSH au routeur doit maintenant être refusée.</p>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Sur un vrai équipement à distance, applique d’abord <code>reload in 10</code> : une erreur dans cette ACL te coupe l’accès. Voir <a href="../niveau-5/changement.html">Gestion du changement</a>.</p>
+</div>
+<h2 id="etape-3-filtrer-entre-sites">Étape 3 — Filtrer entre sites</h2>
+<p>Règle à appliquer : les postes de Nantes peuvent joindre les serveurs du siège en HTTPS et DNS, mais pas les postes de Lyon.</p>
+<pre><code class="language-cisco"><span class="k">R-NANTES(config)#</span> ip access-list extended NANTES-SORTIE
+<span class="k">R-NANTES(config-ext-nacl)#</span> permit udp 10.2.10.0 0.0.0.255 any eq 67
+<span class="k">R-NANTES(config-ext-nacl)#</span> permit tcp 10.2.10.0 0.0.0.255 10.0.0.0 0.0.0.255 eq 443
+<span class="k">R-NANTES(config-ext-nacl)#</span> permit udp 10.2.10.0 0.0.0.255 10.0.0.0 0.0.0.255 eq 53
+<span class="k">R-NANTES(config-ext-nacl)#</span> deny ip 10.2.10.0 0.0.0.255 10.1.10.0 0.0.0.255 log
+<span class="k">R-NANTES(config-ext-nacl)#</span> permit ip 10.2.10.0 0.0.0.255 any
+<span class="k">R-NANTES(config)#</span> interface Gi0/0
+<span class="k">R-NANTES(config-if)#</span> ip access-group NANTES-SORTIE in
+</code></pre>
+<pre><code class="language-cisco"><span class="k">R-NANTES#</span> show access-lists NANTES-SORTIE
+</code></pre>
+<h2 id="etape-4-proteger-les-ports-dacces">Étape 4 — Protéger les ports d’accès</h2>
+<pre><code class="language-cisco"><span class="k">SW-LYON(config)#</span> interface range Fa0/1 - 24
+<span class="k">SW-LYON(config-if-range)#</span> switchport mode access
+<span class="k">SW-LYON(config-if-range)#</span> switchport port-security
+<span class="k">SW-LYON(config-if-range)#</span> switchport port-security maximum 2
+<span class="k">SW-LYON(config-if-range)#</span> switchport port-security violation restrict
+<span class="k">SW-LYON(config-if-range)#</span> spanning-tree bpduguard enable
+<span class="k">SW-LYON(config)#</span> interface range Fa0/10 - 24
+<span class="k">SW-LYON(config-if-range)#</span> shutdown
+</code></pre>
+<p>Branche trois PC derrière un petit switch sur Fa0/1 : le troisième ne doit pas passer.</p>
+<h2 id="questions">Questions</h2>
+<p><strong>1.</strong> Pourquoi la première ligne de l’ACL NANTES-SORTIE autorise-t-elle le port 67 ?</p>
+<p><strong>2.</strong> Pourquoi l’ACL est-elle appliquée en entrée sur l’interface des postes, et pas ailleurs ?</p>
+<p><strong>3.</strong> Quelle différence entre les modes de violation <code>shutdown</code>, <code>restrict</code> et <code>protect</code> ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>1.</strong> Pour laisser passer les <strong>demandes DHCP</strong> des postes (vers le relais) : sans cette ligne, l’ACL les bloquerait et les postes n’obtiendraient plus d’adresse.</p>
+<p><strong>2.</strong> Une ACL étendue se place <strong>au plus près de la source</strong> : le trafic interdit est rejeté dès son entrée dans le réseau, sans traverser les liens WAN pour rien.</p>
+<p><strong>3.</strong> <code>shutdown</code> coupe le port (err-disabled) ; <code>restrict</code> jette le trafic des adresses en trop et <strong>journalise</strong> ; <code>protect</code> jette sans rien signaler. <code>restrict</code> est souvent le bon compromis : l’utilisateur légitime n’est pas coupé et l’incident est visible.</p>
+</details>
+<p><strong>Suite</strong> : <a href="labo-6-pannes.html">Labo 6 — Chasse aux pannes</a>.</p></div></div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

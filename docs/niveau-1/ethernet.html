@@ -1,0 +1,198 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ethernet — La trame Ethernet (IEEE 802.3) | Nexorya</title>
+<meta name="description" content="Ethernet définit la trame, l’enveloppe qui transporte les données sur un réseau local, avec l’adresse du destinataire, celle de l’expéditeur et un code pour détecter les erreurs.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet" aria-current="page">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/ethernet">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-3">La trame et le switch</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Ethernet</h1><p class="nom-complet">La trame Ethernet (IEEE 802.3)</p>
+<p class="idee">Ethernet définit la trame, l’enveloppe qui transporte les données sur un réseau local, avec l’adresse du destinataire, celle de l’expéditeur et un code pour détecter les erreurs.</p><div class="badges"><span>Couche OSI 1 et 2</span><span>Découvrir : 8 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-1/osi.html">Les modèles OSI et TCP/IP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-envoyer-un-message-au-bon-voisin">Le problème : envoyer un message au bon voisin</h2>
+<p>Sur un réseau local, des dizaines d’appareils partagent les mêmes switches. Pour qu’un message arrive à la bonne machine et qu’on puisse savoir s’il a été abîmé en route, il faut un <strong>format commun</strong> : une enveloppe standard. Ethernet définit cette enveloppe, appelée <strong>trame</strong>, et la façon de la transmettre.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Ethernet est le protocole des réseaux locaux filaires : il emballe les données dans une <strong>trame</strong> qui porte l’adresse MAC du destinataire, celle de l’expéditeur et un code de contrôle.</p>
+</div>
+<h2 id="les-parties-dune-trame">Les parties d’une trame</h2>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Taille</th>
+<th>À quoi il sert</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MAC destination</strong></td>
+<td>6 octets</td>
+<td>Qui doit recevoir la trame.</td>
+</tr>
+<tr>
+<td><strong>MAC source</strong></td>
+<td>6 octets</td>
+<td>Qui l’a envoyée (pour pouvoir répondre).</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td>2 octets</td>
+<td>Ce que contient la trame : un paquet IPv4, IPv6, ARP…</td>
+</tr>
+<tr>
+<td><strong>Données</strong></td>
+<td>46 à 1 500 octets</td>
+<td>Le contenu transporté, souvent un paquet IP.</td>
+</tr>
+<tr>
+<td><strong>FCS</strong></td>
+<td>4 octets</td>
+<td>Un code calculé sur toute la trame, pour détecter les erreurs.</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie de l’enveloppe scellée</p>
+<p>Le FCS fonctionne comme un sceau. L’expéditeur calcule un nombre à partir de tout le contenu et l’inscrit à la fin. Le destinataire refait le calcul : si le résultat diffère, la trame a été abîmée en route et elle est <strong>jetée</strong>. Ethernet ne la redemande pas : ce sont les couches supérieures (TCP par exemple) qui s’apercevront du manque.</p>
+</div>
+<h2 id="de-lethernet-partage-a-lethernet-commute">De l’Ethernet partagé à l’Ethernet commuté</h2>
+<p>Aux débuts d’Ethernet, toutes les machines étaient branchées sur <strong>un même câble</strong> (ou un hub). Une seule pouvait parler à la fois : si deux parlaient ensemble, il y avait <strong>collision</strong>, et chacune attendait un délai aléatoire avant de réessayer (c’est la méthode CSMA/CD).</p>
+<p>Aujourd’hui, chaque appareil a <strong>son propre câble vers un switch</strong>, en full duplex. Il n’y a plus de support partagé, donc <strong>plus de collisions</strong>. CSMA/CD n’existe plus que dans les livres d’histoire… et dans les pannes de duplex.</p>
+<h2 id="exemple-des-erreurs-crc-apres-un-demenagement">Exemple : des erreurs CRC après un déménagement</h2>
+<p>Après le déplacement d’un bureau, un port du switch affiche un compteur <strong>CRC</strong> qui augmente régulièrement, et l’utilisateur se plaint de lenteurs. Chaque CRC est une trame dont le FCS ne correspondait pas : abîmée pendant le transport. Les causes classiques sont physiques : prise mal sertie, câble écrasé, passage près d’un moteur ou de néons. On change d’abord le cordon.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Ethernet</strong> — Famille de normes IEEE 802.3 qui définit les réseaux locaux filaires : câbles, signaux et format des trames.</li>
+<li><strong>Trame</strong> — Unité de données de la couche 2, qui contient adresses MAC, type, données et FCS.</li>
+<li><strong>FCS</strong> — <em>Frame Check Sequence</em>, code de contrôle calculé sur la trame pour détecter les erreurs.</li>
+<li><strong>CRC</strong> — Méthode de calcul du FCS ; par extension, compteur des trames reçues abîmées.</li>
+<li><strong>Hub</strong> — Ancien équipement qui recopiait chaque signal sur tous ses ports, sans rien comprendre aux trames.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Une trame arrive avec un FCS incorrect. Que fait le switch ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Il la <strong>jette</strong> et incrémente son compteur d’erreurs CRC. Ethernet ne demande pas de renvoi : si les données comptaient, c’est le protocole de transport (TCP) des machines qui constatera le manque et renverra.</p>
+</details>
+<p><strong>2.</strong> Quelle est la taille maximale des données dans une trame Ethernet standard ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>1 500 octets</strong>. C’est la <strong>MTU</strong> standard d’Ethernet. Avec les en-têtes et le FCS, la trame complète fait au maximum 1 518 octets (1 522 avec une étiquette VLAN).</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="format-exact-dune-trame-ethernet-ii">Format exact d’une trame Ethernet II</h2>
+<pre><code class="language-text"> octets :  7          1     6           6          2        46-1500        4
+        ┌──────────┬─────┬──────────┬──────────┬────────┬──────────────┬──────┐
+        │Préambule │ SFD │ MAC dest │ MAC src  │EtherType│  Données     │ FCS  │
+        └──────────┴─────┴──────────┴──────────┴────────┴──────────────┴──────┘
+          synchronisation                                          CRC-32
+          (non compté dans la taille de trame)
+        + écart inter-trames de 12 octets minimum entre deux trames
+</code></pre>
+<ul>
+<li><strong>Préambule et SFD</strong> : 8 octets de motif 1010… qui permettent au récepteur de se synchroniser. Ils ne figurent pas dans les captures Wireshark.</li>
+<li><strong>EtherType</strong> : <code>0x0800</code> IPv4, <code>0x86DD</code> IPv6, <code>0x0806</code> ARP, <code>0x8100</code> étiquette VLAN 802.1Q, <code>0x88CC</code> LLDP. Si la valeur est <strong>inférieure ou égale à 1 500</strong>, il s’agit d’une <strong>longueur</strong> (format 802.3 avec en-tête LLC), comme pour les BPDU STP.</li>
+<li><strong>Taille minimale</strong> : 64 octets de l’adresse destination au FCS. Si les données font moins de 46 octets, la carte ajoute du <strong>bourrage</strong> (<em>padding</em>).</li>
+<li><strong>FCS</strong> : CRC-32 calculé sur les adresses, le type et les données.</li>
+</ul>
+<p>Une trame de moins de 64 octets est un <strong>runt</strong> ; une trame de plus de 1 518 octets (sans VLAN ni jumbo configuré) est un <strong>giant</strong>. Les deux sont jetées et comptées.</p>
+<h2 id="pourquoi-64-octets-minimum">Pourquoi 64 octets minimum ?</h2>
+<p>C’est un héritage de CSMA/CD : en half duplex, l’émetteur devait encore être en train d’émettre quand une éventuelle collision revenait de l’extrémité du réseau, pour la détecter. 64 octets à 10 Mb/s correspondent à 51,2 µs, le temps d’aller-retour du signal sur le plus grand réseau autorisé. La règle est restée pour la compatibilité.</p>
+<h2 id="debit-reel-sur-ethernet">Débit réel sur Ethernet</h2>
+<p>Chaque trame coûte, en plus des données : 8 octets de préambule, 14 d’en-tête, 4 de FCS et 12 d’écart inter-trames, soit <strong>38 octets</strong>. Avec des trames pleines :</p>
+<pre><code class="language-text">efficacité = 1500 / (1500 + 38) ≈ 97,5 %   → environ 975 Mb/s de paquets IP sur un lien à 1 Gb/s
+avec des trames minimales : 46 / (46 + 38) ≈ 55 %
+</code></pre>
+<p>C’est pour cela qu’on exprime aussi la capacité d’un switch en <strong>paquets par seconde</strong> : un lien à 1 Gb/s peut transporter jusqu’à 1 488 095 trames de 64 octets par seconde.</p>
+<h2 id="lire-les-compteurs-dune-interface-cisco-ios">Lire les compteurs d’une interface (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show interfaces GigabitEthernet1/0/7
+GigabitEthernet1/0/7 is up, line protocol is up (connected)
+  Hardware is Gigabit Ethernet, address is 7c21.0e4a.1b07 (bia 7c21.0e4a.1b07)
+  MTU 1500 bytes, BW 1000000 Kbit/sec, DLY 10 usec,
+  Full-duplex, 1000Mb/s, media type is 10/100/1000BaseTX
+  …
+     1734 input errors, 1734 CRC, 0 frame, 0 overrun, 0 ignored
+     0 runts, 0 giants, 0 throttles
+     0 output errors, 0 collisions, 2 interface resets
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Compteur</th>
+<th>Signification</th>
+<th>Cause typique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CRC</code></td>
+<td>trames reçues avec un FCS faux</td>
+<td>câble, connecteur, interférences, duplex</td>
+</tr>
+<tr>
+<td><code>runts</code> / <code>giants</code></td>
+<td>trames trop courtes / trop longues</td>
+<td>duplex, MTU incohérente</td>
+</tr>
+<tr>
+<td><code>collisions</code>, <code>late collision</code></td>
+<td>collisions (half duplex)</td>
+<td>désaccord de duplex</td>
+</tr>
+<tr>
+<td><code>interface resets</code></td>
+<td>réinitialisations du port</td>
+<td>lien instable, problème physique</td>
+</tr>
+<tr>
+<td><code>output drops</code> (ailleurs dans la sortie)</td>
+<td>trames rejetées faute de place</td>
+<td>congestion</td>
+</tr>
+</tbody>
+</table>
+<p>Pour savoir si un compteur <strong>augmente</strong>, on le remet à zéro (<code>clear counters GigabitEthernet1/0/7</code>) puis on relance la commande quelques minutes plus tard. Un compteur élevé mais figé raconte un incident passé.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Une capture montre une trame dont le champ type vaut <code>0x0026</code>. Qu’est-ce que cela signifie ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><code>0x0026</code> = 38, une valeur inférieure à 1 500 : ce n’est pas un EtherType mais une <strong>longueur</strong>. C’est une trame au format <strong>802.3 avec en-tête LLC</strong>, comme celles qui transportent les BPDU STP.</p>
+</details>
+<p><strong>2.</strong> Pourquoi un switch rapporte-t-il un nombre de CRC sur un port, alors que le PC branché dessus n’en voit aucun ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Chaque côté ne compte que les erreurs <strong>qu’il reçoit</strong>. Le switch voit des trames abîmées <strong>dans le sens PC → switch</strong> : défaut sur les paires d’émission du PC, sur le connecteur, ou interférences sur ce sens. L’autre sens peut être parfaitement sain. Dans un désaccord de duplex, c’est le côté full duplex qui compte des CRC.</p>
+</details>
+<p><strong>3.</strong> Combien de trames de 1 518 octets un lien à 10 Gb/s peut-il transporter par seconde ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Chaque trame occupe 1 518 + 8 (préambule) + 12 (écart) = 1 538 octets = 12 304 bits. 10 × 10⁹ / 12 304 ≈ <strong>812 744 trames par seconde</strong>.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/poe.html"><small>Fiche précédente</small><strong>PoE</strong></a><a class="apres" href="../niveau-1/mac.html"><small>Fiche suivante</small><strong>Adresse MAC</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-envoyer-un-message-au-bon-voisin">Le problème : envoyer un message au bon voisin</a><a href="#les-parties-dune-trame">Les parties d’une trame</a><a href="#de-lethernet-partage-a-lethernet-commute">De l’Ethernet partagé à l’Ethernet commuté</a><a href="#exemple-des-erreurs-crc-apres-un-demenagement">Exemple : des erreurs CRC après un déménagement</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#format-exact-dune-trame-ethernet-ii">Format exact d’une trame Ethernet II</a><a href="#pourquoi-64-octets-minimum">Pourquoi 64 octets minimum ?</a><a href="#debit-reel-sur-ethernet">Débit réel sur Ethernet</a><a href="#lire-les-compteurs-dune-interface-cisco-ios">Lire les compteurs d’une interface (Cisco IOS)</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

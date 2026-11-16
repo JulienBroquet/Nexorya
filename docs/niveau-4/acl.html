@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ACL — Listes de contrôle d’accès | Nexorya</title>
+<meta name="description" content="Une ACL est une liste de règles « autoriser » ou « refuser » appliquée aux paquets qui traversent une interface ; c’est le premier outil pour filtrer le trafic entre réseaux.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl" aria-current="page">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/acl">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-3">Filtrer et chiffrer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>ACL</h1><p class="nom-complet">Listes de contrôle d’accès</p>
+<p class="idee">Une ACL est une liste de règles « autoriser » ou « refuser » appliquée aux paquets qui traversent une interface ; c’est le premier outil pour filtrer le trafic entre réseaux.</p><div class="badges"><span>Couche OSI 3 et 4</span><span>Découvrir : 10 min</span><span>Approfondir : 22 min</span><span>Avant : <a href="../niveau-2/ipv4.html">IPv4</a>, <a href="../niveau-3/tcp.html">TCP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-les-vlan-separent-mais-le-routeur-relie">Le problème : les VLAN séparent, mais le routeur relie</h2>
+<p>On a séparé les invités, les employés et les serveurs dans des VLAN. Mais le switch de niveau 3 qui sert de passerelle <strong>route</strong> entre tous ces VLAN : sans filtrage, un invité peut joindre les serveurs. Il faut dire au routeur ce qui est autorisé.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Une ACL est une liste de règles que le routeur vérifie pour chaque paquet : il applique la première règle qui correspond, et refuse tout ce qui n’a pas été explicitement autorisé.</p>
+</div>
+<h2 id="comment-une-acl-est-lue">Comment une ACL est lue</h2>
+<pre><code class="language-text">ip access-list extended INVITES-ENTREE
+ 10 permit udp 10.30.0.0 0.0.0.255 host 10.99.0.53 eq domain     ← DNS interne autorisé
+ 20 deny   ip  10.30.0.0 0.0.0.255 10.0.0.0 0.255.255.255        ← tout le reste vers l’interne : refusé
+ 30 permit ip  10.30.0.0 0.0.0.255 any                           ← Internet autorisé
+ (refus implicite de tout le reste)
+</code></pre>
+<p>Pour un paquet d’un invité vers un serveur <code>10.20.0.15</code> en HTTPS :</p>
+<ol>
+<li>Règle 10 : est-ce du DNS vers <code>10.99.0.53</code> ? Non, on continue.</li>
+<li>Règle 20 : source dans <code>10.30.0.0/24</code> et destination dans <code>10.0.0.0/8</code> ? <strong>Oui</strong> → <strong>refusé</strong>. On s’arrête là.</li>
+</ol>
+<p>Pour un paquet d’un invité vers un site Internet : règles 10 et 20 ne correspondent pas, la règle 30 <strong>autorise</strong>.</p>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>L’<strong>ordre</strong> est déterminant. Si la règle 30 (« tout autoriser vers any ») était placée en premier, les règles suivantes ne seraient jamais lues : les invités pourraient joindre l’interne.</p>
+</div>
+<h2 id="le-masque-generique">Le masque générique</h2>
+<p>Les ACL Cisco utilisent un <strong>masque générique</strong> (<em>wildcard</em>), l’inverse d’un masque de sous-réseau : les bits à <strong>0 doivent correspondre</strong>, les bits à <strong>1 sont libres</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Ce qu’on veut désigner</th>
+<th>Écriture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Le réseau 10.30.0.0/24</td>
+<td><code>10.30.0.0 0.0.0.255</code></td>
+</tr>
+<tr>
+<td>Le réseau 10.0.0.0/8</td>
+<td><code>10.0.0.0 0.255.255.255</code></td>
+</tr>
+<tr>
+<td>Une seule machine</td>
+<td><code>host 10.99.0.53</code> (= <code>10.99.0.53 0.0.0.0</code>)</td>
+</tr>
+<tr>
+<td>N’importe quelle adresse</td>
+<td><code>any</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>ACL</strong> — <em>Access Control List</em>, liste de règles qui autorisent ou refusent des paquets.</li>
+<li><strong>Refus implicite</strong> — Règle invisible, à la fin de chaque ACL, qui refuse tout ce qui n’a pas été autorisé.</li>
+<li><strong>ACL standard / étendue</strong> — ACL qui filtre sur l’adresse source seulement / sur source, destination, protocole et ports.</li>
+<li><strong>Masque générique</strong> — Masque où les bits à 1 indiquent les positions libres ; <em>wildcard mask</em>.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Une ACL contient une seule ligne : <code>permit tcp any host 10.20.0.15 eq 443</code>. Un poste peut-il pinguer ce serveur à travers elle ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> Le ping (ICMP) ne correspond pas à la seule règle, qui n’autorise que le TCP 443. Il tombe dans le <strong>refus implicite</strong>.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="ou-et-dans-quel-sens-appliquer">Où et dans quel sens appliquer ?</h2>
+<pre><code class="language-cisco">interface Vlan30
+ description Invités
+ ip access-group INVITES-ENTREE in
+</code></pre>
+<ul>
+<li><strong>in</strong> : les paquets sont filtrés en <strong>entrant</strong> dans l’interface, depuis le VLAN invités, avant le routage.</li>
+<li><strong>out</strong> : les paquets sont filtrés en <strong>sortant</strong> par l’interface, vers le VLAN.</li>
+</ul>
+<p>Règle pratique :</p>
+<ul>
+<li>une ACL <strong>étendue</strong> se place <strong>au plus près de la source</strong> (on jette tôt le trafic indésirable) ;</li>
+<li>une ACL <strong>standard</strong>, qui ne voit que la source, se place <strong>au plus près de la destination</strong> (sinon, on bloquerait aussi l’accès à d’autres destinations).</li>
+</ul>
+<h2 id="le-trafic-retour">Le trafic retour</h2>
+<p>Une ACL <strong>n’a pas de mémoire</strong> : elle ne sait pas qu’un paquet est la réponse à une connexion autorisée. Si l’on filtre dans les deux sens, il faut autoriser aussi les réponses :</p>
+<pre><code class="language-cisco">ip access-list extended SERVEURS-VERS-INVITES
+ permit tcp any 10.30.0.0 0.0.0.255 established     ! réponses TCP (drapeau ACK ou RST)
+ permit udp host 10.99.0.53 eq domain 10.30.0.0 0.0.0.255
+ deny ip any any log
+</code></pre>
+<p><code>established</code> est une approximation (elle se contente de regarder les drapeaux TCP). Les pare-feu <strong>à états</strong> suivent réellement les connexions et autorisent automatiquement les réponses : c’est la principale différence avec une ACL. Voir <a href="ngfw.html">NGFW</a>.</p>
+<h2 id="modifier-une-acl-sans-tout-casser">Modifier une ACL sans tout casser</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip access-lists INVITES-ENTREE
+Extended IP access list INVITES-ENTREE
+    10 permit udp 10.30.0.0 0.0.0.255 host 10.99.0.53 eq domain (4512 matches)
+    20 deny ip 10.30.0.0 0.0.0.255 10.0.0.0 0.255.255.255 (37 matches)
+    30 permit ip 10.30.0.0 0.0.0.255 any (981223 matches)
+<span class="c">!</span>
+<span class="k">R1(config)#</span> ip access-list extended INVITES-ENTREE
+<span class="k">R1(config-ext-nacl)#</span> 15 permit tcp 10.30.0.0 0.0.0.255 host 10.40.0.20 eq 631    ! insérer l'impression
+<span class="k">R1(config-ext-nacl)#</span> no 15                                                       ! supprimer une ligne
+</code></pre>
+<ul>
+<li>Les <strong>compteurs</strong> (<code>matches</code>) montrent quelles règles sont réellement utilisées.</li>
+<li>Les <strong>numéros de séquence</strong> permettent d’insérer une règle entre deux autres sans réécrire l’ACL.</li>
+</ul>
+<div class="encadre attention">
+<p class="encadre-titre">Attention en production</p>
+<p>Appliquer une ACL vide ou incomplète sur une interface <strong>coupe tout</strong> le trafic (refus implicite). Prépare l’ACL complète, vérifie-la, puis applique-la ; en accès distant, programme un <code>reload in</code> de sécurité.</p>
+</div>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Écris une ACL étendue qui autorise le VLAN employés (<code>10.10.0.0/24</code>) à joindre l’imprimante <code>10.40.0.20</code> en IPP (TCP 631) et refuse tout autre accès au VLAN imprimantes (<code>10.40.0.0/24</code>), sans bloquer le reste.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<pre><code class="language-cisco">ip access-list extended EMPLOYES-ENTREE
+ 10 permit tcp 10.10.0.0 0.0.0.255 host 10.40.0.20 eq 631
+ 20 deny   ip  10.10.0.0 0.0.0.255 10.40.0.0 0.0.0.255
+ 30 permit ip  10.10.0.0 0.0.0.255 any
+interface Vlan10
+ ip access-group EMPLOYES-ENTREE in
+</code></pre>
+<p>La règle 30 évite que le refus implicite bloque tout le reste du trafic des employés.</p>
+</details>
+<p><strong>2.</strong> Le compteur de la règle 20 d’une ACL reste à 0 alors qu’on s’attend à ce qu’elle bloque des flux. Que soupçonner ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Une règle <strong>placée avant</strong> (10, par exemple) correspond déjà à ces flux et les autorise : la règle 20 n’est jamais atteinte. Ou bien l’ACL est appliquée sur la <strong>mauvaise interface</strong> ou dans le <strong>mauvais sens</strong>. Vérifier l’ordre et <code>show ip interface Vlan10 | include access list</code>.</p>
+</details>
+<p><strong>3.</strong> Quel est le masque générique de <code>172.16.32.0/20</code> ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Masque /20 = 255.255.240.0 → masque générique = 255.255.255.255 − 255.255.240.0 = <strong>0.0.15.255</strong>. Écriture : <code>172.16.32.0 0.0.15.255</code>.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/ca.html"><small>Fiche précédente</small><strong>Autorité de certification</strong></a><a class="apres" href="../niveau-4/segmentation.html"><small>Fiche suivante</small><strong>Segmenter le réseau</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-les-vlan-separent-mais-le-routeur-relie">Le problème : les VLAN séparent, mais le routeur relie</a><a href="#comment-une-acl-est-lue">Comment une ACL est lue</a><a href="#le-masque-generique">Le masque générique</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#ou-et-dans-quel-sens-appliquer">Où et dans quel sens appliquer ?</a><a href="#le-trafic-retour">Le trafic retour</a><a href="#modifier-une-acl-sans-tout-casser">Modifier une ACL sans tout casser</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

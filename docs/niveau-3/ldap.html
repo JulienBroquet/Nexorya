@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LDAP — Lightweight Directory Access Protocol | Nexorya</title>
+<meta name="description" content="LDAP permet aux applications d’interroger l’annuaire de l’entreprise — comptes, groupes, ordinateurs — pour authentifier les utilisateurs et vérifier leurs droits.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap" aria-current="page">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/ldap">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-5">Transférer, partager, s’identifier</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>LDAP</h1><p class="nom-complet">Lightweight Directory Access Protocol</p>
+<p class="idee">LDAP permet aux applications d’interroger l’annuaire de l’entreprise — comptes, groupes, ordinateurs — pour authentifier les utilisateurs et vérifier leurs droits.</p><div class="badges"><span>Couche OSI 7 (TCP 389 ; 636 en LDAPS)</span><span>Découvrir : 7 min</span><span>Approfondir : 14 min</span><span>Avant : <a href="../niveau-3/tcp.html">TCP</a>, <a href="../niveau-3/tls.html">TLS</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-un-compte-toutes-les-applications">Le problème : un compte, toutes les applications</h2>
+<p>Sans annuaire, chaque application a sa propre liste d’utilisateurs et de mots de passe : quand un employé part, il faut penser à le supprimer partout. Avec un <strong>annuaire central</strong>, il existe un seul compte par personne, et les applications l’interrogent.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>LDAP est la façon standard de poser des questions à l’annuaire : « ce mot de passe est-il bon pour alice ? », « alice fait-elle partie du groupe Compta ? ».</p>
+</div>
+<h2 id="lannuaire-est-un-arbre">L’annuaire est un arbre</h2>
+<pre><code class="language-text">DC=exemple,DC=fr
+├── OU=Utilisateurs
+│   ├── OU=Compta
+│   │   └── CN=Alice Martin        (objet utilisateur : mail, téléphone, groupes…)
+│   └── OU=Informatique
+│       └── CN=Bruno Petit
+├── OU=Groupes
+│   └── CN=GG-Compta-Lecture
+└── OU=Ordinateurs
+    └── CN=PC-COMPTA-12
+</code></pre>
+<p>Chaque objet a un <strong>nom distinctif</strong> (DN) qui donne son chemin complet, de la feuille vers la racine : <code>CN=Alice Martin,OU=Compta,OU=Utilisateurs,DC=exemple,DC=fr</code>.</p>
+<h2 id="comment-une-application-lutilise">Comment une application l’utilise</h2>
+<ol>
+<li>L’application se <strong>connecte</strong> à l’annuaire avec un compte de service (<em>bind</em>).</li>
+<li>Elle <strong>cherche</strong> l’utilisateur à partir de son identifiant (<code>sAMAccountName=alice</code>).</li>
+<li>Elle <strong>vérifie</strong> son mot de passe (nouveau bind avec le DN trouvé et le mot de passe saisi).</li>
+<li>Elle <strong>lit</strong> ses groupes pour décider de ses droits.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>LDAP</strong> — Protocole d’interrogation des annuaires.</li>
+<li><strong>Annuaire</strong> — Base centrale des comptes, groupes et ressources d’une organisation.</li>
+<li><strong>DN</strong> — <em>Distinguished Name</em>, nom complet et unique d’un objet de l’annuaire.</li>
+<li><strong>OU</strong> — <em>Organizational Unit</em>, dossier de l’annuaire qui regroupe des objets.</li>
+<li><strong>Bind</strong> — Authentification d’un client auprès de l’annuaire.</li>
+<li><strong>Active Directory</strong> — Annuaire de Microsoft, qui utilise LDAP et Kerberos.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Une application se connecte à l’annuaire en LDAP simple sur le port 389, sans TLS. Quel est le risque ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Lors d’un <strong>bind simple</strong>, le mot de passe circule <strong>en clair</strong> : celui du compte de service, et celui de chaque utilisateur qui se connecte à l’application. Il faut <strong>LDAPS</strong> (636) ou <strong>StartTLS</strong> sur 389.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="interroger-lannuaire">Interroger l’annuaire</h2>
+<pre><code class="language-bash">$ ldapsearch -H ldaps://dc1.exemple.fr -D &quot;CN=svc-appli,OU=Services,DC=exemple,DC=fr&quot; -W \
+    -b &quot;DC=exemple,DC=fr&quot; &quot;(sAMAccountName=alice)&quot; memberOf mail
+dn: CN=Alice Martin,OU=Compta,OU=Utilisateurs,DC=exemple,DC=fr
+mail: alice.martin@exemple.fr
+memberOf: CN=GG-Compta-Lecture,OU=Groupes,DC=exemple,DC=fr
+</code></pre>
+<pre><code class="language-powershell">PS&gt; Get-ADUser alice -Properties MemberOf, LastLogonDate
+PS&gt; Test-NetConnection dc1.exemple.fr -Port 636
+</code></pre>
+<h2 id="les-ports-dactive-directory">Les ports d’Active Directory</h2>
+<table>
+<thead>
+<tr>
+<th>Port</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>389 TCP/UDP</td>
+<td>LDAP (StartTLS possible)</td>
+</tr>
+<tr>
+<td>636 TCP</td>
+<td>LDAPS</td>
+</tr>
+<tr>
+<td>3268 / 3269 TCP</td>
+<td>catalogue global (recherche dans toute la forêt) / en TLS</td>
+</tr>
+<tr>
+<td>88 TCP/UDP</td>
+<td>Kerberos</td>
+</tr>
+<tr>
+<td>53</td>
+<td>DNS (indispensable : les clients trouvent les contrôleurs par des enregistrements SRV)</td>
+</tr>
+<tr>
+<td>445</td>
+<td>SMB (stratégies de groupe, SYSVOL)</td>
+</tr>
+<tr>
+<td>135 + plage dynamique</td>
+<td>RPC</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bonnes-pratiques">Bonnes pratiques</h2>
+<ul>
+<li><strong>Chiffrement obligatoire</strong> et <strong>signature LDAP</strong> exigée sur les contrôleurs de domaine.</li>
+<li>Compte de service dédié, <strong>en lecture seule</strong>, avec un mot de passe long, idéalement géré automatiquement.</li>
+<li>Viser <strong>plusieurs contrôleurs de domaine</strong> (ou un nom qui les regroupe) pour la tolérance aux pannes.</li>
+<li>Pour les applications Web modernes, préférer une fédération d’identité (<strong>SAML</strong>, <strong>OpenID Connect</strong>) : l’application ne voit jamais le mot de passe.</li>
+</ul>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Une application interne refuse soudain toutes les connexions après une mise à jour des contrôleurs de domaine qui exige la signature LDAP. Elle utilisait LDAP simple sur 389. Que faire ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Configurer l’application en <strong>LDAPS (636)</strong> ou <strong>StartTLS</strong>, avec la chaîne de certificats de l’autorité interne approuvée par l’application. Les binds simples non protégés sont désormais refusés : c’était justement le but de la mise à jour.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/nfs.html"><small>Fiche précédente</small><strong>NFS</strong></a><a class="apres" href="../niveau-3/sip.html"><small>Fiche suivante</small><strong>SIP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-un-compte-toutes-les-applications">Le problème : un compte, toutes les applications</a><a href="#lannuaire-est-un-arbre">L’annuaire est un arbre</a><a href="#comment-une-application-lutilise">Comment une application l’utilise</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#interroger-lannuaire">Interroger l’annuaire</a><a href="#les-ports-dactive-directory">Les ports d’Active Directory</a><a href="#bonnes-pratiques">Bonnes pratiques</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

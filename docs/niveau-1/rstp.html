@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RSTP — Rapid Spanning Tree Protocol (IEEE 802.1w) | Nexorya</title>
+<meta name="description" content="RSTP fait le même travail que STP, mais remplace les longues attentes par un dialogue entre switches voisins ; un câble de secours reprend le relais en une seconde environ.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp" aria-current="page">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/rstp">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-5">Éviter les boucles</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>RSTP</h1><p class="nom-complet">Rapid Spanning Tree Protocol (IEEE 802.1w)</p>
+<p class="idee">RSTP fait le même travail que STP, mais remplace les longues attentes par un dialogue entre switches voisins ; un câble de secours reprend le relais en une seconde environ.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 7 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-1/stp.html">STP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-40-secondes-sans-reseau">Le problème : 40 secondes sans réseau</h2>
+<p>Avec le <a href="stp.html">STP classique</a>, quand un câble actif tombe, le port de secours doit passer par plusieurs états d’attente avant de transmettre : jusqu’à 50 secondes de coupure. Pour la téléphonie, la vidéo ou une application métier, c’est inacceptable.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>RSTP garde le même principe que STP (une racine, un seul chemin actif), mais les switches <strong>se mettent d’accord directement</strong> entre voisins au lieu d’attendre des minuteries. La bascule prend environ une seconde.</p>
+</div>
+<h2 id="ce-qui-change-par-rapport-a-stp">Ce qui change par rapport à STP</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>STP classique (802.1D)</th>
+<th>RSTP (802.1w)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Après une panne</td>
+<td>attend des temporisateurs (écoute 15 s, apprentissage 15 s)</td>
+<td>négocie directement avec le voisin</td>
+</tr>
+<tr>
+<td>Câble de secours</td>
+<td>rien n’est préparé</td>
+<td>un port <strong>alternate</strong> est déjà prêt à basculer</td>
+</tr>
+<tr>
+<td>Port vers un PC</td>
+<td>30 s d’attente au branchement (sans PortFast)</td>
+<td>port <strong>edge</strong> : transmission immédiate</td>
+</tr>
+<tr>
+<td>Temps de bascule</td>
+<td>30 à 50 s</td>
+<td>≈ 1 s, parfois moins</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie du copilote</p>
+<p>Le STP classique, c’est un conducteur qui, après une route barrée, s’arrête, consulte la carte, attend un peu pour être sûr, puis repart. RSTP, c’est un copilote qui a <strong>déjà</strong> repéré l’itinéraire de déviation : dès que la route est barrée, on bifurque.</p>
+</div>
+<h2 id="les-roles-de-ports">Les rôles de ports</h2>
+<ul>
+<li><strong>Root</strong> : le port qui mène à la racine (comme en STP).</li>
+<li><strong>Designated</strong> : le port qui transmet vers un segment (comme en STP).</li>
+<li><strong>Alternate</strong> : un <strong>autre chemin vers la racine</strong>, bloqué mais prêt. Si le port root tombe, l’alternate devient root immédiatement.</li>
+<li><strong>Backup</strong> : un port de secours vers un segment où le switch a déjà un port désigné (cas rare, avec un hub).</li>
+</ul>
+<h2 id="exemple">Exemple</h2>
+<p>Un switch d’accès a deux uplinks vers deux switches de distribution. Avec RSTP, l’un est <strong>root</strong> (actif), l’autre <strong>alternate</strong> (en attente). Un technicien débranche par erreur l’uplink actif : la bascule vers l’alternate est si rapide qu’un appel téléphonique en cours n’est même pas coupé.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>RSTP</strong> — <em>Rapid Spanning Tree Protocol</em>, version rapide de STP qui bascule en une seconde environ.</li>
+<li><strong>Port alternate</strong> — Port bloqué qui offre un autre chemin vers la racine, prêt à prendre le relais.</li>
+<li><strong>Port edge</strong> — Port d’accès vers un appareil final, qui passe immédiatement en transmission ; équivalent de PortFast.</li>
+<li><strong>Rapid PVST+</strong> — Version Cisco de RSTP, avec un arbre par VLAN.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Pourquoi le port alternate permet-il une bascule quasi immédiate ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que le switch a <strong>déjà calculé</strong> que ce port mène à la racine. Quand le port root disparaît, il n’y a rien à rechercher : l’alternate devient root et passe aussitôt en transmission, sans risque de boucle.</p>
+</details>
+<p><strong>2.</strong> Un technicien active PortFast sur un lien entre deux switches « pour accélérer ». Que risque-t-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Un port edge transmet <strong>immédiatement</strong>, sans vérifier qu’il ne ferme pas une boucle. Entre deux switches, une boucle peut se former et provoquer une tempête de broadcast. (RSTP rétrograde le port s’il reçoit une BPDU, mais quelques trames peuvent tourner entre-temps ; BPDU Guard aurait coupé le port.)</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-etats-simplifies">Les états simplifiés</h2>
+<p>RSTP fusionne les états de STP :</p>
+<table>
+<thead>
+<tr>
+<th>STP 802.1D</th>
+<th>RSTP 802.1w</th>
+<th>Transmet les données ?</th>
+<th>Apprend les MAC ?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Disabled, Blocking, Listening</td>
+<td><strong>Discarding</strong></td>
+<td>non</td>
+<td>non</td>
+</tr>
+<tr>
+<td>Learning</td>
+<td><strong>Learning</strong></td>
+<td>non</td>
+<td>oui</td>
+</tr>
+<tr>
+<td>Forwarding</td>
+<td><strong>Forwarding</strong></td>
+<td>oui</td>
+<td>oui</td>
+</tr>
+</tbody>
+</table>
+<h2 id="la-negociation-proposal-agreement">La négociation proposal / agreement</h2>
+<p>Sur un lien <strong>point à point</strong> (full duplex), un switch qui veut passer un port désigné en transmission <strong>propose</strong> ; le voisin <strong>synchronise</strong> (il bloque ses propres ports non edge pour éviter toute boucle temporaire) puis <strong>accepte</strong>. La transmission démarre aussitôt.</p>
+<figure class="schema"><svg viewBox="0 0 760 450" width="760" role="img" aria-label="Passage rapide en forwarding sur un lien point à point" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="450"/><g class="sq-acteur"><rect x="14.600000000000009" y="12" width="140.79999999999998" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">DIST (désigné)</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="450"/><g class="sq-acteur"><rect x="635.0" y="12" width="80" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">ACC</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. BPDU avec drapeau Proposal</text><line x1="85.0" y1="78" x2="663.0" y2="78"/><polygon class="sq-pointe" points="673.0,78 661.0,72 661.0,84"/></g><g class="sq-note"><rect x="554" y="124" width="200" height="50" rx="6"/><text x="654.0" y="143" text-anchor="middle">sync : bloque ses ports</text><text x="654.0" y="161" text-anchor="middle">désignés non edge</text></g><g class="sq-msg rep"><text x="380.0" y="200" text-anchor="middle">2. BPDU avec drapeau Agreement</text><line x1="675.0" y1="212" x2="97.0" y2="212"/><polygon class="sq-pointe" points="87.0,212 99.0,206 99.0,218"/></g><g class="sq-note"><rect x="6" y="258" width="200" height="50" rx="6"/><text x="106.0" y="277" text-anchor="middle">le port passe en</text><text x="106.0" y="295" text-anchor="middle">forwarding immédiatement</text></g><g class="sq-note"><rect x="554" y="342" width="200" height="68" rx="6"/><text x="654.0" y="361" text-anchor="middle">propose à son tour vers</text><text x="654.0" y="379" text-anchor="middle">l’aval, de proche en</text><text x="654.0" y="397" text-anchor="middle">proche</text></g></svg><figcaption>Passage rapide en forwarding sur un lien point à point</figcaption></figure>
+<p>Cette négociation ne fonctionne que sur des liens <strong>point à point</strong>. Un lien half duplex est considéré comme partagé : RSTP y retombe sur les temporisateurs classiques. On peut forcer le type : <code>spanning-tree link-type point-to-point</code>.</p>
+<h2 id="detection-des-pannes-et-changements-de-topologie">Détection des pannes et changements de topologie</h2>
+<ul>
+<li>Une BPDU est envoyée toutes les 2 s par <strong>chaque</strong> switch (pas seulement relayée depuis la racine). Après <strong>3 BPDU manquées</strong> (6 s), le voisin est considéré comme perdu. Une panne <strong>physique</strong> (lien down) est détectée instantanément.</li>
+<li>Seuls les ports non edge qui passent en <strong>forwarding</strong> déclenchent un changement de topologie (<em>TC</em>). Les switches vident alors les adresses MAC apprises sur les autres ports, pour réapprendre le nouveau chemin. Brancher un PC sur un port edge ne déclenche rien.</li>
+</ul>
+<h2 id="configuration-et-verification-cisco-ios">Configuration et vérification (Cisco IOS)</h2>
+<pre><code class="language-cisco">spanning-tree mode rapid-pvst
+<span class="c">!</span>
+interface range GigabitEthernet1/0/1 - 46
+ spanning-tree portfast              ! ports edge
+ spanning-tree bpduguard enable
+<span class="c">!</span>
+interface range GigabitEthernet1/0/47 - 48
+ spanning-tree link-type point-to-point
+</code></pre>
+<pre><code class="language-cisco"><span class="k">ACC1#</span> show spanning-tree vlan 10 | begin Interface
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- ------------------------
+Gi1/0/1             Desg FWD 4         128.1    P2p Edge
+Gi1/0/47            Root FWD 4         128.47   P2p
+Gi1/0/48            Altn BLK 4         128.48   P2p
+
+<span class="k">ACC1#</span> show spanning-tree detail | include ieee|occurr|from|is exec
+ VLAN0010 is executing the rstp compatible Spanning Tree protocol
+  Number of topology changes 3 last change occurred 2d04h ago
+          from GigabitEthernet1/0/48
+</code></pre>
+<p>Un nombre de changements de topologie qui augmente sans cesse signale un port qui monte et descend (<em>flapping</em>) ou un port utilisateur sans PortFast. La ligne <code>from</code> désigne le port d’origine.</p>
+<h2 id="compatibilite-avec-stp">Compatibilité avec STP</h2>
+<p>Si un switch RSTP reçoit des BPDU 802.1D sur un port, il passe <strong>ce port</strong> en mode compatible (lent). Un seul vieux switch dans un coin du réseau dégrade donc la convergence de cette partie. Pour revenir au mode rapide après son retrait : <code>clear spanning-tree detected-protocols</code>.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un switch d’accès a deux uplinks, Gi1/0/47 (root) et Gi1/0/48 (alternate). Gi1/0/47 tombe physiquement. Combien de temps dure la coupure, et pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Quasiment <strong>rien</strong> (de l’ordre de quelques dizaines de millisecondes à une seconde) : la perte du lien est détectée immédiatement, et l’alternate Gi1/0/48 devient root et passe en forwarding sans négociation. Les switches vident ensuite les MAC concernées et réapprennent.</p>
+</details>
+<p><strong>2.</strong> Après le branchement d’un vieux switch de laboratoire, une partie du réseau met de nouveau 30 secondes à converger. Explique.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le vieux switch parle <strong>STP 802.1D</strong>. Les ports RSTP qui reçoivent ses BPDU passent en mode compatible, avec les temporisateurs lents. Retirer le switch (ou le passer en RSTP), puis <code>clear spanning-tree detected-protocols</code> sur les ports concernés.</p>
+</details>
+<p><strong>3.</strong> Le compteur de changements de topologie augmente toutes les quelques minutes, toujours depuis Gi1/0/22, un port utilisateur. Quelle correction ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le port n’est pas configuré en <strong>edge</strong> : chaque fois que le PC s’allume, se met en veille ou redémarre, le port passe en forwarding et déclenche un changement de topologie, qui vide des tables MAC dans tout le VLAN. Configurer <code>spanning-tree portfast</code> (et BPDU Guard) sur ce port.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/stp.html"><small>Fiche précédente</small><strong>STP</strong></a><a class="apres" href="../niveau-1/mstp.html"><small>Fiche suivante</small><strong>MSTP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-40-secondes-sans-reseau">Le problème : 40 secondes sans réseau</a><a href="#ce-qui-change-par-rapport-a-stp">Ce qui change par rapport à STP</a><a href="#les-roles-de-ports">Les rôles de ports</a><a href="#exemple">Exemple</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-etats-simplifies">Les états simplifiés</a><a href="#la-negociation-proposal-agreement">La négociation proposal / agreement</a><a href="#detection-des-pannes-et-changements-de-topologie">Détection des pannes et changements de topologie</a><a href="#configuration-et-verification-cisco-ios">Configuration et vérification (Cisco IOS)</a><a href="#compatibilite-avec-stp">Compatibilité avec STP</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

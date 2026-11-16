@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ICMP — Internet Control Message Protocol | Nexorya</title>
+<meta name="description" content="ICMP est le service de messages d’erreur et de contrôle d’IP ; c’est lui qui fait fonctionner ping et traceroute, et qui prévient quand un paquet ne peut pas être livré.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp" aria-current="page">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/icmp">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-2">Trouver ses voisins et diagnostiquer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>ICMP</h1><p class="nom-complet">Internet Control Message Protocol</p>
+<p class="idee">ICMP est le service de messages d’erreur et de contrôle d’IP ; c’est lui qui fait fonctionner ping et traceroute, et qui prévient quand un paquet ne peut pas être livré.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 7 min</span><span>Approfondir : 15 min</span><span>Avant : <a href="../niveau-2/ipv4.html">IPv4</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-savoir-pourquoi-ca-ne-passe-pas">Le problème : savoir pourquoi ça ne passe pas</h2>
+<p>IP envoie des paquets sans garantie. Si un paquet ne peut pas être livré — réseau inconnu, machine absente, paquet trop gros —, il faut un moyen de <strong>prévenir l’expéditeur</strong>. Il faut aussi des outils pour <strong>tester</strong> qu’une machine répond. Ce rôle est confié à ICMP.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>ICMP est le « service de messages » d’IP : il transporte les tests (ping) et les avis d’erreur (destination injoignable, durée de vie dépassée).</p>
+</div>
+<h2 id="les-messages-a-connaitre">Les messages à connaître</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Nom</th>
+<th>Quand ?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>8</td>
+<td><strong>Echo Request</strong></td>
+<td>envoyé par <code>ping</code></td>
+</tr>
+<tr>
+<td>0</td>
+<td><strong>Echo Reply</strong></td>
+<td>réponse au ping</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Destination Unreachable</strong></td>
+<td>le paquet ne peut pas être livré ; un code précise pourquoi</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Time Exceeded</strong></td>
+<td>le TTL est tombé à 0 en route (boucle, ou traceroute)</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Redirect</td>
+<td>« il y a un meilleur routeur pour cette destination »</td>
+</tr>
+</tbody>
+</table>
+<h2 id="comment-marche-traceroute">Comment marche traceroute</h2>
+<p><code>traceroute</code> envoie des paquets avec un <strong>TTL volontairement petit</strong>. Chaque routeur décrémente le TTL ; celui qui le fait tomber à 0 jette le paquet et renvoie un <strong>Time Exceeded</strong> : il révèle ainsi son adresse.</p>
+<figure class="schema"><svg viewBox="0 0 760 398" width="760" role="img" aria-label="traceroute découvre le chemin routeur par routeur" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="398"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">PC</text></g><line class="sq-vie" x1="281.66666666666663" y1="43" x2="281.66666666666663" y2="398"/><g class="sq-acteur"><rect x="241.66666666666663" y="12" width="80" height="31" rx="8"/><text x="281.66666666666663" y="33" text-anchor="middle">R1</text></g><line class="sq-vie" x1="478.3333333333333" y1="43" x2="478.3333333333333" y2="398"/><g class="sq-acteur"><rect x="438.3333333333333" y="12" width="80" height="31" rx="8"/><text x="478.3333333333333" y="33" text-anchor="middle">R2</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="398"/><g class="sq-acteur"><rect x="633.3" y="12" width="83.39999999999999" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Serveur</text></g><g class="sq-msg "><text x="183.33333333333331" y="66" text-anchor="middle">1. paquet avec TTL = 1</text><line x1="85.0" y1="78" x2="269.66666666666663" y2="78"/><polygon class="sq-pointe" points="279.66666666666663,78 267.66666666666663,72 267.66666666666663,84"/></g><g class="sq-msg rep"><text x="183.33333333333331" y="116" text-anchor="middle">2. Time Exceeded (R1 se</text><text x="183.33333333333331" y="134" text-anchor="middle">révèle)</text><line x1="281.66666666666663" y1="146" x2="97.0" y2="146"/><polygon class="sq-pointe" points="87.0,146 99.0,140 99.0,152"/></g><g class="sq-msg "><text x="281.66666666666663" y="184" text-anchor="middle">3. paquet avec TTL = 2 (R1 le fait passer, TTL = 1)</text><line x1="85.0" y1="196" x2="466.3333333333333" y2="196"/><polygon class="sq-pointe" points="476.3333333333333,196 464.3333333333333,190 464.3333333333333,202"/></g><g class="sq-msg rep"><text x="281.66666666666663" y="234" text-anchor="middle">4. Time Exceeded (R2 se révèle)</text><line x1="478.3333333333333" y1="246" x2="97.0" y2="246"/><polygon class="sq-pointe" points="87.0,246 99.0,240 99.0,252"/></g><g class="sq-msg "><text x="380.0" y="284" text-anchor="middle">5. paquet avec TTL = 3</text><line x1="85.0" y1="296" x2="663.0" y2="296"/><polygon class="sq-pointe" points="673.0,296 661.0,290 661.0,302"/></g><g class="sq-msg rep"><text x="380.0" y="334" text-anchor="middle">6. réponse finale (Echo Reply ou Port Unreachable)</text><line x1="675.0" y1="346" x2="97.0" y2="346"/><polygon class="sq-pointe" points="87.0,346 99.0,340 99.0,352"/></g></svg><figcaption>traceroute découvre le chemin routeur par routeur</figcaption></figure>
+<h2 id="lire-un-ping-qui-echoue">Lire un ping qui échoue</h2>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Ce qu’il signifie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Délai d’attente de la demande dépassé</code></td>
+<td>aucune réponse : machine éteinte, filtrage, ou chemin de retour cassé</td>
+</tr>
+<tr>
+<td><code>Hôte de destination inaccessible</code> (venant de ta propre machine)</td>
+<td>ta machine ne trouve pas le voisin en ARP</td>
+</tr>
+<tr>
+<td><code>Réseau de destination inaccessible</code> (venant d’un routeur)</td>
+<td>ce routeur n’a pas de route vers la destination</td>
+</tr>
+<tr>
+<td><code>TTL expiré lors du transit</code></td>
+<td>une <strong>boucle de routage</strong> probable</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>ICMP</strong> — Protocole de messages de contrôle et d’erreur associé à IP.</li>
+<li><strong>Echo Request / Echo Reply</strong> — Messages ICMP utilisés par ping.</li>
+<li><strong>Time Exceeded</strong> — Message envoyé quand le TTL d’un paquet atteint zéro.</li>
+<li><strong>Destination Unreachable</strong> — Message indiquant qu’un paquet n’a pas pu être livré, avec un code qui précise la raison.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un ping vers un serveur échoue, mais tu arrives à ouvrir son site Web. Le serveur est-il en panne ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> Le site fonctionne, donc le serveur répond. Le serveur ou un pare-feu <strong>bloque simplement les pings</strong> (ICMP Echo). Un ping qui échoue ne prouve pas qu’une machine est injoignable.</p>
+</details>
+<p><strong>2.</strong> Un ping renvoie « TTL expiré lors du transit ». Que soupçonnes-tu ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Une <strong>boucle de routage</strong> : le paquet tourne entre des routeurs jusqu’à épuisement de son TTL. Un <code>traceroute</code> montrera les mêmes adresses qui se répètent.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="format">Format</h2>
+<p>Un message ICMP est transporté dans IP (protocole n° 1) : type (8 bits), code (8 bits), somme de contrôle, puis un contenu qui dépend du type. Les <strong>messages d’erreur</strong> contiennent l’en-tête IP et les 8 premiers octets du paquet fautif : l’expéditeur sait ainsi exactement quel flux (adresses, ports) a échoué.</p>
+<h2 id="les-codes-de-destination-unreachable-type-3">Les codes de Destination Unreachable (type 3)</h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Signification</th>
+<th>Émis par</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>Net unreachable</td>
+<td>un routeur sans route</td>
+</tr>
+<tr>
+<td>1</td>
+<td>Host unreachable</td>
+<td>le dernier routeur, si la machine ne répond pas en ARP</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Port unreachable</strong></td>
+<td>la machine destination, si aucun service n’écoute sur ce port UDP</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Fragmentation needed and DF set</strong></td>
+<td>un routeur, quand le paquet dépasse la MTU : essentiel à la PMTUD</td>
+</tr>
+<tr>
+<td>13</td>
+<td>Communication administratively prohibited</td>
+<td>un routeur ou un pare-feu qui filtre (ACL)</td>
+</tr>
+</tbody>
+</table>
+<p>En IPv6, ICMPv6 (type 58) joue le même rôle et porte en plus <a href="ndp.html">NDP</a> et la découverte de MTU (<em>Packet Too Big</em>, type 2).</p>
+<h2 id="traceroute-windows-et-linux-ne-font-pas-pareil">traceroute : Windows et Linux ne font pas pareil</h2>
+<table>
+<thead>
+<tr>
+<th>Outil</th>
+<th>Paquets envoyés</th>
+<th>Fin du parcours</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tracert</code> (Windows)</td>
+<td>ICMP Echo Request</td>
+<td>Echo Reply de la destination</td>
+</tr>
+<tr>
+<td><code>traceroute</code> (Linux, par défaut)</td>
+<td>UDP vers des ports élevés (33434 et suivants)</td>
+<td>Port Unreachable de la destination</td>
+</tr>
+<tr>
+<td><code>traceroute -T -p 443</code></td>
+<td>TCP SYN vers un port choisi</td>
+<td>traverse mieux les pare-feu</td>
+</tr>
+</tbody>
+</table>
+<p>Un pare-feu qui laisse passer l’un et bloque l’autre donne deux résultats différents : la différence est elle-même une information.</p>
+<pre><code class="language-bash">$ traceroute -n 203.0.113.10
+ 1  192.168.1.1     0.9 ms  0.8 ms  0.8 ms
+ 2  10.142.0.1      5.6 ms  5.1 ms  5.9 ms
+ 3  * * *
+ 4  198.51.100.33   9.2 ms  9.0 ms  9.4 ms
+ 5  203.0.113.10   10.1 ms  9.8 ms 10.0 ms
+</code></pre>
+<p>La ligne <code>* * *</code> au saut 3 : ce routeur ne renvoie pas de Time Exceeded (filtrage ou limitation), mais il <strong>fait passer</strong> le trafic, puisque les sauts suivants répondent.</p>
+<h2 id="filtrer-icmp-intelligemment">Filtrer ICMP intelligemment</h2>
+<table>
+<thead>
+<tr>
+<th>À autoriser</th>
+<th>Pourquoi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Type 3 (Destination Unreachable), surtout code 4</td>
+<td>découverte de la MTU du chemin ; diagnostic</td>
+</tr>
+<tr>
+<td>Type 11 (Time Exceeded)</td>
+<td>traceroute, diagnostic des boucles</td>
+</tr>
+<tr>
+<td>Type 0 et 8 (Echo) <strong>depuis les réseaux d’administration</strong></td>
+<td>supervision</td>
+</tr>
+<tr>
+<td>ICMPv6 : 1, 2, 3, 4, 133 à 137</td>
+<td>IPv6 ne fonctionne pas sans</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>À limiter ou bloquer</th>
+<th>Pourquoi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Redirect (type 5) depuis Internet</td>
+<td>peut détourner du trafic</td>
+</tr>
+<tr>
+<td>Echo depuis Internet vers l’interne</td>
+<td>réduit la cartographie par des tiers</td>
+</tr>
+</tbody>
+</table>
+<p>Les routeurs limitent eux-mêmes leur production de messages ICMP (<em>rate limiting</em>) pour se protéger : c’est pour cela que certains sauts de traceroute affichent des pertes sans qu’il y ait de problème.</p>
+<pre><code class="language-cisco"><span class="c">! Limiter la génération de messages Unreachable (Cisco IOS)</span>
+ip icmp rate-limit unreachable 500
+<span class="c">! Ne pas envoyer d'Unreachable sur l'interface Internet</span>
+interface GigabitEthernet0/0/0
+ no ip unreachables
+ no ip redirects
+</code></pre>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p><code>no ip unreachables</code> sur une interface empêche aussi l’envoi des messages « fragmentation nécessaire » depuis cette interface. Sur un routeur qui porte un tunnel, cela peut créer des trous noirs de MTU : utilise-le en connaissance de cause et complète avec <code>ip tcp adjust-mss</code>.</p>
+</div>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un <code>traceroute</code> Linux vers un serveur s’arrête à la dernière ligne avec <code>* * *</code>, alors que <code>tracert</code> sous Windows atteint bien le serveur. Explique.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le <code>traceroute</code> Linux envoie de l’<strong>UDP</strong> vers des ports élevés : le pare-feu du serveur (ou devant lui) bloque cet UDP ou bloque l’émission des <strong>Port Unreachable</strong>. <code>tracert</code> envoie de l’<strong>ICMP Echo</strong>, autorisé. Le serveur est joignable ; ce sont les types de sondes qui diffèrent. <code>traceroute -I</code> (ICMP) ou <code>-T</code> (TCP) le confirmerait.</p>
+</details>
+<p><strong>2.</strong> Un ping vers <code>10.30.0.50</code> renvoie « Réponse de 10.0.0.2 : réseau de destination inaccessible ». Que t’apprend ce message ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>C’est le routeur <strong>10.0.0.2</strong> qui répond : il a reçu le paquet mais <strong>n’a pas de route</strong> vers <code>10.30.0.0</code>. Le problème se situe dans sa table de routage (route manquante, protocole de routage qui n’a pas appris le réseau). Tous les routeurs avant lui ont fait leur travail.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/ndp.html"><small>Fiche précédente</small><strong>NDP</strong></a><a class="apres" href="../niveau-2/passerelle.html"><small>Fiche suivante</small><strong>La table de routage</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-savoir-pourquoi-ca-ne-passe-pas">Le problème : savoir pourquoi ça ne passe pas</a><a href="#les-messages-a-connaitre">Les messages à connaître</a><a href="#comment-marche-traceroute">Comment marche traceroute</a><a href="#lire-un-ping-qui-echoue">Lire un ping qui échoue</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#format">Format</a><a href="#les-codes-de-destination-unreachable-type-3">Les codes de Destination Unreachable (type 3)</a><a href="#traceroute-windows-et-linux-ne-font-pas-pareil">traceroute : Windows et Linux ne font pas pareil</a><a href="#filtrer-icmp-intelligemment">Filtrer ICMP intelligemment</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

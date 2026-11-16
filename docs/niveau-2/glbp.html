@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GLBP — Gateway Load Balancing Protocol (Cisco) | Nexorya</title>
+<meta name="description" content="GLBP partage une passerelle virtuelle entre plusieurs routeurs qui travaillent tous en même temps, en donnant à chaque poste l’adresse MAC de l’un d’eux.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp" aria-current="page">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/glbp">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-5">Une passerelle qui ne tombe jamais</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>GLBP</h1><p class="nom-complet">Gateway Load Balancing Protocol (Cisco)</p>
+<p class="idee">GLBP partage une passerelle virtuelle entre plusieurs routeurs qui travaillent tous en même temps, en donnant à chaque poste l’adresse MAC de l’un d’eux.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 5 min</span><span>Approfondir : 10 min</span><span>Avant : <a href="../niveau-2/hsrp.html">HSRP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Avec HSRP ou VRRP, un seul routeur travaille par VLAN ; l’autre attend. Pour faire travailler les deux sur un <strong>même</strong> VLAN, Cisco a créé GLBP.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Quand un poste demande en ARP l’adresse MAC de la passerelle, GLBP lui répond avec la MAC de l’un des routeurs, à tour de rôle : les postes se répartissent entre les routeurs.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<ol>
+<li>Un routeur est élu <strong>AVG</strong> (<em>Active Virtual Gateway</em>) : c’est lui qui répond aux requêtes ARP pour l’adresse virtuelle.</li>
+<li>Chaque routeur du groupe est un <strong>AVF</strong> (<em>Active Virtual Forwarder</em>) avec sa propre MAC virtuelle.</li>
+<li>L’AVG répond à chaque poste avec la MAC d’un AVF différent (par défaut, à tour de rôle).</li>
+<li>Si un AVF tombe, un autre reprend sa MAC virtuelle : ses postes ne voient rien.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>GLBP</strong> — Protocole Cisco de passerelle virtuelle avec partage de charge.</li>
+<li><strong>AVG</strong> — Routeur qui répond aux requêtes ARP et distribue les MAC virtuelles.</li>
+<li><strong>AVF</strong> — Routeur qui achemine le trafic des postes qui ont reçu sa MAC virtuelle.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi GLBP répartit-il les postes, et non les paquets ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que la répartition se fait au moment de la <strong>réponse ARP</strong> : chaque poste garde la MAC qu’il a reçue dans son cache, et envoie tout son trafic à ce routeur jusqu’à l’expiration du cache. La charge dépend donc du nombre de postes et de leur activité.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco">interface Vlan10
+ ip address 10.10.0.2 255.255.255.0
+ glbp 10 ip 10.10.0.1
+ glbp 10 priority 110
+ glbp 10 preempt
+ glbp 10 load-balancing round-robin
+<span class="c">!</span>
+<span class="k">R1#</span> show glbp brief
+Interface   Grp  Fwd Pri State    Address         Active router   Standby router
+Vl10        10   -   110 Active   10.10.0.1       local           10.10.0.3
+Vl10        10   1   -   Active   0007.b400.0a01  local           -
+Vl10        10   2   -   Listen   0007.b400.0a02  10.10.0.3       -
+</code></pre>
+<p>Méthodes de répartition : <code>round-robin</code> (à tour de rôle), <code>weighted</code> (selon un poids par routeur), <code>host-dependent</code> (un poste reçoit toujours la même MAC).</p>
+<h2 id="pourquoi-glbp-est-rare-aujourdhui">Pourquoi GLBP est rare aujourd’hui</h2>
+<ul>
+<li>Il est propriétaire, et n’est pas disponible sur toutes les plateformes récentes.</li>
+<li>Les architectures actuelles utilisent des switches de cœur <strong>empilés</strong> ou en <strong>vPC/MLAG</strong>, qui présentent une seule passerelle active des deux côtés à la fois.</li>
+<li>Alterner les VLAN entre deux routeurs HSRP/VRRP donne une répartition plus prévisible.</li>
+</ul>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Dans un VLAN, 90 % du trafic vient de trois serveurs très actifs, qui ont tous reçu la MAC de R1. Que propose GLBP pour corriger ce déséquilibre ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La répartition <code>weighted</code> ne corrige pas un déséquilibre déjà installé dans les caches ARP. On peut vider le cache ARP de ces serveurs pour qu’ils redemandent, ou utiliser <code>host-dependent</code> combiné à un choix de priorités. Cet exemple montre la limite de GLBP : il répartit des <strong>postes</strong>, pas des volumes de trafic.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/hsrp.html"><small>Fiche précédente</small><strong>HSRP</strong></a><a class="apres" href="../niveau-2/bfd.html"><small>Fiche suivante</small><strong>BFD</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#pourquoi-glbp-est-rare-aujourdhui">Pourquoi GLBP est rare aujourd’hui</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Le voyage d’un clic | Nexorya</title>
+<meta name="description" content="Explore les réseaux. Maîtrise l’infrastructure.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" aria-current=page class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="page"><p class="fil"><a href="../index.html">Accueil</a> › <a href=index.html>Pratique</a></p><h1>Le voyage d’un clic</h1><p class=chapeau>Tu tapes www.exemple.fr et la page s’affiche en une fraction de seconde. Entre les deux, une dizaine de protocoles ont travaillé. On les suit dans l’ordre.</p><div class="prose"><div class="encadre note">
+<p class="encadre-titre">Comment lire cette page</p>
+<p>Chaque étape renvoie vers la fiche qui l’explique. Si tu débutes, lis seulement les phrases en gras de chaque étape ; tu reviendras sur les détails plus tard.</p>
+</div>
+<h2 id="le-decor">Le décor</h2>
+<figure class="schema"><svg viewBox="0 0 769.0 314.0" width="769.0" role="img" aria-label="Le chemin entre ton ordinateur et le site" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="293.0" y2="50.0"/><text class="tp-etiq" x="201.5" y="38.0" text-anchor="middle">Wi-Fi</text><line class="tp-lien " x1="293.0" y1="50.0" x2="476.0" y2="50.0"/><text class="tp-etiq" x="384.5" y="38.0" text-anchor="middle">fibre</text><line class="tp-lien " x1="476.0" y1="50.0" x2="659.0" y2="50.0"/><line class="tp-lien logique" x1="476.0" y1="50.0" x2="476.0" y2="218.0"/><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">Ton PC</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">192.168.1.20</text><g transform="translate(293.0 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="293.0" y="90.0" text-anchor="middle">Box</text><text class="tp-sous" x="293.0" y="106.0" text-anchor="middle">192.168.1.1</text><g transform="translate(476.0 50.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">Opérateur et Internet</text><g transform="translate(476.0 218.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="476.0" y="258.0" text-anchor="middle">Résolveur DNS</text><g transform="translate(659.0 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="659.0" y="90.0" text-anchor="middle">Serveur Web</text><text class="tp-sous" x="659.0" y="106.0" text-anchor="middle">93.184.215.14</text></svg><figcaption>Le chemin entre ton ordinateur et le site</figcaption></figure>
+<h2 id="etape-0-avoir-une-adresse">Étape 0 — Avoir une adresse</h2>
+<p><strong>En se connectant au Wi-Fi, ton PC a reçu une adresse IP, un masque, une passerelle (la box) et l’adresse d’un serveur DNS</strong>, grâce au <a href="../niveau-3/dhcp.html">DHCP</a>. Sans ces quatre informations, rien de ce qui suit n’est possible.</p>
+<p>Pour arriver jusqu’à la box, la trame voyage par <a href="../niveau-1/wifi.html">Wi-Fi</a> et utilise les <a href="../niveau-1/mac.html">adresses MAC</a>.</p>
+<h2 id="etape-1-trouver-ladresse-du-site">Étape 1 — Trouver l’adresse du site</h2>
+<p><strong>Ton PC ne sait pas où se trouve www.exemple.fr : il demande au <a href="../niveau-3/dns.html">DNS</a>.</strong> Le résolveur interroge si besoin les serveurs racine, puis ceux de <code>.fr</code>, puis ceux d’<code>exemple.fr</code>, et renvoie l’adresse (et la garde en cache pour la suite).</p>
+<h2 id="etape-2-savoir-a-qui-remettre-le-paquet">Étape 2 — Savoir à qui remettre le paquet</h2>
+<p><strong>L’adresse du site n’est pas dans ton réseau local</strong> (le PC le sait grâce au <a href="../niveau-2/subnet.html">masque</a>) : <strong>il faut passer par la <a href="../niveau-2/passerelle.html">passerelle</a>.</strong> Pour lui envoyer une trame, le PC doit connaître son adresse MAC : il la demande avec <a href="../niveau-2/arp.html">ARP</a>.</p>
+<h2 id="etape-3-ouvrir-la-connexion">Étape 3 — Ouvrir la connexion</h2>
+<p><strong>Le navigateur ouvre une connexion <a href="../niveau-3/tcp.html">TCP</a> vers le port 443 du serveur</strong> (ou utilise <a href="../niveau-3/quic.html">QUIC</a> sur UDP). En sortant, la box remplace ton adresse privée par son adresse publique : c’est le <a href="../niveau-3/nat.html">NAT</a>.</p>
+<p>Entre la box et le serveur, chaque <a href="../niveau-2/routage-statique.html">routeur</a> lit l’adresse de destination et choisit la direction suivante, grâce à des tables construites par <a href="../niveau-2/ospf.html">OSPF</a> chez chaque opérateur et <a href="../niveau-2/bgp.html">BGP</a> entre les opérateurs.</p>
+<h2 id="etape-4-securiser-lechange">Étape 4 — Sécuriser l’échange</h2>
+<p><strong>Le navigateur et le serveur négocient une session <a href="../niveau-3/tls.html">TLS</a></strong> : le serveur prouve son identité avec un certificat signé par une autorité reconnue (<a href="../niveau-4/pki.html">PKI</a>), et les deux côtés établissent des clés de chiffrement. Plus personne sur le chemin ne peut lire ni modifier l’échange.</p>
+<h2 id="etape-5-demander-la-page">Étape 5 — Demander la page</h2>
+<p><strong>Le navigateur envoie une requête <a href="../niveau-3/http.html">HTTP</a> <code>GET /</code></strong> ; le serveur répond <code>200 OK</code> avec le code HTML de la page. Le navigateur découvre alors qu’il lui faut aussi des images, des feuilles de style, des scripts… et les demande, souvent sur la même connexion.</p>
+<figure class="schema"><svg viewBox="0 0 760 548" width="760" role="img" aria-label="Le résumé de l’échange" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="548"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">PC</text></g><line class="sq-vie" x1="281.66666666666663" y1="43" x2="281.66666666666663" y2="548"/><g class="sq-acteur"><rect x="241.66666666666663" y="12" width="80" height="31" rx="8"/><text x="281.66666666666663" y="33" text-anchor="middle">Box</text></g><line class="sq-vie" x1="478.3333333333333" y1="43" x2="478.3333333333333" y2="548"/><g class="sq-acteur"><rect x="438.3333333333333" y="12" width="80" height="31" rx="8"/><text x="478.3333333333333" y="33" text-anchor="middle">DNS</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="548"/><g class="sq-acteur"><rect x="633.3" y="12" width="83.39999999999999" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Serveur</text></g><g class="sq-msg "><text x="281.66666666666663" y="66" text-anchor="middle">1. Quelle adresse pour www.exemple.fr ?</text><line x1="85.0" y1="78" x2="466.3333333333333" y2="78"/><polygon class="sq-pointe" points="476.3333333333333,78 464.3333333333333,72 464.3333333333333,84"/></g><g class="sq-msg rep"><text x="281.66666666666663" y="116" text-anchor="middle">2. 93.184.215.14</text><line x1="478.3333333333333" y1="128" x2="97.0" y2="128"/><polygon class="sq-pointe" points="87.0,128 99.0,122 99.0,134"/></g><g class="sq-msg "><text x="183.33333333333331" y="166" text-anchor="middle">3. ARP : quelle MAC pour</text><text x="183.33333333333331" y="184" text-anchor="middle">192.168.1.1 ?</text><line x1="85.0" y1="196" x2="269.66666666666663" y2="196"/><polygon class="sq-pointe" points="279.66666666666663,196 267.66666666666663,190 267.66666666666663,202"/></g><g class="sq-msg rep"><text x="183.33333333333331" y="234" text-anchor="middle">4. c’est moi</text><line x1="281.66666666666663" y1="246" x2="97.0" y2="246"/><polygon class="sq-pointe" points="87.0,246 99.0,240 99.0,252"/></g><g class="sq-msg "><text x="380.0" y="284" text-anchor="middle">5. TCP SYN (port 443)</text><line x1="85.0" y1="296" x2="663.0" y2="296"/><polygon class="sq-pointe" points="673.0,296 661.0,290 661.0,302"/></g><g class="sq-msg rep"><text x="380.0" y="334" text-anchor="middle">6. SYN-ACK</text><line x1="675.0" y1="346" x2="97.0" y2="346"/><polygon class="sq-pointe" points="87.0,346 99.0,340 99.0,352"/></g><g class="sq-msg "><text x="380.0" y="384" text-anchor="middle">7. ACK, puis négociation TLS</text><line x1="85.0" y1="396" x2="663.0" y2="396"/><polygon class="sq-pointe" points="673.0,396 661.0,390 661.0,402"/></g><g class="sq-msg "><text x="380.0" y="434" text-anchor="middle">8. GET / (chiffré)</text><line x1="85.0" y1="446" x2="663.0" y2="446"/><polygon class="sq-pointe" points="673.0,446 661.0,440 661.0,452"/></g><g class="sq-msg rep"><text x="380.0" y="484" text-anchor="middle">9. 200 OK et la page</text><line x1="675.0" y1="496" x2="97.0" y2="496"/><polygon class="sq-pointe" points="87.0,496 99.0,490 99.0,502"/></g></svg><figcaption>Le résumé de l’échange</figcaption></figure>
+<h2 id="ce-qui-peut-casser-etape-par-etape">Ce qui peut casser, étape par étape</h2>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Étape en cause</th>
+<th>Premier réflexe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>adresse en 169.254.x.x</td>
+<td>0 — DHCP</td>
+<td>câble, Wi-Fi, serveur DHCP</td>
+</tr>
+<tr>
+<td>« Impossible de trouver l’adresse du serveur »</td>
+<td>1 — DNS</td>
+<td><code>nslookup www.exemple.fr</code></td>
+</tr>
+<tr>
+<td>le ping de la passerelle échoue</td>
+<td>2 — réseau local</td>
+<td>configuration IP, ARP, câble</td>
+</tr>
+<tr>
+<td>le ping d’une adresse Internet échoue</td>
+<td>3 — routage, NAT</td>
+<td>passerelle, box, opérateur ; <code>tracert</code></td>
+</tr>
+<tr>
+<td>alerte de certificat</td>
+<td>4 — TLS</td>
+<td>date du PC, certificat du site, proxy</td>
+</tr>
+<tr>
+<td>erreur 404 ou 500</td>
+<td>5 — application</td>
+<td>le réseau fonctionne : c’est le serveur</td>
+</tr>
+</tbody>
+</table>
+<p>C’est la méthode des <a href="../demarrer/commandes.html">commandes de base</a>, appliquée dans l’ordre : on remonte les étapes jusqu’à trouver la première qui échoue.</p>
+<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2>
+<p>Fais l’expérience avec <a href="../niveau-5/span.html">Wireshark</a> : lance une capture, ouvre un site, puis filtre successivement <code>dns</code>, <code>arp</code>, <code>tcp.flags.syn == 1</code>, <code>tls.handshake</code>. Tu verras chaque étape de cette page, avec ses vrais paquets.</p></div></div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

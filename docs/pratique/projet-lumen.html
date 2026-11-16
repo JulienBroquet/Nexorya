@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Projet fil rouge — Le réseau de Lumen | Nexorya</title>
+<meta name="description" content="Explore les réseaux. Maîtrise l’infrastructure.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" aria-current=page class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="page"><p class="fil"><a href="../index.html">Accueil</a> › <a href=index.html>Pratique</a></p><h1>Projet fil rouge — Le réseau de Lumen</h1><p class=chapeau>Lumen est une PME qui fabrique des luminaires. Elle grandit, et son réseau doit suivre. À chaque niveau, tu conçois l’étape suivante et tu produis les documents d’un vrai ingénieur réseau.</p><div class="prose"><div class="encadre note">
+<p class="encadre-titre">Comment l’utiliser</p>
+<p>Chaque étape correspond à un niveau. Lis les fiches du niveau, puis réalise l’étape : rédige les livrables (un document, un schéma, des configurations), construis-la dans un simulateur si tu peux, et compare avec les points de contrôle. Il n’y a pas une seule bonne réponse : ce qui compte, c’est de <strong>justifier</strong> tes choix.</p>
+</div>
+<h2 id="etape-0-comprendre-lexistant">Étape 0 — Comprendre l’existant</h2>
+<p><em>Après « Je débute ».</em></p>
+<p>Lumen compte 15 salariés dans un bureau. Il y a une box opérateur, un petit switch de 24 ports, une imprimante, un NAS de fichiers et le Wi-Fi de la box. Tout le monde est dans le même réseau <code>192.168.1.0/24</code>.</p>
+<p><strong>Livrables</strong> : un schéma de l’existant ; la liste des équipements avec leur rôle ; trois risques que tu repères.</p>
+<details>
+<summary>Points de contrôle</summary>
+<p>Le schéma montre la box (routeur, Wi-Fi, DHCP, NAT), le switch, les postes, l’imprimante et le NAS. Risques typiques : les visiteurs utilisent le même Wi-Fi que les salariés et voient le NAS ; une seule box sans secours ; aucune sauvegarde de configuration ni documentation.</p>
+</details>
+<h2 id="etape-1-un-vrai-reseau-local">Étape 1 — Un vrai réseau local</h2>
+<p><em>Après le niveau 1.</em></p>
+<p>Lumen déménage dans un bâtiment de deux étages : 60 salariés, des téléphones IP, des caméras, un Wi-Fi invités. Il y aura un switch d’accès par étage et un switch central.</p>
+<p><strong>Livrables</strong> : la liste des VLAN (numéro, nom, usage) ; le schéma physique (switches, liens, câblage cuivre ou fibre) ; le choix de la racine STP ; les ports qui ont besoin de PoE et le budget PoE de chaque switch.</p>
+<details>
+<summary>Points de contrôle</summary>
+<p>VLAN séparés au minimum pour : postes, voix, caméras, imprimantes, Wi-Fi salariés, Wi-Fi invités, administration. Liens montants doublés et agrégés en LACP ; racine STP sur le switch central (priorité forcée) ; PortFast et BPDU Guard sur les ports d’accès. Budget PoE calculé : téléphones (~7 W), bornes Wi-Fi (~15 à 30 W), caméras (~7 à 13 W), avec une marge.</p>
+</details>
+<h2 id="etape-2-adresser-et-router">Étape 2 — Adresser et router</h2>
+<p><em>Après le niveau 2.</em></p>
+<p>Lumen ouvre un entrepôt à 20 km, relié au siège par un lien opérateur. Le switch central devient un switch de niveau 3.</p>
+<p><strong>Livrables</strong> : le plan d’adressage IPv4 complet (un sous-réseau par VLAN et par site, de taille justifiée, avec de la marge) ; un plan IPv6 ; le choix du protocole de routage entre les deux sites ; la redondance de la passerelle au siège.</p>
+<details>
+<summary>Points de contrôle</summary>
+<p>Une plage par site facile à résumer (par exemple <code>10.10.0.0/16</code> siège, <code>10.20.0.0/16</code> entrepôt), puis un /24 ou un /23 par VLAN selon les effectifs prévus à trois ans. IPv6 : un /64 par VLAN. OSPF en zone unique est un bon choix à cette taille. Passerelle redondante avec VRRP (ou HSRP) si deux switches de cœur.</p>
+</details>
+<h2 id="etape-3-les-services">Étape 3 — Les services</h2>
+<p><em>Après le niveau 3.</em></p>
+<p><strong>Livrables</strong> : où placer DHCP et DNS (et comment l’entrepôt les joint) ; la configuration NTP ; la stratégie d’accès à Internet (NAT, proxy) ; la supervision (SNMP, Syslog) ; la téléphonie (QoS minimale sur le lien vers l’entrepôt).</p>
+<details>
+<summary>Points de contrôle</summary>
+<p>DHCP central avec relais sur chaque passerelle (ou un DHCP local à l’entrepôt pour survivre à une coupure du lien). DNS interne pour les noms de l’entreprise, transfert vers des résolveurs externes. Tous les équipements en NTP sur une même source. Syslog et SNMPv3 vers un serveur de supervision. Voix marquée EF et prioritaire sur le lien inter-sites.</p>
+</details>
+<h2 id="etape-4-securiser">Étape 4 — Sécuriser</h2>
+<p><em>Après le niveau 4.</em></p>
+<p>Un audit pointe : Wi-Fi salariés en mot de passe partagé, administration des équipements en Telnet avec le compte « admin », aucun filtrage entre VLAN, télétravail via des outils grand public.</p>
+<p><strong>Livrables</strong> : la matrice de flux (qui a le droit de joindre quoi) ; le choix d’authentification du Wi-Fi et des ports filaires ; la politique d’accès d’administration ; la solution de télétravail ; trois mesures de durcissement prioritaires.</p>
+<details>
+<summary>Points de contrôle</summary>
+<p>WPA-Entreprise (802.1X) avec RADIUS relié à l’annuaire, idéalement EAP-TLS ; caméras et imprimantes isolées et filtrées ; administration en SSH depuis un réseau d’administration, comptes nominatifs via AAA (TACACS+ ou RADIUS), MFA ; télétravail par VPN avec MFA ; durcissement : services inutiles coupés, ports inutilisés désactivés, DHCP snooping et DAI sur les VLAN utilisateurs.</p>
+</details>
+<h2 id="etape-5-passer-a-lechelle">Étape 5 — Passer à l’échelle</h2>
+<p><em>Après le niveau 5.</em></p>
+<p>Lumen rachète une entreprise à Lyon, ouvre trois boutiques, héberge son ERP dans un petit datacenter et migre la messagerie et la comptabilité dans le cloud.</p>
+<p><strong>Livrables</strong> : l’architecture WAN (MPLS, SD-WAN, Internet) justifiée par les coûts et les besoins ; l’intégration du réseau racheté (chevauchement d’adresses ?) ; le raccordement au cloud ; le tableau de bord de supervision d’un site ; un plan de changement pour la bascule d’un site ; ce que tu automatises en premier.</p>
+<details>
+<summary>Points de contrôle</summary>
+<p>SD-WAN sur deux accès Internet par site (plus économique et plus souple pour les boutiques), éventuellement MPLS conservé pour le datacenter. Chevauchement d’adresses traité par renumérotation planifiée, ou temporairement par NAT/VRF. VPC dans une plage unique du plan d’adressage, raccordé par VPN IPsec ou lien dédié. Supervision : sondes vers l’ERP et le cloud, flux NetFlow, journaux centralisés. Plan de changement avec fenêtre, vérifications et retour arrière. Automatiser d’abord la sauvegarde des configurations et l’inventaire.</p>
+</details>
+<div class="encadre astuce">
+<p class="encadre-titre">Constituer un portfolio</p>
+<p>Rassemble tes livrables dans un dépôt Git : schémas, plan d’adressage, configurations, plans de changement. C’est une excellente pièce à montrer en entretien.</p>
+</div></div></div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

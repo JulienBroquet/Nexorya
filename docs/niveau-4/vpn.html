@@ -1,0 +1,186 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VPN — Réseaux privés virtuels | Nexorya</title>
+<meta name="description" content="Un VPN crée un tunnel chiffré à travers un réseau non sûr ; il relie des sites entre eux, ou un salarié en télétravail au réseau de l’entreprise.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn" aria-current="page">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/vpn">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-3">Filtrer et chiffrer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>VPN</h1><p class="nom-complet">Réseaux privés virtuels</p>
+<p class="idee">Un VPN crée un tunnel chiffré à travers un réseau non sûr ; il relie des sites entre eux, ou un salarié en télétravail au réseau de l’entreprise.</p><div class="badges"><span>Couche OSI 2 à 7 selon la technologie</span><span>Découvrir : 8 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-4/ipsec.html">IPsec</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Un salarié travaille de chez lui et doit accéder au serveur de fichiers, à l’ERP, à l’intranet. Ces services ne sont pas publiés sur Internet, et ne doivent pas l’être. Il faut que son ordinateur se retrouve « virtuellement » dans le réseau de l’entreprise.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le VPN crée un tunnel chiffré entre l’ordinateur (ou le site) et la passerelle de l’entreprise : le trafic interne voyage dans ce tunnel comme s’il était sur un réseau privé.</p>
+</div>
+<h2 id="les-deux-usages">Les deux usages</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Site à site</th>
+<th>Accès distant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Extrémités</td>
+<td>deux routeurs ou pare-feu</td>
+<td>un client logiciel sur le poste et une passerelle VPN</td>
+</tr>
+<tr>
+<td>Toujours actif ?</td>
+<td>oui</td>
+<td>à la demande (ou permanent sur les postes gérés)</td>
+</tr>
+<tr>
+<td>Authentification</td>
+<td>clés ou certificats des équipements</td>
+<td>utilisateur (MFA) + poste (certificat)</td>
+</tr>
+<tr>
+<td>Technologie courante</td>
+<td>IPsec IKEv2</td>
+<td>VPN TLS, IKEv2, WireGuard</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tunnel-complet-ou-partage">Tunnel complet ou partagé ?</h2>
+<ul>
+<li><strong>Tunnel complet</strong> (<em>full tunnel</em>) : tout le trafic du poste, y compris Internet, passe par l’entreprise. Contrôle maximal (filtrage Web, journaux), mais charge et latence sur la passerelle.</li>
+<li><strong>Tunnel partagé</strong> (<em>split tunnel</em>) : seul le trafic vers les réseaux internes passe par le VPN ; Internet (et souvent les services cloud comme la visioconférence) sort directement. Meilleures performances, moins de contrôle.</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>VPN</strong> — <em>Virtual Private Network</em>, tunnel chiffré qui relie un poste ou un site à un réseau privé.</li>
+<li><strong>Passerelle VPN</strong> — Équipement qui termine les tunnels du côté de l’entreprise ; <em>VPN concentrator</em>.</li>
+<li><strong>Tunnel partagé</strong> — Configuration où seul le trafic vers l’entreprise passe dans le VPN ; <em>split tunneling</em>.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un télétravailleur connecté au VPN en tunnel partagé ouvre <code>intranet.exemple.fr</code> et obtient « site introuvable ». Les adresses IP internes répondent au ping. Quelle hypothèse ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le poste utilise toujours le <strong>DNS de sa box</strong> au lieu du DNS interne, qui seul connaît <code>intranet.exemple.fr</code>. Il faut que le VPN pousse les <strong>serveurs DNS internes</strong> et le <strong>domaine</strong> à leur envoyer.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="vpn-dacces-distant-ce-quon-configure">VPN d’accès distant : ce qu’on configure</h2>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Authentification utilisateur</td>
+<td>SAML vers le fournisseur d’identité, avec MFA (FIDO2 de préférence)</td>
+</tr>
+<tr>
+<td>Authentification du poste</td>
+<td>certificat machine délivré par la PKI</td>
+</tr>
+<tr>
+<td>Vérification de conformité</td>
+<td>antivirus actif, chiffrement du disque, système à jour</td>
+</tr>
+<tr>
+<td>Pool d’adresses</td>
+<td><code>10.200.0.0/20</code>, routé vers la passerelle VPN</td>
+</tr>
+<tr>
+<td>Routes poussées (tunnel partagé)</td>
+<td><code>10.0.0.0/8</code>, <code>172.16.0.0/12</code></td>
+</tr>
+<tr>
+<td>DNS poussé</td>
+<td><code>10.99.0.53</code>, <code>10.99.1.53</code>, domaine <code>exemple.fr</code></td>
+</tr>
+<tr>
+<td>Filtrage</td>
+<td>règles par groupe d’utilisateurs (comptabilité → ERP seulement)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="wireguard-en-bref">WireGuard en bref</h2>
+<p>WireGuard est un VPN moderne et minimaliste (UDP, port configurable) : configuration très courte, cryptographie fixe et récente, excellentes performances.</p>
+<pre><code class="language-text">[Interface]
+PrivateKey = &lt;clé privée du poste&gt;
+Address = 10.200.0.15/32
+DNS = 10.99.0.53
+
+[Peer]
+PublicKey = &lt;clé publique de la passerelle&gt;
+Endpoint = vpn.exemple.fr:51820
+AllowedIPs = 10.0.0.0/8          # tunnel partagé : seuls les réseaux internes
+PersistentKeepalive = 25
+</code></pre>
+<p><code>AllowedIPs</code> joue deux rôles : les destinations envoyées dans le tunnel, et les sources acceptées depuis ce pair.</p>
+<h2 id="depannage-cote-utilisateur">Dépannage côté utilisateur</h2>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Pistes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Connexion impossible</td>
+<td>port de la passerelle filtré sur le réseau de l’utilisateur (hôtel, 4G), certificat, MFA</td>
+</tr>
+<tr>
+<td>Connecté, mais rien d’interne</td>
+<td>routes non poussées, pool d’adresses non routé dans l’entreprise, règles de filtrage</td>
+</tr>
+<tr>
+<td>Noms internes non résolus</td>
+<td>DNS non poussé ou ignoré par le système</td>
+</tr>
+<tr>
+<td>Lenteurs, coupures de grosses pages</td>
+<td>MTU / MSS dans le tunnel</td>
+</tr>
+<tr>
+<td>Conflit d’adresses</td>
+<td>le réseau de la maison utilise la même plage que l’entreprise (<code>192.168.1.0/24</code>)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="vers-le-ztna">Vers le ZTNA</h2>
+<p>Un VPN classique donne, une fois connecté, un accès <strong>réseau</strong> souvent large. Les approches <strong>ZTNA</strong> (<em>Zero Trust Network Access</em>) donnent plutôt accès à des <strong>applications précises</strong>, après vérification de l’utilisateur et du poste à chaque connexion. Voir <a href="zero-trust.html">Zero Trust</a>.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>La maison d’un salarié utilise <code>10.10.0.0/24</code>, qui est aussi le réseau des postes du siège. Connecté au VPN, il n’atteint pas un serveur du siège en <code>10.10.0.40</code>. Pourquoi ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Pour son poste, <code>10.10.0.0/24</code> est <strong>directement connecté</strong> (réseau de la maison) : la route locale est plus précise ou prioritaire, et le trafic part vers la box au lieu du tunnel. Solutions : éviter de placer des serveurs dans des plages très courantes, pousser des routes plus précises (/32 pour les serveurs critiques), ou utiliser une passerelle qui traduit ces adresses.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/ipsec.html"><small>Fiche précédente</small><strong>IPsec</strong></a><a class="apres" href="../niveau-4/macsec.html"><small>Fiche suivante</small><strong>MACsec</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#les-deux-usages">Les deux usages</a><a href="#tunnel-complet-ou-partage">Tunnel complet ou partagé ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#vpn-dacces-distant-ce-quon-configure">VPN d’accès distant : ce qu’on configure</a><a href="#wireguard-en-bref">WireGuard en bref</a><a href="#depannage-cote-utilisateur">Dépannage côté utilisateur</a><a href="#vers-le-ztna">Vers le ZTNA</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QinQ — Empilement de VLAN (IEEE 802.1ad) | Nexorya</title>
+<meta name="description" content="QinQ ajoute une seconde étiquette VLAN par-dessus celle du client ; un opérateur peut ainsi transporter les VLAN de plusieurs clients sans qu’ils se mélangent.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq" aria-current="page">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/qinq">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-4">Découper le réseau avec les VLAN</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>QinQ</h1><p class="nom-complet">Empilement de VLAN (IEEE 802.1ad)</p>
+<p class="idee">QinQ ajoute une seconde étiquette VLAN par-dessus celle du client ; un opérateur peut ainsi transporter les VLAN de plusieurs clients sans qu’ils se mélangent.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-1/802-1q.html">802.1Q</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-deux-clients-le-meme-vlan-10">Le problème : deux clients, le même VLAN 10</h2>
+<p>Un opérateur relie les sites de ses clients à travers une ville. Le client A utilise les VLAN 10 à 50 entre ses deux sites. Le client B utilise aussi le VLAN 10. Si l’opérateur transportait ces VLAN tels quels, le VLAN 10 de A et celui de B se mélangeraient. Demander aux clients de renuméroter leurs VLAN est impossible avec des centaines de clients.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>L’opérateur ajoute <strong>sa propre étiquette</strong> par-dessus celle du client : une étiquette par client. À l’intérieur, le client garde ses VLAN tels quels.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 830.0 286.0" width="830.0" role="img" aria-label="Deux clients, le même VLAN 10, aucun mélange" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="293.0" y2="120.0"/><text class="tp-etiq" x="205.8" y="73.8" text-anchor="start">S-VLAN 100</text><line class="tp-lien " x1="110.0" y1="190.0" x2="293.0" y2="120.0"/><text class="tp-etiq" x="197.2" y="143.8" text-anchor="end">S-VLAN 200</text><line class="tp-lien " x1="293.0" y1="120.0" x2="537.0" y2="120.0"/><text class="tp-etiq" x="415.0" y="108.0" text-anchor="middle">trames à deux étiquettes</text><line class="tp-lien " x1="537.0" y1="120.0" x2="720.0" y2="50.0"/><line class="tp-lien " x1="537.0" y1="120.0" x2="720.0" y2="190.0"/><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">Client A, site 1</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">VLAN 10 à 50</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">Client B, site 1</text><text class="tp-sous" x="110.0" y="246.0" text-anchor="middle">VLAN 10</text><g transform="translate(293.0 120.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="293.0" y="160.0" text-anchor="middle">Opérateur</text><g transform="translate(537.0 120.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="537.0" y="160.0" text-anchor="middle">Opérateur</text><g transform="translate(720.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="720.0" y="90.0" text-anchor="middle">Client A, site 2</text><g transform="translate(720.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="720.0" y="230.0" text-anchor="middle">Client B, site 2</text></svg><figcaption>Deux clients, le même VLAN 10, aucun mélange</figcaption></figure>
+<ol>
+<li>Le client A envoie une trame du VLAN 10 (étiquette <strong>client</strong>, C-VLAN 10).</li>
+<li>Le switch d’entrée de l’opérateur ajoute une étiquette <strong>opérateur</strong> : S-VLAN 100 pour le client A, S-VLAN 200 pour le client B.</li>
+<li>Dans le réseau de l’opérateur, seule l’étiquette extérieure compte : les trames de A et de B voyagent dans deux « tunnels » séparés.</li>
+<li>À la sortie, l’opérateur retire son étiquette et remet au client sa trame d’origine, VLAN 10 intact.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>QinQ</strong> — Technique qui empile deux étiquettes VLAN dans une même trame ; normalisée sous le nom 802.1ad.</li>
+<li><strong>S-VLAN</strong> — VLAN de service, l’étiquette extérieure ajoutée par l’opérateur.</li>
+<li><strong>C-VLAN</strong> — VLAN du client, l’étiquette intérieure d’origine.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi QinQ permet-il de dépasser la limite de 4 094 VLAN ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que chaque client dispose de ses propres 4 094 VLAN <strong>à l’intérieur</strong> de son S-VLAN. L’opérateur peut avoir jusqu’à 4 094 clients, chacun avec ses 4 094 VLAN : environ 16 millions de combinaisons.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="format-de-la-trame">Format de la trame</h2>
+<pre><code class="language-text">┌─────────┬─────────┬─────────────────────┬─────────────────────┬──────┬─────────┬─────┐
+│MAC dest │MAC src  │ S-tag : TPID 0x88A8 │ C-tag : TPID 0x8100 │ Type │ Données │ FCS │
+│         │         │ VID = 100           │ VID = 10            │      │         │     │
+└─────────┴─────────┴─────────────────────┴─────────────────────┴──────┴─────────┴─────┘
+</code></pre>
+<p>La norme 802.1ad utilise le TPID <strong>0x88A8</strong> pour l’étiquette extérieure. Certains équipements anciens utilisent 0x8100 (ou 0x9100) pour les deux : il faut alors aligner ce réglage entre les équipements de l’opérateur.</p>
+<p>Avec deux étiquettes, la trame transportant un paquet de 1 500 octets mesure <strong>1 526 octets</strong> : le réseau de l’opérateur doit accepter une MTU d’au moins 1 504 octets de charge (souvent davantage, avec des jumbo frames).</p>
+<h2 id="configuration-dun-port-tunnel-cisco-ios-catalyst">Configuration d’un port tunnel (Cisco IOS, Catalyst)</h2>
+<pre><code class="language-cisco"><span class="c">! Port côté client A : tout ce qui entre est encapsulé dans le S-VLAN 100</span>
+interface GigabitEthernet1/0/1
+ description Client A - site 1
+ switchport access vlan 100
+ switchport mode dot1q-tunnel
+ l2protocol-tunnel cdp
+ l2protocol-tunnel stp
+ l2protocol-tunnel vtp
+ no cdp enable
+<span class="c">!</span>
+<span class="c">! MTU système pour accepter la double étiquette</span>
+system mtu 1504
+</code></pre>
+<ul>
+<li><code>switchport mode dot1q-tunnel</code> : le port accepte les trames du client, étiquetées ou non, et leur ajoute le S-VLAN 100.</li>
+<li><code>l2protocol-tunnel</code> : transporte de façon transparente les protocoles de contrôle du client (CDP, STP, VTP) au lieu que les switches de l’opérateur les interprètent.</li>
+</ul>
+<h2 id="alternatives-modernes">Alternatives modernes</h2>
+<p>QinQ reste courant chez les opérateurs métropolitains (MAN) et pour séparer des locataires dans des bâtiments partagés. Pour des services à grande échelle, on lui préfère souvent des services Ethernet sur <strong>MPLS</strong> (VPLS) ou <strong>EVPN</strong>, qui s’appuient sur un réseau IP routé et ne dépendent pas d’un arbre STP étendu. Voir le <a href="../niveau-5/index.html">niveau 5</a>.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un opérateur configure correctement QinQ, mais les grosses trames d’un client sont perdues alors que les petites passent. Quelle vérification ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La <strong>MTU</strong> du réseau de l’opérateur. Les deux étiquettes ajoutent 8 octets : une trame cliente pleine (1 518 + 4 de son étiquette) devient trop grande pour des liens configurés à la taille standard. Il faut augmenter la MTU sur tous les liens du chemin (<code>system mtu 1504</code> au minimum, ou des jumbo frames).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/mtu.html"><small>Fiche précédente</small><strong>MTU</strong></a><a class="apres" href="../niveau-1/stp.html"><small>Fiche suivante</small><strong>STP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-deux-clients-le-meme-vlan-10">Le problème : deux clients, le même VLAN 10</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#format-de-la-trame">Format de la trame</a><a href="#configuration-dun-port-tunnel-cisco-ios-catalyst">Configuration d’un port tunnel (Cisco IOS, Catalyst)</a><a href="#alternatives-modernes">Alternatives modernes</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

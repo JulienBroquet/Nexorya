@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Le Wi-Fi — Ondes, SSID et canaux (IEEE 802.11) | Nexorya</title>
+<meta name="description" content="Le Wi-Fi remplace le câble par des ondes radio partagées ; une seule borne parle à la fois sur un canal, donc le débit réel dépend du nombre d’appareils, de la distance et des voisins.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi" aria-current="page">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/wifi">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-7">Le Wi-Fi</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Le Wi-Fi</h1><p class="nom-complet">Ondes, SSID et canaux (IEEE 802.11)</p>
+<p class="idee">Le Wi-Fi remplace le câble par des ondes radio partagées ; une seule borne parle à la fois sur un canal, donc le débit réel dépend du nombre d’appareils, de la distance et des voisins.</p><div class="badges"><span>Couche OSI 1 et 2</span><span>Découvrir : 10 min</span><span>Approfondir : 20 min</span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-brancher-ce-qui-ne-peut-pas-letre">Le problème : brancher ce qui ne peut pas l’être</h2>
+<p>Un téléphone, un ordinateur portable, un lecteur de codes-barres dans un entrepôt : on ne peut pas les relier par câble. Le Wi-Fi transporte les trames <strong>par ondes radio</strong>, entre l’appareil et une <strong>borne</strong> (point d’accès) elle-même reliée au réseau filaire.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le Wi-Fi est un câble invisible <strong>partagé</strong> : tous les appareils d’un même canal se partagent l’air, et un seul parle à la fois.</p>
+</div>
+<h2 id="les-elements">Les éléments</h2>
+<ul>
+<li><strong>Point d’accès</strong> (AP, borne) : relié au switch par un câble, il émet et reçoit les ondes.</li>
+<li><strong>SSID</strong> : le nom du réseau affiché sur les appareils (« Entreprise », « Invités »). Une même borne peut diffuser plusieurs SSID, chacun relié à un VLAN différent.</li>
+<li><strong>Canal</strong> : une portion de fréquence. Deux bornes voisines sur le même canal se gênent, comme deux conversations dans la même pièce.</li>
+<li><strong>Bandes de fréquence</strong> : 2,4 GHz, 5 GHz et 6 GHz.</li>
+</ul>
+<h2 id="pourquoi-le-wi-fi-est-plus-lent-quannonce">Pourquoi le Wi-Fi est plus lent qu’annoncé</h2>
+<p>Une borne « Wi-Fi 6 à 2,4 Gb/s » ne donnera jamais 2,4 Gb/s à un téléphone. Plusieurs raisons :</p>
+<ol>
+<li><strong>L’air est partagé.</strong> Tous les appareils connectés à la borne, et toutes les bornes voisines sur le même canal, se partagent le temps de parole.</li>
+<li><strong>On ne parle pas en même temps qu’on écoute.</strong> Contrairement à un câble full duplex, le Wi-Fi est à l’alternat.</li>
+<li><strong>La distance et les murs</strong> affaiblissent le signal ; l’appareil passe alors à une vitesse plus basse, plus robuste.</li>
+<li><strong>Les échanges de contrôle</strong> (accusés de réception, attente avant d’émettre) consomment une bonne part du temps.</li>
+</ol>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie de la salle de réunion</p>
+<p>Le câble, c’est un téléphone privé entre deux personnes. Le Wi-Fi, c’est une salle de réunion : chacun attend que la salle soit silencieuse pour parler. Plus il y a de monde, plus chacun attend. Et si la salle d’à côté (la borne voisine) a les portes ouvertes sur le même canal, on s’entend mutuellement.</p>
+</div>
+<h2 id="2-4-ghz-5-ghz-6-ghz">2,4 GHz, 5 GHz, 6 GHz</h2>
+<table>
+<thead>
+<tr>
+<th>Bande</th>
+<th>Portée</th>
+<th>Canaux indépendants</th>
+<th>Remarque</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>2,4 GHz</strong></td>
+<td>la meilleure, traverse mieux les murs</td>
+<td><strong>3</strong> seulement (1, 6, 11)</td>
+<td>très encombrée : micro-ondes, Bluetooth, voisins</td>
+</tr>
+<tr>
+<td><strong>5 GHz</strong></td>
+<td>moyenne</td>
+<td>une vingtaine (selon les pays)</td>
+<td>le choix habituel en entreprise</td>
+</tr>
+<tr>
+<td><strong>6 GHz</strong> (Wi-Fi 6E et 7)</td>
+<td>plus courte</td>
+<td>très nombreux</td>
+<td>peu encombrée, réservée aux appareils récents</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exemple-la-salle-de-formation-saturee">Exemple : la salle de formation saturée</h2>
+<p>Une salle de formation de 40 personnes est couverte par une seule borne en 2,4 GHz, sur le canal 3. Les sessions vidéo saccadent. Le diagnostic montre que le canal 3 chevauche les canaux 1 et 6 utilisés par les bornes voisines, et que 40 appareils se partagent une seule borne. Solution : passer les appareils en <strong>5 GHz</strong>, utiliser des canaux <strong>qui ne se chevauchent pas</strong> (1, 6, 11 en 2,4 GHz), et ajouter une deuxième borne avec une puissance réduite.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Wi-Fi</strong> — Nom commercial des réseaux locaux sans fil de la famille IEEE 802.11.</li>
+<li><strong>Point d’accès</strong> — Borne reliée au réseau filaire qui diffuse le réseau sans fil ; <em>access point</em>, AP.</li>
+<li><strong>SSID</strong> — <em>Service Set Identifier</em>, nom du réseau Wi-Fi.</li>
+<li><strong>Canal</strong> — Plage de fréquences utilisée par une borne ; deux bornes proches doivent utiliser des canaux qui ne se chevauchent pas.</li>
+<li><strong>WPA2 / WPA3</strong> — Protocoles de sécurité qui chiffrent le Wi-Fi et contrôlent l’accès.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Deux bornes voisines en 2,4 GHz utilisent les canaux 3 et 4. Bonne idée ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> En 2,4 GHz, les canaux se chevauchent fortement : 3 et 4 se perturbent mutuellement. Il faut utiliser des canaux séparés, <strong>1, 6 et 11</strong>.</p>
+</details>
+<p><strong>2.</strong> Un ordinateur affiche « 866 Mb/s » de vitesse de connexion Wi-Fi, mais un téléchargement plafonne à 300 Mb/s. Est-ce anormal ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> La vitesse affichée est le <strong>débit physique</strong> sur les ondes. Le débit utile est souvent la moitié, voire moins, à cause du partage de l’air, de l’alternat et des échanges de contrôle.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-generations">Les générations</h2>
+<table>
+<thead>
+<tr>
+<th>Nom commercial</th>
+<th>Norme</th>
+<th>Bandes</th>
+<th>Apports principaux</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Wi-Fi 4</td>
+<td>802.11n</td>
+<td>2,4 / 5 GHz</td>
+<td>MIMO (plusieurs antennes), canaux de 40 MHz</td>
+</tr>
+<tr>
+<td>Wi-Fi 5</td>
+<td>802.11ac</td>
+<td>5 GHz</td>
+<td>canaux de 80/160 MHz, MU-MIMO descendant</td>
+</tr>
+<tr>
+<td>Wi-Fi 6 / 6E</td>
+<td>802.11ax</td>
+<td>2,4 / 5 / 6 GHz (6E)</td>
+<td><strong>OFDMA</strong> (plusieurs clients par transmission), BSS coloring, Target Wake Time</td>
+</tr>
+<tr>
+<td>Wi-Fi 7</td>
+<td>802.11be</td>
+<td>2,4 / 5 / 6 GHz</td>
+<td>canaux de 320 MHz, <strong>MLO</strong> (plusieurs bandes à la fois)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="comment-un-appareil-rejoint-un-reseau">Comment un appareil rejoint un réseau</h2>
+<figure class="schema"><svg viewBox="0 0 760 668" width="760" role="img" aria-label="Connexion d’un client à un réseau WPA2-Personnel" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="668"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Client</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="668"/><g class="sq-acteur"><rect x="608.7" y="12" width="132.6" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Point d’accès</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. beacon (SSID, sécurité, débits), environ 10 fois par seconde</text><line x1="675.0" y1="78" x2="97.0" y2="78"/><polygon class="sq-pointe" points="87.0,78 99.0,72 99.0,84"/></g><g class="sq-msg "><text x="380.0" y="116" text-anchor="middle">2. probe request (recherche active)</text><line x1="85.0" y1="128" x2="663.0" y2="128"/><polygon class="sq-pointe" points="673.0,128 661.0,122 661.0,134"/></g><g class="sq-msg rep"><text x="380.0" y="166" text-anchor="middle">3. probe response</text><line x1="675.0" y1="178" x2="97.0" y2="178"/><polygon class="sq-pointe" points="87.0,178 99.0,172 99.0,184"/></g><g class="sq-msg "><text x="380.0" y="216" text-anchor="middle">4. authentication (ouverte, héritage historique)</text><line x1="85.0" y1="228" x2="663.0" y2="228"/><polygon class="sq-pointe" points="673.0,228 661.0,222 661.0,234"/></g><g class="sq-msg rep"><text x="380.0" y="266" text-anchor="middle">5. authentication OK</text><line x1="675.0" y1="278" x2="97.0" y2="278"/><polygon class="sq-pointe" points="87.0,278 99.0,272 99.0,284"/></g><g class="sq-msg "><text x="380.0" y="316" text-anchor="middle">6. association request</text><line x1="85.0" y1="328" x2="663.0" y2="328"/><polygon class="sq-pointe" points="673.0,328 661.0,322 661.0,334"/></g><g class="sq-msg rep"><text x="380.0" y="366" text-anchor="middle">7. association response (AID)</text><line x1="675.0" y1="378" x2="97.0" y2="378"/><polygon class="sq-pointe" points="87.0,378 99.0,372 99.0,384"/></g><g class="sq-sep"><line x1="20" y1="432" x2="740" y2="432"/><text x="380.0" y="426" text-anchor="middle">Poignée de main à 4 messages (WPA2/WPA3)</text></g><g class="sq-msg "><text x="380.0" y="454" text-anchor="middle">8. message 1 : nonce de l’AP</text><line x1="675.0" y1="466" x2="97.0" y2="466"/><polygon class="sq-pointe" points="87.0,466 99.0,460 99.0,472"/></g><g class="sq-msg "><text x="380.0" y="504" text-anchor="middle">9. message 2 : nonce du client + preuve de connaissance de la clé</text><line x1="85.0" y1="516" x2="663.0" y2="516"/><polygon class="sq-pointe" points="673.0,516 661.0,510 661.0,522"/></g><g class="sq-msg "><text x="380.0" y="554" text-anchor="middle">10. message 3 : clé de groupe chiffrée</text><line x1="675.0" y1="566" x2="97.0" y2="566"/><polygon class="sq-pointe" points="87.0,566 99.0,560 99.0,572"/></g><g class="sq-msg "><text x="380.0" y="604" text-anchor="middle">11. message 4 : confirmation, le trafic chiffré commence</text><line x1="85.0" y1="616" x2="663.0" y2="616"/><polygon class="sq-pointe" points="673.0,616 661.0,610 661.0,622"/></g></svg><figcaption>Connexion d’un client à un réseau WPA2-Personnel</figcaption></figure>
+<p>En <strong>WPA2-Personnel</strong>, la clé dérive d’un mot de passe partagé (PSK). En <strong>WPA2/WPA3-Entreprise</strong>, chaque utilisateur s’authentifie avec 802.1X auprès d’un serveur RADIUS, avant la poignée de main : voir <a href="../niveau-4/wpa-entreprise.html">WPA Entreprise</a>. <strong>WPA3-Personnel</strong> remplace le PSK par SAE, résistant aux attaques par dictionnaire hors ligne.</p>
+<h2 id="lacces-au-medium-csma-ca">L’accès au médium : CSMA/CA</h2>
+<p>Comme les appareils ne peuvent pas détecter une collision pendant qu’ils émettent, le Wi-Fi les <strong>évite</strong> :</p>
+<ol>
+<li>l’appareil écoute ; si le canal est libre pendant un délai fixe (DIFS), il attend encore un délai <strong>aléatoire</strong> (<em>backoff</em>) ;</li>
+<li>il émet la trame ;</li>
+<li>le destinataire renvoie un <strong>accusé de réception</strong> (ACK). Sans ACK, l’émetteur suppose une collision et recommence avec un délai aléatoire plus long.</li>
+</ol>
+<p>Chaque trame est donc suivie d’un ACK : c’est l’une des raisons du rendement limité.</p>
+<h2 id="debit-physique-ce-qui-le-determine">Débit physique : ce qui le détermine</h2>
+<p>Le débit annoncé dépend du <strong>MCS</strong> (modulation et taux de codage), de la <strong>largeur de canal</strong> et du nombre de <strong>flux spatiaux</strong> :</p>
+<table>
+<thead>
+<tr>
+<th>Paramètre</th>
+<th>Effet</th>
+<th>Contrepartie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modulation plus dense (256-QAM, 1024-QAM, 4096-QAM)</td>
+<td>plus de bits par symbole</td>
+<td>exige un excellent signal (proche de la borne)</td>
+</tr>
+<tr>
+<td>Canal plus large (40, 80, 160, 320 MHz)</td>
+<td>débit multiplié</td>
+<td>moins de canaux disponibles, plus de risque d’interférence</td>
+</tr>
+<tr>
+<td>Plus de flux spatiaux (MIMO)</td>
+<td>débit multiplié</td>
+<td>il faut autant d’antennes côté client (souvent 2)</td>
+</tr>
+</tbody>
+</table>
+<p>En entreprise dense, on choisit souvent des <strong>canaux de 20 ou 40 MHz</strong> en 5 GHz : chaque borne a un peu moins de débit, mais on peut placer plus de bornes sans qu’elles se gênent. La capacité totale est meilleure.</p>
+<h2 id="mesurer-la-qualite-du-signal">Mesurer la qualité du signal</h2>
+<ul>
+<li><strong>RSSI</strong> : puissance reçue, en dBm (valeurs négatives). -50 dBm est excellent ; <strong>-67 dBm</strong> est le seuil courant visé pour la voix et la vidéo ; en dessous de -75 dBm, la connexion devient médiocre.</li>
+<li><strong>SNR</strong> : écart entre le signal et le bruit, en dB. On vise au moins 25 dB pour des débits élevés.</li>
+</ul>
+<pre><code class="language-powershell">C:\&gt; netsh wlan show interfaces
+    SSID                   : Entreprise
+    BSSID                  : 70:7d:b9:4a:12:3f
+    Type de radio          : 802.11ax
+    Canal                  : 44
+    Vitesse de réception (Mbits/s) : 573.5
+    Signal                 : 82%
+</code></pre>
+<pre><code class="language-bash">$ iw dev wlan0 link
+Connected to 70:7d:b9:4a:12:3f (on wlan0)
+        SSID: Entreprise
+        freq: 5220
+        signal: -58 dBm
+        rx bitrate: 573.5 MBit/s 80MHz HE-MCS 11 HE-NSS 2
+</code></pre>
+<h2 id="concevoir-une-couverture-dentreprise">Concevoir une couverture d’entreprise</h2>
+<ol>
+<li><strong>Étude de couverture</strong> (<em>site survey</em>) avec un logiciel de prédiction, puis des mesures sur place.</li>
+<li>Viser <strong>-67 dBm</strong> partout où la voix et la vidéo sont utilisées, avec un recouvrement suffisant entre bornes pour l’itinérance.</li>
+<li>Préférer <strong>plus de bornes à puissance modérée</strong> plutôt que peu de bornes à pleine puissance : les clients, eux, émettent faiblement, et une borne trop puissante attire des clients qu’elle n’entend pas bien.</li>
+<li>Plan de canaux sans recouvrement ; en 2,4 GHz, désactiver une partie des radios si les bornes sont denses.</li>
+<li>Un SSID par usage (employés, invités, IoT), relié à un VLAN, en limitant le nombre de SSID (chacun ajoute des <em>beacons</em> qui consomment du temps d’antenne).</li>
+</ol>
+<p>La gestion centralisée (contrôleur), l’itinérance rapide et les SSID d’entreprise sont détaillés dans <a href="../niveau-3/wifi-entreprise.html">Wi-Fi d’entreprise</a>.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un entrepôt est couvert par quatre bornes en 2,4 GHz, toutes réglées sur le canal 6 à pleine puissance. Les scanners de codes-barres se déconnectent souvent. Que proposes-tu ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les quatre bornes se perturbent : un seul canal pour tout l’entrepôt. Répartir les bornes sur <strong>1, 6 et 11</strong>, <strong>réduire la puissance</strong> pour limiter les chevauchements, et vérifier la couverture (-67 dBm) aux points d’usage. Si les scanners le supportent, ajouter le 5 GHz.</p>
+</details>
+<p><strong>2.</strong> Pourquoi un client proche de la borne obtient-il un bien meilleur débit qu’un client au fond du couloir, sur le même réseau ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Proche de la borne, le signal est fort : le client utilise un <strong>MCS élevé</strong> (modulation dense). Loin, il redescend à un MCS bas, plus robuste mais plus lent. De plus, comme le temps d’antenne est partagé, un client lent occupe longtemps le canal pour transmettre peu de données, ce qui ralentit <strong>tout le monde</strong>.</p>
+</details>
+<p><strong>3.</strong> Calcule le nombre de canaux de 80 MHz disponibles si la bande 5 GHz offre 500 MHz utilisables, et explique pourquoi on choisit parfois 40 MHz.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>500 / 80 ≈ <strong>6 canaux</strong> de 80 MHz, contre 12 de 40 MHz ou 25 de 20 MHz. Dans un bâtiment dense, 6 canaux ne suffisent pas pour éviter que des bornes voisines partagent le même canal. Des canaux plus étroits donnent moins de débit par borne, mais <strong>plus de bornes indépendantes</strong>, donc une meilleure capacité globale.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/dhcp-snooping.html"><small>Fiche précédente</small><strong>DHCP Snooping</strong></a><a class="apres" href="../niveau-2/ipv4.html"><small>Fiche suivante · IP et routage</small><strong>IPv4</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-brancher-ce-qui-ne-peut-pas-letre">Le problème : brancher ce qui ne peut pas l’être</a><a href="#les-elements">Les éléments</a><a href="#pourquoi-le-wi-fi-est-plus-lent-quannonce">Pourquoi le Wi-Fi est plus lent qu’annoncé</a><a href="#2-4-ghz-5-ghz-6-ghz">2,4 GHz, 5 GHz, 6 GHz</a><a href="#exemple-la-salle-de-formation-saturee">Exemple : la salle de formation saturée</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-generations">Les générations</a><a href="#comment-un-appareil-rejoint-un-reseau">Comment un appareil rejoint un réseau</a><a href="#lacces-au-medium-csma-ca">L’accès au médium : CSMA/CA</a><a href="#debit-physique-ce-qui-le-determine">Débit physique : ce qui le détermine</a><a href="#mesurer-la-qualite-du-signal">Mesurer la qualité du signal</a><a href="#concevoir-une-couverture-dentreprise">Concevoir une couverture d’entreprise</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

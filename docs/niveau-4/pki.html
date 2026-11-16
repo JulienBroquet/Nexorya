@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PKI — Infrastructure à clés publiques | Nexorya</title>
+<meta name="description" content="Une PKI est l’organisation qui délivre, renouvelle et révoque les certificats d’une entreprise ; elle permet aux machines et aux personnes de prouver leur identité avec des clés.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki" aria-current="page">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/pki">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-2">Prouver son identité</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>PKI</h1><p class="nom-complet">Infrastructure à clés publiques</p>
+<p class="idee">Une PKI est l’organisation qui délivre, renouvelle et révoque les certificats d’une entreprise ; elle permet aux machines et aux personnes de prouver leur identité avec des clés.</p><div class="badges"><span>Couche OSI 7</span><span>Découvrir : 8 min</span><span>Approfondir : 16 min</span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-prouver-qui-lon-est-a-grande-echelle">Le problème : prouver qui l’on est, à grande échelle</h2>
+<p>Les serveurs Web, le RADIUS, les VPN, les postes en EAP-TLS, les contrôleurs Wi-Fi, les équipements réseau : tous ont besoin de prouver leur identité. Il faut un système qui <strong>délivre</strong> des « cartes d’identité numériques » fiables, les <strong>renouvelle</strong> avant expiration et les <strong>annule</strong> en cas de vol.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Une PKI est une organisation de confiance : des autorités signent des certificats qui associent une identité à une clé publique, et tout le monde fait confiance à la même racine.</p>
+</div>
+<h2 id="cle-publique-cle-privee">Clé publique, clé privée</h2>
+<ul>
+<li>Ce qui est <strong>chiffré</strong> avec la clé publique ne peut être <strong>déchiffré</strong> qu’avec la clé privée.</li>
+<li>Ce qui est <strong>signé</strong> avec la clé privée peut être <strong>vérifié</strong> par tous avec la clé publique.</li>
+</ul>
+<p>La clé publique peut donc être distribuée à tous (dans un certificat) ; la clé privée ne doit <strong>jamais</strong> quitter son titulaire.</p>
+<h2 id="la-chaine-de-confiance">La chaîne de confiance</h2>
+<figure class="schema"><svg viewBox="0 0 647.0 426.0" width="647.0" role="img" aria-label="Une PKI d’entreprise à deux niveaux" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="354.0" y1="50.0" x2="232.0" y2="190.0"/><text class="tp-etiq" x="284.0" y="112.1" text-anchor="end">signe</text><line class="tp-lien " x1="354.0" y1="50.0" x2="476.0" y2="190.0"/><text class="tp-etiq" x="424.0" y="112.1" text-anchor="start">signe</text><line class="tp-lien " x1="232.0" y1="190.0" x2="171.0" y2="330.0"/><line class="tp-lien " x1="232.0" y1="190.0" x2="293.0" y2="330.0"/><line class="tp-lien " x1="476.0" y1="190.0" x2="415.0" y2="330.0"/><line class="tp-lien " x1="476.0" y1="190.0" x2="537.0" y2="330.0"/><g transform="translate(354.0 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">Autorité racine</text><text class="tp-sous" x="354.0" y="106.0" text-anchor="middle">hors ligne, dans un coffre</text><g transform="translate(232.0 190.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="232.0" y="230.0" text-anchor="middle">Autorité intermédiaire</text><text class="tp-sous" x="232.0" y="246.0" text-anchor="middle">machines et utilisateurs</text><g transform="translate(476.0 190.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="476.0" y="230.0" text-anchor="middle">Autorité intermédiaire</text><text class="tp-sous" x="476.0" y="246.0" text-anchor="middle">serveurs et équipements</text><g transform="translate(171.0 330.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="171.0" y="370.0" text-anchor="middle">Certificat de poste</text><g transform="translate(293.0 330.0)"><circle class="tp-ico" cy="-10" r="9"/><path class="tp-ico" d="M-17 18 a17 15 0 0 1 34 0 z"/></g><text class="tp-lib" x="293.0" y="370.0" text-anchor="middle">Certificat utilisateur</text><g transform="translate(415.0 330.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="415.0" y="370.0" text-anchor="middle">Certificat de serveur Web</text><g transform="translate(537.0 330.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="537.0" y="370.0" text-anchor="middle">Certificat RADIUS</text></svg><figcaption>Une PKI d’entreprise à deux niveaux</figcaption></figure>
+<p>Les postes de l’entreprise font confiance à la <strong>racine</strong>. Ils acceptent donc tout certificat signé par une intermédiaire elle-même signée par la racine. La racine reste <strong>hors ligne</strong> : si une intermédiaire est compromise, on la révoque sans tout reconstruire.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>PKI</strong> — Infrastructure à clés publiques : autorités, politiques et outils qui gèrent les certificats.</li>
+<li><strong>Clé privée / clé publique</strong> — Paire de clés mathématiquement liées ; la privée reste secrète, la publique est diffusée.</li>
+<li><strong>Autorité racine</strong> — Autorité au sommet de la chaîne, en qui tous les systèmes ont confiance.</li>
+<li><strong>Autorité intermédiaire</strong> — Autorité signée par la racine, qui délivre les certificats au quotidien.</li>
+<li><strong>CRL / OCSP</strong> — Liste des certificats révoqués / service en ligne qui répond « ce certificat est-il révoqué ? ».</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi garde-t-on l’autorité racine hors ligne ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que si sa clé privée était volée, l’attaquant pourrait signer <strong>n’importe quel certificat</strong> auquel tous les systèmes feraient confiance, et il faudrait reconstruire toute la PKI. Hors ligne, elle ne sert qu’à signer de temps en temps les intermédiaires.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="le-contenu-dun-certificat-x-509">Le contenu d’un certificat X.509</h2>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Exemple</th>
+<th>Ce qu’on vérifie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sujet</td>
+<td><code>CN=radius.exemple.fr</code></td>
+<td>identité (souvent secondaire)</td>
+</tr>
+<tr>
+<td><strong>SAN</strong></td>
+<td><code>DNS:radius.exemple.fr</code></td>
+<td><strong>noms</strong> réellement valides</td>
+</tr>
+<tr>
+<td>Émetteur</td>
+<td><code>CN=Exemple Serveurs CA 1</code></td>
+<td>qui l’a signé</td>
+</tr>
+<tr>
+<td>Validité</td>
+<td>du 2026-11-01 au 2027-11-01</td>
+<td>dates (et horloge du vérificateur)</td>
+</tr>
+<tr>
+<td>Clé publique</td>
+<td>ECDSA P-256</td>
+<td>algorithme et taille</td>
+</tr>
+<tr>
+<td><strong>Usages (KU / EKU)</strong></td>
+<td>Signature numérique ; Authentification serveur</td>
+<td>ce que le certificat a le droit de faire</td>
+</tr>
+<tr>
+<td>Points de révocation</td>
+<td>URL de CRL, URL OCSP</td>
+<td>doivent être <strong>joignables</strong> par ceux qui vérifient</td>
+</tr>
+</tbody>
+</table>
+<h2 id="le-cycle-de-vie">Le cycle de vie</h2>
+<ol>
+<li><strong>Demande</strong> : le titulaire génère sa paire de clés et envoie une demande (CSR) contenant sa clé publique.</li>
+<li><strong>Délivrance</strong> : l’autorité vérifie selon sa politique et signe le certificat.</li>
+<li><strong>Utilisation</strong> et <strong>supervision</strong> des dates.</li>
+<li><strong>Renouvellement</strong> avant l’expiration, idéalement automatique (autoenrollment, SCEP, EST, ACME).</li>
+<li><strong>Révocation</strong> si la clé est compromise ou l’appareil retiré.</li>
+</ol>
+<pre><code class="language-bash"><span class="c"># Générer une clé et une demande pour un équipement</span>
+openssl req -new -newkey ec -pkeyopt ec_paramgen_curve:P-256 -nodes \
+  -keyout radius.key -out radius.csr \
+  -subj &quot;/CN=radius.exemple.fr&quot; -addext &quot;subjectAltName=DNS:radius.exemple.fr&quot;
+<span class="c"># Lire un certificat délivré</span>
+openssl x509 -in radius.crt -noout -text | grep -A1 -E &quot;Subject Alternative|Extended Key|Not After&quot;
+</code></pre>
+<h2 id="revocation-le-point-faible-oublie">Révocation : le point faible oublié</h2>
+<p>Si les vérificateurs (serveur RADIUS, pare-feu, postes) <strong>ne peuvent pas joindre</strong> la CRL ou le service OCSP, deux comportements existent : refuser (tout casse) ou accepter (la révocation ne sert à rien). Il faut publier les CRL à un endroit <strong>haute disponibilité</strong>, joignable depuis tous les réseaux concernés, et surveiller leur date de mise à jour.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un certificat de serveur a pour sujet <code>CN=srv-web01</code> et pour SAN <code>DNS:intranet.exemple.fr</code>. Les utilisateurs se connectent à <code>https://srv-web01</code>. Le navigateur affiche-t-il une erreur ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Oui.</strong> Les navigateurs ne regardent que le <strong>SAN</strong>, et <code>srv-web01</code> n’y figure pas. Le champ CN est ignoré pour la vérification du nom.</p>
+</details>
+<p><strong>2.</strong> Pourquoi les autorités intermédiaires ont-elles une durée de vie plus courte que la racine, et les certificats finaux une durée encore plus courte ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Plus une clé est utilisée et exposée, plus le risque de compromission augmente. Les certificats finaux, installés sur de nombreuses machines, ont donc des durées courtes (de quelques semaines à un an) ; les intermédiaires, plus protégées, quelques années ; la racine, hors ligne, une à deux décennies. Une durée courte limite aussi l’impact d’une révocation qui ne serait pas vérifiée.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/fido2.html"><small>Fiche précédente</small><strong>FIDO2 et passkeys</strong></a><a class="apres" href="../niveau-4/ca.html"><small>Fiche suivante</small><strong>Autorité de certification</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-prouver-qui-lon-est-a-grande-echelle">Le problème : prouver qui l’on est, à grande échelle</a><a href="#cle-publique-cle-privee">Clé publique, clé privée</a><a href="#la-chaine-de-confiance">La chaîne de confiance</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#le-contenu-dun-certificat-x-509">Le contenu d’un certificat X.509</a><a href="#le-cycle-de-vie">Le cycle de vie</a><a href="#revocation-le-point-faible-oublie">Révocation : le point faible oublié</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

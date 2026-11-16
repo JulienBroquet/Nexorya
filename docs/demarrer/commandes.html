@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Les commandes de base — ipconfig, ping, tracert, nslookup | Nexorya</title>
+<meta name="description" content="Quatre commandes, disponibles sur tous les ordinateurs, suffisent à savoir où une connexion échoue.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l0)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" aria-current=page class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>0</i>Je débute</a><h3>Le décor</h3><ul><li><a href="bienvenue.html" data-fiche="demarrer/bienvenue">Bienvenue</a></li><li><a href="reseau.html" data-fiche="demarrer/reseau">Qu’est-ce qu’un réseau ?</a></li><li><a href="equipements.html" data-fiche="demarrer/equipements">Les équipements</a></li><li><a href="paquet.html" data-fiche="demarrer/paquet">Un message en paquets</a></li></ul><h3>Les adresses et les règles</h3><ul><li><a href="adresses.html" data-fiche="demarrer/adresses">Les trois adresses</a></li><li><a href="protocoles.html" data-fiche="demarrer/protocoles">Les protocoles</a></li><li><a href="internet.html" data-fiche="demarrer/internet">Ma box et Internet</a></li></ul><h3>Passer à la pratique</h3><ul><li><a href="commandes.html" data-fiche="demarrer/commandes" aria-current="page">Les commandes de base</a></li></ul></aside>
+<article class="contenu" data-fiche-id="demarrer/commandes">
+<p class="fil"><a href="index.html">Je débute</a> › <a href="index.html#chapitre-3">Passer à la pratique</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Les commandes de base</h1><p class="nom-complet">ipconfig, ping, tracert, nslookup</p>
+<p class="idee">Quatre commandes, disponibles sur tous les ordinateurs, suffisent à savoir où une connexion échoue.</p><div class="badges"><span>Découvrir : 12 min</span></div></header>
+
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-internet-ne-marche-pas">Le problème : « Internet ne marche pas »</h2>
+<p>Plutôt que de redémarrer au hasard, un professionnel <strong>pose des questions dans l’ordre</strong> et y répond avec des commandes. Bonne nouvelle : quatre commandes suffisent pour commencer, et elles existent sur tous les ordinateurs.</p>
+<p>Pour les essayer :</p>
+<ul>
+<li><strong>Windows</strong> : touche Windows, tape <code>cmd</code>, puis Entrée.</li>
+<li><strong>macOS</strong> : ouvre l’application Terminal.</li>
+<li><strong>Linux</strong> : ouvre un terminal.</li>
+</ul>
+<h2 id="1-ai-je-une-adresse-ipconfig-ou-ip-a">1. Ai-je une adresse ? — <code>ipconfig</code> ou <code>ip a</code></h2>
+<pre><code class="language-powershell">C:\&gt; ipconfig /all
+
+Carte Ethernet Ethernet :
+   Adresse physique . . . . . . . . . . . : 3C-22-FB-1A-09-7E
+   DHCP activé. . . . . . . . . . . . . . : Oui
+   Adresse IPv4. . . . . . . . . . . . . .: 192.168.1.20
+   Masque de sous-réseau. . . . . . . . . : 255.255.255.0
+   Passerelle par défaut. . . . . . . . . : 192.168.1.1
+   Serveurs DNS. . . . . . . . . . . . . .: 192.168.1.1
+</code></pre>
+<p>Ce que tu dois vérifier :</p>
+<ul>
+<li><strong>Adresse IPv4</strong> : elle existe et ne commence pas par <code>169.254</code> (sinon, le DHCP n’a pas répondu).</li>
+<li><strong>Passerelle par défaut</strong> : elle est renseignée (sinon, impossible de sortir du réseau local).</li>
+<li><strong>Serveurs DNS</strong> : au moins un (sinon, les noms ne seront pas traduits).</li>
+<li><strong>Adresse physique</strong> : c’est l’adresse MAC de la carte réseau.</li>
+</ul>
+<p>Sous Linux, <code>ip a</code> affiche les adresses et <code>ip route</code> la passerelle (ligne <code>default via …</code>). Sous macOS, <code>ifconfig</code> et <code>netstat -nr</code>.</p>
+<h2 id="2-est-ce-que-jatteins-cette-machine-ping">2. Est-ce que j’atteins cette machine ? — <code>ping</code></h2>
+<p><code>ping</code> envoie un petit message et attend une réponse. On teste en partant du plus proche :</p>
+<pre><code class="language-powershell">C:\&gt; ping 192.168.1.1
+
+Réponse de 192.168.1.1 : octets=32 temps=2 ms TTL=64
+Réponse de 192.168.1.1 : octets=32 temps=1 ms TTL=64
+Réponse de 192.168.1.1 : octets=32 temps=1 ms TTL=64
+Réponse de 192.168.1.1 : octets=32 temps=2 ms TTL=64
+Paquets : envoyés = 4, reçus = 4, perdus = 0 (perte 0%)
+</code></pre>
+<ul>
+<li><strong>Réponse</strong> et <strong>temps</strong> en millisecondes : la machine est joignable, et l’on voit le délai aller-retour.</li>
+<li><strong>Délai d’attente de la demande dépassé</strong> : pas de réponse. La machine est éteinte, injoignable… ou elle bloque volontairement le ping (beaucoup de pare-feu le font).</li>
+</ul>
+<div class="encadre astuce">
+<p class="encadre-titre">La méthode de l’escalier</p>
+<p>Fais <code>ping</code> dans cet ordre : <strong>ta passerelle</strong> (la box), puis <strong>une adresse sur Internet</strong> (par exemple <code>1.1.1.1</code>), puis <strong>un nom</strong> (<code>ping www.exemple.fr</code>). La première marche qui échoue t’indique où chercher. Si <code>ping 1.1.1.1</code> fonctionne mais pas <code>ping www.exemple.fr</code>, le problème vient du DNS.</p>
+</div>
+<h2 id="3-par-ou-passe-le-chemin-tracert-ou-traceroute">3. Par où passe le chemin ? — <code>tracert</code> ou <code>traceroute</code></h2>
+<pre><code class="language-powershell">C:\&gt; tracert 1.1.1.1
+
+  1     1 ms     1 ms     1 ms  192.168.1.1
+  2     6 ms     5 ms     6 ms  10.142.0.1
+  3     8 ms     7 ms     8 ms  198.51.100.33
+  4     9 ms     9 ms     9 ms  1.1.1.1
+Itinéraire déterminé.
+</code></pre>
+<p>Chaque ligne est un <strong>routeur</strong> traversé, avec le délai pour l’atteindre. Si la liste s’arrête à la ligne 1 et affiche ensuite des astérisques <code>* * *</code>, ta box ne parvient pas à joindre ton fournisseur d’accès. Sous Linux et macOS, la commande s’appelle <code>traceroute</code>.</p>
+<h2 id="4-le-nom-est-il-traduit-nslookup">4. Le nom est-il traduit ? — <code>nslookup</code></h2>
+<pre><code class="language-powershell">C:\&gt; nslookup www.exemple.fr
+
+Serveur :   box.home
+Address:    192.168.1.1
+
+Réponse ne faisant pas autorité :
+Nom :       www.exemple.fr
+Address:    203.0.113.10
+</code></pre>
+<p>Si tu obtiens une adresse, le DNS fonctionne. Si tu obtiens une erreur (« Non-existent domain », « timeout »), le problème vient du nom ou du serveur DNS.</p>
+<h2 id="la-methode-complete">La méthode complète</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Commande</th>
+<th>Si ça échoue, regarder…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ai-je une adresse ?</td>
+<td><code>ipconfig /all</code></td>
+<td>Câble, Wi-Fi, service DHCP</td>
+</tr>
+<tr>
+<td>J’atteins ma passerelle ?</td>
+<td><code>ping 192.168.1.1</code></td>
+<td>Réseau local : câble, Wi-Fi, switch</td>
+</tr>
+<tr>
+<td>J’atteins Internet ?</td>
+<td><code>ping 1.1.1.1</code></td>
+<td>Box, fournisseur d’accès</td>
+</tr>
+<tr>
+<td>Les noms sont-ils traduits ?</td>
+<td><code>nslookup www.exemple.fr</code></td>
+<td>Serveur DNS</td>
+</tr>
+<tr>
+<td>Le site répond-il ?</td>
+<td>le navigateur</td>
+<td>Le site lui-même</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>ping</strong> — Commande qui envoie un petit message (ICMP) à une machine et mesure le temps de réponse.</li>
+<li><strong>traceroute</strong> — Commande qui affiche la liste des routeurs traversés jusqu’à une destination (<code>tracert</code> sous Windows).</li>
+<li><strong>nslookup</strong> — Commande qui interroge un serveur DNS pour traduire un nom en adresse IP.</li>
+<li><strong>Latence</strong> — Temps mis par un message pour faire l’aller-retour, en millisecondes.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> <code>ping 192.168.1.1</code> fonctionne, <code>ping 1.1.1.1</code> fonctionne, mais <code>ping www.exemple.fr</code> répond « hôte inconnu ». Où est le problème ?</p>
+<details>
+<summary>Voir la réponse</summary>
+<p><strong>Le DNS.</strong> Le réseau local et l’accès à Internet fonctionnent (les deux premiers ping). Seule la traduction du nom échoue. Vérifie les serveurs DNS dans <code>ipconfig /all</code> et teste avec <code>nslookup</code>.</p>
+</details>
+<p><strong>2.</strong> <code>ipconfig</code> montre l’adresse <code>169.254.88.3</code> et aucune passerelle. Que fais-tu en premier ?</p>
+<details>
+<summary>Voir la réponse</summary>
+<p>L’ordinateur n’a pas reçu de réponse DHCP. Vérifie d’abord la <strong>connexion physique</strong> : câble branché et voyant allumé, ou connexion au bon réseau Wi-Fi. Puis, si tout est correct, vérifie que la box (ou le serveur DHCP de l’entreprise) fonctionne. Sous Windows, <code>ipconfig /renew</code> redemande une adresse.</p>
+</details>
+<p><strong>3.</strong> Tu es prêt pour la suite ?</p>
+<details>
+<summary>Voir la réponse</summary>
+<p>Si tu as lu les huit fiches de « Je débute », tu as tout ce qu’il faut pour commencer le <a href="../niveau-1/index.html">niveau 1</a>. Tu y découvriras en détail les câbles, les switches et les VLAN. Garde le <a href="../lexique.html">lexique</a> à portée de main.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../demarrer/internet.html"><small>Fiche précédente</small><strong>Ma box et Internet</strong></a><a class="apres" href="../niveau-1/osi.html"><small>Fiche suivante · Ethernet, switching et Wi-Fi</small><strong>Les modèles OSI et TCP/IP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-internet-ne-marche-pas">Le problème : « Internet ne marche pas »</a><a href="#1-ai-je-une-adresse-ipconfig-ou-ip-a">1. Ai-je une adresse ? — ipconfig ou ip a</a><a href="#2-est-ce-que-jatteins-cette-machine-ping">2. Est-ce que j’atteins cette machine ? — ping</a><a href="#3-par-ou-passe-le-chemin-tracert-ou-traceroute">3. Par où passe le chemin ? — tracert ou traceroute</a><a href="#4-le-nom-est-il-traduit-nslookup">4. Le nom est-il traduit ? — nslookup</a><a href="#la-methode-complete">La méthode complète</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

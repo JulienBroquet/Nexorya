@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LAN — Le réseau local d’entreprise | Nexorya</title>
+<meta name="description" content="Le LAN relie les équipements d’un même site ; en entreprise, on le construit en couches — accès, distribution, cœur — pour qu’il soit robuste et facile à faire grandir.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan" aria-current="page">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/lan">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-1">Du bâtiment au monde</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>LAN</h1><p class="nom-complet">Le réseau local d’entreprise</p>
+<p class="idee">Le LAN relie les équipements d’un même site ; en entreprise, on le construit en couches — accès, distribution, cœur — pour qu’il soit robuste et facile à faire grandir.</p><div class="badges"><span>Couche OSI 1 à 3</span><span>Découvrir : 8 min</span><span>Approfondir : 16 min</span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-un-reseau-qui-grandit">Le problème : un réseau qui grandit</h2>
+<p>Une entreprise commence avec un switch dans un placard. Puis un deuxième, puis un étage entier, un second bâtiment… Si chaque switch est simplement branché sur le précédent, on obtient une guirlande fragile : une panne au milieu coupe tout ce qui suit, et personne ne sait plus où passe le trafic.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>On construit le LAN en <strong>couches</strong> qui ont chacune un rôle, avec des liens doublés entre elles : on sait où passe le trafic, et une panne n’isole personne.</p>
+</div>
+<h2 id="le-modele-en-trois-couches">Le modèle en trois couches</h2>
+<figure class="schema"><svg viewBox="0 0 647.0 426.0" width="647.0" role="img" aria-label="Un campus en trois couches" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien double" x1="232.0" y1="50.0" x2="476.0" y2="50.0"/><line class="tp-lien-int" x1="232.0" y1="50.0" x2="476.0" y2="50.0" stroke="var(--surface)" stroke-width="3"/><line class="tp-lien " x1="232.0" y1="50.0" x2="171.0" y2="190.0"/><line class="tp-lien " x1="232.0" y1="50.0" x2="293.0" y2="190.0"/><line class="tp-lien " x1="476.0" y1="50.0" x2="171.0" y2="190.0"/><line class="tp-lien " x1="476.0" y1="50.0" x2="293.0" y2="190.0"/><line class="tp-lien " x1="232.0" y1="50.0" x2="415.0" y2="190.0"/><line class="tp-lien " x1="476.0" y1="50.0" x2="537.0" y2="190.0"/><line class="tp-lien " x1="232.0" y1="50.0" x2="537.0" y2="190.0"/><line class="tp-lien " x1="476.0" y1="50.0" x2="415.0" y2="190.0"/><line class="tp-lien " x1="171.0" y1="190.0" x2="171.0" y2="330.0"/><line class="tp-lien " x1="293.0" y1="190.0" x2="171.0" y2="330.0"/><line class="tp-lien " x1="171.0" y1="190.0" x2="293.0" y2="330.0"/><line class="tp-lien " x1="293.0" y1="190.0" x2="293.0" y2="330.0"/><line class="tp-lien " x1="415.0" y1="190.0" x2="476.0" y2="330.0"/><line class="tp-lien " x1="537.0" y1="190.0" x2="476.0" y2="330.0"/><g transform="translate(232.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="232.0" y="90.0" text-anchor="middle">Cœur 1</text><g transform="translate(476.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">Cœur 2</text><g transform="translate(171.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="171.0" y="230.0" text-anchor="middle">Distribution A</text><g transform="translate(293.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="293.0" y="230.0" text-anchor="middle">Distribution A’</text><g transform="translate(415.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="415.0" y="230.0" text-anchor="middle">Distribution B</text><g transform="translate(537.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="537.0" y="230.0" text-anchor="middle">Distribution B’</text><g transform="translate(171.0 330.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="171.0" y="370.0" text-anchor="middle">Accès étage 1</text><g transform="translate(293.0 330.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="293.0" y="370.0" text-anchor="middle">Accès étage 2</text><g transform="translate(476.0 330.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="476.0" y="370.0" text-anchor="middle">Accès bâtiment B</text></svg><figcaption>Un campus en trois couches</figcaption></figure>
+<table>
+<thead>
+<tr>
+<th>Couche</th>
+<th>Rôle</th>
+<th>Fonctions typiques</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accès</strong></td>
+<td>brancher les utilisateurs et les appareils</td>
+<td>ports PoE, VLAN, 802.1X, protections des ports</td>
+</tr>
+<tr>
+<td><strong>Distribution</strong></td>
+<td>agréger les switches d’accès d’une zone</td>
+<td>passerelles des VLAN (SVI, HSRP), routage, filtrage, QoS</td>
+</tr>
+<tr>
+<td><strong>Cœur</strong></td>
+<td>transporter très vite entre les zones</td>
+<td>routage rapide, redondance, aucune fonction lourde</td>
+</tr>
+</tbody>
+</table>
+<p>Dans un site de taille moyenne, on fusionne distribution et cœur : c’est le <strong>cœur replié</strong> (<em>collapsed core</em>).</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>LAN</strong> — <em>Local Area Network</em>, réseau d’un même site (bureau, bâtiment, campus).</li>
+<li><strong>Couche d’accès / de distribution / de cœur</strong> — Les trois niveaux d’une architecture de campus.</li>
+<li><strong>Cœur replié</strong> — Architecture où les rôles de distribution et de cœur sont assurés par les mêmes équipements.</li>
+<li><strong>Campus</strong> — Réseau qui relie plusieurs bâtiments proches d’un même site.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi chaque switch d’accès est-il relié à deux switches de distribution ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Pour qu’une <strong>panne</strong> d’un switch de distribution ou d’un câble n’isole pas l’étage : le second chemin prend le relais. Les deux liens peuvent aussi être utilisés ensemble (agrégation multichâssis, voir <a href="redondance-switches.html">Redondance de switches</a>).</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="ou-placer-la-frontiere-entre-niveau-2-et-niveau-3">Où placer la frontière entre niveau 2 et niveau 3 ?</h2>
+<table>
+<thead>
+<tr>
+<th>Design</th>
+<th>Principe</th>
+<th>Avantages</th>
+<th>Inconvénients</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Accès L2, distribution L3</strong> (classique)</td>
+<td>VLAN entre accès et distribution ; passerelles HSRP sur la distribution</td>
+<td>simple, VLAN étendus sur quelques switches</td>
+<td>STP actif sur les liens accès–distribution</td>
+</tr>
+<tr>
+<td><strong>Distribution en paire virtuelle</strong> (StackWise Virtual, vPC, MLAG)</td>
+<td>les deux switches de distribution forment un seul partenaire LACP</td>
+<td>plus de port bloqué par STP, bascule rapide</td>
+<td>dépendance au mécanisme de couplage</td>
+</tr>
+<tr>
+<td><strong>Accès routé</strong> (L3 jusqu’à l’accès)</td>
+<td>chaque switch d’accès route ; liens routés vers la distribution</td>
+<td>plus de STP entre switches, convergence par le routage (ECMP)</td>
+<td>un VLAN ne s’étend plus entre étages</td>
+</tr>
+<tr>
+<td><strong>Fabric de campus</strong> (SD-Access, EVPN)</td>
+<td>réseau routé + overlay pour étendre des segments si besoin</td>
+<td>segmentation par rôle, mobilité</td>
+<td>complexité, outillage</td>
+</tr>
+</tbody>
+</table>
+<p>La tendance est claire : <strong>limiter les domaines de niveau 2</strong> et confier la redondance au <strong>routage</strong>, qui converge vite et utilise tous les liens.</p>
+<h2 id="regles-de-conception">Règles de conception</h2>
+<ul>
+<li><strong>Redondance</strong> à chaque niveau : deux équipements, deux liens, deux alimentations.</li>
+<li><strong>Surdimensionnement</strong> contrôlé des liens montants : rapport accès/uplink de l’ordre de 20:1 dans l’accès, 4:1 vers le cœur.</li>
+<li><strong>Plan d’adressage</strong> résumable par zone (un bloc par bâtiment), pour simplifier le routage.</li>
+<li><strong>Racine STP</strong> et <strong>passerelle active</strong> sur le même switch de distribution pour chaque VLAN.</li>
+<li><strong>Gestion hors bande</strong> (réseau ou VRF d’administration) pour garder la main pendant une panne.</li>
+</ul>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un site de 3 étages (150 postes) a deux switches de cœur et un switch d’accès par étage. Faut-il une couche de distribution séparée ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non</strong> : à cette taille, un <strong>cœur replié</strong> suffit. Les deux switches de cœur portent les passerelles et le routage ; chaque switch d’accès y est relié par deux liens (idéalement un agrégat multichâssis). Une couche de distribution séparée devient utile quand le nombre de switches d’accès ou de bâtiments augmente.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/zero-trust.html"><small>Fiche précédente</small><strong>Zero Trust</strong></a><a class="apres" href="../niveau-5/man.html"><small>Fiche suivante</small><strong>MAN</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-un-reseau-qui-grandit">Le problème : un réseau qui grandit</a><a href="#le-modele-en-trois-couches">Le modèle en trois couches</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#ou-placer-la-frontiere-entre-niveau-2-et-niveau-3">Où placer la frontière entre niveau 2 et niveau 3 ?</a><a href="#regles-de-conception">Règles de conception</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

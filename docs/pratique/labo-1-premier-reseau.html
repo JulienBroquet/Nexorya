@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Labo 1 — Mon premier réseau | Nexorya</title>
+<meta name="description" content="Explore les réseaux. Maîtrise l’infrastructure.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" aria-current=page class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="page"><p class="fil"><a href="../index.html">Accueil</a> › <a href=index.html>Pratique</a></p><h1>Labo 1 — Mon premier réseau</h1><p class=chapeau>Deux ordinateurs, un switch, deux adresses. Tu vas les faire communiquer, puis observer ce qui se passe vraiment quand un ping part.</p><div class="prose"><div class="encadre retenir">
+<p class="encadre-titre">Objectif</p>
+<p>Relier deux PC par un switch, leur donner une adresse IP, vérifier qu’ils se joignent, et comprendre le rôle d’ARP et de la table MAC.</p>
+</div>
+<p><strong>Durée</strong> : 30 minutes. <strong>Fiches utiles</strong> : <a href="../demarrer/reseau.html">Le réseau</a>, <a href="../demarrer/adresses.html">Les adresses</a>, <a href="../niveau-1/switch.html">Le switch</a>, <a href="../niveau-2/arp.html">ARP</a>.</p>
+<h2 id="la-topologie">La topologie</h2>
+<figure class="schema"><svg viewBox="0 0 586.0 146.0" width="586.0" role="img" aria-label="Labo 1" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="293.0" y2="50.0"/><text class="tp-etiq" x="201.5" y="38.0" text-anchor="middle">Fa0/1</text><line class="tp-lien " x1="293.0" y1="50.0" x2="476.0" y2="50.0"/><text class="tp-etiq" x="384.5" y="38.0" text-anchor="middle">Fa0/2</text><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">PC1</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">192.168.10.11/24</text><g transform="translate(293.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="293.0" y="90.0" text-anchor="middle">SW1</text><g transform="translate(476.0 50.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">PC2</text><text class="tp-sous" x="476.0" y="106.0" text-anchor="middle">192.168.10.12/24</text></svg><figcaption>Labo 1</figcaption></figure>
+<h2 id="etape-1-brancher">Étape 1 — Brancher</h2>
+<p>Dans Packet Tracer, place un switch 2960 et deux PC. Relie chaque PC au switch avec un câble droit (<em>Copper Straight-Through</em>). Attends que les voyants passent au vert : c’est le <a href="../niveau-1/stp.html">spanning tree</a> qui vérifie qu’il n’y a pas de boucle (une trentaine de secondes).</p>
+<h2 id="etape-2-donner-les-adresses">Étape 2 — Donner les adresses</h2>
+<p>Sur PC1 : <em>Desktop → IP Configuration</em> → adresse <code>192.168.10.11</code>, masque <code>255.255.255.0</code>. Sur PC2 : <code>192.168.10.12</code>, même masque. Pas besoin de passerelle : les deux PC sont dans le même réseau.</p>
+<h2 id="etape-3-tester">Étape 3 — Tester</h2>
+<p>Sur PC1, ouvre <em>Command Prompt</em> :</p>
+<pre><code class="language-text">C:\&gt; ping 192.168.10.12
+
+Reply from 192.168.10.12: bytes=32 time&lt;1ms TTL=128
+Reply from 192.168.10.12: bytes=32 time&lt;1ms TTL=128
+</code></pre>
+<div class="encadre note">
+<p class="encadre-titre">Bon à savoir</p>
+<p>Le premier ping échoue parfois (« Request timed out ») : pendant ce temps, PC1 apprenait l’adresse MAC de PC2 avec ARP.</p>
+</div>
+<h2 id="etape-4-observer">Étape 4 — Observer</h2>
+<p>Sur PC1 :</p>
+<pre><code class="language-text">C:\&gt; arp -a
+  Internet Address      Physical Address      Type
+  192.168.10.12         0060.2f84.1a03        dynamic
+</code></pre>
+<p>Sur le switch (clique dessus → <em>CLI</em>) :</p>
+<pre><code class="language-cisco">Switch&gt; enable
+<span class="k">Switch#</span> show mac address-table
+          Mac Address Table
+-------------------------------------------
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+   1    0060.2f84.1a03    DYNAMIC     Fa0/2
+   1    00d0.97a1.5b2c    DYNAMIC     Fa0/1
+</code></pre>
+<p>Passe ensuite en mode <strong>Simulation</strong> (en bas à droite), filtre sur ARP et ICMP, vide la table ARP de PC1 (<code>arp -d</code>) et relance un ping : tu vois la requête ARP partir vers tous les ports, puis la réponse revenir uniquement vers PC1.</p>
+<h2 id="questions">Questions</h2>
+<p><strong>1.</strong> Pourquoi le switch connaît-il l’adresse MAC de PC1 sur Fa0/1 ?</p>
+<p><strong>2.</strong> Change le masque de PC2 en <code>255.255.255.128</code> et l’adresse en <code>192.168.10.200</code>. Le ping fonctionne-t-il encore ? Pourquoi ?</p>
+<p><strong>3.</strong> Que se passe-t-il si tu donnes la même adresse IP aux deux PC ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>1.</strong> Le switch <strong>apprend</strong> l’adresse MAC source de chaque trame qu’il reçoit, et note le port d’arrivée. Dès que PC1 a envoyé une trame, son adresse a été associée à Fa0/1.</p>
+<p><strong>2.</strong> Non. Avec un masque /25, PC2 est dans le réseau <code>192.168.10.128/25</code>, et il considère que <code>192.168.10.11</code> est <strong>hors de son réseau</strong> : il voudrait passer par une passerelle, qu’il n’a pas. Les deux PC doivent être dans le même sous-réseau pour communiquer sans routeur. Voir <a href="../niveau-2/subnet.html">Le masque et les sous-réseaux</a>.</p>
+<p><strong>3.</strong> Un <strong>conflit d’adresses</strong> : les PC le détectent généralement (message d’erreur), et les échanges deviennent imprévisibles. Une adresse IP doit être unique dans un réseau.</p>
+</details>
+<h2 id="pour-aller-plus-loin">Pour aller plus loin</h2>
+<p>Ajoute un troisième PC et un deuxième switch relié au premier. Observe la table MAC du premier switch : sur quel port voit-il le PC du second switch ?</p>
+<p><strong>Suite</strong> : <a href="labo-2-vlan.html">Labo 2 — Des VLAN qui se parlent</a>.</p></div></div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

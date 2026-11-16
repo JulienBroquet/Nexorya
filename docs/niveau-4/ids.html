@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IDS — Système de détection d’intrusion | Nexorya</title>
+<meta name="description" content="Un IDS observe une copie du trafic, la compare à des signatures d’attaques et à des comportements anormaux, et donne l’alerte ; il ne bloque rien lui-même.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids" aria-current="page">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/ids">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-4">Détecter et bloquer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>IDS</h1><p class="nom-complet">Système de détection d’intrusion</p>
+<p class="idee">Un IDS observe une copie du trafic, la compare à des signatures d’attaques et à des comportements anormaux, et donne l’alerte ; il ne bloque rien lui-même.</p><div class="badges"><span>Couche OSI 3 à 7</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-savoir-quon-est-attaque">Le problème : savoir qu’on est attaqué</h2>
+<p>Un attaquant qui a pénétré le réseau balaie les machines, tente des exploits, exfiltre des données. Sans outil pour <strong>voir</strong> ces comportements, l’entreprise ne découvre l’intrusion que des semaines plus tard, souvent quand les fichiers sont déjà chiffrés.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>L’IDS est une caméra de surveillance du réseau : il regarde une copie du trafic et sonne l’alarme quand il reconnaît une attaque, mais il n’arrête pas l’intrus.</p>
+</div>
+<h2 id="ou-le-placer">Où le placer</h2>
+<figure class="schema"><svg viewBox="0 0 769.0 286.0" width="769.0" role="img" aria-label="Un IDS reçoit une copie du trafic" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="293.0" y2="50.0"/><line class="tp-lien " x1="293.0" y1="50.0" x2="476.0" y2="50.0"/><line class="tp-lien " x1="476.0" y1="50.0" x2="659.0" y2="50.0"/><line class="tp-lien logique" x1="476.0" y1="50.0" x2="476.0" y2="190.0"/><text class="tp-etiq" x="488.0" y="124.0" text-anchor="start">copie du trafic</text><line class="tp-lien " x1="476.0" y1="190.0" x2="659.0" y2="190.0"/><text class="tp-etiq" x="567.5" y="178.0" text-anchor="middle">alertes</text><g transform="translate(110.0 50.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">Internet</text><g transform="translate(293.0 50.0)"><rect class="tp-ico" x="-26" y="-16" width="52" height="32" rx="3"/><path class="tp-ico-trait" d="M-26 -5 h52 M-26 6 h52 M-9 -16 v11 M9 -16 v11 M0 -5 v11 M-17 -5 v11 M17 -5 v11 M-9 6 v10 M9 6 v10"/></g><text class="tp-lib" x="293.0" y="90.0" text-anchor="middle">Pare-feu</text><g transform="translate(476.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">Cœur</text><text class="tp-sous" x="476.0" y="106.0" text-anchor="middle">port miroir (SPAN)</text><g transform="translate(659.0 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="659.0" y="90.0" text-anchor="middle">Serveurs</text><g transform="translate(476.0 190.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="476.0" y="230.0" text-anchor="middle">IDS</text><text class="tp-sous" x="476.0" y="246.0" text-anchor="middle">sonde</text><g transform="translate(659.0 190.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="659.0" y="230.0" text-anchor="middle">SIEM / SOC</text></svg><figcaption>Un IDS reçoit une copie du trafic</figcaption></figure>
+<p>Positions courantes : derrière le pare-feu Internet, devant les serveurs sensibles, entre les zones internes (pour voir les <strong>mouvements latéraux</strong>).</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>IDS</strong> — <em>Intrusion Detection System</em>, système qui détecte les attaques et alerte sans bloquer.</li>
+<li><strong>Signature</strong> — Motif caractéristique d’une attaque connue (une suite d’octets, une requête précise).</li>
+<li><strong>Faux positif</strong> — Alerte déclenchée par un trafic légitime.</li>
+<li><strong>SOC</strong> — Centre des opérations de sécurité, équipe qui traite les alertes.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un IDS a bien détecté une attaque contre un serveur, mais le serveur a quand même été compromis. Est-ce un dysfonctionnement ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Pas forcément.</strong> Un IDS hors bande <strong>n’a pas la capacité de bloquer</strong> : il alerte. Si personne n’a réagi à l’alerte à temps, ou si aucune action automatique n’était prévue, l’attaque aboutit. Pour bloquer, il faut un <strong>IPS</strong> en ligne, ou une réaction rapide du SOC.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="signatures-et-comportements">Signatures et comportements</h2>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Détecte bien</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Signatures</strong></td>
+<td>exploits connus, logiciels malveillants connus, balayages</td>
+<td>inefficace contre une attaque inédite ou un trafic chiffré</td>
+</tr>
+<tr>
+<td><strong>Anomalies / comportement</strong></td>
+<td>volumes inhabituels, nouveaux flux, machine qui parle à des centaines d’autres</td>
+<td>plus de faux positifs, nécessite une période d’apprentissage</td>
+</tr>
+<tr>
+<td><strong>Analyse de métadonnées</strong> (Zeek)</td>
+<td>journaux détaillés de chaque connexion, DNS, TLS (noms, certificats, empreintes JA3/JA4)</td>
+<td>demande de l’analyse et du stockage</td>
+</tr>
+</tbody>
+</table>
+<h2 id="une-regle-suricata">Une règle Suricata</h2>
+<pre><code class="language-text">alert http $HOME_NET any -&gt; $EXTERNAL_NET any (msg:&quot;Téléchargement d’un exécutable depuis une IP brute&quot;;
+  flow:established,to_server; http.host; pcre:&quot;/^\d{1,3}(\.\d{1,3}){3}$/&quot;;
+  http.uri; content:&quot;.exe&quot;; endswith; classtype:policy-violation; sid:1000001; rev:1;)
+</code></pre>
+<h2 id="le-trafic-chiffre">Le trafic chiffré</h2>
+<p>La majorité du trafic est chiffrée (TLS) : l’IDS ne voit plus les contenus. Il reste efficace sur :</p>
+<ul>
+<li>les <strong>métadonnées</strong> : adresses, volumes, horaires, noms dans le SNI, certificats, empreintes de clients TLS ;</li>
+<li>le trafic <strong>interne non chiffré</strong> et les protocoles d’administration ;</li>
+<li>le trafic <strong>déchiffré</strong> par un proxy ou un pare-feu qui fait de l’inspection TLS.</li>
+</ul>
+<h2 id="reglage-la-cle-du-succes">Réglage : la clé du succès</h2>
+<p>Un IDS installé avec toutes ses signatures produit des milliers d’alertes par jour, dont la plupart sans intérêt pour l’entreprise. Il faut : désactiver les règles qui ne concernent pas l’environnement, définir précisément les réseaux internes (<code>HOME_NET</code>), classer les alertes par gravité, et <strong>mesurer</strong> combien sont réellement traitées.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un IDS placé derrière le pare-feu Internet ne voit rien de l’attaque d’un poste interne contre un serveur du même site. Pourquoi, et que proposer ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le trafic entre le poste et le serveur <strong>ne passe pas</strong> par le lien observé (Internet ↔ pare-feu) : il reste dans le réseau interne. Ajouter une copie du trafic <strong>interne</strong> (SPAN sur le cœur, ou sonde entre zones), en priorité vers les serveurs sensibles, pour détecter les mouvements latéraux.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/macsec.html"><small>Fiche précédente</small><strong>MACsec</strong></a><a class="apres" href="../niveau-4/ips.html"><small>Fiche suivante</small><strong>IPS</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-savoir-quon-est-attaque">Le problème : savoir qu’on est attaqué</a><a href="#ou-le-placer">Où le placer</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#signatures-et-comportements">Signatures et comportements</a><a href="#une-regle-suricata">Une règle Suricata</a><a href="#le-trafic-chiffre">Le trafic chiffré</a><a href="#reglage-la-cle-du-succes">Réglage : la clé du succès</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

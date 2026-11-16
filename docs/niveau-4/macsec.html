@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MACsec — Chiffrement des liens Ethernet (IEEE 802.1AE) | Nexorya</title>
+<meta name="description" content="MACsec chiffre chaque trame Ethernet entre deux équipements directement reliés, à la vitesse du lien ; il protège les câbles et les fibres contre l’écoute et l’insertion.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec" aria-current="page">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/macsec">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-3">Filtrer et chiffrer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>MACsec</h1><p class="nom-complet">Chiffrement des liens Ethernet (IEEE 802.1AE)</p>
+<p class="idee">MACsec chiffre chaque trame Ethernet entre deux équipements directement reliés, à la vitesse du lien ; il protège les câbles et les fibres contre l’écoute et l’insertion.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 5 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-1/ethernet.html">Ethernet</a>, <a href="../niveau-4/802-1x.html">802.1X</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Une fibre relie deux bâtiments en passant par des fourreaux partagés, ou deux datacenters par une liaison louée à un opérateur. Quiconque a un accès physique à cette fibre peut, avec un coupleur, <strong>écouter</strong> ou <strong>injecter</strong> du trafic. IPsec protégerait les paquets routés, mais pas les protocoles de niveau 2, et il est coûteux à très haut débit.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>MACsec chiffre et authentifie chaque trame directement sur le lien Ethernet, en matériel : ce qui circule sur le câble devient illisible et infalsifiable.</p>
+</div>
+<h2 id="macsec-ou-ipsec">MACsec ou IPsec ?</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>MACsec</th>
+<th>IPsec</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Portée</td>
+<td><strong>un lien</strong> (entre deux équipements voisins)</td>
+<td>de bout en bout entre deux routeurs, à travers des réseaux</td>
+</tr>
+<tr>
+<td>Couche</td>
+<td>2</td>
+<td>3</td>
+</tr>
+<tr>
+<td>Débit</td>
+<td>vitesse du lien (10, 40, 100 Gb/s…)</td>
+<td>limité par le matériel de chiffrement</td>
+</tr>
+<tr>
+<td>Protège</td>
+<td>tout le trafic du lien, y compris les protocoles de niveau 2</td>
+<td>les paquets IP sélectionnés</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>MACsec</strong> — Chiffrement et authentification des trames Ethernet entre deux équipements voisins.</li>
+<li><strong>MKA</strong> — <em>MACsec Key Agreement</em>, protocole d’échange des clés MACsec.</li>
+<li><strong>CAK / CKN</strong> — Clé et nom de clé de connectivité, à partir desquels MKA dérive les clés de chiffrement.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi MACsec ne protège-t-il pas le trafic à l’intérieur d’un switch ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que chaque équipement <strong>déchiffre</strong> les trames reçues pour les traiter (consulter la table MAC, appliquer les VLAN), puis les <strong>rechiffre</strong> sur le lien suivant. Le trafic est en clair à l’intérieur de chaque équipement : MACsec protège les <strong>liens</strong>, pas les nœuds.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-entre-deux-switches-cisco-ios-xe-cle-pre-partagee">Configuration entre deux switches (Cisco IOS-XE, clé pré-partagée)</h2>
+<pre><code class="language-cisco">key chain MACSEC-INTERBAT macsec
+ key 01
+  cryptographic-algorithm aes-256-cmac
+  key-string 0 &lt;64 caractères hexadécimaux&gt;
+  lifetime local 00:00:00 Jan 1 2026 infinite
+<span class="c">!</span>
+mka policy MKA-256
+ key-server priority 200
+ macsec-cipher-suite gcm-aes-256
+ confidentiality-offset 0
+<span class="c">!</span>
+interface TenGigabitEthernet1/1/1
+ macsec network-link
+ mka policy MKA-256
+ mka pre-shared-key key-chain MACSEC-INTERBAT
+</code></pre>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show macsec summary
+Interface                     Transmit SC          Receive SC
+Te1/1/1                            1                    1
+<span class="k">SW1#</span> show mka sessions
+Interface      Local-TxSCI         Policy-Name      Inherited         Key-Server
+Te1/1/1        7c21.0e4a.1b81/0013 MKA-256          NO                YES
+Port-ID   Peer-RxSCI       MACsec-Peers     Status       CKN
+19        00aa.0b00.0081/0013    1          Secured      01
+</code></pre>
+<p><code>Status: Secured</code> : le lien est chiffré. Si MKA ne s’établit pas, le lien peut rester <strong>bloqué</strong> (comportement <em>must-secure</em>) ou passer <strong>en clair</strong> (<em>should-secure</em>) selon la politique choisie.</p>
+<h2 id="points-dattention">Points d’attention</h2>
+<ul>
+<li>Les deux équipements <strong>et leurs ports</strong> (ou modules) doivent supporter MACsec à la vitesse voulue.</li>
+<li>L’en-tête MACsec ajoute 24 à 32 octets : vérifier la <strong>MTU</strong> des liens.</li>
+<li>Sur une liaison opérateur, le service doit transporter les trames MACsec (EtherType <code>0x88E5</code>) de façon transparente.</li>
+</ul>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Après l’activation de MACsec sur une fibre inter-bâtiments, les petits pings passent mais les transferts de fichiers échouent. Hypothèse ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Un problème de <strong>MTU</strong> : l’en-tête MACsec ajoute plusieurs dizaines d’octets, et les trames pleines dépassent la taille acceptée sur le chemin (par exemple par l’équipement de l’opérateur). Augmenter la MTU des interfaces concernées ou vérifier ce que l’opérateur accepte.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/vpn.html"><small>Fiche précédente</small><strong>VPN</strong></a><a class="apres" href="../niveau-4/ids.html"><small>Fiche suivante</small><strong>IDS</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#macsec-ou-ipsec">MACsec ou IPsec ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-entre-deux-switches-cisco-ios-xe-cle-pre-partagee">Configuration entre deux switches (Cisco IOS-XE, clé pré-partagée)</a><a href="#points-dattention">Points d’attention</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

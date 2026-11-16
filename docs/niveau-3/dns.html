@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DNS — Domain Name System | Nexorya</title>
+<meta name="description" content="Le DNS est l’annuaire d’Internet — il traduit un nom comme www.exemple.fr en adresse IP, en interrogeant une hiérarchie de serveurs de la racine jusqu’au serveur qui fait autorité.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns" aria-current="page">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/dns">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-2">Noms et adresses automatiques</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>DNS</h1><p class="nom-complet">Domain Name System</p>
+<p class="idee">Le DNS est l’annuaire d’Internet — il traduit un nom comme www.exemple.fr en adresse IP, en interrogeant une hiérarchie de serveurs de la racine jusqu’au serveur qui fait autorité.</p><div class="badges"><span>Couche OSI 7 (UDP et TCP 53)</span><span>Découvrir : 10 min</span><span>Approfondir : 22 min</span><span>Avant : <a href="../demarrer/adresses.html">Les trois adresses</a>, <a href="../niveau-3/udp.html">UDP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-retenir-des-milliards-dadresses">Le problème : retenir des milliards d’adresses</h2>
+<p>Personne ne retient <code>142.250.201.68</code>. Et si l’adresse d’un serveur change, il faudrait prévenir tous ses utilisateurs. Il faut un <strong>annuaire</strong> qui associe des noms faciles à retenir aux adresses, mis à jour en un seul endroit, et capable de répondre à des milliards de questions par jour.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le DNS traduit les noms en adresses IP. Aucune machine ne connaît tous les noms : chacune connaît sa partie, et sait à qui demander pour le reste.</p>
+</div>
+<h2 id="la-hierarchie-des-noms">La hiérarchie des noms</h2>
+<p>Un nom se lit <strong>de droite à gauche</strong> :</p>
+<pre><code class="language-text">www  .  exemple  .  fr  .
+ │        │        │   └── la racine (le point final, souvent omis)
+ │        │        └────── domaine de premier niveau (TLD) : fr, com, org…
+ │        └─────────────── domaine : exemple.fr
+ └──────────────────────── nom d’une machine ou d’un service dans ce domaine
+</code></pre>
+<p>Chaque niveau <strong>délègue</strong> le niveau suivant : la racine sait qui gère <code>.fr</code>, le serveur de <code>.fr</code> sait qui gère <code>exemple.fr</code>, et le serveur d’<code>exemple.fr</code> connaît <code>www.exemple.fr</code>.</p>
+<h2 id="comment-une-question-est-resolue">Comment une question est résolue</h2>
+<figure class="schema"><svg viewBox="0 0 760 552" width="760" role="img" aria-label="Résolution de www.exemple.fr" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="552"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Poste</text></g><line class="sq-vie" x1="232.5" y1="43" x2="232.5" y2="552"/><g class="sq-acteur"><rect x="182.6" y="12" width="99.8" height="31" rx="8"/><text x="232.5" y="33" text-anchor="middle">Résolveur</text></g><line class="sq-vie" x1="380.0" y1="43" x2="380.0" y2="552"/><g class="sq-acteur"><rect x="340.0" y="12" width="80" height="31" rx="8"/><text x="380.0" y="33" text-anchor="middle">Racine</text></g><line class="sq-vie" x1="527.5" y1="43" x2="527.5" y2="552"/><g class="sq-acteur"><rect x="469.4" y="12" width="116.19999999999999" height="31" rx="8"/><text x="527.5" y="33" text-anchor="middle">Serveur .fr</text></g><line class="sq-vie" x1="675.0" y1="60" x2="675.0" y2="552"/><g class="sq-acteur"><rect x="621.0" y="12" width="108.0" height="48" rx="8"/><text x="675.0" y="33" text-anchor="middle">Serveur</text><text x="675.0" y="50" text-anchor="middle">exemple.fr</text></g><g class="sq-msg "><text x="158.75" y="66" text-anchor="middle">1. « adresse de</text><text x="158.75" y="84" text-anchor="middle">www.exemple.fr ? »</text><line x1="85.0" y1="96" x2="220.5" y2="96"/><polygon class="sq-pointe" points="230.5,96 218.5,90 218.5,102"/></g><g class="sq-msg "><text x="306.25" y="134" text-anchor="middle">2. www.exemple.fr ?</text><line x1="232.5" y1="146" x2="368.0" y2="146"/><polygon class="sq-pointe" points="378.0,146 366.0,140 366.0,152"/></g><g class="sq-msg rep"><text x="306.25" y="184" text-anchor="middle">3. « demande aux</text><text x="306.25" y="202" text-anchor="middle">serveurs de .fr »</text><line x1="380.0" y1="214" x2="244.5" y2="214"/><polygon class="sq-pointe" points="234.5,214 246.5,208 246.5,220"/></g><g class="sq-msg "><text x="380.0" y="252" text-anchor="middle">4. www.exemple.fr ?</text><line x1="232.5" y1="264" x2="515.5" y2="264"/><polygon class="sq-pointe" points="525.5,264 513.5,258 513.5,270"/></g><g class="sq-msg rep"><text x="380.0" y="302" text-anchor="middle">5. « demande aux serveurs d’exemple.fr</text><text x="380.0" y="320" text-anchor="middle">»</text><line x1="527.5" y1="332" x2="244.5" y2="332"/><polygon class="sq-pointe" points="234.5,332 246.5,326 246.5,338"/></g><g class="sq-msg "><text x="453.75" y="370" text-anchor="middle">6. www.exemple.fr ?</text><line x1="232.5" y1="382" x2="663.0" y2="382"/><polygon class="sq-pointe" points="673.0,382 661.0,376 661.0,388"/></g><g class="sq-msg rep"><text x="453.75" y="420" text-anchor="middle">7. « 203.0.113.10, valable 1 heure »</text><line x1="675.0" y1="432" x2="244.5" y2="432"/><polygon class="sq-pointe" points="234.5,432 246.5,426 246.5,438"/></g><g class="sq-msg rep"><text x="158.75" y="470" text-anchor="middle">8. 203.0.113.10 (mis</text><text x="158.75" y="488" text-anchor="middle">en cache 1 heure)</text><line x1="232.5" y1="500" x2="97.0" y2="500"/><polygon class="sq-pointe" points="87.0,500 99.0,494 99.0,506"/></g></svg><figcaption>Résolution de www.exemple.fr</figcaption></figure>
+<ul>
+<li>Le <strong>poste</strong> pose une seule question à son <strong>résolveur</strong> (le serveur DNS de l’entreprise ou du fournisseur d’accès).</li>
+<li>Le <strong>résolveur</strong> fait tout le travail, puis garde la réponse en <strong>cache</strong> pendant la durée indiquée (le <strong>TTL</strong>). Les questions suivantes sont servies immédiatement.</li>
+<li>Le serveur d’<code>exemple.fr</code> <strong>fait autorité</strong> : c’est lui qui détient la vraie réponse.</li>
+</ul>
+<h2 id="les-types-denregistrements">Les types d’enregistrements</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Rôle</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>A</strong></td>
+<td>nom → adresse IPv4</td>
+<td><code>www.exemple.fr → 203.0.113.10</code></td>
+</tr>
+<tr>
+<td><strong>AAAA</strong></td>
+<td>nom → adresse IPv6</td>
+<td><code>www.exemple.fr → 2001:db8::10</code></td>
+</tr>
+<tr>
+<td><strong>CNAME</strong></td>
+<td>alias vers un autre nom</td>
+<td><code>intranet → srv-web01.exemple.fr</code></td>
+</tr>
+<tr>
+<td><strong>MX</strong></td>
+<td>serveur de messagerie du domaine</td>
+<td><code>exemple.fr → 10 mx1.exemple.fr</code></td>
+</tr>
+<tr>
+<td><strong>PTR</strong></td>
+<td>adresse → nom (résolution inverse)</td>
+<td><code>10.113.0.203.in-addr.arpa → www.exemple.fr</code></td>
+</tr>
+<tr>
+<td><strong>NS</strong></td>
+<td>serveurs qui font autorité pour un domaine</td>
+<td><code>exemple.fr → ns1.exemple.fr</code></td>
+</tr>
+<tr>
+<td><strong>TXT</strong></td>
+<td>texte libre : vérifications, politiques anti-usurpation d’e-mails (SPF, DMARC)</td>
+<td><code>"v=spf1 mx -all"</code></td>
+</tr>
+<tr>
+<td><strong>SRV</strong></td>
+<td>emplacement d’un service</td>
+<td><code>_ldap._tcp.exemple.fr → dc1.exemple.fr:389</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="exemple-lerp-joignable-par-ip-mais-pas-par-nom">Exemple : l’ERP joignable par IP mais pas par nom</h2>
+<p>Un utilisateur ouvre <code>http://10.20.0.15</code> : l’ERP s’affiche. Avec <code>http://erp.exemple.fr</code>, rien. Le réseau et le serveur fonctionnent ; c’est la <strong>traduction du nom</strong> qui échoue. On vérifie la configuration DNS du poste, puis on interroge le résolveur :</p>
+<pre><code class="language-powershell">C:\&gt; nslookup erp.exemple.fr
+Serveur :   dns1.exemple.fr
+Address:    10.99.0.53
+*** dns1.exemple.fr ne parvient pas à trouver erp.exemple.fr : Non-existent domain
+</code></pre>
+<p>« Non-existent domain » : l’enregistrement n’existe pas (ou a été supprimé) dans la zone. Il faut le créer sur le serveur qui fait autorité.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>DNS</strong> — <em>Domain Name System</em>, système de traduction des noms de domaine en adresses IP.</li>
+<li><strong>Résolveur</strong> — Serveur DNS qui interroge la hiérarchie pour le compte des postes et met les réponses en cache.</li>
+<li><strong>Serveur faisant autorité</strong> — Serveur qui détient la zone d’un domaine et donne les réponses officielles.</li>
+<li><strong>Zone</strong> — Ensemble des enregistrements d’un domaine gérés par un serveur faisant autorité.</li>
+<li><strong>TTL (DNS)</strong> — Durée pendant laquelle une réponse peut être gardée en cache.</li>
+<li><strong>Enregistrement</strong> — Ligne d’une zone DNS : un nom, un type (A, MX…) et une valeur.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Tu changes l’adresse IP d’un site Web, mais une partie des utilisateurs arrive encore sur l’ancien serveur pendant des heures. Pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les résolveurs gardent l’ancienne réponse <strong>en cache</strong> jusqu’à l’expiration de son <strong>TTL</strong>. Si le TTL était de 24 heures, certains utilisateurs verront l’ancienne adresse pendant 24 heures. Avant un changement, on <strong>baisse le TTL</strong> (par exemple à 300 s) un ou deux jours à l’avance.</p>
+</details>
+<p><strong>2.</strong> Quel enregistrement indique à quel serveur envoyer les e-mails destinés à <code>@exemple.fr</code> ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>L’enregistrement <strong>MX</strong> du domaine <code>exemple.fr</code>. Il désigne un ou plusieurs serveurs de messagerie, avec une priorité (le plus petit nombre est essayé en premier).</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="recursif-et-iteratif">Récursif et itératif</h2>
+<ul>
+<li>Le poste envoie une requête <strong>récursive</strong> : « trouve-moi la réponse finale ».</li>
+<li>Le résolveur envoie des requêtes <strong>itératives</strong> : chaque serveur répond par la réponse ou par une <strong>délégation</strong> (« demande à tel serveur »).</li>
+<li>Un serveur faisant autorité ne devrait <strong>pas</strong> accepter de requêtes récursives venant d’Internet (<em>open resolver</em>) : il serait utilisé pour des attaques par amplification.</li>
+</ul>
+<h2 id="le-transport">Le transport</h2>
+<ul>
+<li>Les requêtes passent en <strong>UDP 53</strong>. Si la réponse est trop grande (DNSSEC, nombreux enregistrements), le serveur répond avec le drapeau <strong>TC</strong> (tronqué) et le client recommence en <strong>TCP 53</strong>. Bloquer TCP 53 provoque donc des échecs <strong>aléatoires</strong>, sur les grosses réponses seulement.</li>
+<li><strong>EDNS(0)</strong> permet des réponses UDP plus grandes que 512 octets ; la valeur recommandée aujourd’hui est d’environ 1 232 octets, pour éviter la fragmentation.</li>
+<li>Les <strong>transferts de zone</strong> entre serveurs (AXFR, IXFR) utilisent TCP 53 et doivent être limités aux serveurs secondaires autorisés.</li>
+</ul>
+<h2 id="lire-une-zone">Lire une zone</h2>
+<pre><code class="language-text">$ORIGIN exemple.fr.
+$TTL 3600
+@        IN SOA  ns1.exemple.fr. hostmaster.exemple.fr. (
+                 2026111501 ; numéro de série (date + compteur)
+                 7200       ; refresh : les secondaires vérifient toutes les 2 h
+                 900        ; retry
+                 1209600    ; expire : 14 jours sans contact, la zone n'est plus servie
+                 300 )      ; TTL des réponses négatives (NXDOMAIN)
+@        IN NS   ns1.exemple.fr.
+@        IN NS   ns2.exemple.fr.
+@        IN MX   10 mx1.exemple.fr.
+www      IN A    203.0.113.10
+www      IN AAAA 2001:db8::10
+intranet IN CNAME srv-web01.exemple.fr.
+</code></pre>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Oublier d’augmenter le <strong>numéro de série</strong> après une modification empêche les serveurs secondaires de se mettre à jour : ils continuent de servir l’ancienne version, et seuls certains utilisateurs voient le changement.</p>
+</div>
+<h2 id="les-outils">Les outils</h2>
+<pre><code class="language-bash">$ dig www.exemple.fr A +noall +answer
+www.exemple.fr.   3412  IN  A  203.0.113.10       # 3412 = TTL restant dans le cache
+$ dig @ns1.exemple.fr www.exemple.fr +norecurse     # interroger directement le serveur qui fait autorité
+$ dig +trace www.exemple.fr                         # suivre toute la chaîne de délégations
+$ dig -x 203.0.113.10                               # résolution inverse (PTR)
+</code></pre>
+<pre><code class="language-powershell">PS&gt; Resolve-DnsName www.exemple.fr -Type AAAA
+PS&gt; Resolve-DnsName www.exemple.fr -Server 10.99.0.53 -DnsOnly
+PS&gt; Get-DnsClientCache | Where-Object Entry -like &quot;*exemple*&quot;
+PS&gt; Clear-DnsClientCache          # équivalent de ipconfig /flushdns
+</code></pre>
+<h2 id="les-reponses-a-reconnaitre">Les réponses à reconnaître</h2>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Signification</th>
+<th>Pistes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NOERROR avec réponse</td>
+<td>tout va bien</td>
+<td>—</td>
+</tr>
+<tr>
+<td><strong>NXDOMAIN</strong></td>
+<td>le nom n’existe pas</td>
+<td>faute de frappe, enregistrement absent, mauvais suffixe</td>
+</tr>
+<tr>
+<td>NOERROR sans réponse (<em>NODATA</em>)</td>
+<td>le nom existe, mais pas ce type</td>
+<td>par exemple un A existe mais pas d’AAAA</td>
+</tr>
+<tr>
+<td><strong>SERVFAIL</strong></td>
+<td>le résolveur n’a pas pu obtenir de réponse</td>
+<td>serveur faisant autorité injoignable, échec de validation DNSSEC</td>
+</tr>
+<tr>
+<td>REFUSED</td>
+<td>le serveur refuse de répondre</td>
+<td>récursion non autorisée pour ce client</td>
+</tr>
+<tr>
+<td>délai d’attente</td>
+<td>aucune réponse</td>
+<td>serveur injoignable, UDP 53 filtré</td>
+</tr>
+</tbody>
+</table>
+<h2 id="dns-interne-et-dns-public">DNS interne et DNS public</h2>
+<p>Une entreprise a souvent deux vues du même domaine (<em>split DNS</em>) : en interne, <code>intranet.exemple.fr</code> pointe vers <code>10.20.0.15</code> ; depuis Internet, le nom n’existe pas ou pointe vers un portail public. Les postes en VPN doivent utiliser le DNS interne, sinon ils reçoivent la réponse publique. C’est une cause fréquente de « ça marche au bureau mais pas en télétravail ».</p>
+<p>La sécurisation du DNS (DNSSEC, chiffrement, filtrage) est détaillée dans <a href="dns-avance.html">DNS approfondi</a>.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> <code>nslookup erp.exemple.fr</code> renvoie la bonne adresse depuis le bureau, mais pas depuis un poste en télétravail connecté au VPN, qui obtient « Non-existent domain ». Quelle hypothèse ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le poste en VPN interroge un <strong>résolveur public</strong> (celui de sa box) au lieu du DNS interne : le nom n’existe que dans la vue <strong>interne</strong>. Vérifier la configuration DNS poussée par le VPN (serveurs et domaines de recherche) et la règle qui envoie les requêtes <code>*.exemple.fr</code> vers le DNS interne.</p>
+</details>
+<p><strong>2.</strong> Un domaine fonctionne pour la plupart des utilisateurs, mais certaines résolutions de noms avec beaucoup d’enregistrements échouent. Le pare-feu autorise UDP 53 uniquement. Explique.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les grosses réponses sont <strong>tronquées</strong> en UDP (drapeau TC) ; le client recommence en <strong>TCP 53</strong>, qui est bloqué. Seules les grosses réponses échouent. Il faut autoriser <strong>TCP 53</strong> vers les résolveurs.</p>
+</details>
+<p><strong>3.</strong> On veut migrer <code>www.exemple.fr</code> vers un nouveau serveur vendredi à 20 h, avec le moins de coupure possible. Le TTL actuel est de 86 400 s. Que fais-tu, et quand ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Au moins 24 heures avant</strong> (le TTL actuel), baisser le TTL de l’enregistrement à <strong>300 s</strong> et incrémenter le numéro de série. Vendredi à 20 h, changer l’adresse : en 5 minutes, tous les caches auront expiré. Une fois la migration validée, remonter le TTL.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/udp.html"><small>Fiche précédente</small><strong>UDP</strong></a><a class="apres" href="../niveau-3/dns-avance.html"><small>Fiche suivante</small><strong>DNS approfondi</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-retenir-des-milliards-dadresses">Le problème : retenir des milliards d’adresses</a><a href="#la-hierarchie-des-noms">La hiérarchie des noms</a><a href="#comment-une-question-est-resolue">Comment une question est résolue</a><a href="#les-types-denregistrements">Les types d’enregistrements</a><a href="#exemple-lerp-joignable-par-ip-mais-pas-par-nom">Exemple : l’ERP joignable par IP mais pas par nom</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#recursif-et-iteratif">Récursif et itératif</a><a href="#le-transport">Le transport</a><a href="#lire-une-zone">Lire une zone</a><a href="#les-outils">Les outils</a><a href="#les-reponses-a-reconnaitre">Les réponses à reconnaître</a><a href="#dns-interne-et-dns-public">DNS interne et DNS public</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

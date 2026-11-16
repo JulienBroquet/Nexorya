@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MLD — Multicast Listener Discovery (IPv6) | Nexorya</title>
+<meta name="description" content="MLD est l’équivalent d’IGMP en IPv6 — les postes s’abonnent aux groupes multicast auprès de leur routeur ; il sert aussi au fonctionnement normal d’IPv6.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld" aria-current="page">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/mld">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-6">Diffuser à plusieurs, le multicast</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>MLD</h1><p class="nom-complet">Multicast Listener Discovery (IPv6)</p>
+<p class="idee">MLD est l’équivalent d’IGMP en IPv6 — les postes s’abonnent aux groupes multicast auprès de leur routeur ; il sert aussi au fonctionnement normal d’IPv6.</p><div class="badges"><span>Couche OSI 3 (ICMPv6)</span><span>Découvrir : 5 min</span><span>Approfondir : 10 min</span><span>Avant : <a href="../niveau-2/igmp.html">IGMP</a>, <a href="../niveau-2/ipv6.html">IPv6</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>IPv6 a remplacé le broadcast par le <strong>multicast</strong>, y compris pour son fonctionnement de base (découverte des voisins avec <a href="ndp.html">NDP</a>). Il lui faut donc, comme IPv4, un protocole d’abonnement aux groupes.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>MLD fait en IPv6 ce qu’IGMP fait en IPv4 : les postes annoncent à leur routeur les groupes multicast qu’ils veulent recevoir.</p>
+</div>
+<h2 id="correspondances">Correspondances</h2>
+<table>
+<thead>
+<tr>
+<th>IPv4</th>
+<th>IPv6</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>IGMPv2</td>
+<td>MLDv1</td>
+</tr>
+<tr>
+<td>IGMPv3</td>
+<td>MLDv2</td>
+</tr>
+<tr>
+<td>IGMP Snooping</td>
+<td>MLD Snooping</td>
+</tr>
+<tr>
+<td>224.0.0.0/4</td>
+<td>ff00::/8</td>
+</tr>
+</tbody>
+</table>
+<p>Une particularité : chaque machine IPv6 s’abonne automatiquement à ses groupes de <strong>nœud sollicité</strong> pour que NDP fonctionne. Les messages MLD circulent donc même sans aucune application multicast.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>MLD</strong> — <em>Multicast Listener Discovery</em>, protocole d’abonnement multicast en IPv6.</li>
+<li><strong>MLD Snooping</strong> — Écoute des messages MLD par un switch pour limiter le multicast IPv6 aux ports abonnés.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi un pare-feu qui bloque tout ICMPv6 gêne-t-il le multicast IPv6 ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que les messages MLD sont des messages <strong>ICMPv6</strong> (types 130, 131, 132 et 143). Les bloquer empêche les abonnements, et peut aussi gêner la résolution de voisins.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-et-verification-cisco-ios">Configuration et vérification (Cisco IOS)</h2>
+<pre><code class="language-cisco">ipv6 multicast-routing
+ipv6 mld snooping
+<span class="c">!</span>
+interface Vlan30
+ ipv6 mld version 2
+<span class="c">!</span>
+<span class="k">R1#</span> show ipv6 mld groups
+MLD Connected Group Membership
+Group Address                           Interface      Uptime    Expires
+FF3E::8000:1                            Vlan30         00:12:40  00:03:51
+FF02::1:FF00:25                         Vlan30         02:15:03  00:04:02
+</code></pre>
+<p><code>FF3E::/32</code> correspond à la plage SSM en IPv6 ; <code>FF02::1:FF…</code> est un groupe de nœud sollicité créé par NDP.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Après l’activation de MLD Snooping sur un switch qui ne voit aucun querier, certains postes IPv6 ne se résolvent plus entre eux. Quelle explication ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Sans querier, les abonnements aux groupes de <strong>nœud sollicité</strong> peuvent expirer dans la table du switch, qui cesse alors de transmettre les sollicitations de voisin (NS) vers ces ports. Activer un querier MLD, ou vérifier que le switch traite correctement les groupes de lien local (beaucoup de plateformes les inondent toujours, justement pour éviter ce problème).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/igmp.html"><small>Fiche précédente</small><strong>IGMP</strong></a><a class="apres" href="../niveau-2/pim.html"><small>Fiche suivante</small><strong>PIM</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#correspondances">Correspondances</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-et-verification-cisco-ios">Configuration et vérification (Cisco IOS)</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

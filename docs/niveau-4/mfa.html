@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MFA — Authentification multifacteur | Nexorya</title>
+<meta name="description" content="L’authentification multifacteur exige deux preuves de natures différentes — ce que tu sais, ce que tu possèdes, ce que tu es — ; un mot de passe volé ne suffit plus.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa" aria-current="page">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/mfa">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-2">Prouver son identité</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>MFA</h1><p class="nom-complet">Authentification multifacteur</p>
+<p class="idee">L’authentification multifacteur exige deux preuves de natures différentes — ce que tu sais, ce que tu possèdes, ce que tu es — ; un mot de passe volé ne suffit plus.</p><div class="badges"><span>Couche OSI 7</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-le-mot-de-passe-vole">Le problème : le mot de passe volé</h2>
+<p>Les mots de passe se volent facilement : hameçonnage, fuite d’un autre site où l’utilisateur a réutilisé le même, logiciel espion. Avec un mot de passe seul, l’attaquant entre comme s’il était l’utilisateur.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>La MFA demande une <strong>deuxième preuve d’une autre nature</strong> que le mot de passe : un objet que l’on possède, ou une caractéristique de soi. Voler l’une ne suffit pas.</p>
+</div>
+<h2 id="les-trois-familles-de-facteurs">Les trois familles de facteurs</h2>
+<table>
+<thead>
+<tr>
+<th>Famille</th>
+<th>Exemples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ce que je sais</strong></td>
+<td>mot de passe, code PIN</td>
+</tr>
+<tr>
+<td><strong>Ce que je possède</strong></td>
+<td>téléphone (application, SMS), clé de sécurité, carte à puce</td>
+</tr>
+<tr>
+<td><strong>Ce que je suis</strong></td>
+<td>empreinte digitale, reconnaissance faciale</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tous-les-facteurs-ne-se-valent-pas">Tous les facteurs ne se valent pas</h2>
+<table>
+<thead>
+<tr>
+<th>Second facteur</th>
+<th>Résiste à l’hameçonnage ?</th>
+<th>Remarque</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Clé FIDO2 / passkey</strong></td>
+<td><strong>oui</strong></td>
+<td>lié au vrai site, rien à recopier ; voir <a href="fido2.html">FIDO2</a></td>
+</tr>
+<tr>
+<td>Notification avec <strong>numéro à recopier</strong></td>
+<td>partiellement</td>
+<td>limite la fatigue MFA</td>
+</tr>
+<tr>
+<td>Code TOTP (application)</td>
+<td>non</td>
+<td>un faux site peut demander le code et l’utiliser aussitôt ; voir <a href="otp.html">OTP</a></td>
+</tr>
+<tr>
+<td>Simple notification « Approuver »</td>
+<td>non</td>
+<td>vulnérable au <strong>bombardement</strong> de notifications</td>
+</tr>
+<tr>
+<td>SMS</td>
+<td>non</td>
+<td>détournement de carte SIM, interception</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>MFA</strong> — Authentification qui combine au moins deux facteurs de familles différentes.</li>
+<li><strong>Facteur</strong> — Type de preuve d’identité : connaissance, possession ou inhérence.</li>
+<li><strong>Fatigue MFA</strong> — Attaque qui envoie des demandes d’approbation en rafale jusqu’à ce que la victime accepte.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un utilisateur se connecte avec son mot de passe puis répond à une question secrète. Est-ce une MFA ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> Le mot de passe et la question secrète sont tous deux des facteurs de <strong>connaissance</strong> : un attaquant qui a hameçonné l’un peut hameçonner l’autre. Il faut un facteur d’une autre famille (possession, inhérence).</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="ou-lexiger-en-priorite">Où l’exiger en priorité</h2>
+<ol>
+<li><strong>Accès distants</strong> : VPN, bureau à distance, messagerie et applications cloud.</li>
+<li><strong>Comptes à privilèges</strong> : administrateurs du domaine, des équipements réseau (via le bastion et TACACS+), du cloud.</li>
+<li><strong>Actions sensibles</strong> : changement de coordonnées bancaires, réinitialisation de mot de passe.</li>
+<li>Puis <strong>tous les utilisateurs</strong>, idéalement avec des facteurs résistants à l’hameçonnage.</li>
+</ol>
+<h2 id="mfa-et-equipements-reseau">MFA et équipements réseau</h2>
+<p>Les équipements ne gèrent pas directement la MFA. On l’applique :</p>
+<ul>
+<li>sur le <strong>bastion</strong> par lequel passent les administrateurs ;</li>
+<li>dans le <strong>serveur RADIUS / TACACS+</strong>, qui interroge un service MFA avant de répondre (un <em>Access-Challenge</em> demande le code, ou une notification est envoyée) ;</li>
+<li>sur le <strong>VPN</strong> (portail SAML vers le fournisseur d’identité).</li>
+</ul>
+<h2 id="les-attaques-qui-contournent-une-mfa-faible">Les attaques qui contournent une MFA faible</h2>
+<table>
+<thead>
+<tr>
+<th>Attaque</th>
+<th>Principe</th>
+<th>Parade</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proxy d’hameçonnage (AitM)</td>
+<td>faux site qui relaie en temps réel mot de passe, code et cookie de session</td>
+<td>FIDO2 / passkeys, accès conditionnel sur l’appareil</td>
+</tr>
+<tr>
+<td>Bombardement de notifications</td>
+<td>l’attaquant déclenche des dizaines de demandes</td>
+<td>correspondance de numéro, limitation, alerte</td>
+</tr>
+<tr>
+<td>Détournement de SIM</td>
+<td>l’attaquant obtient une nouvelle SIM au nom de la victime</td>
+<td>ne pas utiliser le SMS pour les comptes sensibles</td>
+</tr>
+<tr>
+<td>Vol de cookie de session</td>
+<td>le jeton est volé après la connexion</td>
+<td>durée de session courte, liaison du jeton à l’appareil</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un administrateur a reçu 30 notifications d’approbation en pleine nuit, et a fini par en accepter une. Que s’est-il passé, et quelles mesures prendre ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Une attaque par <strong>fatigue MFA</strong> : l’attaquant connaît le mot de passe et déclenche des demandes jusqu’à l’acceptation. Mesures : révoquer les sessions, changer le mot de passe, enquêter ; puis passer à la <strong>correspondance de numéro</strong> ou à <strong>FIDO2</strong>, limiter les tentatives et alerter sur les rafales de refus.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/wpa-entreprise.html"><small>Fiche précédente</small><strong>WPA Entreprise</strong></a><a class="apres" href="../niveau-4/otp.html"><small>Fiche suivante</small><strong>OTP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-le-mot-de-passe-vole">Le problème : le mot de passe volé</a><a href="#les-trois-familles-de-facteurs">Les trois familles de facteurs</a><a href="#tous-les-facteurs-ne-se-valent-pas">Tous les facteurs ne se valent pas</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#ou-lexiger-en-priorite">Où l’exiger en priorité</a><a href="#mfa-et-equipements-reseau">MFA et équipements réseau</a><a href="#les-attaques-qui-contournent-une-mfa-faible">Les attaques qui contournent une MFA faible</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

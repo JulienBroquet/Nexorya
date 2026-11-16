@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MTU — Maximum Transmission Unit | Nexorya</title>
+<meta name="description" content="La MTU est la taille maximale d’un paquet qu’un lien accepte ; quand un tunnel ou une étiquette ajoute des octets, les gros paquets peuvent ne plus passer alors que les petits passent.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu" aria-current="page">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/mtu">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-4">Découper le réseau avec les VLAN</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>MTU</h1><p class="nom-complet">Maximum Transmission Unit</p>
+<p class="idee">La MTU est la taille maximale d’un paquet qu’un lien accepte ; quand un tunnel ou une étiquette ajoute des octets, les gros paquets peuvent ne plus passer alors que les petits passent.</p><div class="badges"><span>Couche OSI 2 et 3</span><span>Découvrir : 7 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-1/ethernet.html">Ethernet</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-un-colis-trop-gros-pour-la-boite-aux-lettres">Le problème : un colis trop gros pour la boîte aux lettres</h2>
+<p>Un lien réseau accepte des paquets jusqu’à une certaine taille, comme une boîte aux lettres accepte des enveloppes jusqu’à un certain format. Cette taille maximale s’appelle la <strong>MTU</strong>. Tant que tout le monde respecte la même taille, aucun souci. Les problèmes commencent quand <strong>un tronçon du chemin</strong> accepte moins que les autres.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>La MTU est la taille maximale d’un paquet sur un lien. Si un paquet est trop gros pour un tronçon du chemin, il doit être découpé… ou il est perdu.</p>
+</div>
+<h2 id="la-valeur-a-connaitre">La valeur à connaître</h2>
+<p>Sur Ethernet, la MTU standard est de <strong>1 500 octets</strong> : c’est la taille maximale du paquet IP transporté dans une trame. Presque tous les réseaux l’utilisent, et c’est pour cela que tout se passe bien la plupart du temps.</p>
+<h2 id="dou-viennent-les-problemes">D’où viennent les problèmes ?</h2>
+<p>Certaines technologies <strong>ajoutent des octets</strong> autour du paquet :</p>
+<table>
+<thead>
+<tr>
+<th>Technologie</th>
+<th>Octets ajoutés (environ)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Étiquette VLAN 802.1Q</td>
+<td>4 (dans la trame, sans réduire le paquet IP)</td>
+</tr>
+<tr>
+<td>QinQ</td>
+<td>8</td>
+</tr>
+<tr>
+<td>VPN IPsec</td>
+<td>50 à 70</td>
+</tr>
+<tr>
+<td>GRE</td>
+<td>24</td>
+</tr>
+<tr>
+<td>VXLAN</td>
+<td>50</td>
+</tr>
+</tbody>
+</table>
+<p>Si un paquet de 1 500 octets doit traverser un tunnel VPN qui ajoute 60 octets, il ferait 1 560 octets : trop gros pour un lien à 1 500. Il faut alors soit <strong>le découper</strong> (fragmentation), soit <strong>réduire</strong> la taille des paquets en amont, soit <strong>augmenter</strong> la MTU des liens qui transportent le tunnel.</p>
+<h2 id="le-symptome-typique">Le symptôme typique</h2>
+<p>Un site distant est relié par VPN. Le <code>ping</code> fonctionne, l’ouverture de session aussi, mais <strong>les pages lourdes ne se chargent jamais</strong> et les transferts de fichiers se figent. Pourquoi ? Le ping et les petits échanges utilisent des petits paquets, qui passent ; les transferts utilisent des paquets pleins (1 500 octets), qui ne passent plus une fois encapsulés.</p>
+<div class="encadre astuce">
+<p class="encadre-titre">Astuce</p>
+<p>« Petits paquets OK, gros paquets KO » : dès que tu vois ce symptôme, pense <strong>MTU</strong>.</p>
+</div>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>MTU</strong> — <em>Maximum Transmission Unit</em>, taille maximale d’un paquet sur un lien (1 500 octets en Ethernet standard).</li>
+<li><strong>Fragmentation</strong> — Découpage d’un paquet trop gros en plusieurs morceaux plus petits.</li>
+<li><strong>Jumbo frames</strong> — Trames Ethernet géantes (souvent 9 000 octets de paquet), utilisées dans les datacenters.</li>
+<li><strong>Encapsulation</strong> — Ajout d’en-têtes autour d’un paquet, par exemple pour un tunnel.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un ping vers un serveur distant répond, mais une copie de fichier vers ce serveur se bloque après quelques secondes. Le chemin passe par un VPN. Quelle hypothèse ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Un <strong>problème de MTU</strong> : les petits paquets du ping passent, mais les paquets pleins de la copie, alourdis par l’en-tête du VPN, dépassent la MTU d’un tronçon et sont perdus.</p>
+</details>
+<p><strong>2.</strong> Pourquoi ne règle-t-on pas simplement la MTU à 9 000 partout ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que <strong>tout le chemin</strong> doit l’accepter, y compris des équipements qu’on ne maîtrise pas (Internet, opérateurs). Les jumbo frames s’utilisent dans un périmètre contrôlé — datacenter, réseau de stockage — où chaque équipement est configuré de façon cohérente.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="mtu-mss-et-taille-de-trame-ne-pas-tout-melanger">MTU, MSS et taille de trame : ne pas tout mélanger</h2>
+<pre><code class="language-text">┌─────────────── trame Ethernet : 1518 octets (1522 avec VLAN) ───────────────┐
+│ en-tête 14 │ ┌──────────── paquet IP = MTU : 1500 octets ────────────┐ │FCS 4│
+│            │ │ en-tête IP 20 │ en-tête TCP 20 │ données = MSS : 1460 │ │     │
+└────────────┴─┴───────────────┴────────────────┴──────────────────────┴─┴─────┘
+</code></pre>
+<ul>
+<li><strong>MTU IP</strong> : taille du paquet IP (1 500). C’est la valeur configurée avec <code>ip mtu</code> sur Cisco.</li>
+<li><strong>MTU de l’interface</strong> : taille maximale de la trame utile acceptée (<code>mtu</code> sur l’interface, ou <code>system mtu</code> sur un switch).</li>
+<li><strong>MSS</strong> (<em>Maximum Segment Size</em>) : taille maximale des <strong>données</strong> TCP, annoncée par chaque extrémité au début de la connexion. MTU − 40 en IPv4 (1 460), MTU − 60 en IPv6.</li>
+</ul>
+<h2 id="fragmentation-et-decouverte-de-la-mtu-du-chemin">Fragmentation et découverte de la MTU du chemin</h2>
+<p>En IPv4, un routeur peut <strong>fragmenter</strong> un paquet trop gros, sauf si le bit <strong>DF</strong> (<em>Don’t Fragment</em>) est positionné. Aujourd’hui, presque tous les paquets TCP ont le bit DF : on utilise la <strong>découverte de la MTU du chemin</strong> (<em>PMTUD</em>).</p>
+<figure class="schema"><svg viewBox="0 0 760 382" width="760" role="img" aria-label="Découverte de la MTU du chemin (PMTUD)" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="382"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">PC</text></g><line class="sq-vie" x1="380.0" y1="60" x2="380.0" y2="382"/><g class="sq-acteur"><rect x="295.0" y="12" width="170" height="48" rx="8"/><text x="380.0" y="33" text-anchor="middle">Routeur (tunnel MTU</text><text x="380.0" y="50" text-anchor="middle">1400)</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="382"/><g class="sq-acteur"><rect x="633.3" y="12" width="83.39999999999999" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Serveur</text></g><g class="sq-msg "><text x="232.5" y="66" text-anchor="middle">1. paquet de 1500 octets, bit DF</text><line x1="85.0" y1="78" x2="368.0" y2="78"/><polygon class="sq-pointe" points="378.0,78 366.0,72 366.0,84"/></g><g class="sq-msg rep"><text x="232.5" y="116" text-anchor="middle">2. ICMP « fragmentation nécessaire,</text><text x="232.5" y="134" text-anchor="middle">MTU 1400 »</text><line x1="380.0" y1="146" x2="97.0" y2="146"/><polygon class="sq-pointe" points="87.0,146 99.0,140 99.0,152"/></g><g class="sq-note"><rect x="6" y="192" width="200" height="50" rx="6"/><text x="106.0" y="211" text-anchor="middle">mémorise MTU 1400 vers ce</text><text x="106.0" y="229" text-anchor="middle">serveur</text></g><g class="sq-msg "><text x="232.5" y="268" text-anchor="middle">3. paquets de 1400 octets</text><line x1="85.0" y1="280" x2="368.0" y2="280"/><polygon class="sq-pointe" points="378.0,280 366.0,274 366.0,286"/></g><g class="sq-msg "><text x="527.5" y="318" text-anchor="middle">4. les paquets passent</text><line x1="380.0" y1="330" x2="663.0" y2="330"/><polygon class="sq-pointe" points="673.0,330 661.0,324 661.0,336"/></g></svg><figcaption>Découverte de la MTU du chemin (PMTUD)</figcaption></figure>
+<p>En IPv6, les routeurs <strong>ne fragmentent jamais</strong> : la PMTUD (via ICMPv6 <em>Packet Too Big</em>) est obligatoire.</p>
+<p><strong>Le piège du trou noir</strong> : si un pare-feu bloque <strong>tout</strong> l’ICMP, le message « fragmentation nécessaire » n’arrive jamais. Le PC continue d’envoyer des paquets de 1 500 octets, qui disparaissent sans explication. On appelle cela un <em>PMTUD black hole</em>. Il ne faut <strong>jamais</strong> bloquer l’ICMP type 3 code 4 (IPv4) ni l’ICMPv6 type 2.</p>
+<h2 id="les-remedes-cisco-ios">Les remèdes (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="c">! 1. Réduire la MTU IP de l'interface tunnel et ajuster le MSS TCP au passage</span>
+interface Tunnel0
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+<span class="c">!</span>
+<span class="c">! 2. Augmenter la MTU des liens qui transportent une encapsulation (switch Catalyst)</span>
+system mtu 9198
+<span class="c">! (sur d'autres plateformes : &quot;mtu 9216&quot; sous l'interface)</span>
+</code></pre>
+<ul>
+<li><code>ip tcp adjust-mss</code> réécrit la valeur MSS dans les paquets SYN qui traversent le routeur : les deux extrémités utilisent alors des segments assez petits, <strong>même si l’ICMP est bloqué ailleurs</strong>. C’est la protection la plus robuste pour le TCP sur les VPN.</li>
+<li>Pour VXLAN ou MPLS dans un réseau maîtrisé, on préfère <strong>augmenter</strong> la MTU du réseau de transport (souvent 9 216) pour que les paquets de 1 500 octets des machines passent sans changement.</li>
+</ul>
+<h2 id="diagnostiquer-avec-ping">Diagnostiquer avec ping</h2>
+<p>On envoie des pings de taille croissante <strong>en interdisant la fragmentation</strong> :</p>
+<pre><code class="language-powershell">C:\&gt; ping -f -l 1472 10.20.0.10
+Réponse de 10.20.0.10 : octets=1472 temps=21 ms TTL=62
+C:\&gt; ping -f -l 1473 10.20.0.10
+Le paquet doit être fragmenté, mais l’indicateur DF est activé.
+</code></pre>
+<pre><code class="language-bash"><span class="c"># Linux : -M do interdit la fragmentation, -s fixe la taille des données</span>
+ping -M do -s 1472 10.20.0.10
+</code></pre>
+<p>1 472 octets de données + 8 octets d’en-tête ICMP + 20 octets d’en-tête IP = <strong>1 500</strong>. Si la limite trouvée est plus basse (1 372, par exemple), un tronçon du chemin a une MTU de 1 400.</p>
+<p>Sur Cisco : <code>ping 10.20.0.10 size 1500 df-bit</code> (la taille inclut ici les en-têtes IP et ICMP).</p>
+<h2 id="mtu-et-protocoles-de-routage">MTU et protocoles de routage</h2>
+<p>OSPF compare la MTU des deux voisins pendant l’échange de bases de données. Si elles diffèrent, la relation reste bloquée à l’état <strong>ExStart/Exchange</strong>. Une MTU incohérente entre deux routeurs se voit donc aussi… dans les protocoles de routage. Voir <a href="../niveau-2/ospf.html">OSPF</a>.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Dans un datacenter VXLAN, les machines virtuelles ont une MTU de 1 500 et le réseau physique aussi. Les pings passent, les transferts SSH se figent. Que corriger ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>VXLAN ajoute environ <strong>50 octets</strong> : un paquet de 1 500 octets devient environ 1 550 octets sur le réseau physique, qui n’accepte que 1 500. Il faut <strong>augmenter la MTU du réseau physique</strong> à au moins 1 550 (en pratique 9 216 sur tous les liens de la fabric). Réduire la MTU des VM est une alternative moins propre.</p>
+</details>
+<p><strong>2.</strong> <code>ping -f -l 1472</code> échoue, mais <code>ping -f -l 1422</code> réussit et <code>ping -f -l 1423</code> échoue. Quelle est la MTU du chemin ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>1 422 + 8 + 20 = <strong>1 450 octets</strong>. Un tronçon du chemin (probablement un tunnel) n’accepte que des paquets de 1 450 octets.</p>
+</details>
+<p><strong>3.</strong> Après l’ajout d’une règle « bloquer tout ICMP » sur un pare-feu, certains sites Web ne se chargent plus via le VPN de l’entreprise. Explique.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La règle bloque les messages ICMP « fragmentation nécessaire » : la <strong>découverte de la MTU du chemin</strong> ne fonctionne plus. Les serveurs continuent d’envoyer des paquets de 1 500 octets, trop gros pour le tunnel, qui disparaissent : c’est un <strong>trou noir PMTUD</strong>. Il faut autoriser l’ICMP nécessaire (type 3 code 4, ICMPv6 type 2) et, par sécurité, appliquer <code>ip tcp adjust-mss</code> sur le tunnel.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/802-1q.html"><small>Fiche précédente</small><strong>802.1Q</strong></a><a class="apres" href="../niveau-1/qinq.html"><small>Fiche suivante</small><strong>QinQ</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-un-colis-trop-gros-pour-la-boite-aux-lettres">Le problème : un colis trop gros pour la boîte aux lettres</a><a href="#la-valeur-a-connaitre">La valeur à connaître</a><a href="#dou-viennent-les-problemes">D’où viennent les problèmes ?</a><a href="#le-symptome-typique">Le symptôme typique</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#mtu-mss-et-taille-de-trame-ne-pas-tout-melanger">MTU, MSS et taille de trame : ne pas tout mélanger</a><a href="#fragmentation-et-decouverte-de-la-mtu-du-chemin">Fragmentation et découverte de la MTU du chemin</a><a href="#les-remedes-cisco-ios">Les remèdes (Cisco IOS)</a><a href="#diagnostiquer-avec-ping">Diagnostiquer avec ping</a><a href="#mtu-et-protocoles-de-routage">MTU et protocoles de routage</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

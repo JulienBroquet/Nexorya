@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LACP — Link Aggregation Control Protocol (IEEE 802.3ad / 802.1AX) | Nexorya</title>
+<meta name="description" content="LACP regroupe plusieurs câbles en un seul lien logique — plus de capacité et une tolérance aux pannes, sans que STP bloque les câbles en trop.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp" aria-current="page">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/lacp">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-6">Agréger, découvrir, protéger</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>LACP</h1><p class="nom-complet">Link Aggregation Control Protocol (IEEE 802.3ad / 802.1AX)</p>
+<p class="idee">LACP regroupe plusieurs câbles en un seul lien logique — plus de capacité et une tolérance aux pannes, sans que STP bloque les câbles en trop.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 8 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-1/stp.html">STP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-deux-cables-mais-un-seul-utilise">Le problème : deux câbles, mais un seul utilisé</h2>
+<p>On relie un switch d’accès à la distribution avec <strong>deux câbles</strong>, pour avoir plus de débit et un secours. Mais <a href="stp.html">STP</a> voit une boucle et bloque l’un des deux. On paie deux câbles et deux ports, et un seul travaille.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>LACP fait de plusieurs câbles <strong>un seul lien logique</strong> : STP n’y voit qu’un port, tous les câbles transportent du trafic, et si l’un tombe, les autres continuent.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<ol>
+<li>On déclare plusieurs ports comme membres d’un même <strong>agrégat</strong> (port-channel).</li>
+<li>Les deux switches s’échangent des messages LACP pour vérifier qu’ils parlent bien du même agrégat, avec des ports compatibles.</li>
+<li>Les ports validés deviennent un seul lien logique, <code>Port-channel1</code>.</li>
+<li>Le switch répartit le trafic entre les câbles. Si un câble tombe, le trafic passe sur les autres en une fraction de seconde.</li>
+</ol>
+<figure class="schema"><svg viewBox="0 0 586.0 146.0" width="586.0" role="img" aria-label="Deux liens 10 Gb/s agrégés" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien double" x1="110.0" y1="50.0" x2="476.0" y2="50.0"/><line class="tp-lien-int" x1="110.0" y1="50.0" x2="476.0" y2="50.0" stroke="var(--surface)" stroke-width="3"/><text class="tp-etiq" x="293.0" y="38.0" text-anchor="middle">Port-channel1 : 2 × 10 Gb/s</text><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">Switch d’accès</text><g transform="translate(476.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">Distribution</text></svg><figcaption>Deux liens 10 Gb/s agrégés</figcaption></figure>
+<h2 id="le-piege-du-20-gb-s">Le piège du « 20 Gb/s »</h2>
+<p>Deux liens de 10 Gb/s agrégés <strong>ne font pas un tuyau de 20 Gb/s</strong> pour une seule copie de fichier. Pour que les paquets d’une même conversation arrivent dans l’ordre, le switch place <strong>chaque flux sur un seul câble</strong>, en calculant une sorte d’empreinte (hachage) à partir des adresses. Un transfert unique plafonne donc à 10 Gb/s. Ce sont <strong>plusieurs flux simultanés</strong> (plusieurs utilisateurs, plusieurs serveurs) qui profitent des 20 Gb/s.</p>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie des caisses de supermarché</p>
+<p>Ouvrir une deuxième caisse permet de servir deux fois plus de clients, mais ne fait pas passer <strong>un</strong> client plus vite. Chaque client (chaque flux) reste à sa caisse.</p>
+</div>
+<h2 id="erreurs-frequentes">Erreurs fréquentes</h2>
+<ul>
+<li><strong>Configurer un côté en LACP et l’autre en statique</strong> (<code>active</code> d’un côté, <code>on</code> de l’autre) : l’agrégat ne se forme pas correctement.</li>
+<li><strong>Câbles membres configurés différemment</strong> : un port avec une liste de VLAN différente est exclu (<em>suspended</em>).</li>
+<li><strong>Brancher les deux câbles avant de configurer l’agrégat</strong> des deux côtés : STP bloque l’un d’eux (au mieux), ou une boucle se forme (au pire).</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Agrégation de liens</strong> — Regroupement de plusieurs liens physiques en un seul lien logique.</li>
+<li><strong>Port-channel</strong> — Interface logique qui représente l’agrégat sur un équipement Cisco ; aussi appelée EtherChannel.</li>
+<li><strong>LACP</strong> — Protocole standard qui négocie et surveille un agrégat de liens.</li>
+<li><strong>Hachage</strong> — Calcul qui choisit le lien membre utilisé par chaque flux, à partir des adresses ou des ports.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un serveur relié par deux liens de 1 Gb/s agrégés copie un gros fichier vers un autre serveur. Quel débit maximal peut-il espérer ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>1 Gb/s.</strong> Un seul flux utilise un seul lien membre. Plusieurs copies simultanées vers des destinations différentes pourraient, elles, utiliser les deux liens.</p>
+</details>
+<p><strong>2.</strong> Pourquoi STP ne bloque-t-il pas un des câbles d’un agrégat ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que STP voit le port-channel comme <strong>un seul port logique</strong>. Il n’y a donc pas de boucle de son point de vue : un seul lien relie les deux switches.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="modes-de-negociation">Modes de négociation</h2>
+<table>
+<thead>
+<tr>
+<th>Côté A \ Côté B</th>
+<th><code>active</code></th>
+<th><code>passive</code></th>
+<th><code>on</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>active</code></td>
+<td>✓ agrégat LACP</td>
+<td>✓ agrégat LACP</td>
+<td>✗ incohérent</td>
+</tr>
+<tr>
+<td><code>passive</code></td>
+<td>✓</td>
+<td>✗ personne ne commence</td>
+<td>✗</td>
+</tr>
+<tr>
+<td><code>on</code></td>
+<td>✗ incohérent</td>
+<td>✗</td>
+<td>✓ agrégat statique, sans protocole</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><code>active</code> : envoie des LACPDU et forme l’agrégat si le voisin répond.</li>
+<li><code>passive</code> : répond seulement si le voisin envoie.</li>
+<li><code>on</code> : force l’agrégat <strong>sans aucun contrôle</strong>. Si le voisin n’est pas configuré de la même façon, une boucle peut se former. À éviter.</li>
+<li>PAgP (<code>desirable</code>/<code>auto</code>) est l’équivalent propriétaire Cisco, aujourd’hui supplanté par LACP.</li>
+</ul>
+<p>LACP envoie une LACPDU toutes les 30 s (<em>slow</em>) ou toutes les secondes (<em>fast</em>, <code>lacp rate fast</code>). Un membre qui cesse de recevoir des LACPDU est retiré, ce qui protège aussi contre les liens unidirectionnels.</p>
+<h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="c">! Les deux interfaces membres</span>
+interface range TenGigabitEthernet1/1/1 - 2
+ description Uplink vers DIST1
+ channel-group 1 mode active
+<span class="c">!</span>
+<span class="c">! L'interface logique porte la configuration de couche 2</span>
+interface Port-channel1
+ description Agrégat vers DIST1
+ switchport mode trunk
+ switchport nonegotiate
+ switchport trunk native vlan 999
+ switchport trunk allowed vlan 10,20,30,99
+<span class="c">!</span>
+<span class="c">! Hachage : inclure les ports pour mieux répartir</span>
+port-channel load-balance src-dst-mixed-ip-port
+</code></pre>
+<p>Configure de préférence le port-channel <strong>avant</strong> de brancher le second câble, et applique les modifications de couche 2 sur l’interface <code>Port-channel</code>, qui les recopie sur les membres.</p>
+<h2 id="verification">Vérification</h2>
+<pre><code class="language-cisco"><span class="k">ACC1#</span> show etherchannel summary
+Flags:  D - down        P - bundled in port-channel
+        I - stand-alone s - suspended
+        S - Layer2      U - in use
+Group  Port-channel  Protocol    Ports
+------+-------------+-----------+-----------------------------------------------
+1      Po1(SU)         LACP        Te1/1/1(P)   Te1/1/2(s)
+</code></pre>
+<ul>
+<li><code>Po1(SU)</code> : agrégat de couche 2, en service.</li>
+<li><code>Te1/1/1(P)</code> : membre actif.</li>
+<li><code>Te1/1/2(s)</code> : membre <strong>suspendu</strong>, en général parce que sa configuration diffère (VLAN autorisés, vitesse) ou parce que le voisin n’est pas dans le même agrégat.</li>
+</ul>
+<pre><code class="language-cisco"><span class="k">ACC1#</span> show lacp neighbor
+<span class="k">ACC1#</span> show interfaces Te1/1/2 etherchannel
+<span class="k">ACC1#</span> show etherchannel load-balance
+</code></pre>
+<h2 id="agregat-vers-deux-switches-differents-mc-lag">Agrégat vers deux switches différents (MC-LAG)</h2>
+<p>Un agrégat classique relie <strong>deux</strong> équipements. Pour qu’un switch d’accès se relie à <strong>deux</strong> switches de distribution par un seul agrégat (et survive à la perte de l’un d’eux), ces deux switches doivent se présenter comme un seul partenaire LACP : c’est le rôle du <strong>stacking</strong>, de <strong>StackWise Virtual</strong>, de <strong>vPC</strong> (Nexus) ou des solutions MLAG. Voir <a href="../niveau-5/redondance-switches.html">Redondance de switches</a>.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> <code>show etherchannel summary</code> affiche <code>Po1(SD)</code> et les deux membres en <code>(I)</code>. Que signifie-t-il, et que vérifier ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>L’agrégat est <strong>down</strong> et les ports fonctionnent <strong>individuellement</strong> (<em>stand-alone</em>) : le voisin ne répond pas en LACP. Vérifier que le voisin est configuré avec <code>channel-group</code> en mode <code>active</code> ou <code>passive</code>, sur les bons ports, et qu’aucun côté n’est en <code>on</code>.</p>
+</details>
+<p><strong>2.</strong> Un agrégat de 4 × 1 Gb/s relie un serveur de sauvegarde à un switch. Toutes les sauvegardes viennent d’un seul serveur de fichiers, et le hachage est <code>src-dst-mac</code>. Pourquoi un seul lien est-il chargé ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Avec <code>src-dst-mac</code>, tous les paquets entre les deux mêmes MAC donnent le <strong>même</strong> résultat de hachage : un seul lien est utilisé. Passer à un hachage incluant <strong>IP et ports</strong> (<code>src-dst-mixed-ip-port</code>), et paralléliser la sauvegarde en plusieurs connexions, répartira mieux la charge.</p>
+</details>
+<p><strong>3.</strong> Un administrateur ajoute le VLAN 40 sur Te1/1/1 uniquement, et non sur l’interface Port-channel1. Conséquence ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les membres n’ont plus la <strong>même configuration</strong> : Te1/1/1 est <strong>suspendu</strong> (ou l’ajout est refusé selon la plateforme). L’agrégat continue sur les autres membres avec moins de capacité. Il faut toujours modifier l’interface <code>Port-channel</code>.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/mstp.html"><small>Fiche précédente</small><strong>MSTP</strong></a><a class="apres" href="../niveau-1/lldp.html"><small>Fiche suivante</small><strong>LLDP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-deux-cables-mais-un-seul-utilise">Le problème : deux câbles, mais un seul utilisé</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#le-piege-du-20-gb-s">Le piège du « 20 Gb/s »</a><a href="#erreurs-frequentes">Erreurs fréquentes</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#modes-de-negociation">Modes de négociation</a><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#verification">Vérification</a><a href="#agregat-vers-deux-switches-differents-mc-lag">Agrégat vers deux switches différents (MC-LAG)</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

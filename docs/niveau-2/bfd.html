@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BFD — Bidirectional Forwarding Detection | Nexorya</title>
+<meta name="description" content="BFD fait échanger à deux routeurs des messages très fréquents et très légers ; si ces messages s’arrêtent, la panne est détectée en moins d’une seconde et signalée aux protocoles de routage.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd" aria-current="page">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/bfd">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-5">Une passerelle qui ne tombe jamais</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>BFD</h1><p class="nom-complet">Bidirectional Forwarding Detection</p>
+<p class="idee">BFD fait échanger à deux routeurs des messages très fréquents et très légers ; si ces messages s’arrêtent, la panne est détectée en moins d’une seconde et signalée aux protocoles de routage.</p><div class="badges"><span>Couche OSI 3 (UDP 3784)</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-2/ospf.html">OSPF</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-une-panne-invisible-pendant-40-secondes">Le problème : une panne invisible pendant 40 secondes</h2>
+<p>Deux routeurs sont reliés <strong>à travers</strong> un équipement intermédiaire : un switch, un convertisseur fibre, le réseau d’un opérateur. Si le lien tombe au milieu, <strong>les interfaces des routeurs restent actives</strong> : elles ne voient pas la panne. OSPF attendra la fin de son délai (40 s par défaut sans Hello) pour réagir, BGP jusqu’à 180 s. Pendant tout ce temps, le trafic part dans le vide.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>BFD est un « battement de cœur » ultra-rapide entre deux routeurs. S’il s’arrête, la panne est connue en moins d’une seconde, et les protocoles de routage basculent immédiatement.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 760 536" width="760" role="img" aria-label="BFD détecte la panne, OSPF réagit" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="536"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">R1</text></g><line class="sq-vie" x1="380.0" y1="43" x2="380.0" y2="536"/><g class="sq-acteur"><rect x="330.1" y="12" width="99.8" height="31" rx="8"/><text x="380.0" y="33" text-anchor="middle">Opérateur</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="536"/><g class="sq-acteur"><rect x="635.0" y="12" width="80" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">R2</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. BFD toutes les 300 ms</text><line x1="85.0" y1="78" x2="663.0" y2="78"/><polygon class="sq-pointe" points="673.0,78 661.0,72 661.0,84"/></g><g class="sq-msg "><text x="380.0" y="116" text-anchor="middle">2. BFD toutes les 300 ms</text><line x1="675.0" y1="128" x2="97.0" y2="128"/><polygon class="sq-pointe" points="87.0,128 99.0,122 99.0,134"/></g><g class="sq-note"><rect x="280.0" y="174" width="200" height="68" rx="6"/><text x="380.0" y="193" text-anchor="middle">coupure au milieu : les</text><text x="380.0" y="211" text-anchor="middle">interfaces de R1 et R2</text><text x="380.0" y="229" text-anchor="middle">restent « up »</text></g><g class="sq-msg perdu"><text x="232.5" y="268" text-anchor="middle">3. BFD perdus (1, 2, 3)</text><line x1="85.0" y1="280" x2="267.9" y2="280"/><path class="sq-croix" d="M259.9 272 l16 16 M275.9 272 l-16 16"/></g><g class="sq-note"><rect x="6" y="326" width="200" height="68" rx="6"/><text x="106.0" y="345" text-anchor="middle">3 × 300 ms sans réponse :</text><text x="106.0" y="363" text-anchor="middle">session BFD down, OSPF</text><text x="106.0" y="381" text-anchor="middle">prévenu</text></g><g class="sq-note"><rect x="6" y="428" width="200" height="68" rx="6"/><text x="106.0" y="447" text-anchor="middle">OSPF retire le voisin et</text><text x="106.0" y="465" text-anchor="middle">bascule sur le chemin de</text><text x="106.0" y="483" text-anchor="middle">secours</text></g></svg><figcaption>BFD détecte la panne, OSPF réagit</figcaption></figure>
+<p>BFD est <strong>léger</strong> : il peut tourner très vite sans charger le routeur, souvent pris en charge directement par le matériel. Il est <strong>générique</strong> : un seul mécanisme sert à tous les protocoles.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>BFD</strong> — <em>Bidirectional Forwarding Detection</em>, protocole de détection rapide de panne entre deux équipements.</li>
+<li><strong>Multiplicateur</strong> — Nombre de messages BFD manqués avant de déclarer la panne.</li>
+<li><strong>Client BFD</strong> — Protocole qui s’abonne à BFD pour être prévenu d’une panne (OSPF, BGP, HSRP…).</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi ne pas simplement régler les Hello OSPF toutes les 100 ms ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les Hello OSPF sont plus lourds et traités par le <strong>processeur</strong> ; à cadence très élevée sur de nombreuses interfaces, ils chargent le routeur et peuvent provoquer de fausses pannes. BFD est conçu pour être rapide et léger, souvent traité en matériel, et sert à tous les protocoles à la fois.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco">interface GigabitEthernet0/0/1
+ bfd interval 300 min_rx 300 multiplier 3
+<span class="c">!</span>
+router ospf 1
+ bfd all-interfaces
+<span class="c">!</span>
+router bgp 64512
+ neighbor 203.0.113.1 fall-over bfd
+<span class="c">!</span>
+<span class="c">! Route statique surveillée par BFD</span>
+ip route static bfd GigabitEthernet0/0/1 10.255.0.2
+ip route 10.50.0.0 255.255.0.0 GigabitEthernet0/0/1 10.255.0.2
+</code></pre>
+<pre><code class="language-cisco"><span class="k">R1#</span> show bfd neighbors details
+IPv4 Sessions
+NeighAddr       LD/RD     RH/RS     State     Int
+10.255.0.2      1/4       Up        Up        Gi0/0/1
+Session state is UP and using echo function with 300 ms interval.
+Registered protocols: OSPF CEF
+Rx Count: 128344, Tx Count: 128341
+</code></pre>
+<h2 id="modes-et-reglages">Modes et réglages</h2>
+<ul>
+<li><strong>Mode asynchrone</strong> : chaque côté envoie ses paquets de contrôle ; le temps de détection = intervalle négocié × multiplicateur.</li>
+<li><strong>Mode écho</strong> : un routeur envoie des paquets que le voisin <strong>renvoie sans les traiter</strong> (en matériel), ce qui teste réellement le chemin de transmission. On réduit alors la fréquence des paquets de contrôle.</li>
+<li><strong>BFD multihop</strong> : entre des routeurs qui ne sont pas directement connectés (sessions BGP entre loopbacks).</li>
+</ul>
+<div class="encadre attention">
+<p class="encadre-titre">Attention en production</p>
+<p>Des temporisateurs trop agressifs (50 ms × 3) sur des liens chargés ou des équipements dont BFD est traité par le processeur provoquent des <strong>fausses pannes</strong> et des oscillations de routage. Commence par 300 ms × 3, mesure, puis affine. Pense aussi à l’<strong>amortissement</strong> des oscillations (<em>dampening</em>).</p>
+</div>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un lien opérateur relie R1 et R2. Un convertisseur fibre tombe en panne au milieu ; les interfaces restent up. Avec OSPF par défaut puis avec BFD 300 ms × 3, combien de temps dure la coupure avant bascule ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>OSPF seul : jusqu’au <strong>Dead interval, 40 s</strong>, plus le temps de recalcul. Avec BFD : <strong>900 ms</strong> de détection, puis OSPF retire immédiatement le voisin et recalcule (quelques dizaines de millisecondes) : environ <strong>une seconde</strong> au total.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/glbp.html"><small>Fiche précédente</small><strong>GLBP</strong></a><a class="apres" href="../niveau-2/ipsla.html"><small>Fiche suivante</small><strong>IP SLA et suivi</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-une-panne-invisible-pendant-40-secondes">Le problème : une panne invisible pendant 40 secondes</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#modes-et-reglages">Modes et réglages</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

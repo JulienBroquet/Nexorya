@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Qu’est-ce qu’un réseau ? — Des machines qui échangent des messages | Nexorya</title>
+<meta name="description" content="Un réseau, ce sont des appareils reliés entre eux et des règles communes pour s’échanger des messages.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l0)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" aria-current=page class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>0</i>Je débute</a><h3>Le décor</h3><ul><li><a href="bienvenue.html" data-fiche="demarrer/bienvenue">Bienvenue</a></li><li><a href="reseau.html" data-fiche="demarrer/reseau" aria-current="page">Qu’est-ce qu’un réseau ?</a></li><li><a href="equipements.html" data-fiche="demarrer/equipements">Les équipements</a></li><li><a href="paquet.html" data-fiche="demarrer/paquet">Un message en paquets</a></li></ul><h3>Les adresses et les règles</h3><ul><li><a href="adresses.html" data-fiche="demarrer/adresses">Les trois adresses</a></li><li><a href="protocoles.html" data-fiche="demarrer/protocoles">Les protocoles</a></li><li><a href="internet.html" data-fiche="demarrer/internet">Ma box et Internet</a></li></ul><h3>Passer à la pratique</h3><ul><li><a href="commandes.html" data-fiche="demarrer/commandes">Les commandes de base</a></li></ul></aside>
+<article class="contenu" data-fiche-id="demarrer/reseau">
+<p class="fil"><a href="index.html">Je débute</a> › <a href="index.html#chapitre-1">Le décor</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Qu’est-ce qu’un réseau ?</h1><p class="nom-complet">Des machines qui échangent des messages</p>
+<p class="idee">Un réseau, ce sont des appareils reliés entre eux et des règles communes pour s’échanger des messages.</p><div class="badges"><span>Découvrir : 8 min</span></div></header>
+
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="un-reseau-tu-en-utilises-deja-dix">Un réseau, tu en utilises déjà dix</h2>
+<p>Quand ton téléphone se connecte au Wi-Fi de la maison, quand tu imprimes depuis ton ordinateur, quand tu regardes une vidéo, quand tu paies par carte dans un magasin : à chaque fois, des appareils <strong>s’échangent des messages</strong>. L’ensemble des appareils et des liaisons qui permettent ces échanges, c’est un <strong>réseau</strong>.</p>
+<p>Un réseau informatique a toujours trois ingrédients :</p>
+<table>
+<thead>
+<tr>
+<th>Ingrédient</th>
+<th>Exemples</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Des appareils</strong></td>
+<td>ordinateur, téléphone, imprimante, serveur, box, switch</td>
+<td>Ils envoient, reçoivent ou relaient les messages.</td>
+</tr>
+<tr>
+<td><strong>Des liaisons</strong></td>
+<td>câble Ethernet, fibre optique, ondes Wi-Fi</td>
+<td>Elles transportent physiquement les messages.</td>
+</tr>
+<tr>
+<td><strong>Des règles communes</strong></td>
+<td>Wi-Fi, Ethernet, IP, HTTP…</td>
+<td>Elles permettent aux appareils de se comprendre. On les appelle des <strong>protocoles</strong>.</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie de la poste</p>
+<p>Envoyer un message sur un réseau ressemble à envoyer une lettre. Il faut l’<strong>adresse</strong> du destinataire, la tienne pour la réponse, un <strong>format</strong> que la poste comprend (enveloppe, timbre), et des <strong>centres de tri</strong> qui font avancer la lettre vers sa destination. Sur un réseau, les centres de tri s’appellent des <strong>switches</strong> et des <strong>routeurs</strong>.</p>
+</div>
+<h2 id="petit-reseau-grand-reseau">Petit réseau, grand réseau</h2>
+<figure class="schema"><svg viewBox="0 0 464.0 426.0" width="464.0" role="img" aria-label="Le réseau d’une maison" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="232.0" y1="50.0" x2="232.0" y2="190.0"/><text class="tp-etiq" x="244.0" y="124.0" text-anchor="start">fibre ou ADSL</text><line class="tp-lien " x1="232.0" y1="190.0" x2="110.0" y2="330.0"/><text class="tp-etiq" x="162.0" y="252.1" text-anchor="end">câble</text><line class="tp-lien sansfil" x1="232.0" y1="190.0" x2="232.0" y2="330.0"/><text class="tp-etiq" x="244.0" y="264.0" text-anchor="start">Wi-Fi</text><line class="tp-lien sansfil" x1="232.0" y1="190.0" x2="354.0" y2="330.0"/><text class="tp-etiq" x="302.0" y="252.1" text-anchor="start">Wi-Fi</text><g transform="translate(232.0 50.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="232.0" y="90.0" text-anchor="middle">Internet</text><g transform="translate(232.0 190.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="232.0" y="230.0" text-anchor="middle">Box Internet</text><text class="tp-sous" x="232.0" y="246.0" text-anchor="middle">routeur + Wi-Fi</text><g transform="translate(110.0 330.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="370.0" text-anchor="middle">Ordinateur</text><g transform="translate(232.0 330.0)"><rect class="tp-ico" x="-18" y="-15" width="36" height="22" rx="3"/><path class="tp-ico" d="M-25 9 h50 l-4 6 h-42 z"/></g><text class="tp-lib" x="232.0" y="370.0" text-anchor="middle">Portable</text><g transform="translate(354.0 330.0)"><rect class="tp-ico" x="-22" y="-8" width="44" height="20" rx="3"/><rect class="tp-ico" x="-13" y="-19" width="26" height="11"/><rect class="tp-ico" x="-13" y="8" width="26" height="10"/></g><text class="tp-lib" x="354.0" y="370.0" text-anchor="middle">Imprimante</text></svg><figcaption>Le réseau d’une maison</figcaption></figure>
+<ul>
+<li>Le <strong>réseau local</strong>, ou <strong>LAN</strong> (<em>Local Area Network</em>), relie les appareils d’un même lieu : une maison, un bureau, une école. Ici, l’ordinateur, le portable et l’imprimante.</li>
+<li>La <strong>box</strong> relie ce réseau local à <strong>Internet</strong>. Internet n’est pas un réseau unique : c’est un <strong>réseau de réseaux</strong>, des millions de réseaux reliés entre eux par des opérateurs.</li>
+</ul>
+<p>Dans une entreprise, c’est le même principe en plus grand : des centaines de postes, des switches dans chaque étage, des serveurs dans une salle dédiée, plusieurs bâtiments, plusieurs sites dans plusieurs villes. Tout ce parcours Nexorya consiste à comprendre comment ce grand réseau fonctionne.</p>
+<h2 id="comment-un-message-voyage">Comment un message voyage</h2>
+<p>Prenons un cas simple : ton ordinateur imprime un document sur l’imprimante du bureau.</p>
+<figure class="schema"><svg viewBox="0 0 760 316" width="760" role="img" aria-label="Un échange réseau, vu de très haut" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="316"/><g class="sq-acteur"><rect x="31.0" y="12" width="108.0" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Ordinateur</text></g><line class="sq-vie" x1="380.0" y1="43" x2="380.0" y2="316"/><g class="sq-acteur"><rect x="340.0" y="12" width="80" height="31" rx="8"/><text x="380.0" y="33" text-anchor="middle">Switch</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="316"/><g class="sq-acteur"><rect x="621.0" y="12" width="108.0" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Imprimante</text></g><g class="sq-msg "><text x="232.5" y="66" text-anchor="middle">1. message « à l’imprimante, de la</text><text x="232.5" y="84" text-anchor="middle">part de l’ordinateur »</text><line x1="85.0" y1="96" x2="368.0" y2="96"/><polygon class="sq-pointe" points="378.0,96 366.0,90 366.0,102"/></g><g class="sq-msg "><text x="527.5" y="134" text-anchor="middle">2. le switch relaie le message au bon</text><text x="527.5" y="152" text-anchor="middle">destinataire</text><line x1="380.0" y1="164" x2="663.0" y2="164"/><polygon class="sq-pointe" points="673.0,164 661.0,158 661.0,170"/></g><g class="sq-msg rep"><text x="527.5" y="202" text-anchor="middle">3. réponse « bien reçu »</text><line x1="675.0" y1="214" x2="392.0" y2="214"/><polygon class="sq-pointe" points="382.0,214 394.0,208 394.0,220"/></g><g class="sq-msg rep"><text x="232.5" y="252" text-anchor="middle">4. le switch relaie la réponse</text><line x1="380.0" y1="264" x2="97.0" y2="264"/><polygon class="sq-pointe" points="87.0,264 99.0,258 99.0,270"/></g></svg><figcaption>Un échange réseau, vu de très haut</figcaption></figure>
+<p>Dans cet échange, on retrouve trois idées qui reviendront partout :</p>
+<ol>
+<li><strong>Chaque appareil a une adresse</strong>, comme une maison a une adresse postale. Sans adresse, impossible de savoir à qui livrer un message.</li>
+<li><strong>Le message est découpé et emballé</strong> avant de partir : on verra pourquoi dans la fiche <a href="paquet.html">Un message en paquets</a>.</li>
+<li><strong>Des équipements intermédiaires relaient le message</strong> sans le lire en entier : ils regardent seulement l’adresse, comme un facteur regarde l’enveloppe.</li>
+</ol>
+<h2 id="pourquoi-cest-souvent-invisible">Pourquoi c’est souvent invisible</h2>
+<p>Quand tout fonctionne, on ne voit rien : la page s’affiche, le document s’imprime. Le réseau devient visible <strong>quand il tombe en panne</strong> — « Internet ne marche pas », « l’imprimante est hors ligne ». Le métier de l’administrateur réseau consiste justement à faire en sorte que tout reste invisible, et à trouver vite la cause quand ce n’est plus le cas.</p>
+<div class="encadre note">
+<p class="encadre-titre">Bon à savoir</p>
+<p>« Internet ne marche pas » peut cacher des dizaines de causes différentes : un câble débranché, un Wi-Fi saturé, une adresse mal configurée, un nom de site mal traduit, un serveur en panne à l’autre bout du monde. Tout l’intérêt de comprendre le réseau, c’est de pouvoir <strong>localiser</strong> le problème au lieu de redémarrer au hasard.</p>
+</div>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>LAN</strong> — <em>Local Area Network</em>, réseau local d’un même lieu (maison, bureau, bâtiment).</li>
+<li><strong>Internet</strong> — Réseau mondial formé de millions de réseaux interconnectés par des opérateurs.</li>
+<li><strong>Liaison</strong> — Support physique qui transporte les messages : câble en cuivre, fibre optique ou ondes radio.</li>
+<li><strong>Émetteur / destinataire</strong> — L’appareil qui envoie un message et celui à qui il est destiné.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Ton téléphone est connecté au Wi-Fi de la maison et regarde une vidéo hébergée aux États-Unis. Combien de réseaux le message traverse-t-il, au minimum ?</p>
+<details>
+<summary>Voir la réponse</summary>
+<p><strong>Au moins deux, et en réalité bien plus.</strong> Ton réseau local (le Wi-Fi de la box), puis le réseau de ton fournisseur d’accès, puis souvent ceux d’un ou plusieurs autres opérateurs, puis le réseau de l’hébergeur de la vidéo. C’est pour cela qu’on dit qu’Internet est un <strong>réseau de réseaux</strong>.</p>
+</details>
+<p><strong>2.</strong> Cite les trois ingrédients de tout réseau.</p>
+<details>
+<summary>Voir la réponse</summary>
+<p>Des <strong>appareils</strong> (qui envoient, reçoivent ou relaient), des <strong>liaisons</strong> (câble, fibre, ondes) et des <strong>règles communes</strong>, les protocoles, pour que les appareils se comprennent.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../demarrer/bienvenue.html"><small>Fiche précédente</small><strong>Bienvenue</strong></a><a class="apres" href="../demarrer/equipements.html"><small>Fiche suivante</small><strong>Les équipements</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#un-reseau-tu-en-utilises-deja-dix">Un réseau, tu en utilises déjà dix</a><a href="#petit-reseau-grand-reseau">Petit réseau, grand réseau</a><a href="#comment-un-message-voyage">Comment un message voyage</a><a href="#pourquoi-cest-souvent-invisible">Pourquoi c’est souvent invisible</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+name: Vérifier le site
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  construire:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements.txt
+      - name: Générer et vérifier les liens
+        run: python outils/build.py --verifier
+      - name: Vérifier que docs/ est à jour
+        run: git diff --exit-code -- docs || (echo "Le dossier docs/ n'est pas à jour : lance python3 outils/build.py et commite le résultat." && exit 1)

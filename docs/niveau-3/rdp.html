@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RDP — Remote Desktop Protocol | Nexorya</title>
+<meta name="description" content="RDP affiche à distance le bureau d’un ordinateur Windows et transmet clavier et souris ; c’est l’outil courant du support et de l’administration des serveurs Windows.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp" aria-current="page">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/rdp">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-4">Administrer et superviser</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>RDP</h1><p class="nom-complet">Remote Desktop Protocol</p>
+<p class="idee">RDP affiche à distance le bureau d’un ordinateur Windows et transmet clavier et souris ; c’est l’outil courant du support et de l’administration des serveurs Windows.</p><div class="badges"><span>Couche OSI 7 (TCP et UDP 3389)</span><span>Découvrir : 5 min</span><span>Approfondir : 10 min</span><span>Avant : <a href="../niveau-3/tcp.html">TCP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Le support informatique doit voir l’écran d’un utilisateur, ou un administrateur doit gérer un serveur Windows situé dans un datacenter. Il faut transmettre l’image d’un bureau, et en retour le clavier et la souris.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>RDP transmet le bureau d’un ordinateur Windows à un autre, de façon chiffrée, comme si l’on était assis devant.</p>
+</div>
+<h2 id="le-risque-n1-rdp-ouvert-sur-internet">Le risque n°1 : RDP ouvert sur Internet</h2>
+<p>Les attaquants balaient en permanence Internet à la recherche du port 3389. Un serveur RDP exposé subit des milliers de tentatives de connexion par jour ; c’est l’une des premières portes d’entrée des <strong>rançongiciels</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>À éviter</th>
+<th>À faire</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Redirection du port 3389 sur la box ou le pare-feu</td>
+<td>accès par <strong>VPN</strong> avec MFA, ou par <strong>passerelle Bureau à distance</strong> (HTTPS 443) avec MFA</td>
+</tr>
+<tr>
+<td>Comptes administrateurs avec mot de passe simple</td>
+<td>comptes nominatifs, mots de passe forts, verrouillage après échecs</td>
+</tr>
+<tr>
+<td>NLA désactivé</td>
+<td><strong>NLA</strong> activé</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>RDP</strong> — Protocole de bureau à distance de Microsoft.</li>
+<li><strong>NLA</strong> — <em>Network Level Authentication</em>, authentification exigée avant l’ouverture de la session graphique.</li>
+<li><strong>Passerelle RD</strong> — Serveur qui encapsule RDP dans HTTPS pour un accès distant contrôlé.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Une PME a redirigé le port 3389 de sa box vers son serveur pour que le gérant travaille de chez lui. Quel est le risque, et que proposer ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le serveur est <strong>exposé à tout Internet</strong> : attaques par force brute en continu, exploitation de vulnérabilités, risque élevé de rançongiciel. Proposer un <strong>VPN</strong> avec authentification forte (ou une passerelle RD avec MFA), et fermer la redirection.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="diagnostiquer-une-connexion-rdp">Diagnostiquer une connexion RDP</h2>
+<pre><code class="language-powershell">PS&gt; Test-NetConnection srv-app01 -Port 3389
+TcpTestSucceeded : True
+PS&gt; Get-NetTCPConnection -LocalPort 3389 -State Established
+PS&gt; Get-WinEvent -LogName &quot;Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational&quot; -MaxEvents 20
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Piste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Port 3389 fermé</td>
+<td>service « Services Bureau à distance » arrêté, pare-feu Windows, pare-feu réseau</td>
+</tr>
+<tr>
+<td>Connexion acceptée puis refusée</td>
+<td>l’utilisateur n’est pas dans le groupe « Utilisateurs du Bureau à distance », NLA et compte expiré</td>
+</tr>
+<tr>
+<td>Image saccadée</td>
+<td>latence et pertes : RDP utilise UDP 3389 si possible ; vérifier qu’il n’est pas bloqué</td>
+</tr>
+<tr>
+<td>Erreur de certificat</td>
+<td>certificat auto-signé du serveur : déployer un certificat de l’autorité interne</td>
+</tr>
+</tbody>
+</table>
+<h2 id="journaliser-et-surveiller">Journaliser et surveiller</h2>
+<p>Les ouvertures de session à distance apparaissent dans le journal de sécurité Windows (événement <strong>4624</strong>, type de connexion <strong>10</strong>). Les échecs (4625) en rafale signalent une tentative de force brute : à remonter au SIEM.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un utilisateur se plaint que sa session RDP vers un serveur distant est saccadée. Le TCP 3389 fonctionne, mais l’UDP 3389 est bloqué par le pare-feu. Quel est l’effet ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>RDP <strong>revient à TCP seul</strong> : la session fonctionne, mais chaque perte provoque des retransmissions et des ralentissements visibles, surtout sur un lien lointain ou chargé. Autoriser l’UDP 3389 (dans le VPN ou via la passerelle) améliore nettement la fluidité.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/ssh.html"><small>Fiche précédente</small><strong>SSH</strong></a><a class="apres" href="../niveau-3/ntp.html"><small>Fiche suivante</small><strong>NTP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#le-risque-n1-rdp-ouvert-sur-internet">Le risque n°1 : RDP ouvert sur Internet</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#diagnostiquer-une-connexion-rdp">Diagnostiquer une connexion RDP</a><a href="#journaliser-et-surveiller">Journaliser et surveiller</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

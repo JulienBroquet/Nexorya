@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SNMP — Simple Network Management Protocol | Nexorya</title>
+<meta name="description" content="SNMP permet à un outil de supervision d’interroger les équipements réseau (débit des interfaces, état, température…) et de recevoir leurs alertes.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp" aria-current="page">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/snmp">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-4">Administrer et superviser</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>SNMP</h1><p class="nom-complet">Simple Network Management Protocol</p>
+<p class="idee">SNMP permet à un outil de supervision d’interroger les équipements réseau (débit des interfaces, état, température…) et de recevoir leurs alertes.</p><div class="badges"><span>Couche OSI 7 (UDP 161 ; alertes UDP 162)</span><span>Découvrir : 7 min</span><span>Approfondir : 15 min</span><span>Avant : <a href="../niveau-3/udp.html">UDP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-savoir-avant-les-utilisateurs">Le problème : savoir avant les utilisateurs</h2>
+<p>Un lien sature tous les matins, un switch chauffe, une alimentation est en panne : l’équipe réseau veut le savoir <strong>avant</strong> que les utilisateurs appellent. Il faut un moyen standard d’interroger des centaines d’équipements de marques différentes et de recevoir leurs alertes.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Chaque équipement fait tourner un <strong>agent</strong> SNMP qui répond aux questions d’un <strong>superviseur</strong> (« combien d’octets sur l’interface 48 ? ») et envoie des <strong>alertes</strong> quand un événement se produit.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 760 296" width="760" role="img" aria-label="Interrogation régulière et alerte" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="296"/><g class="sq-acteur"><rect x="26.900000000000006" y="12" width="116.19999999999999" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Superviseur</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="296"/><g class="sq-acteur"><rect x="590.0" y="12" width="170" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Switch (agent SNMP)</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. GET ifHCInOctets.48 (toutes les 5 min)</text><line x1="85.0" y1="78" x2="663.0" y2="78"/><polygon class="sq-pointe" points="673.0,78 661.0,72 661.0,84"/></g><g class="sq-msg rep"><text x="380.0" y="116" text-anchor="middle">2. 8 431 290 113 422</text><line x1="675.0" y1="128" x2="97.0" y2="128"/><polygon class="sq-pointe" points="87.0,128 99.0,122 99.0,134"/></g><g class="sq-note"><rect x="554" y="174" width="200" height="32" rx="6"/><text x="654.0" y="193" text-anchor="middle">l’interface 48 tombe</text></g><g class="sq-msg "><text x="380.0" y="232" text-anchor="middle">3. TRAP linkDown, interface 48</text><line x1="675.0" y1="244" x2="97.0" y2="244"/><polygon class="sq-pointe" points="87.0,244 99.0,238 99.0,250"/></g></svg><figcaption>Interrogation régulière et alerte</figcaption></figure>
+<ul>
+<li>Le superviseur <strong>interroge</strong> périodiquement (UDP 161) et dessine des courbes.</li>
+<li>L’agent <strong>prévient</strong> spontanément d’un événement grave par un <strong>trap</strong> (UDP 162).</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>SNMP</strong> — Protocole de supervision des équipements réseau.</li>
+<li><strong>Agent</strong> — Logiciel de l’équipement qui répond aux requêtes SNMP.</li>
+<li><strong>Superviseur</strong> — Outil qui interroge les agents et reçoit les alertes (Zabbix, LibreNMS, PRTG, Centreon…).</li>
+<li><strong>OID</strong> — Identifiant numérique d’une valeur supervisée, par exemple 1.3.6.1.2.1.1.3.0.</li>
+<li><strong>MIB</strong> — Catalogue qui décrit les OID et leur signification.</li>
+<li><strong>Trap</strong> — Alerte envoyée spontanément par un agent.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi SNMPv2c est-il déconseillé ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Il s’appuie sur une <strong>communauté</strong>, un simple mot de passe envoyé <strong>en clair</strong> à chaque requête. N’importe qui sur le chemin peut la lire et, si elle autorise l’écriture, modifier la configuration. <strong>SNMPv3</strong> apporte authentification et chiffrement.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="calculer-un-debit-a-partir-des-compteurs">Calculer un débit à partir des compteurs</h2>
+<p>Les compteurs d’octets (<code>ifHCInOctets</code>, <code>ifHCOutOctets</code>, sur 64 bits) ne font qu’augmenter. On interroge deux fois et l’on calcule :</p>
+<pre><code class="language-text">débit (b/s) = (valeur2 − valeur1) × 8 / (temps2 − temps1)
+
+Exemple : 8 431 290 113 422 puis 8 431 327 613 422, à 300 s d’intervalle
+          (37 500 000 octets × 8) / 300 = 1 000 000 b/s = 1 Mb/s en moyenne sur 5 minutes
+</code></pre>
+<p>Une moyenne sur 5 minutes <strong>lisse</strong> les pics : un lien peut saturer par rafales de quelques secondes sans que la courbe dépasse 60 %. Pour les pics, on raccourcit l’intervalle ou l’on utilise la <strong>télémétrie</strong> (voir <a href="../niveau-5/netconf.html">NETCONF et télémétrie</a>).</p>
+<h2 id="oid-utiles">OID utiles</h2>
+<table>
+<thead>
+<tr>
+<th>OID</th>
+<th>Nom</th>
+<th>Contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1.3.6.1.2.1.1.3.0</td>
+<td>sysUpTime</td>
+<td>durée depuis le dernier démarrage</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.1.5.0</td>
+<td>sysName</td>
+<td>nom de l’équipement</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.2.2.1.8</td>
+<td>ifOperStatus</td>
+<td>état de chaque interface (1 = up, 2 = down)</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.31.1.1.1.6</td>
+<td>ifHCInOctets</td>
+<td>octets reçus (64 bits)</td>
+</tr>
+<tr>
+<td>1.3.6.1.2.1.2.2.1.14</td>
+<td>ifInErrors</td>
+<td>erreurs en réception</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-bash">$ snmpwalk -v3 -l authPriv -u supervision -a SHA -A 'Secret-Auth' -x AES -X 'Secret-Priv' 10.99.0.21 1.3.6.1.2.1.31.1.1.1.1
+IF-MIB::ifName.48 = STRING: Gi1/0/48
+$ snmpget -v3 … 10.99.0.21 IF-MIB::ifHCInOctets.48
+</code></pre>
+<h2 id="snmpv3-sur-un-equipement-cisco">SNMPv3 sur un équipement Cisco</h2>
+<pre><code class="language-cisco">ip access-list standard SUPERVISION
+ permit 10.99.0.50
+snmp-server view LECTURE iso included
+snmp-server group SUPERVISION v3 priv read LECTURE access SUPERVISION
+snmp-server user supervision SUPERVISION v3 auth sha Secret-Auth priv aes 128 Secret-Priv
+snmp-server host 10.99.0.50 version 3 priv supervision
+snmp-server enable traps snmp linkdown linkup
+snmp-server enable traps envmon
+</code></pre>
+<ul>
+<li>Niveau <strong>priv</strong> : authentification et chiffrement.</li>
+<li>Accès en <strong>lecture seule</strong>, limité à l’adresse du superviseur.</li>
+<li>Supprimer les anciennes communautés <code>public</code> et <code>private</code>.</li>
+</ul>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Une courbe de supervision montre un lien à 1 Gb/s chargé à 45 % en moyenne, mais la téléphonie hache toutes les quelques minutes. Comment l’expliquer ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La moyenne sur 5 minutes <strong>masque les rafales</strong> : le lien peut atteindre 100 % pendant quelques secondes (sauvegarde, synchronisation), ce qui remplit les files et dégrade la voix. Regarder les <strong>rejets en sortie</strong> (<code>output drops</code>) sur l’interface, raccourcir l’intervalle de mesure, et appliquer de la QoS.</p>
+</details>
+<p><strong>2.</strong> Le superviseur ne reçoit plus aucune donnée d’un switch depuis le passage à SNMPv3, alors que le ping fonctionne. Quelles pistes ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Paramètres v3 incohérents (nom d’utilisateur, algorithmes d’authentification ou de chiffrement, mots de passe), <strong>ACL</strong> du groupe qui n’autorise pas l’adresse du superviseur, ou UDP 161 filtré. <code>snmpget -v3</code> depuis le superviseur avec des options explicites, et <code>debug snmp packets</code> (avec précaution), permettent de trancher.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/ntp.html"><small>Fiche précédente</small><strong>NTP</strong></a><a class="apres" href="../niveau-3/syslog.html"><small>Fiche suivante</small><strong>Syslog</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-savoir-avant-les-utilisateurs">Le problème : savoir avant les utilisateurs</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#calculer-un-debit-a-partir-des-compteurs">Calculer un débit à partir des compteurs</a><a href="#oid-utiles">OID utiles</a><a href="#snmpv3-sur-un-equipement-cisco">SNMPv3 sur un équipement Cisco</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

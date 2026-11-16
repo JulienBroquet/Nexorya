@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pratiquer | Nexorya</title>
+<meta name="description" content="Explore les réseaux. Maîtrise l’infrastructure.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" aria-current=page class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="page"><p class="fil"><a href="../index.html">Accueil</a></p><h1>Pratiquer</h1><p class=chapeau>On comprend vraiment un réseau en le construisant, en le cassant et en le réparant. Voici des laboratoires guidés, un projet qui traverse tous les niveaux, et une synthèse pour relier toutes les notions.</p><div class="prose"><h2 id="pour-commencer-le-voyage-dun-clic">Pour commencer : le voyage d’un clic</h2>
+<p>Avant de te lancer dans les labos, lis <a href="voyage-d-un-clic.html">Le voyage d’un clic</a> : on suit pas à pas tout ce qui se passe entre le moment où tu tapes une adresse et l’affichage de la page. C’est la meilleure façon de voir comment les notions des différents niveaux s’emboîtent.</p>
+<h2 id="les-laboratoires">Les laboratoires</h2>
+<p>Chaque labo part d’un objectif concret, donne la topologie, les étapes, les commandes de vérification, et un corrigé. Fais-les dans l’ordre : chacun réutilise le précédent.</p>
+<table>
+<thead>
+<tr>
+<th>Labo</th>
+<th>Ce que tu construis</th>
+<th>Niveau</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="labo-1-premier-reseau.html">1. Mon premier réseau</a></td>
+<td>deux PC, un switch, des adresses, un ping</td>
+<td>Je débute → 1</td>
+</tr>
+<tr>
+<td><a href="labo-2-vlan.html">2. Des VLAN qui se parlent</a></td>
+<td>trois VLAN, un trunk, un routage inter-VLAN</td>
+<td>1 → 2</td>
+</tr>
+<tr>
+<td><a href="labo-3-redondance.html">3. Redondance sans boucle</a></td>
+<td>spanning tree observé et réglé, agrégat LACP</td>
+<td>1</td>
+</tr>
+<tr>
+<td><a href="labo-4-routage.html">4. Plusieurs sites routés</a></td>
+<td>OSPF entre trois routeurs, relais DHCP, NAT vers Internet</td>
+<td>2 → 3</td>
+</tr>
+<tr>
+<td><a href="labo-5-securite.html">5. Sécuriser</a></td>
+<td>SSH, comptes, ACL, sécurité des ports</td>
+<td>4</td>
+</tr>
+<tr>
+<td><a href="labo-6-pannes.html">6. Chasse aux pannes</a></td>
+<td>dix pannes à trouver avec une méthode</td>
+<td>tous</td>
+</tr>
+</tbody>
+</table>
+<h2 id="le-projet-fil-rouge">Le projet fil rouge</h2>
+<p><a href="projet-lumen.html">Le réseau de l’entreprise Lumen</a> : une PME qui grandit, de 15 salariés dans un bureau à trois sites avec un datacenter et du cloud. À chaque niveau, tu conçois la nouvelle étape et tu produis les documents d’un vrai ingénieur réseau : plan d’adressage, schémas, configurations, plan de changement.</p>
+<h2 id="de-quoi-as-tu-besoin">De quoi as-tu besoin ?</h2>
+<p>Tu n’as pas besoin de matériel. Un simulateur ou un émulateur suffit :</p>
+<table>
+<thead>
+<tr>
+<th>Outil</th>
+<th>Pour qui</th>
+<th>Remarques</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cisco Packet Tracer</strong></td>
+<td>débutants, labos 1 à 6</td>
+<td>gratuit avec un compte Cisco Networking Academy ; simulation simple et visuelle</td>
+</tr>
+<tr>
+<td><strong>GNS3</strong> ou <strong>EVE-NG</strong> (édition communautaire)</td>
+<td>niveaux 2 à 5</td>
+<td>émulent de vrais systèmes ; il faut fournir les images des équipements</td>
+</tr>
+<tr>
+<td><strong>containerlab</strong></td>
+<td>niveaux 3 à 5, automatisation</td>
+<td>réseaux décrits dans un fichier, équipements en conteneurs (FRRouting, Nokia SR Linux, Arista cEOS…)</td>
+</tr>
+<tr>
+<td><strong>Wireshark</strong></td>
+<td>tous</td>
+<td>indispensable pour voir les paquets</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre astuce">
+<p class="encadre-titre">Conseil</p>
+<p>Garde un <strong>carnet de labo</strong> : pour chaque exercice, note ce que tu attendais, ce que tu as observé et ce que tu en as compris. C’est ce qui transforme une manipulation en compétence — et c’est exactement ce qu’on fait en entreprise après un incident.</p>
+</div>
+<p>Les commandes des labos sont écrites pour Cisco IOS (celui de Packet Tracer). Les concepts sont les mêmes sur les autres systèmes ; seule la syntaxe change.</p></div></div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

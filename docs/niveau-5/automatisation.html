@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Automatisation — Automatiser le réseau | Nexorya</title>
+<meta name="description" content="Automatiser, c’est décrire la configuration voulue dans des fichiers, puis laisser un outil l’appliquer à tous les équipements — de façon rapide, identique et vérifiable.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation" aria-current="page">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/automatisation">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-6">Automatiser et évoluer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Automatisation</h1><p class="nom-complet">Automatiser le réseau</p>
+<p class="idee">Automatiser, c’est décrire la configuration voulue dans des fichiers, puis laisser un outil l’appliquer à tous les équipements — de façon rapide, identique et vérifiable.</p><div class="badges"><span>Couche OSI transversal</span><span>Découvrir : 9 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-3/ssh.html">SSH</a>, <a href="../niveau-5/changement.html">Gestion du changement</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-200-switches-a-la-main">Le problème : 200 switches à la main</h2>
+<p>Il faut ajouter le VLAN 140 sur 200 switches. À la main, cela prend une journée, et il y aura forcément des oublis ou des fautes de frappe sur quelques équipements. Six mois plus tard, personne ne sait plus quels switches ont réellement ce VLAN.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>On écrit <strong>une fois</strong> ce qu’on veut obtenir, un outil l’applique <strong>partout de la même façon</strong>, et l’on peut vérifier à tout moment que la réalité correspond à ce qui est écrit.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<ol>
+<li><strong>L’inventaire</strong> : la liste des équipements, regroupés (par site, par rôle).</li>
+<li><strong>Les données</strong> : ce que chaque équipement doit avoir (VLAN, adresses, serveurs NTP…), dans des fichiers lisibles.</li>
+<li><strong>Les modèles</strong> : comment ces données deviennent des lignes de configuration.</li>
+<li><strong>L’outil</strong> se connecte à chaque équipement, calcule la différence, applique, et vérifie.</li>
+</ol>
+<pre><code class="language-yaml"><span class="c"># donnees/vlans.yaml : la source de vérité</span>
+vlans:
+  - vlan_id: 10
+    name: UTILISATEURS
+  - vlan_id: 20
+    name: VOIX
+  - vlan_id: 140
+    name: CAMERAS
+</code></pre>
+<h2 id="lire-avant-decrire">Lire avant d’écrire</h2>
+<p>L’automatisation la plus utile et la moins risquée consiste d’abord à <strong>lire</strong> : sauvegarder toutes les configurations chaque nuit, produire un inventaire (modèles, versions, numéros de série), vérifier la conformité (NTP, SSH, bannière…). Écrire vient ensuite, quand on maîtrise l’outil.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Infrastructure as Code</strong> — Description de l’infrastructure dans des fichiers versionnés, appliqués par des outils.</li>
+<li><strong>Ansible</strong> — Outil d’automatisation sans agent, piloté par des fichiers YAML appelés playbooks.</li>
+<li><strong>Idempotence</strong> — Propriété d’une action qui produit le même résultat qu’on l’exécute une ou dix fois.</li>
+<li><strong>Source de vérité</strong> — Référentiel qui fait autorité sur l’état attendu du réseau (NetBox, fichiers Git).</li>
+<li><strong>Template</strong> — Modèle de configuration à trous, rempli avec les données (Jinja2).</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi l’idempotence est-elle importante ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce qu’on peut relancer l’automatisation <strong>sans danger</strong> : si le VLAN existe déjà, l’outil ne fait rien ; s’il manque, il l’ajoute. On peut donc l’exécuter régulièrement pour <strong>corriger les écarts</strong>, sans craindre de casser ce qui est déjà correct.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="un-playbook-ansible">Un playbook Ansible</h2>
+<pre><code class="language-yaml"><span class="c"># playbooks/vlans.yml</span>
+- name: Déployer les VLAN standard sur les switches d'accès
+  hosts: acces
+  gather_facts: false
+  vars_files:
+    - ../donnees/vlans.yaml
+  tasks:
+    - name: Appliquer les VLAN
+      cisco.ios.ios_vlans:
+        config: &quot;{{ vlans }}&quot;
+        state: merged
+
+    - name: Sauvegarder la configuration
+      cisco.ios.ios_config:
+        save_when: modified
+</code></pre>
+<pre><code class="language-bash"><span class="c"># Voir ce qui changerait, sans rien modifier</span>
+ansible-playbook playbooks/vlans.yml --check --diff --limit site-lyon
+<span class="c"># Appliquer sur un site pilote, puis partout</span>
+ansible-playbook playbooks/vlans.yml --limit site-lyon
+ansible-playbook playbooks/vlans.yml
+</code></pre>
+<h2 id="avec-python">Avec Python</h2>
+<pre><code class="language-python"><span class="c"># Sauvegarder la configuration de tous les équipements (Netmiko)</span>
+from netmiko import ConnectHandler
+import yaml, pathlib
+
+inventaire = yaml.safe_load(open(&quot;inventaire.yaml&quot;))
+for eq in inventaire[&quot;equipements&quot;]:
+    with ConnectHandler(device_type=&quot;cisco_ios&quot;, host=eq[&quot;ip&quot;],
+                        username=eq[&quot;user&quot;], password=eq[&quot;mdp&quot;]) as c:
+        config = c.send_command(&quot;show running-config&quot;)
+    pathlib.Path(f&quot;sauvegardes/{eq['nom']}.cfg&quot;).write_text(config)
+    print(&quot;ok&quot;, eq[&quot;nom&quot;])
+</code></pre>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Ne jamais écrire de mot de passe dans un fichier versionné. Utiliser un <strong>coffre</strong> (Ansible Vault, variables d’environnement, gestionnaire de secrets).</p>
+</div>
+<h2 id="la-chaine-complete">La chaîne complète</h2>
+<ol>
+<li>Un ingénieur modifie les <strong>données</strong> (ajout du VLAN 140) dans Git, sur une branche.</li>
+<li>Un collègue <strong>relit</strong> la modification (merge request).</li>
+<li>Une <strong>pipeline</strong> vérifie automatiquement : syntaxe, règles (« pas de VLAN 1 », « nom obligatoire »), simulation (<code>--check --diff</code>).</li>
+<li>Après validation, l’outil <strong>applique</strong> — d’abord sur un site pilote.</li>
+<li>Des <strong>tests</strong> confirment le résultat (le VLAN existe, les trunks le transportent).</li>
+<li>Régulièrement, l’outil compare la réalité aux données et signale les <strong>dérives</strong>.</li>
+</ol>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un collègue ajoute un VLAN à la main sur un switch, en urgence. La nuit suivante, l’automatisation qui applique l’état complet (mode « remplacer ») le supprime. Qui a raison, et comment éviter ce problème ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>L’automatisation fait ce qu’on lui demande : la <strong>source de vérité</strong> ne contient pas ce VLAN, donc il est retiré. La règle doit être claire : toute modification passe par les <strong>données</strong> (même en urgence, on met à jour les fichiers juste après), et les changements manuels sont détectés et signalés (rapport de dérive) <strong>avant</strong> d’être écrasés. Le mode « remplacer » ne s’active qu’une fois cette discipline acquise.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/observabilite.html"><small>Fiche précédente</small><strong>Observabilité</strong></a><a class="apres" href="../niveau-5/netconf.html"><small>Fiche suivante</small><strong>NETCONF et YANG</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-200-switches-a-la-main">Le problème : 200 switches à la main</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#lire-avant-decrire">Lire avant d’écrire</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#un-playbook-ansible">Un playbook Ansible</a><a href="#avec-python">Avec Python</a><a href="#la-chaine-complete">La chaîne complète</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HTTPS — HTTP protégé par TLS | Nexorya</title>
+<meta name="description" content="HTTPS, c’est HTTP transporté dans une connexion TLS, sur le port 443 ; le cadenas du navigateur signifie que la connexion est chiffrée et que le serveur a prouvé son identité.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https" aria-current="page">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/https">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-3">Le Web et le chiffrement</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>HTTPS</h1><p class="nom-complet">HTTP protégé par TLS</p>
+<p class="idee">HTTPS, c’est HTTP transporté dans une connexion TLS, sur le port 443 ; le cadenas du navigateur signifie que la connexion est chiffrée et que le serveur a prouvé son identité.</p><div class="badges"><span>Couche OSI 7 (TCP 443, ou UDP 443 avec HTTP/3)</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-3/http.html">HTTP</a>, <a href="../niveau-3/tls.html">TLS</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>HTTP circule <strong>en clair</strong> : mots de passe, cookies de session, contenu des pages sont lisibles et modifiables par n’importe qui sur le chemin. Aujourd’hui, aucun site — même une simple vitrine — ne devrait être servi en HTTP.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>HTTPS ouvre d’abord une connexion <a href="tls.html">TLS</a>, puis fait passer les échanges <a href="http.html">HTTP</a> à l’intérieur. Pour un observateur, on ne voit plus que l’adresse du serveur et, souvent, le nom du site.</p>
+</div>
+<h2 id="ce-que-garantit-le-cadenas-et-ce-quil-ne-garantit-pas">Ce que garantit le cadenas… et ce qu’il ne garantit pas</h2>
+<table>
+<thead>
+<tr>
+<th>Garanti</th>
+<th>Pas garanti</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Personne sur le chemin ne peut lire ni modifier les échanges</td>
+<td>que le site soit légitime : un site d’hameçonnage peut avoir un certificat valide pour <strong>son propre</strong> nom</td>
+</tr>
+<tr>
+<td>Le serveur possède un certificat valide <strong>pour le nom affiché</strong></td>
+<td>que le serveur lui-même soit sûr</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>« Il y a un cadenas, donc c’est sûr » est une idée fausse exploitée par les hameçonneurs. Le cadenas prouve que tu parles <strong>en privé</strong> à <code>banque-securite-verif.com</code> — pas que ce soit ta banque.</p>
+</div>
+<h2 id="passer-un-site-en-https">Passer un site en HTTPS</h2>
+<ol>
+<li>Obtenir un certificat (autorité publique comme Let’s Encrypt pour un site public ; autorité interne pour un intranet).</li>
+<li>Configurer le serveur Web avec le certificat et sa <strong>chaîne complète</strong>.</li>
+<li><strong>Rediriger</strong> toutes les requêtes <code>http://</code> vers <code>https://</code> (code 301).</li>
+<li>Activer <strong>HSTS</strong> pour que les navigateurs n’essaient plus jamais HTTP sur ce site.</li>
+<li><strong>Automatiser</strong> le renouvellement.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>HTTPS</strong> — HTTP sécurisé par TLS, sur le port 443.</li>
+<li><strong>HSTS</strong> — <em>HTTP Strict Transport Security</em>, en-tête qui oblige le navigateur à n’utiliser que HTTPS pour un site.</li>
+<li><strong>ACME</strong> — Protocole de délivrance et de renouvellement automatique de certificats (utilisé par Let’s Encrypt).</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un site d’hameçonnage affiche un cadenas. Le certificat est-il forcément faux ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> Le site peut avoir obtenu un certificat parfaitement valide pour <strong>son propre nom de domaine</strong> (qui ressemble à celui de la vraie banque). Le cadenas prouve seulement le chiffrement et l’identité du nom affiché, pas l’honnêteté du site.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-type-nginx">Configuration type (nginx)</h2>
+<pre><code class="language-text">server {
+    listen 80;
+    server_name www.exemple.fr exemple.fr;
+    return 301 https://www.exemple.fr$request_uri;
+}
+server {
+    listen 443 ssl;
+    http2 on;
+    server_name www.exemple.fr;
+    ssl_certificate     /etc/ssl/exemple/fullchain.pem;   # certificat + intermédiaires
+    ssl_certificate_key /etc/ssl/exemple/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    add_header Strict-Transport-Security &quot;max-age=31536000; includeSubDomains&quot; always;
+}
+</code></pre>
+<h2 id="duree-de-vie-des-certificats">Durée de vie des certificats</h2>
+<p>Les navigateurs ont décidé de raccourcir fortement la durée de vie maximale des certificats publics : elle diminue par étapes depuis 2026, jusqu’à environ 47 jours à l’horizon 2029. Un renouvellement manuel n’est plus tenable : on utilise un client <strong>ACME</strong> (certbot, acme.sh, intégration du serveur ou du reverse proxy) et l’on <strong>supervise</strong> les dates d’expiration.</p>
+<h2 id="quelques-verifications">Quelques vérifications</h2>
+<pre><code class="language-bash">$ curl -sI https://www.exemple.fr | grep -i strict
+strict-transport-security: max-age=31536000; includeSubDomains
+$ echo | openssl s_client -connect www.exemple.fr:443 -servername www.exemple.fr 2&gt;/dev/null | openssl x509 -noout -enddate
+notAfter=Feb 12 08:12:00 2027 GMT
+</code></pre>
+<h2 id="exercice">Exercice</h2>
+<p><strong>On active HSTS avec <code>includeSubDomains</code> sur <code>exemple.fr</code>. Un vieux serveur <code>ged.exemple.fr</code> n’a qu’un accès HTTP. Que se passe-t-il pour les utilisateurs ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les navigateurs qui ont reçu l’en-tête HSTS <strong>refusent</strong> désormais toute connexion HTTP à <code>ged.exemple.fr</code> et tentent HTTPS, qui échoue : le service devient inaccessible, sans possibilité de contourner l’avertissement. Avant d’activer <code>includeSubDomains</code>, il faut s’assurer que <strong>tous</strong> les sous-domaines sont servis en HTTPS.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/tls.html"><small>Fiche précédente</small><strong>TLS</strong></a><a class="apres" href="../niveau-3/quic.html"><small>Fiche suivante</small><strong>QUIC</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#ce-que-garantit-le-cadenas-et-ce-quil-ne-garantit-pas">Ce que garantit le cadenas… et ce qu’il ne garantit pas</a><a href="#passer-un-site-en-https">Passer un site en HTTPS</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-type-nginx">Configuration type (nginx)</a><a href="#duree-de-vie-des-certificats">Durée de vie des certificats</a><a href="#quelques-verifications">Quelques vérifications</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

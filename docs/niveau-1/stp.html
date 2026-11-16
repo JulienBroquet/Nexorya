@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>STP — Spanning Tree Protocol (IEEE 802.1D) | Nexorya</title>
+<meta name="description" content="STP garde les câbles de secours branchés mais en met certains en pause, pour qu’il n’existe jamais deux chemins actifs entre deux switches.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp" aria-current="page">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/stp">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-5">Éviter les boucles</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>STP</h1><p class="nom-complet">Spanning Tree Protocol (IEEE 802.1D)</p>
+<p class="idee">STP garde les câbles de secours branchés mais en met certains en pause, pour qu’il n’existe jamais deux chemins actifs entre deux switches.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 8 min</span><span>Approfondir : 25 min</span><span>Avant : <a href="../niveau-1/mac.html">Adresse MAC</a>, <a href="../niveau-1/vlan.html">VLAN</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-un-cable-de-secours-qui-fait-tout-tomber">Le problème : un câble de secours qui fait tout tomber</h2>
+<p>Une entreprise relie ses trois switches <strong>en triangle</strong> : si un câble est coupé, les deux autres permettent encore de passer. Bonne idée… sur le papier.</p>
+<p>Souviens-toi de ce que fait un switch avec un <strong>broadcast</strong> (une trame destinée à tout le monde, comme une requête ARP) : il la recopie sur <strong>tous ses ports</strong>, sauf celui par lequel elle est arrivée.</p>
+<figure class="schema"><svg viewBox="0 0 464.0 426.0" width="464.0" role="img" aria-label="Sans STP, un broadcast tourne sans fin dans le triangle" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="232.0" y1="50.0" x2="110.0" y2="190.0"/><text class="tp-etiq" x="162.0" y="112.1" text-anchor="end">copie 1</text><line class="tp-lien " x1="232.0" y1="50.0" x2="354.0" y2="190.0"/><text class="tp-etiq" x="302.0" y="112.1" text-anchor="start">copie 2</text><line class="tp-lien " x1="110.0" y1="190.0" x2="354.0" y2="190.0"/><text class="tp-etiq" x="232.0" y="178.0" text-anchor="middle">les copies se croisent</text><line class="tp-lien " x1="232.0" y1="330.0" x2="110.0" y2="190.0"/><g transform="translate(232.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="232.0" y="90.0" text-anchor="middle">SW1</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">SW2</text><g transform="translate(354.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="354.0" y="230.0" text-anchor="middle">SW3</text><g transform="translate(232.0 330.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="232.0" y="370.0" text-anchor="middle">PC</text></svg><figcaption>Sans STP, un broadcast tourne sans fin dans le triangle</figcaption></figure>
+<ol>
+<li>Le PC envoie un broadcast à SW2.</li>
+<li>SW2 le recopie vers SW1 <strong>et</strong> vers SW3.</li>
+<li>SW1 renvoie sa copie vers SW3, SW3 renvoie la sienne vers SW1… et chacun les renvoie encore vers SW2.</li>
+</ol>
+<p>La trame tourne <strong>sans fin</strong>, dans les deux sens, et se multiplie à chaque passage. Contrairement à un paquet IP, <strong>une trame Ethernet n’a pas de compteur de durée de vie (TTL)</strong> : rien ne l’arrête. En quelques secondes, les liens sont saturés, les processeurs des switches débordés et <strong>plus rien ne fonctionne dans le VLAN</strong>. On appelle cela une <strong>tempête de broadcast</strong>.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>STP garde les câbles de secours branchés, mais <strong>en met certains en pause</strong> pour qu’il n’existe jamais deux chemins actifs entre deux switches. Si un câble actif tombe, un câble en pause reprend le travail.</p>
+</div>
+<h2 id="comment-stp-decide-etape-par-etape">Comment STP décide, étape par étape</h2>
+<p>Imagine une <strong>randonnée en groupe</strong>. On désigne un point de ralliement, puis chacun prend le chemin le plus court pour le rejoindre. Les sentiers inutiles sont fermés par une barrière, qu’on rouvre si un sentier principal s’effondre.</p>
+<table>
+<thead>
+<tr>
+<th>Étape</th>
+<th>Ce que font les switches</th>
+<th>Dans la randonnée</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Se parler</td>
+<td>Ils échangent toutes les 2 secondes de petits messages appelés <strong>BPDU</strong>.</td>
+<td>Les randonneurs discutent par talkie-walkie.</td>
+</tr>
+<tr>
+<td>2. Élire un chef</td>
+<td>Ils élisent le <strong>pont racine</strong> : le switch qui a le plus petit identifiant.</td>
+<td>On choisit le point de ralliement.</td>
+</tr>
+<tr>
+<td>3. Choisir le meilleur chemin</td>
+<td>Chaque autre switch garde <strong>un seul</strong> port vers la racine, celui du chemin le moins « coûteux » (un lien rapide coûte moins cher).</td>
+<td>Chacun prend le sentier le plus court.</td>
+</tr>
+<tr>
+<td>4. Mettre en pause le reste</td>
+<td>Les ports qui fermeraient une boucle sont <strong>bloqués</strong> : ils ne transmettent plus de trames, mais continuent d’écouter les BPDU.</td>
+<td>Les sentiers en trop sont fermés par une barrière.</td>
+</tr>
+<tr>
+<td>5. Réagir aux pannes</td>
+<td>Si un lien actif tombe, STP recalcule et <strong>débloque</strong> un port de secours.</td>
+<td>On rouvre la barrière.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="comment-le-pont-racine-est-il-choisi">Comment le pont racine est-il choisi ?</h3>
+<p>Chaque switch possède un <strong>Bridge ID</strong> fait de deux parties : une <strong>priorité</strong> (32768 par défaut, modifiable) et son <strong>adresse MAC</strong>. <strong>Le plus petit Bridge ID gagne</strong> : on compare d’abord la priorité, puis l’adresse MAC en cas d’égalité.</p>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Si personne ne change les priorités, toutes valent 32768 et c’est la <strong>plus petite adresse MAC</strong> qui l’emporte… souvent celle du switch <strong>le plus ancien</strong>. Un vieux switch au fond d’un bureau peut ainsi devenir le centre de tout le réseau. C’est pourquoi l’administrateur <strong>choisit lui-même</strong> la racine : un switch central et robuste.</p>
+</div>
+<h2 id="un-exemple-concret">Un exemple concret</h2>
+<p>L’administrateur a donné la priorité 24576 à SW1, le switch central. SW2 et SW3 ont gardé 32768, et SW2 a une adresse MAC plus petite que SW3. Tous les liens sont à 1 Gb/s.</p>
+<figure class="schema"><svg viewBox="0 0 464.0 286.0" width="464.0" role="img" aria-label="Avec STP, un lien reste branché mais en pause" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien actif" x1="232.0" y1="50.0" x2="110.0" y2="190.0"/><text class="tp-etiq" x="162.0" y="112.1" text-anchor="end">chemin actif</text><line class="tp-lien actif" x1="232.0" y1="50.0" x2="354.0" y2="190.0"/><text class="tp-etiq" x="302.0" y="112.1" text-anchor="start">chemin actif</text><line class="tp-lien bloque" x1="110.0" y1="190.0" x2="354.0" y2="190.0"/><path class="sq-croix" d="M225.0 183.0 l14 14 M239.0 183.0 l-14 14"/><text class="tp-etiq ko" x="232.0" y="178.0" text-anchor="middle">en pause</text><g transform="translate(232.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="232.0" y="90.0" text-anchor="middle">SW1</text><text class="tp-sous" x="232.0" y="106.0" text-anchor="middle">racine, priorité 24576</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">SW2</text><g transform="translate(354.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="354.0" y="230.0" text-anchor="middle">SW3</text></svg><figcaption>Avec STP, un lien reste branché mais en pause</figcaption></figure>
+<ul>
+<li><strong>La racine</strong> est SW1, car 24576 est plus petit que 32768.</li>
+<li><strong>SW2</strong> rejoint SW1 directement (un lien) plutôt qu’en passant par SW3 (deux liens). Même raisonnement pour SW3.</li>
+<li><strong>Le lien SW2–SW3</strong> fermerait la boucle. STP bloque l’extrémité du switch qui a le plus grand Bridge ID : SW3.</li>
+</ul>
+<p>Résultat : trois câbles branchés, <strong>deux actifs</strong>, un <strong>en pause</strong>. Si le câble SW1–SW3 est coupé, le port bloqué de SW3 se réactive et SW3 rejoint la racine en passant par SW2.</p>
+<h2 id="ce-que-tu-verras-sur-un-vrai-switch">Ce que tu verras sur un vrai switch</h2>
+<p>La commande <code>show spanning-tree vlan 10</code> affiche, en fin de sortie, le rôle de chaque port :</p>
+<pre><code class="language-text">Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- ----------
+Gi1/0/1             Root FWD 4         128.1    P2p
+Gi1/0/2             Altn BLK 4         128.2    P2p
+Gi1/0/10            Desg FWD 4         128.10   P2p Edge
+</code></pre>
+<ul>
+<li><strong>Root FWD</strong> : port racine, il transmet (<em>forwarding</em>). C’est le chemin vers le pont racine.</li>
+<li><strong>Altn BLK</strong> : port alternatif, <strong>bloqué</strong>. C’est le câble de secours en pause.</li>
+<li><strong>Desg FWD</strong> : port désigné, il transmet. Ici vers un PC (<em>Edge</em> signifie port d’accès).</li>
+</ul>
+<h2 id="erreurs-frequentes">Erreurs fréquentes</h2>
+<ul>
+<li><strong>Désactiver STP « parce qu’il bloque un port »</strong> : ce port bloqué est justement ce qui empêche la panne totale.</li>
+<li><strong>Relier deux prises murales avec un câble</strong>, ou brancher un petit switch de bureau sur deux prises : cela crée une boucle. Sur un réseau bien configuré, la protection <strong>BPDU Guard</strong> coupe alors le port.</li>
+<li><strong>Laisser l’élection au hasard</strong> : sans priorité choisie, la racine peut être le pire switch du réseau.</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Boucle de niveau 2</strong> — Situation où deux chemins actifs existent entre des switches : les trames tournent en rond.</li>
+<li><strong>Tempête de broadcast</strong> — Multiplication incontrôlée des broadcasts dans une boucle, qui sature le réseau.</li>
+<li><strong>BPDU</strong> — <em>Bridge Protocol Data Unit</em>, message de contrôle que les switches s’échangent pour construire l’arbre STP.</li>
+<li><strong>Pont racine</strong> — Switch de référence élu par STP ; tous les chemins actifs mènent à lui.</li>
+<li><strong>Bridge ID</strong> — Identifiant d’un switch pour STP : priorité puis adresse MAC. Le plus petit gagne l’élection.</li>
+<li><strong>Port racine</strong> — Sur un switch qui n’est pas la racine, le port qui y mène par le meilleur chemin.</li>
+<li><strong>Port bloqué</strong> — Port maintenu en pause pour casser une boucle, prêt à reprendre le relais.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Trois switches ont tous la priorité 32768. Leurs adresses MAC sont A = <code>0019.aa00.0001</code>, B = <code>0004.bb00.0002</code> et C = <code>0021.cc00.0003</code>. Lequel devient pont racine ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>B.</strong> Les priorités sont égales, on compare donc les adresses MAC comme des nombres, de gauche à droite : <code>0004…</code> est plus petit que <code>0019…</code> et que <code>0021…</code>. B gagne alors que personne ne l’a choisi — exactement le piège décrit plus haut. Pour imposer la racine, on donnerait une priorité plus petite (par exemple 24576) au switch souhaité.</p>
+</details>
+<p><strong>2.</strong> Un collègue voit qu’un port est « BLK » et propose de désactiver STP pour « récupérer ce lien ». Qu’en penses-tu ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>C’est une très mauvaise idée.</strong> Ce port est bloqué parce qu’il fermerait une boucle. Sans STP, la boucle deviendrait active et le premier broadcast déclencherait une tempête qui paralyserait tout le VLAN. Le port bloqué n’est pas perdu : c’est le câble de secours. Pour utiliser plusieurs liens <strong>en même temps</strong>, la bonne technologie est l’agrégation de liens, <a href="lacp.html">LACP</a>.</p>
+</details>
+<p><strong>3.</strong> Après la panne d’un câble, le réseau est coupé 40 secondes avec le STP classique, mais une seconde avec RSTP. D’où vient la différence ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le STP classique est prudent : avant de débloquer un port, il attend la fin de plusieurs temporisateurs (15 s d’écoute, 15 s d’apprentissage, parfois 20 s de plus pour constater la panne). <a href="rstp.html">RSTP</a> remplace ces attentes par un dialogue direct entre switches voisins et prépare à l’avance un port de secours qui bascule aussitôt.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="pourquoi-une-boucle-est-si-grave">Pourquoi une boucle est si grave</h2>
+<p>Au niveau 2, deux chemins actifs entre deux switches provoquent trois effets immédiats :</p>
+<table>
+<thead>
+<tr>
+<th>Effet</th>
+<th>Mécanisme</th>
+<th>Ce qu’on observe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Tempête de broadcast</td>
+<td>Chaque broadcast est réinondé à chaque tour, sans fin : l’en-tête Ethernet n’a pas de TTL.</td>
+<td>Liens saturés, processeur des switches à 100 %, plus aucune réponse.</td>
+</tr>
+<tr>
+<td>Instabilité de la table MAC</td>
+<td>La même adresse MAC source arrive alternativement par deux ports.</td>
+<td>Journaux <code>%SW_MATM-4-MACFLAP_NOTIF</code>.</td>
+</tr>
+<tr>
+<td>Trames dupliquées</td>
+<td>Un unicast inondé arrive plusieurs fois au destinataire.</td>
+<td>Retransmissions, applications erratiques.</td>
+</tr>
+</tbody>
+</table>
+<p>STP, inventé par Radia Perlman en 1985 et normalisé en 802.1D, construit un <strong>arbre</strong> qui <strong>couvre</strong> (<em>spans</em>) tous les switches sans aucune boucle.</p>
+<h2 id="le-vocabulaire-precis">Le vocabulaire précis</h2>
+<ul>
+<li><strong>BPDU</strong> : trame de contrôle envoyée toutes les 2 secondes (<em>hello time</em>) vers l’adresse multicast <code>01:80:C2:00:00:00</code> (PVST+ de Cisco utilise <code>01:00:0C:CC:CC:CD</code>). Elle contient l’identifiant de la racine, le coût pour l’atteindre et l’identifiant de l’émetteur.</li>
+<li><strong>Bridge ID</strong> : 8 octets, une <strong>priorité</strong> sur 2 octets puis l’<strong>adresse MAC</strong> sur 6 octets. Chez Cisco, la priorité inclut le numéro de VLAN (<em>extended system ID</em>) : la priorité affichée vaut priorité configurée + numéro de VLAN, par exemple 32768 + 10 = 32778. Elle se règle donc <strong>par pas de 4096</strong>.</li>
+<li><strong>Coût de chemin</strong> : coût de chaque lien selon sa vitesse. Le <strong>coût racine</strong> d’un switch est la somme des coûts jusqu’à la racine.</li>
+<li><strong>Port ID</strong> : priorité de port (128 par défaut) suivie du numéro de port, utilisé en dernier recours pour départager.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Vitesse</th>
+<th>Coût « court » (802.1D-1998, défaut Cisco)</th>
+<th>Coût « long » (802.1D-2004)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10 Mb/s</td>
+<td>100</td>
+<td>2 000 000</td>
+</tr>
+<tr>
+<td>100 Mb/s</td>
+<td>19</td>
+<td>200 000</td>
+</tr>
+<tr>
+<td>1 Gb/s</td>
+<td>4</td>
+<td>20 000</td>
+</tr>
+<tr>
+<td>10 Gb/s</td>
+<td>2</td>
+<td>2 000</td>
+</tr>
+</tbody>
+</table>
+<h2 id="lalgorithme-en-quatre-etapes">L’algorithme en quatre étapes</h2>
+<p><strong>Étape 1 — Élire le pont racine.</strong> Au démarrage, chaque switch se croit racine et l’annonce. Dès qu’il reçoit une BPDU annonçant un Bridge ID plus petit, il reconnaît cette racine et relaie son annonce. Il ne reste qu’<strong>une</strong> racine par instance STP. Tous ses ports sont <strong>désignés</strong>.</p>
+<p><strong>Étape 2 — Un port racine sur chaque autre switch.</strong> Chaque switch retient le port qui offre le <strong>plus petit coût racine</strong>. En cas d’égalité, il départage dans cet ordre :</p>
+<ol>
+<li>le plus petit <strong>Bridge ID de l’émetteur</strong> de la BPDU (le voisin) ;</li>
+<li>la plus petite <strong>priorité de port</strong> de l’émetteur ;</li>
+<li>le plus petit <strong>numéro de port</strong> de l’émetteur.</li>
+</ol>
+<p><strong>Étape 3 — Un port désigné sur chaque segment.</strong> Sur chaque lien, une seule extrémité transmet : celle qui annonce le plus petit coût racine, puis, à égalité, le plus petit Bridge ID, puis le plus petit Port ID.</p>
+<p><strong>Étape 4 — Bloquer le reste.</strong> Un port ni racine ni désigné devient <strong>bloqué</strong> (802.1D) ou <strong>alternate</strong> (RSTP). Il ne transmet aucune donnée mais continue d’écouter les BPDU.</p>
+<figure class="schema"><svg viewBox="0 0 760 382" width="760" role="img" aria-label="Élection de la racine entre deux switches" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="382"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">SW1</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="382"/><g class="sq-acteur"><rect x="635.0" y="12" width="80" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">SW2</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. BPDU « racine = moi (24576), coût 0 »</text><line x1="85.0" y1="78" x2="663.0" y2="78"/><polygon class="sq-pointe" points="673.0,78 661.0,72 661.0,84"/></g><g class="sq-msg "><text x="380.0" y="116" text-anchor="middle">2. BPDU « racine = moi (32768), coût 0 »</text><line x1="675.0" y1="128" x2="97.0" y2="128"/><polygon class="sq-pointe" points="87.0,128 99.0,122 99.0,134"/></g><g class="sq-note"><rect x="554" y="174" width="200" height="68" rx="6"/><text x="654.0" y="193" text-anchor="middle">24576 est plus petit que</text><text x="654.0" y="211" text-anchor="middle">32768 : SW2 reconnaît SW1</text><text x="654.0" y="229" text-anchor="middle">comme racine</text></g><g class="sq-msg rep"><text x="380.0" y="268" text-anchor="middle">3. SW2 cesse de se déclarer racine</text><line x1="675.0" y1="280" x2="97.0" y2="280"/><polygon class="sq-pointe" points="87.0,280 99.0,274 99.0,286"/></g><g class="sq-msg "><text x="380.0" y="318" text-anchor="middle">4. toutes les 2 s : « racine SW1, coût 0 »</text><line x1="85.0" y1="330" x2="663.0" y2="330"/><polygon class="sq-pointe" points="673.0,330 661.0,324 661.0,336"/></g></svg><figcaption>Élection de la racine entre deux switches</figcaption></figure>
+<h2 id="un-exemple-deroule-a-la-main">Un exemple déroulé à la main</h2>
+<table>
+<thead>
+<tr>
+<th>Switch</th>
+<th>Priorité</th>
+<th>Adresse MAC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DIST1</td>
+<td>24576 (configurée)</td>
+<td><code>0011.2233.4455</code></td>
+</tr>
+<tr>
+<td>ACC1</td>
+<td>32768</td>
+<td><code>0022.0000.0001</code></td>
+</tr>
+<tr>
+<td>ACC2</td>
+<td>32768</td>
+<td><code>0033.0000.0002</code></td>
+</tr>
+</tbody>
+</table>
+<figure class="schema"><svg viewBox="0 0 464.0 286.0" width="464.0" role="img" aria-label="Rôles des ports après convergence (liens à 1 Gb/s, coût 4)" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien actif" x1="232.0" y1="50.0" x2="110.0" y2="190.0"/><text class="tp-etiq" x="201.7789990754821" y="84.67983712649597" text-anchor="middle" font-size="12">désigné</text><text class="tp-etiq" x="140.2210009245179" y="155.32016287350405" text-anchor="middle" font-size="12">racine</text><line class="tp-lien actif" x1="232.0" y1="50.0" x2="354.0" y2="190.0"/><text class="tp-etiq" x="262.2210009245179" y="84.67983712649597" text-anchor="middle" font-size="12">désigné</text><text class="tp-etiq" x="323.7789990754821" y="155.32016287350405" text-anchor="middle" font-size="12">racine</text><line class="tp-lien bloque" x1="110.0" y1="190.0" x2="354.0" y2="190.0"/><path class="sq-croix" d="M225.0 183.0 l14 14 M239.0 183.0 l-14 14"/><text class="tp-etiq" x="156.0" y="182.0" text-anchor="middle" font-size="12">désigné</text><text class="tp-etiq" x="308.0" y="182.0" text-anchor="middle" font-size="12">alternate</text><g transform="translate(232.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="232.0" y="90.0" text-anchor="middle">DIST1</text><text class="tp-sous" x="232.0" y="106.0" text-anchor="middle">racine</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">ACC1</text><g transform="translate(354.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="354.0" y="230.0" text-anchor="middle">ACC2</text></svg><figcaption>Rôles des ports après convergence (liens à 1 Gb/s, coût 4)</figcaption></figure>
+<ol>
+<li><strong>Racine</strong> : DIST1, qui a la plus petite priorité.</li>
+<li><strong>Port racine d’ACC1</strong> : direct vers DIST1, coût 4 ; par ACC2, coût 4 + 4 = 8. Il choisit le lien direct. Même chose pour ACC2.</li>
+<li><strong>Segment ACC1–ACC2</strong> : les deux annoncent un coût racine de 4. À égalité, le plus petit Bridge ID gagne : ACC1 (<code>0022…</code> &lt; <code>0033…</code>). Le port d’ACC1 est désigné.</li>
+<li><strong>Port d’ACC2 vers ACC1</strong> : ni racine ni désigné, il devient <strong>alternate</strong> et bloque.</li>
+</ol>
+<p><strong>Panne</strong> : si le lien DIST1–ACC2 est coupé, le port alternate d’ACC2 devient port racine (coût 8) et passe en transmission — en une seconde environ avec RSTP, en 30 secondes avec 802.1D.</p>
+<h2 id="etats-des-ports-et-temporisateurs-pourquoi-802-1d-est-lent">États des ports et temporisateurs : pourquoi 802.1D est lent</h2>
+<table>
+<thead>
+<tr>
+<th>État</th>
+<th>Transmet les données ?</th>
+<th>Apprend les MAC ?</th>
+<th>Durée</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Blocking</td>
+<td>Non</td>
+<td>Non</td>
+<td>jusqu’à 20 s (<em>max age</em>) pour constater la perte d’une racine distante</td>
+</tr>
+<tr>
+<td>Listening</td>
+<td>Non</td>
+<td>Non</td>
+<td>15 s (<em>forward delay</em>)</td>
+</tr>
+<tr>
+<td>Learning</td>
+<td>Non</td>
+<td>Oui</td>
+<td>15 s (<em>forward delay</em>)</td>
+</tr>
+<tr>
+<td>Forwarding</td>
+<td>Oui</td>
+<td>Oui</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>D’où une coupure de <strong>30 à 50 secondes</strong> après une panne. <a href="rstp.html">RSTP (802.1w)</a> supprime ces attentes grâce à un échange <em>proposal/agreement</em> entre voisins, des ports alternate pré-calculés et des ports <em>edge</em> qui transmettent immédiatement. <a href="mstp.html">MSTP (802.1s)</a> regroupe plusieurs VLAN dans une même instance.</p>
+<p>Chez Cisco : <strong>PVST+</strong> (un arbre 802.1D par VLAN), <strong>Rapid PVST+</strong> (un arbre RSTP par VLAN, le choix courant en campus) et <strong>MST</strong> (802.1s).</p>
+<p><strong>Encapsulation</strong> : les BPDU sont des trames Ethernet LLC (DSAP/SSAP <code>0x42</code>). Il n’y a <strong>ni en-tête IP ni port TCP/UDP</strong> : une ACL IP ne les filtre pas.</p>
+<h2 id="configurer-la-racine-et-les-protections-cisco-ios-ios-xe">Configurer la racine et les protections (Cisco IOS / IOS-XE)</h2>
+<p>Scénario : campus avec les VLAN 10 et 20. DIST1 doit être la racine, DIST2 la racine de secours, et les ports utilisateurs Gi1/0/1 à 24 doivent être protégés.</p>
+<pre><code class="language-cisco"><span class="c">! Sur DIST1 : mode rapide et racine principale</span>
+configure terminal
+ spanning-tree mode rapid-pvst
+ spanning-tree vlan 10,20 root primary
+end
+
+<span class="c">! Sur DIST2 : racine de secours</span>
+configure terminal
+ spanning-tree mode rapid-pvst
+ spanning-tree vlan 10,20 root secondary
+end
+
+<span class="c">! Sur chaque switch d'accès : ports utilisateurs</span>
+configure terminal
+ spanning-tree mode rapid-pvst
+ interface range GigabitEthernet1/0/1 - 24
+  spanning-tree portfast
+  spanning-tree bpduguard enable
+end
+</code></pre>
+<ul>
+<li><code>root primary</code> fixe la priorité à <strong>24576</strong>, ou plus bas si une racine existante a déjà une priorité plus petite. On peut aussi écrire <code>spanning-tree vlan 10 priority 4096</code>.</li>
+<li><code>root secondary</code> fixe <strong>28672</strong> : DIST2 prendra le relais si DIST1 disparaît.</li>
+<li><code>portfast</code> fait passer le port immédiatement en transmission. <strong>Uniquement</strong> vers un poste, un téléphone ou une imprimante.</li>
+<li><code>bpduguard enable</code> met le port en <strong>err-disabled</strong> si une BPDU y arrive, c’est-à-dire si quelqu’un y branche un switch.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Protection</th>
+<th>Où l’appliquer</th>
+<th>Effet</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>BPDU Guard</td>
+<td>Ports d’accès (PortFast)</td>
+<td>Coupe le port s’il reçoit une BPDU.</td>
+</tr>
+<tr>
+<td>Root Guard</td>
+<td>Ports de distribution vers l’accès</td>
+<td>Refuse qu’un switch en aval devienne racine (port <em>root-inconsistent</em>).</td>
+</tr>
+<tr>
+<td>Loop Guard</td>
+<td>Ports non désignés entre switches</td>
+<td>Empêche un port bloqué de transmettre si les BPDU cessent d’arriver (lien unidirectionnel).</td>
+</tr>
+<tr>
+<td>BPDU Filter</td>
+<td>Rarement, avec précaution</td>
+<td>Supprime l’envoi et la réception de BPDU : peut <strong>masquer</strong> une boucle.</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre attention">
+<p class="encadre-titre">Attention en production</p>
+<p>Changer la racine recalcule l’arbre de tout le VLAN : brève coupure possible et chemins déplacés. Fais ce changement en fenêtre de maintenance, après avoir relevé l’état existant avec <code>show spanning-tree root</code>.</p>
+</div>
+<h2 id="lire-show-spanning-tree">Lire <code>show spanning-tree</code></h2>
+<pre><code class="language-text"><span class="k">ACC2#</span> show spanning-tree vlan 10
+
+VLAN0010
+  Spanning tree enabled protocol rstp
+  Root ID    Priority    24586
+             Address     0011.2233.4455
+             Cost        4
+             Port        25 (GigabitEthernet1/0/25)
+  Bridge ID  Priority    32778  (priority 32768 sys-id-ext 10)
+             Address     0033.0000.0002
+
+Interface           Role Sts Cost      Prio.Nbr Type
+------------------- ---- --- --------- -------- ----------
+Gi1/0/1             Desg FWD 4         128.1    P2p Edge
+Gi1/0/25            Root FWD 4         128.25   P2p
+Gi1/0/26            Altn BLK 4         128.26   P2p
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Ligne</th>
+<th>Ce qu’elle t’apprend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>protocol rstp</code></td>
+<td>Rapid PVST+ est actif ; <code>ieee</code> signifierait 802.1D classique.</td>
+</tr>
+<tr>
+<td><code>Root ID … Priority 24586</code></td>
+<td>24576 + VLAN 10 : la racine est bien celle configurée.</td>
+</tr>
+<tr>
+<td><code>Cost 4</code> et <code>Port 25</code></td>
+<td>ACC2 atteint la racine par Gi1/0/25, pour un coût de 4.</td>
+</tr>
+<tr>
+<td><code>Altn BLK</code> sur Gi1/0/26</td>
+<td>Le lien vers ACC1 est en secours : c’est normal.</td>
+</tr>
+<tr>
+<td><code>P2p Edge</code> sur Gi1/0/1</td>
+<td>Port PortFast vers un poste.</td>
+</tr>
+</tbody>
+</table>
+<p>Sur la racine elle-même, la sortie affiche <code>This bridge is the root</code>.</p>
+<h2 id="methode-de-depannage">Méthode de dépannage</h2>
+<p><strong>Symptôme A — tout le VLAN est lent ou injoignable, processeur élevé.</strong> Suspecte une boucle.</p>
+<ol>
+<li><code>show processes cpu sorted</code> : le processeur est-il anormalement chargé ?</li>
+<li><code>show logging | include MACFLAP</code> : une MAC qui « flappe » entre deux ports désigne les ports de la boucle.</li>
+<li><code>show interfaces | include line|broadcasts</code> : les compteurs de broadcasts explosent-ils ?</li>
+<li>Coupe un lien de la boucle (<code>shutdown</code>) pour rétablir le service, <strong>puis</strong> cherche pourquoi STP ne l’a pas bloqué : BPDU Filter, câble ajouté sur un port non protégé, lien unidirectionnel.</li>
+</ol>
+<p><strong>Symptôme B — le trafic suit un chemin inattendu.</strong> Suspecte une racine mal placée : <code>show spanning-tree root</code> sur plusieurs switches. Si la racine est un switch d’accès, applique <code>root primary</code> sur la distribution et Root Guard vers l’accès.</p>
+<p><strong>Symptôme C — un poste n’a pas de réseau pendant 30 secondes après branchement</strong> et son DHCP échoue. Le port n’est pas en PortFast : il passe par listening et learning avant de transmettre.</p>
+<p><strong>Symptôme D — un port utilisateur est err-disabled.</strong> <code>show interfaces status err-disabled</code> puis <code>show logging</code>. Si la cause est <code>bpduguard</code>, un switch a été branché sur la prise : retire-le, puis <code>shutdown</code> et <code>no shutdown</code> (ou configure <code>errdisable recovery cause bpduguard</code>).</p>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>N’active jamais PortFast sur un port qui relie deux switches : le port transmettrait sans attendre et une boucle pourrait se former avant que STP réagisse.</p>
+</div>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1. Élection.</strong> SW-A : priorité 32768, MAC <code>00d0.0000.000a</code>. SW-B : priorité 28672, MAC <code>00ff.0000.000b</code>. SW-C : priorité 32768, MAC <code>0001.0000.000c</code>. Qui est racine ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>SW-B.</strong> On compare <strong>d’abord la priorité</strong> : 28672 &lt; 32768. L’adresse MAC ne sert qu’en cas d’égalité. SW-C a la plus petite MAC, mais cela ne compte pas ici. L’erreur classique consiste à comparer directement les MAC.</p>
+</details>
+<p><strong>2. Coûts.</strong> ACC3 peut atteindre la racine par un lien direct à 100 Mb/s, ou par un voisin via deux liens à 1 Gb/s. Quel port devient port racine ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Lien direct à 100 Mb/s : coût <strong>19</strong>. Passage par le voisin : 4 + 4 = <strong>8</strong>. Le chemin par le voisin gagne malgré un saut de plus : STP compare le <strong>coût total</strong>, pas le nombre de sauts. Le port à 100 Mb/s devient alternate.</p>
+</details>
+<p><strong>3. Diagnostic.</strong> Lundi matin, tout le VLAN 20 d’un étage est inaccessible. Les journaux montrent des milliers de <code>MACFLAP</code> entre Gi1/0/5 et Gi1/0/6, deux ports utilisateurs. Que s’est-il passé, et quelle protection l’aurait évité ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Un câble relie probablement <strong>deux prises murales</strong>, ou un petit switch de bureau est branché sur les deux : une boucle s’est formée entre Gi1/0/5 et Gi1/0/6. <strong>BPDU Guard</strong> sur ces ports d’accès les aurait mis en err-disabled dès la première BPDU. Action immédiate : <code>shutdown</code> d’un des deux ports, puis visite du bureau.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/qinq.html"><small>Fiche précédente</small><strong>QinQ</strong></a><a class="apres" href="../niveau-1/rstp.html"><small>Fiche suivante</small><strong>RSTP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-un-cable-de-secours-qui-fait-tout-tomber">Le problème : un câble de secours qui fait tout tomber</a><a href="#comment-stp-decide-etape-par-etape">Comment STP décide, étape par étape</a><a href="#un-exemple-concret">Un exemple concret</a><a href="#ce-que-tu-verras-sur-un-vrai-switch">Ce que tu verras sur un vrai switch</a><a href="#erreurs-frequentes">Erreurs fréquentes</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#pourquoi-une-boucle-est-si-grave">Pourquoi une boucle est si grave</a><a href="#le-vocabulaire-precis">Le vocabulaire précis</a><a href="#lalgorithme-en-quatre-etapes">L’algorithme en quatre étapes</a><a href="#un-exemple-deroule-a-la-main">Un exemple déroulé à la main</a><a href="#etats-des-ports-et-temporisateurs-pourquoi-802-1d-est-lent">États des ports et temporisateurs : pourquoi 802.1D est lent</a><a href="#configurer-la-racine-et-les-protections-cisco-ios-ios-xe">Configurer la racine et les protections (Cisco IOS / IOS-XE)</a><a href="#lire-show-spanning-tree">Lire show spanning-tree</a><a href="#methode-de-depannage">Méthode de dépannage</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

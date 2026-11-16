@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TLS — Transport Layer Security | Nexorya</title>
+<meta name="description" content="TLS chiffre une connexion et prouve au client qu’il parle au bon serveur, grâce à un certificat signé par une autorité de confiance.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls" aria-current="page">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/tls">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-3">Le Web et le chiffrement</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>TLS</h1><p class="nom-complet">Transport Layer Security</p>
+<p class="idee">TLS chiffre une connexion et prouve au client qu’il parle au bon serveur, grâce à un certificat signé par une autorité de confiance.</p><div class="badges"><span>Couche OSI entre 4 et 7</span><span>Découvrir : 10 min</span><span>Approfondir : 22 min</span><span>Avant : <a href="../niveau-3/tcp.html">TCP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-parler-en-secret-a-un-inconnu">Le problème : parler en secret à un inconnu</h2>
+<p>Quand tu te connectes à ta banque depuis un café, tes données traversent le Wi-Fi public, la box, plusieurs opérateurs. N’importe qui sur le chemin pourrait les lire ou les modifier. Et comment être sûr que le serveur qui répond est bien celui de ta banque, et pas un imposteur ?</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>TLS établit un chiffrement entre le client et le serveur, et le serveur prouve son identité avec un <strong>certificat</strong> signé par une autorité reconnue.</p>
+</div>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie de la carte d’identité</p>
+<p>Le certificat est la carte d’identité du serveur. Elle porte son <strong>nom</strong>, une <strong>date d’expiration</strong>, et elle est <strong>signée par une autorité</strong> (comme l’État pour une carte d’identité). Ton navigateur connaît la liste des autorités de confiance et vérifie la signature, le nom et la date.</p>
+</div>
+<h2 id="comment-ca-marche-tls-1-3-simplifie">Comment ça marche (TLS 1.3, simplifié)</h2>
+<figure class="schema"><svg viewBox="0 0 760 400" width="760" role="img" aria-label="Négociation TLS 1.3" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="400"/><g class="sq-acteur"><rect x="31.0" y="12" width="108.0" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Navigateur</text></g><line class="sq-vie" x1="675.0" y1="60" x2="675.0" y2="400"/><g class="sq-acteur"><rect x="604.6" y="12" width="140.79999999999998" height="48" rx="8"/><text x="675.0" y="33" text-anchor="middle">Serveur</text><text x="675.0" y="50" text-anchor="middle">www.exemple.fr</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. ClientHello : versions et algorithmes acceptés, nom du site (SNI), part de</text><text x="380.0" y="84" text-anchor="middle">clé</text><line x1="85.0" y1="96" x2="663.0" y2="96"/><polygon class="sq-pointe" points="673.0,96 661.0,90 661.0,102"/></g><g class="sq-msg rep"><text x="380.0" y="134" text-anchor="middle">2. ServerHello : choix + part de clé ; certificat ; preuve ; Finished</text><line x1="675.0" y1="146" x2="97.0" y2="146"/><polygon class="sq-pointe" points="87.0,146 99.0,140 99.0,152"/></g><g class="sq-note"><rect x="6" y="192" width="200" height="68" rx="6"/><text x="106.0" y="211" text-anchor="middle">vérifie le certificat :</text><text x="106.0" y="229" text-anchor="middle">nom, dates, signature de</text><text x="106.0" y="247" text-anchor="middle">l’autorité</text></g><g class="sq-msg "><text x="380.0" y="286" text-anchor="middle">3. Finished</text><line x1="85.0" y1="298" x2="663.0" y2="298"/><polygon class="sq-pointe" points="673.0,298 661.0,292 661.0,304"/></g><g class="sq-msg "><text x="380.0" y="336" text-anchor="middle">4. requêtes HTTP chiffrées</text><line x1="85.0" y1="348" x2="663.0" y2="348"/><polygon class="sq-pointe" points="673.0,348 661.0,342 661.0,354"/></g></svg><figcaption>Négociation TLS 1.3</figcaption></figure>
+<ol>
+<li>Le client propose les versions et algorithmes qu’il connaît, et indique le <strong>nom</strong> du site visé (SNI).</li>
+<li>Le serveur choisit, et envoie son <strong>certificat</strong>.</li>
+<li>Le client <strong>vérifie</strong> le certificat.</li>
+<li>Les deux calculent une <strong>clé de session</strong> commune, sans jamais l’envoyer sur le réseau.</li>
+<li>Toute la suite est chiffrée.</li>
+</ol>
+<h2 id="pourquoi-un-certificat-est-refuse">Pourquoi un certificat est refusé</h2>
+<table>
+<thead>
+<tr>
+<th>Message du navigateur</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>« Le certificat n’est pas valide pour ce nom »</td>
+<td>le nom tapé ne figure pas dans le certificat (SAN)</td>
+</tr>
+<tr>
+<td>« Le certificat a expiré »</td>
+<td>date dépassée… ou <strong>horloge du poste</strong> fausse</td>
+</tr>
+<tr>
+<td>« Émetteur inconnu » / « autorité non approuvée »</td>
+<td>certificat auto-signé, autorité interne non installée sur le poste, <strong>chaîne incomplète</strong> sur le serveur</td>
+</tr>
+<tr>
+<td>« Certificat révoqué »</td>
+<td>l’autorité a annulé le certificat</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>TLS</strong> — Protocole qui chiffre et authentifie une connexion ; successeur de SSL.</li>
+<li><strong>Certificat</strong> — Document numérique qui lie un nom à une clé publique, signé par une autorité de certification.</li>
+<li><strong>Autorité de certification (CA)</strong> — Organisme dont la signature rend un certificat digne de confiance.</li>
+<li><strong>SAN</strong> — <em>Subject Alternative Name</em>, liste des noms pour lesquels un certificat est valide.</li>
+<li><strong>SNI</strong> — <em>Server Name Indication</em>, nom du site envoyé par le client au début de la négociation.</li>
+<li><strong>Chaîne de certificats</strong> — Suite de certificats qui relie celui du serveur à une autorité racine de confiance.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un portail interne affiche « certificat expiré » sur un seul poste, alors que le certificat est valide jusqu’en 2027. Que vérifies-tu ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>L’heure et la date du poste.</strong> Si son horloge est fausse (pile du BIOS, synchronisation NTP en panne), le certificat lui paraît expiré ou pas encore valide.</p>
+</details>
+<p><strong>2.</strong> Le site <code>https://intranet</code> affiche une erreur de nom, alors que <code>https://intranet.exemple.fr</code> fonctionne. Pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le certificat est délivré pour <code>intranet.exemple.fr</code>. Le nom court <code>intranet</code> <strong>ne figure pas</strong> dans sa liste de noms (SAN) : le navigateur refuse, à juste titre. Il faut utiliser le nom complet, ou ajouter le nom court au certificat (si l’autorité interne le permet).</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="ce-qui-est-negocie">Ce qui est négocié</h2>
+<ul>
+<li><strong>Version</strong> : TLS 1.3 (RFC 8446) ou 1.2. SSL 3.0, TLS 1.0 et 1.1 sont obsolètes et à désactiver.</li>
+<li><strong>Échange de clés</strong> : Diffie-Hellman éphémère (ECDHE), qui apporte la <strong>confidentialité persistante</strong> : une clé privée volée plus tard ne permet pas de déchiffrer les échanges passés.</li>
+<li><strong>Chiffrement symétrique</strong> : AES-GCM ou ChaCha20-Poly1305.</li>
+<li><strong>Signature</strong> du serveur : RSA ou ECDSA.</li>
+</ul>
+<p>TLS 1.3 ne demande qu’<strong>un aller-retour</strong> pour établir la connexion (zéro pour une reprise de session, avec des précautions), contre deux pour TLS 1.2.</p>
+<h2 id="inspecter-un-certificat">Inspecter un certificat</h2>
+<pre><code class="language-bash">$ openssl s_client -connect www.exemple.fr:443 -servername www.exemple.fr &lt;/dev/null 2&gt;/dev/null \
+  | openssl x509 -noout -subject -issuer -dates -ext subjectAltName
+subject=CN = www.exemple.fr
+issuer=C = US, O = Let's Encrypt, CN = R11
+notBefore=Nov 14 08:12:01 2026 GMT
+notAfter=Feb 12 08:12:00 2027 GMT
+X509v3 Subject Alternative Name:
+    DNS:www.exemple.fr, DNS:exemple.fr
+</code></pre>
+<pre><code class="language-bash"><span class="c"># Vérifier la chaîne envoyée par le serveur</span>
+$ openssl s_client -connect www.exemple.fr:443 -servername www.exemple.fr -showcerts &lt;/dev/null
+<span class="c"># &quot;Verify return code: 0 (ok)&quot; : chaîne valide</span>
+<span class="c"># &quot;Verify return code: 21 (unable to verify the first certificate)&quot; : certificat intermédiaire manquant</span>
+</code></pre>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>L’erreur la plus fréquente après un renouvellement : le serveur n’envoie <strong>que son certificat</strong>, sans le <strong>certificat intermédiaire</strong>. Certains navigateurs le retrouvent seuls (ils l’ont en cache), d’autres clients (applications, téléphones, scripts) échouent. Le résultat paraît aléatoire.</p>
+</div>
+<h2 id="inspection-tls-en-entreprise">Inspection TLS en entreprise</h2>
+<p>Certains pare-feu ou proxys <strong>déchiffrent</strong> le trafic TLS pour l’inspecter : ils présentent au poste un certificat généré à la volée, signé par une <strong>autorité interne</strong> installée sur les postes gérés. Conséquences :</p>
+<ul>
+<li>les postes <strong>non gérés</strong> (sans l’autorité interne) voient des erreurs de certificat ;</li>
+<li>les applications qui vérifient un certificat précis (<em>certificate pinning</em>) cassent : on les exclut de l’inspection ;</li>
+<li>c’est une décision juridique et organisationnelle (vie privée, sites bancaires et de santé souvent exclus).</li>
+</ul>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Après le renouvellement du certificat d’un serveur, les navigateurs fonctionnent mais une application métier échoue avec « unable to get local issuer certificate ». Diagnostic ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Chaîne incomplète</strong> : le serveur n’envoie pas le certificat intermédiaire. Le navigateur le complète depuis son cache, l’application non. Installer la chaîne complète (certificat + intermédiaire) sur le serveur, et vérifier avec <code>openssl s_client -showcerts</code>.</p>
+</details>
+<p><strong>2.</strong> Pourquoi la confidentialité persistante (<em>forward secrecy</em>) est-elle importante ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Sans elle (ancien échange de clés RSA), quelqu’un qui enregistre le trafic chiffré pendant des années et vole un jour la clé privée du serveur peut <strong>tout déchiffrer rétroactivement</strong>. Avec ECDHE, chaque session a une clé éphémère, détruite après usage : voler la clé privée ne permet que d’usurper le serveur à l’avenir, pas de lire le passé.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/http.html"><small>Fiche précédente</small><strong>HTTP</strong></a><a class="apres" href="../niveau-3/https.html"><small>Fiche suivante</small><strong>HTTPS</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-parler-en-secret-a-un-inconnu">Le problème : parler en secret à un inconnu</a><a href="#comment-ca-marche-tls-1-3-simplifie">Comment ça marche (TLS 1.3, simplifié)</a><a href="#pourquoi-un-certificat-est-refuse">Pourquoi un certificat est refusé</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#ce-qui-est-negocie">Ce qui est négocié</a><a href="#inspecter-un-certificat">Inspecter un certificat</a><a href="#inspection-tls-en-entreprise">Inspection TLS en entreprise</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

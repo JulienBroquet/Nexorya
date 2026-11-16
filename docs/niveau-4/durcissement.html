@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Durcir un équipement — Sécuriser un switch ou un routeur sans se couper l’accès | Nexorya</title>
+<meta name="description" content="Durcir un équipement réseau, c’est fermer tout ce qui n’est pas nécessaire, protéger les accès d’administration et garder des traces — en préparant toujours un accès de secours avant de modifier.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement" aria-current="page">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/durcissement">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-5">Protéger le réseau lui-même</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Durcir un équipement</h1><p class="nom-complet">Sécuriser un switch ou un routeur sans se couper l’accès</p>
+<p class="idee">Durcir un équipement réseau, c’est fermer tout ce qui n’est pas nécessaire, protéger les accès d’administration et garder des traces — en préparant toujours un accès de secours avant de modifier.</p><div class="badges"><span>Couche OSI plans de gestion et de contrôle</span><span>Découvrir : 10 min</span><span>Approfondir : 20 min</span><span>Avant : <a href="../niveau-3/ssh.html">SSH</a>, <a href="../niveau-4/aaa.html">AAA</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Un switch sorti du carton fonctionne… avec des réglages pensés pour la facilité, pas pour la sécurité : services inutiles actifs, accès d’administration ouverts à tous, pas de journaux centralisés. Or celui qui contrôle un équipement réseau peut <strong>écouter, détourner ou couper</strong> tout le trafic qui le traverse.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>On réduit tout ce qu’un attaquant pourrait utiliser — services, accès, protocoles — et l’on rend visible tout ce qui se passe sur l’équipement.</p>
+</div>
+<h2 id="les-trois-plans-dun-equipement">Les trois plans d’un équipement</h2>
+<table>
+<thead>
+<tr>
+<th>Plan</th>
+<th>Ce qu’il fait</th>
+<th>Comment le protéger</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Gestion</strong></td>
+<td>l’administration : SSH, SNMP, interface Web, NTP, Syslog</td>
+<td>accès restreints, chiffrés, authentifiés, journalisés</td>
+</tr>
+<tr>
+<td><strong>Contrôle</strong></td>
+<td>les protocoles entre équipements : OSPF, BGP, STP, ARP</td>
+<td>authentification des voisins, filtrage, limitation vers le processeur</td>
+</tr>
+<tr>
+<td><strong>Données</strong></td>
+<td>le trafic des utilisateurs</td>
+<td>ACL, protections des ports, segmentation</td>
+</tr>
+</tbody>
+</table>
+<h2 id="la-liste-de-controle-essentielle">La liste de contrôle essentielle</h2>
+<ol>
+<li><strong>Mettre à jour</strong> le système vers une version maintenue et sans vulnérabilité critique connue.</li>
+<li><strong>Accès d’administration</strong> : SSH v2 uniquement, ACL sur les lignes VTY, délai d’inactivité, bannière légale.</li>
+<li><strong>Comptes</strong> : authentification centralisée (TACACS+), comptes nominatifs, compte local de secours avec un secret fort (<code>algorithm-type scrypt</code>).</li>
+<li><strong>Services inutiles</strong> : désactiver le serveur HTTP en clair, Telnet, les petits services, CDP/LLDP sur les ports exposés.</li>
+<li><strong>SNMP</strong> : v3 en lecture seule, limité au superviseur.</li>
+<li><strong>Journaux et heure</strong> : NTP, Syslog centralisé, journalisation des commandes.</li>
+<li><strong>Plan de contrôle</strong> : authentifier OSPF/BGP, filtrer les routes, protéger le processeur.</li>
+<li><strong>Ports inutilisés</strong> : éteints, dans un VLAN parking.</li>
+<li><strong>Sauvegarde</strong> automatique de la configuration.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Durcissement</strong> — Réduction de la surface d’attaque d’un système ; <em>hardening</em>.</li>
+<li><strong>Plan de gestion / de contrôle / de données</strong> — Les trois grandes fonctions d’un équipement réseau.</li>
+<li><strong>CoPP</strong> — <em>Control Plane Policing</em>, limitation du trafic destiné au processeur d’un équipement.</li>
+<li><strong>Surface d’attaque</strong> — Ensemble des points par lesquels un système peut être attaqué.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi programmer un <code>reload in 10</code> avant de modifier l’ACL des lignes VTY d’un routeur distant ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Si la modification te <strong>coupe ton propre accès</strong>, le routeur redémarrera dans 10 minutes avec la configuration <strong>sauvegardée</strong> (celle d’avant la modification), et tu retrouveras l’accès. Si tout fonctionne, tu annules avec <code>reload cancel</code> puis tu sauvegardes.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="un-socle-de-configuration-cisco-ios-xe">Un socle de configuration (Cisco IOS-XE)</h2>
+<pre><code class="language-cisco"><span class="c">! --- Comptes et chiffrement des secrets</span>
+service password-encryption
+enable algorithm-type scrypt secret &lt;secret-fort&gt;
+username secours privilege 15 algorithm-type scrypt secret &lt;secret-coffre&gt;
+login block-for 120 attempts 5 within 60
+login on-failure log
+login on-success log
+<span class="c">!</span>
+<span class="c">! --- Accès d'administration</span>
+ip ssh version 2
+ip access-list standard VTY-ADMIN
+ permit 10.99.0.0 0.0.0.255
+ deny any log
+line vty 0 15
+ transport input ssh
+ access-class VTY-ADMIN in
+ exec-timeout 10 0
+line con 0
+ exec-timeout 10 0
+banner login ^Accès réservé aux personnes autorisées. Toute connexion est journalisée.^
+<span class="c">!</span>
+<span class="c">! --- Services inutiles</span>
+no ip http server
+ip http secure-server              ! seulement si l'interface Web est nécessaire, avec ACL
+no service pad
+no ip source-route
+no ip bootp server
+<span class="c">!</span>
+<span class="c">! --- Interfaces vers l'extérieur</span>
+interface GigabitEthernet0/0/0
+ no cdp enable
+ no lldp transmit
+ no ip redirects
+ no ip proxy-arp
+<span class="c">!</span>
+<span class="c">! --- Heure, journaux, traces des commandes</span>
+ntp server 10.99.0.123
+logging host 10.99.0.60
+archive
+ log config
+  logging enable
+  notify syslog
+</code></pre>
+<h2 id="proteger-le-plan-de-controle-copp">Protéger le plan de contrôle (CoPP)</h2>
+<p>Le processeur d’un équipement traite les protocoles de contrôle et l’administration. Un flot de paquets vers lui (attaque, boucle, balayage) peut le saturer : l’équipement perd ses voisins OSPF, ne répond plus en SSH. <strong>CoPP</strong> limite le débit de chaque catégorie de trafic destiné au processeur. Les plateformes récentes ont une politique CoPP <strong>par défaut</strong> ; on la vérifie et on l’ajuste plutôt que de la désactiver.</p>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show policy-map control-plane | include Class|conformed|exceeded
+</code></pre>
+<h2 id="modifier-sans-se-couper-la-methode">Modifier sans se couper : la méthode</h2>
+<ol>
+<li><strong>Sauvegarder</strong> la configuration (<code>copy running-config</code> vers le serveur de sauvegarde).</li>
+<li>Ouvrir <strong>deux sessions</strong> (ou garder un accès console).</li>
+<li><code>reload in 10</code> (ou <code>configure replace</code> avec retour automatique sur les plateformes qui le permettent).</li>
+<li>Appliquer la modification.</li>
+<li><strong>Tester</strong> une nouvelle connexion depuis le réseau d’administration.</li>
+<li><code>reload cancel</code>, puis <code>write memory</code>.</li>
+</ol>
+<div class="encadre attention">
+<p class="encadre-titre">Attention en production</p>
+<p><code>reload in</code> redémarre réellement l’équipement s’il n’est pas annulé : sur un équipement de cœur, cela coupe le réseau. Réserve-le aux modifications de l’accès d’administration, en fenêtre de maintenance, et note l’heure prévue.</p>
+</div>
+<h2 id="verifier-letat-de-durcissement">Vérifier l’état de durcissement</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show running-config | include transport input|access-class|ip http|snmp-server community|username
+<span class="k">SW1#</span> show ip ssh
+<span class="k">SW1#</span> show users
+<span class="k">SW1#</span> show login
+</code></pre>
+<p>Des outils d’audit automatisés comparent la configuration de chaque équipement à un référentiel (guides de l’ANSSI, CIS Benchmarks) : c’est le moyen de garder un parc homogène dans la durée.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un audit trouve <code>snmp-server community public RO</code> sur 40 switches. Quel risque, et quelle correction ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>N’importe qui sur le réseau peut lire l’état et la configuration détaillée des switches (interfaces, voisins, tables), car la communauté <code>public</code> est connue de tous et circule en clair. Supprimer la communauté, passer en <strong>SNMPv3</strong> en lecture seule, limité à l’adresse du superviseur.</p>
+</details>
+<p><strong>2.</strong> Pendant une attaque par balayage interne, un switch de cœur perd ses voisins OSPF. Le processeur est à 100 %. Quelle protection aurait limité l’impact ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>CoPP</strong> : en limitant le trafic du balayage destiné au processeur (ICMP, ARP, paquets à TTL expiré…), le processeur garde de la capacité pour traiter les Hello OSPF, prioritaires. Il faut aussi bloquer la source du balayage (ACL, isolement du poste).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/protection-ports.html"><small>Fiche précédente</small><strong>Protéger les ports d’accès</strong></a><a class="apres" href="../niveau-4/zero-trust.html"><small>Fiche suivante</small><strong>Zero Trust</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#les-trois-plans-dun-equipement">Les trois plans d’un équipement</a><a href="#la-liste-de-controle-essentielle">La liste de contrôle essentielle</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#un-socle-de-configuration-cisco-ios-xe">Un socle de configuration (Cisco IOS-XE)</a><a href="#proteger-le-plan-de-controle-copp">Protéger le plan de contrôle (CoPP)</a><a href="#modifier-sans-se-couper-la-methode">Modifier sans se couper : la méthode</a><a href="#verifier-letat-de-durcissement">Vérifier l’état de durcissement</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

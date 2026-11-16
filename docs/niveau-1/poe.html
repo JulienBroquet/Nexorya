@@ -1,0 +1,217 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PoE — Power over Ethernet (IEEE 802.3af, at, bt) | Nexorya</title>
+<meta name="description" content="Le PoE fait passer le courant électrique dans le câble réseau ; un seul câble suffit pour alimenter et connecter un téléphone, une caméra ou une borne Wi-Fi.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe" aria-current="page">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/poe">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-2">Câbles, fibre et énergie</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>PoE</h1><p class="nom-complet">Power over Ethernet (IEEE 802.3af, at, bt)</p>
+<p class="idee">Le PoE fait passer le courant électrique dans le câble réseau ; un seul câble suffit pour alimenter et connecter un téléphone, une caméra ou une borne Wi-Fi.</p><div class="badges"><span>Couche OSI 1</span><span>Découvrir : 7 min</span><span>Approfondir : 14 min</span><span>Avant : <a href="../niveau-1/cablage.html">Câbles cuivre et fibres</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-une-prise-electrique-au-plafond">Le problème : une prise électrique au plafond ?</h2>
+<p>Une borne Wi-Fi se pose au plafond, une caméra en haut d’un mur, un téléphone sur un bureau. Faire venir une prise électrique à chacun de ces endroits coûte cher et demande un électricien. Or un câble réseau y arrive déjà.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le PoE fait passer <strong>le courant électrique dans le câble réseau</strong> : un seul câble apporte à la fois le réseau et l’alimentation.</p>
+</div>
+<h2 id="comment-ca-marche-etape-par-etape">Comment ça marche, étape par étape</h2>
+<ol>
+<li><strong>Détection.</strong> Avant d’envoyer du courant, le switch vérifie qu’un appareil compatible est branché, en mesurant une résistance caractéristique. Un PC ordinaire ne sera jamais alimenté : pas de risque de griller une carte réseau.</li>
+<li><strong>Classement.</strong> L’appareil annonce sa <strong>classe</strong>, c’est-à-dire la puissance dont il a besoin.</li>
+<li><strong>Alimentation.</strong> Le switch envoie le courant (environ 50 V continu) si son <strong>budget</strong> le permet.</li>
+<li><strong>Surveillance.</strong> Si l’appareil est débranché, le switch coupe immédiatement le courant.</li>
+</ol>
+<figure class="schema"><svg viewBox="0 0 760 414" width="760" role="img" aria-label="Mise sous tension d’une caméra PoE" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="414"/><g class="sq-acteur"><rect x="22.800000000000004" y="12" width="124.39999999999999" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Switch (PSE)</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="414"/><g class="sq-acteur"><rect x="616.9" y="12" width="116.19999999999999" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Caméra (PD)</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. détection : « es-tu un appareil PoE ? »</text><line x1="85.0" y1="78" x2="663.0" y2="78"/><polygon class="sq-pointe" points="673.0,78 661.0,72 661.0,84"/></g><g class="sq-msg rep"><text x="380.0" y="116" text-anchor="middle">2. signature valide</text><line x1="675.0" y1="128" x2="97.0" y2="128"/><polygon class="sq-pointe" points="87.0,128 99.0,122 99.0,134"/></g><g class="sq-msg "><text x="380.0" y="166" text-anchor="middle">3. classement : « de combien as-tu besoin ? »</text><line x1="85.0" y1="178" x2="663.0" y2="178"/><polygon class="sq-pointe" points="673.0,178 661.0,172 661.0,184"/></g><g class="sq-msg rep"><text x="380.0" y="216" text-anchor="middle">4. classe 4 : jusqu’à 30 W</text><line x1="675.0" y1="228" x2="97.0" y2="228"/><polygon class="sq-pointe" points="87.0,228 99.0,222 99.0,234"/></g><g class="sq-note"><rect x="6" y="274" width="200" height="50" rx="6"/><text x="106.0" y="293" text-anchor="middle">budget restant suffisant</text><text x="106.0" y="311" text-anchor="middle">? oui : 30 W réservés</text></g><g class="sq-msg "><text x="380.0" y="350" text-anchor="middle">5. alimentation 50 V</text><line x1="85.0" y1="362" x2="663.0" y2="362"/><polygon class="sq-pointe" points="673.0,362 661.0,356 661.0,368"/></g></svg><figcaption>Mise sous tension d’une caméra PoE</figcaption></figure>
+<h2 id="les-generations">Les générations</h2>
+<table>
+<thead>
+<tr>
+<th>Nom</th>
+<th>Norme</th>
+<th>Puissance au port du switch</th>
+<th>Exemples d’appareils</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PoE</td>
+<td>802.3af</td>
+<td>15,4 W</td>
+<td>téléphone IP, petite caméra</td>
+</tr>
+<tr>
+<td>PoE+</td>
+<td>802.3at</td>
+<td>30 W</td>
+<td>borne Wi-Fi, caméra motorisée</td>
+</tr>
+<tr>
+<td>PoE++</td>
+<td>802.3bt</td>
+<td>60 W ou 90 W</td>
+<td>borne Wi-Fi 6E/7, écran, éclairage</td>
+</tr>
+</tbody>
+</table>
+<p>Une partie de la puissance se perd en chaleur dans le câble : l’appareil reçoit un peu moins (12,95 W pour 15,4 W envoyés).</p>
+<h2 id="exemple-la-treizieme-camera-qui-ne-sallume-pas">Exemple : la treizième caméra qui ne s’allume pas</h2>
+<p>Un switch PoE+ a un <strong>budget total de 370 W</strong>. Douze caméras de classe 4 sont branchées : le switch leur réserve 12 × 30 = 360 W. Il ne reste que 10 W. Quand on branche une treizième caméra identique, son lien réseau s’allume, mais <strong>elle ne démarre pas</strong> : le switch refuse de l’alimenter.</p>
+<p>La commande <code>show power inline</code> le montre immédiatement. Solutions : un switch au budget plus élevé, une deuxième alimentation, ou un injecteur PoE pour cette caméra.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>PoE</strong> — <em>Power over Ethernet</em>, alimentation électrique d’un appareil par son câble réseau.</li>
+<li><strong>PSE</strong> — <em>Power Sourcing Equipment</em>, l’équipement qui fournit le courant (le switch ou un injecteur).</li>
+<li><strong>PD</strong> — <em>Powered Device</em>, l’appareil alimenté (téléphone, caméra, borne Wi-Fi).</li>
+<li><strong>Budget PoE</strong> — Puissance totale qu’un switch peut distribuer sur l’ensemble de ses ports.</li>
+<li><strong>Classe PoE</strong> — Niveau de puissance annoncé par l’appareil alimenté.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un PC portable branché sur un port PoE risque-t-il d’être endommagé ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> Le switch n’envoie du courant qu’après avoir <strong>détecté</strong> la signature d’un appareil PoE. Un PC n’a pas cette signature : il reçoit uniquement le réseau.</p>
+</details>
+<p><strong>2.</strong> Une borne Wi-Fi exige du PoE+ et son switch ne fournit que du PoE (802.3af). Que risque-t-il de se passer ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La borne ne reçoit que 15,4 W au lieu des 30 W prévus. Selon le modèle, elle <strong>ne démarre pas</strong> ou démarre en <strong>mode dégradé</strong> (certaines radios ou certains ports désactivés).</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-classes-et-les-paires-utilisees">Les classes et les paires utilisées</h2>
+<table>
+<thead>
+<tr>
+<th>Classe</th>
+<th>Puissance au PSE</th>
+<th>Puissance au PD</th>
+<th>Norme</th>
+<th>Paires alimentées</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>15,4 W</td>
+<td>12,95 W</td>
+<td>af (classe par défaut)</td>
+<td>2</td>
+</tr>
+<tr>
+<td>1</td>
+<td>4 W</td>
+<td>3,84 W</td>
+<td>af</td>
+<td>2</td>
+</tr>
+<tr>
+<td>2</td>
+<td>7 W</td>
+<td>6,49 W</td>
+<td>af</td>
+<td>2</td>
+</tr>
+<tr>
+<td>3</td>
+<td>15,4 W</td>
+<td>12,95 W</td>
+<td>af</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>30 W</td>
+<td>25,5 W</td>
+<td>at</td>
+<td>2</td>
+</tr>
+<tr>
+<td>5–6</td>
+<td>45 / 60 W</td>
+<td>40 / 51 W</td>
+<td>bt type 3</td>
+<td>4</td>
+</tr>
+<tr>
+<td>7–8</td>
+<td>75 / 90 W</td>
+<td>62 / 71,3 W</td>
+<td>bt type 4</td>
+<td>4</td>
+</tr>
+</tbody>
+</table>
+<p>En 802.3af/at, le courant passe sur deux paires (mode A : paires de données ; mode B : paires libres en 100BASE-TX). En 802.3bt, il passe sur <strong>les quatre paires</strong> pour limiter l’échauffement.</p>
+<p><strong>LLDP-MED</strong> permet à l’appareil de renégocier finement sa puissance après le démarrage, au lieu de réserver le maximum de sa classe. C’est ainsi qu’un switch peut alimenter plus d’appareils que ne le laisserait un calcul « classe maximale × nombre de ports ».</p>
+<h2 id="configurer-et-verifier-cisco-ios">Configurer et vérifier (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show power inline
+Module   Available     Used     Remaining
+          (Watts)     (Watts)    (Watts)
+------   ---------   --------   ---------
+1           370.0      360.0        10.0
+Interface Admin  Oper       Power   Device              Class Max
+                            (Watts)
+--------- ------ ---------- ------- ------------------- ----- ----
+Gi1/0/1   auto   on         30.0    IP Camera           4     30.0
+Gi1/0/13  auto   off        0.0     n/a                 n/a   30.0
+</code></pre>
+<p><code>Oper off</code> sur Gi1/0/13 alors que <code>Admin auto</code> : le port pourrait alimenter, mais le budget restant (10 W) est insuffisant. Le journal contient alors un message <code>%ILPOWER-5-ILPOWER_POWER_DENY</code>.</p>
+<pre><code class="language-cisco"><span class="c">! Désactiver le PoE sur un port (par exemple vers un équipement tiers sensible)</span>
+interface GigabitEthernet1/0/20
+ power inline never
+<span class="c">! Limiter la puissance maximale d'un port à 15,4 W</span>
+interface GigabitEthernet1/0/21
+ power inline auto max 15400
+<span class="c">! Donner la priorité à un port en cas de manque de budget (plateformes compatibles)</span>
+interface GigabitEthernet1/0/1
+ power inline port priority high
+</code></pre>
+<div class="encadre attention">
+<p class="encadre-titre">Attention en production</p>
+<p>Le budget PoE dépend des <strong>alimentations</strong> installées. Si un switch à deux alimentations en perd une, son budget peut être divisé par deux : des appareils s’éteignent. Prévoir les priorités par port <strong>avant</strong> l’incident, en commençant par les équipements de sécurité (caméras, contrôle d’accès).</p>
+</div>
+<h2 id="dimensionner-un-switch-poe">Dimensionner un switch PoE</h2>
+<ol>
+<li>Lister les appareils et leur classe (ou leur consommation réelle annoncée par LLDP).</li>
+<li>Additionner, puis ajouter <strong>20 à 30 % de marge</strong> pour les évolutions.</li>
+<li>Vérifier le budget <strong>par alimentation</strong> et en cas de panne d’une alimentation.</li>
+<li>Tenir compte de la chaleur : 90 W par port sur des faisceaux de câbles serrés fait monter la température ; les normes de câblage recommandent des précautions au-delà de 60 W.</li>
+</ol>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un switch de 48 ports a un budget de 740 W. On veut y brancher 24 bornes Wi-Fi de classe 4 et 20 téléphones de classe 2. Le budget suffit-il au pire cas ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Bornes : 24 × 30 = 720 W. Téléphones : 20 × 7 = 140 W. Total : <strong>860 W</strong>, supérieur à 740 W. Au pire cas (réservation par classe), <strong>non</strong>. Avec LLDP-MED, la consommation réelle peut être plus faible, mais il est prudent de prévoir une alimentation supplémentaire ou de répartir les bornes sur deux switches.</p>
+</details>
+<p><strong>2.</strong> Après une coupure d’une des deux alimentations d’un switch, les caméras d’un parking s’éteignent mais pas les téléphones. Pourquoi, et que configurer ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le budget a diminué et le switch a coupé des ports selon son ordre de priorité par défaut (souvent les numéros de port les plus élevés en premier). Il faut configurer une <strong>priorité haute</strong> sur les ports des équipements critiques (<code>power inline port priority high</code>) et, idéalement, dimensionner le budget pour qu’une seule alimentation suffise aux appareils prioritaires.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/dac.html"><small>Fiche précédente</small><strong>DAC</strong></a><a class="apres" href="../niveau-1/ethernet.html"><small>Fiche suivante</small><strong>Ethernet</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-une-prise-electrique-au-plafond">Le problème : une prise électrique au plafond ?</a><a href="#comment-ca-marche-etape-par-etape">Comment ça marche, étape par étape</a><a href="#les-generations">Les générations</a><a href="#exemple-la-treizieme-camera-qui-ne-sallume-pas">Exemple : la treizième caméra qui ne s’allume pas</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-classes-et-les-paires-utilisees">Les classes et les paires utilisées</a><a href="#configurer-et-verifier-cisco-ios">Configurer et vérifier (Cisco IOS)</a><a href="#dimensionner-un-switch-poe">Dimensionner un switch PoE</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>HSRP — Hot Standby Router Protocol (Cisco) | Nexorya</title>
+<meta name="description" content="HSRP fait partager à deux routeurs une passerelle virtuelle — une adresse IP et une adresse MAC que les postes utilisent ; si le routeur actif tombe, l’autre reprend la même adresse en quelques secondes.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp" aria-current="page">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/hsrp">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-5">Une passerelle qui ne tombe jamais</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>HSRP</h1><p class="nom-complet">Hot Standby Router Protocol (Cisco)</p>
+<p class="idee">HSRP fait partager à deux routeurs une passerelle virtuelle — une adresse IP et une adresse MAC que les postes utilisent ; si le routeur actif tombe, l’autre reprend la même adresse en quelques secondes.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 8 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-2/passerelle.html">La table de routage</a>, <a href="../niveau-2/arp.html">ARP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-une-seule-passerelle-un-point-de-panne">Le problème : une seule passerelle, un point de panne</h2>
+<p>Tous les postes d’un VLAN ont <strong>une seule</strong> passerelle configurée : <code>10.10.0.1</code>. Si le routeur qui porte cette adresse tombe en panne, tout le VLAN perd l’accès aux autres réseaux, même s’il existe un second routeur parfaitement fonctionnel juste à côté. Changer la passerelle sur des centaines de postes n’est pas une solution.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Deux routeurs se partagent une <strong>passerelle virtuelle</strong>. Les postes utilisent son adresse sans savoir quel routeur répond. Si le routeur actif tombe, l’autre prend sa place, avec la même adresse IP et la même adresse MAC.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 464.0 482.0" width="464.0" role="img" aria-label="Une passerelle virtuelle partagée par deux routeurs" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="232.0" y2="246.0"/><line class="tp-lien " x1="354.0" y1="50.0" x2="232.0" y2="246.0"/><line class="tp-lien logique" x1="110.0" y1="50.0" x2="232.0" y2="134.0"/><line class="tp-lien logique" x1="354.0" y1="50.0" x2="232.0" y2="134.0"/><line class="tp-lien " x1="232.0" y1="246.0" x2="232.0" y2="386.0"/><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">R1 — actif</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">10.10.0.2, priorité 110</text><g transform="translate(354.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">R2 — veille</text><text class="tp-sous" x="354.0" y="106.0" text-anchor="middle">10.10.0.3, priorité 100</text><g transform="translate(232.0 134.0)"><rect class="tp-ico" x="-24" y="-15" width="48" height="30" rx="6"/></g><text class="tp-lib" x="232.0" y="174.0" text-anchor="middle">Passerelle virtuelle</text><text class="tp-sous" x="232.0" y="190.0" text-anchor="middle">10.10.0.1</text><g transform="translate(232.0 246.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="232.0" y="286.0" text-anchor="middle">Switch d’accès</text><g transform="translate(232.0 386.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="232.0" y="426.0" text-anchor="middle">Postes</text><text class="tp-sous" x="232.0" y="442.0" text-anchor="middle">passerelle 10.10.0.1</text></svg><figcaption>Une passerelle virtuelle partagée par deux routeurs</figcaption></figure>
+<ol>
+<li>R1 et R2 ont chacun leur propre adresse (<code>.2</code> et <code>.3</code>) et partagent l’adresse <strong>virtuelle</strong> <code>.1</code>.</li>
+<li>Ils s’échangent des messages <strong>Hello</strong> toutes les 3 secondes. Le routeur à la priorité la plus haute devient <strong>actif</strong> : c’est lui qui répond aux requêtes ARP pour <code>.1</code>, avec une <strong>adresse MAC virtuelle</strong>.</li>
+<li>Les postes envoient leurs paquets à cette MAC virtuelle : c’est R1 qui les traite.</li>
+<li>Si R2 n’entend plus R1 pendant 10 secondes, il devient actif, prend l’adresse IP et la MAC virtuelles, et envoie un <strong>ARP gratuit</strong> pour que les switches apprennent où se trouve désormais cette MAC.</li>
+<li>Les postes ne voient rien : leur passerelle n’a pas changé.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Passerelle virtuelle</strong> — Adresse IP de passerelle partagée par plusieurs routeurs.</li>
+<li><strong>Routeur actif / en veille</strong> — Le routeur qui assure la passerelle / celui qui attend pour prendre le relais.</li>
+<li><strong>Priorité</strong> — Valeur qui détermine quel routeur devient actif ; la plus haute gagne.</li>
+<li><strong>Préemption</strong> — Possibilité pour le routeur le plus prioritaire de reprendre le rôle actif dès son retour.</li>
+<li><strong>Suivi (tracking)</strong> — Surveillance d’une interface ou d’une sonde qui diminue la priorité en cas de problème.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>R1 (priorité 110) tombe, R2 (100) devient actif. R1 redémarre. Qui est actif ensuite ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Ça dépend de la préemption.</strong> Sans <code>preempt</code> sur R1, R2 <strong>reste</strong> actif : HSRP ne change pas d’actif tant que tout fonctionne. Avec <code>preempt</code>, R1 reprend le rôle actif dès qu’il est prêt.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="c">! R1</span>
+interface Vlan10
+ ip address 10.10.0.2 255.255.255.0
+ standby version 2
+ standby 10 ip 10.10.0.1
+ standby 10 priority 110
+ standby 10 preempt delay minimum 60
+ standby 10 authentication md5 key-string Un-Secret
+ standby 10 track 1 decrement 20
+<span class="c">!</span>
+track 1 interface GigabitEthernet0/0/0 line-protocol
+<span class="c">!</span>
+<span class="c">! R2</span>
+interface Vlan10
+ ip address 10.10.0.3 255.255.255.0
+ standby version 2
+ standby 10 ip 10.10.0.1
+ standby 10 preempt
+ standby 10 authentication md5 key-string Un-Secret
+</code></pre>
+<ul>
+<li><code>preempt delay minimum 60</code> : après un redémarrage, R1 attend 60 s avant de reprendre la main, le temps que son routage soit complet. Sinon, il redeviendrait actif avant de savoir où envoyer le trafic.</li>
+<li><code>track 1 decrement 20</code> : si l’uplink de R1 tombe, sa priorité passe de 110 à 90, sous celle de R2 (100) : R2 devient actif (s’il a <code>preempt</code>).</li>
+</ul>
+<h2 id="le-suivi-loubli-classique">Le suivi : l’oubli classique</h2>
+<p>Sans suivi, R1 reste actif même si <strong>son lien vers le reste du réseau</strong> est coupé : les Hello passent toujours sur le VLAN, R2 ne voit aucun problème. Les postes envoient leur trafic à R1, qui ne peut plus le faire sortir. Le suivi d’interface, ou mieux, le suivi d’une <strong>sonde IP SLA</strong> vers une destination lointaine, corrige ce défaut. Voir <a href="ipsla.html">IP SLA</a>.</p>
+<h2 id="versions-temporisateurs-mac-virtuelle">Versions, temporisateurs, MAC virtuelle</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>HSRPv1</th>
+<th>HSRPv2</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Numéros de groupe</td>
+<td>0 à 255</td>
+<td>0 à 4095 (on peut reprendre le numéro de VLAN)</td>
+</tr>
+<tr>
+<td>Adresse multicast</td>
+<td>224.0.0.2</td>
+<td>224.0.0.102</td>
+</tr>
+<tr>
+<td>MAC virtuelle</td>
+<td><code>0000.0c07.acXX</code></td>
+<td><code>0000.0c9f.fXXX</code></td>
+</tr>
+<tr>
+<td>IPv6</td>
+<td>non</td>
+<td>oui</td>
+</tr>
+</tbody>
+</table>
+<p>Hello <strong>3 s</strong>, hold <strong>10 s</strong> par défaut. On peut descendre sous la seconde (<code>standby 10 timers msec 200 msec 750</code>), mais le couplage avec <a href="bfd.html">BFD</a> est préférable pour une détection rapide.</p>
+<h2 id="verification">Vérification</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show standby brief
+                     P indicates configured to preempt.
+Interface   Grp  Pri P State   Active          Standby         Virtual IP
+Vl10        10   110 P Active  local           10.10.0.3       10.10.0.1
+</code></pre>
+<p>Si les deux routeurs se déclarent <strong>actifs</strong> en même temps, ils ne s’entendent pas : VLAN non transporté entre eux, numéro de groupe différent, authentification différente, ou ACL qui bloque le multicast. Le journal affiche alors des messages de conflit d’adresse.</p>
+<h2 id="repartir-la-charge-entre-les-deux-routeurs">Répartir la charge entre les deux routeurs</h2>
+<p>HSRP n’utilise qu’un routeur actif <strong>par groupe</strong>. Pour faire travailler les deux, on alterne par VLAN : R1 actif pour les VLAN pairs, R2 pour les VLAN impairs. Idéalement, on aligne ce choix sur la racine <a href="../niveau-1/stp.html">STP</a> de chaque VLAN, pour que le chemin de niveau 2 et la passerelle soient sur le même switch.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> R1 est actif (priorité 110, <code>track</code> de son uplink avec <code>decrement 5</code>). Son uplink tombe, mais R2 ne devient pas actif. Pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La priorité de R1 passe à 110 − 5 = <strong>105</strong>, toujours au-dessus de R2 (100). Il faut un décrément suffisant (au moins 11), et <code>preempt</code> sur R2 pour qu’il prenne la main.</p>
+</details>
+<p><strong>2.</strong> Après une bascule HSRP, certains postes perdent le réseau pendant une minute, puis tout revient. Quelle hypothèse ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les <strong>switches</strong> n’ont pas mis à jour l’emplacement de la MAC virtuelle (ARP gratuit perdu, ou chemin STP qui change en même temps). Les trames continuent d’être envoyées vers l’ancien routeur jusqu’à l’expiration de l’entrée MAC. Vérifier que les deux routeurs sont bien reliés par le VLAN, et que la racine STP et le routeur actif sont alignés.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/vrrp.html"><small>Fiche précédente</small><strong>VRRP</strong></a><a class="apres" href="../niveau-2/glbp.html"><small>Fiche suivante</small><strong>GLBP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-une-seule-passerelle-un-point-de-panne">Le problème : une seule passerelle, un point de panne</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#le-suivi-loubli-classique">Le suivi : l’oubli classique</a><a href="#versions-temporisateurs-mac-virtuelle">Versions, temporisateurs, MAC virtuelle</a><a href="#verification">Vérification</a><a href="#repartir-la-charge-entre-les-deux-routeurs">Répartir la charge entre les deux routeurs</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

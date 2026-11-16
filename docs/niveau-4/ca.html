@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Autorité de certification — CA publiques et autorités internes | Nexorya</title>
+<meta name="description" content="Une autorité de certification signe les certificats ; une CA publique est reconnue par tous les navigateurs, une CA interne n’est reconnue que par les appareils de l’entreprise où on l’a installée.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca" aria-current="page">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/ca">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-2">Prouver son identité</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Autorité de certification</h1><p class="nom-complet">CA publiques et autorités internes</p>
+<p class="idee">Une autorité de certification signe les certificats ; une CA publique est reconnue par tous les navigateurs, une CA interne n’est reconnue que par les appareils de l’entreprise où on l’a installée.</p><div class="badges"><span>Couche OSI 7</span><span>Découvrir : 5 min</span><span>Approfondir : 10 min</span><span>Avant : <a href="../niveau-4/pki.html">PKI</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Qui a le droit de signer un certificat ? Pour un site public, le navigateur de n’importe quel visiteur doit lui faire confiance : il faut une autorité <strong>reconnue de tous</strong>. Pour le serveur RADIUS ou l’intranet, seuls les appareils de l’entreprise sont concernés : l’entreprise peut être <strong>sa propre autorité</strong>.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Une autorité de certification est un tiers de confiance qui signe les certificats ; on choisit une CA publique pour ce qui est vu depuis Internet, une CA interne pour ce qui ne concerne que l’entreprise.</p>
+</div>
+<h2 id="publique-ou-interne">Publique ou interne ?</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>CA publique</th>
+<th>CA interne</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Reconnue par</td>
+<td>tous les navigateurs et systèmes</td>
+<td>les appareils où la racine a été installée</td>
+</tr>
+<tr>
+<td>Exemples d’usage</td>
+<td>site Web public, portail VPN, messagerie</td>
+<td>intranet, RADIUS, EAP-TLS, équipements, inspection TLS</td>
+</tr>
+<tr>
+<td>Vérification</td>
+<td>contrôle du nom de domaine (DV), parfois de l’organisation (OV/EV)</td>
+<td>selon la politique de l’entreprise</td>
+</tr>
+<tr>
+<td>Noms internes (<code>srv-ad01.local</code>)</td>
+<td><strong>impossible</strong></td>
+<td>possible</td>
+</tr>
+<tr>
+<td>Coût</td>
+<td>gratuit (ACME) à payant</td>
+<td>infrastructure à maintenir</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Autorité de certification (CA)</strong> — Entité qui signe les certificats et en garantit le contenu.</li>
+<li><strong>Magasin de certificats</strong> — Liste des autorités racines auxquelles un système fait confiance.</li>
+<li><strong>Certificat auto-signé</strong> — Certificat signé par sa propre clé, reconnu par personne d’autre par défaut.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Le portail Wi-Fi invités affiche une erreur de certificat sur tous les téléphones des visiteurs, mais pas sur les postes de l’entreprise. Pourquoi ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le portail utilise un certificat de la <strong>CA interne</strong>. Les postes de l’entreprise ont sa racine dans leur magasin de confiance ; les téléphones des visiteurs, non. Pour un service vu par des appareils non gérés, il faut un certificat d’une <strong>CA publique</strong>.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="distribuer-la-racine-interne">Distribuer la racine interne</h2>
+<table>
+<thead>
+<tr>
+<th>Plateforme</th>
+<th>Méthode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows dans le domaine</td>
+<td>automatique avec une CA intégrée à Active Directory, ou GPO</td>
+</tr>
+<tr>
+<td>macOS, iOS, Android gérés</td>
+<td>profil de configuration via le MDM</td>
+</tr>
+<tr>
+<td>Linux</td>
+<td><code>/usr/local/share/ca-certificates/</code> puis <code>update-ca-certificates</code></td>
+</tr>
+<tr>
+<td>Applications à magasin propre (Java, Firefox, Python)</td>
+<td>importer dans leur magasin, ou les configurer pour utiliser celui du système</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-bash">$ sudo cp Exemple-Racine.crt /usr/local/share/ca-certificates/
+$ sudo update-ca-certificates
+$ curl https://intranet.exemple.fr     # n'affiche plus d'erreur de certificat
+</code></pre>
+<h2 id="bonnes-pratiques">Bonnes pratiques</h2>
+<ul>
+<li>Ne jamais demander aux utilisateurs d’« accepter le risque » face à une erreur de certificat : on leur apprend à ignorer les vraies attaques.</li>
+<li>Remplacer les certificats <strong>auto-signés</strong> des équipements (interfaces Web d’administration, contrôleurs) par des certificats de la CA interne.</li>
+<li>Superviser les <strong>dates d’expiration</strong> de tous les certificats, y compris des intermédiaires et des CRL.</li>
+</ul>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un script Python qui appelle l’API interne échoue avec une erreur de certificat, alors que le navigateur du même poste fonctionne. Explication ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Python (la bibliothèque <code>requests</code> avec <code>certifi</code>) utilise <strong>son propre magasin</strong> d’autorités, qui ne contient pas la racine interne. Le navigateur utilise le magasin du système. Indiquer le fichier de la racine (<code>REQUESTS_CA_BUNDLE</code> ou <code>verify=</code>), ou configurer Python pour utiliser le magasin système — mais jamais désactiver la vérification.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/pki.html"><small>Fiche précédente</small><strong>PKI</strong></a><a class="apres" href="../niveau-4/acl.html"><small>Fiche suivante</small><strong>ACL</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#publique-ou-interne">Publique ou interne ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#distribuer-la-racine-interne">Distribuer la racine interne</a><a href="#bonnes-pratiques">Bonnes pratiques</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

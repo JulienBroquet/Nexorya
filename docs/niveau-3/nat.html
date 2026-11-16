@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NAT — Network Address Translation | Nexorya</title>
+<meta name="description" content="Le NAT remplace les adresses privées d’un réseau par une adresse publique à la sortie vers Internet, et fait le chemin inverse pour les réponses ; toute une entreprise peut ainsi partager une seule adresse publique.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat" aria-current="page">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/nat">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-2">Noms et adresses automatiques</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>NAT</h1><p class="nom-complet">Network Address Translation</p>
+<p class="idee">Le NAT remplace les adresses privées d’un réseau par une adresse publique à la sortie vers Internet, et fait le chemin inverse pour les réponses ; toute une entreprise peut ainsi partager une seule adresse publique.</p><div class="badges"><span>Couche OSI 3 et 4</span><span>Découvrir : 8 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-2/ipv4.html">IPv4</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-pas-assez-dadresses-publiques">Le problème : pas assez d’adresses publiques</h2>
+<p>Une entreprise de 800 postes dispose d’une seule adresse IPv4 publique, attribuée par son opérateur. Ses postes utilisent des adresses <strong>privées</strong> (<code>10.x.x.x</code>), qui ne sont pas acheminées sur Internet. Comment peuvent-ils tous naviguer en même temps ?</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>En sortant vers Internet, le routeur remplace l’adresse privée de chaque paquet par son adresse publique, note la correspondance, et fait l’opération inverse sur les réponses.</p>
+</div>
+<h2 id="comment-ca-marche-pat">Comment ça marche (PAT)</h2>
+<figure class="schema"><svg viewBox="0 0 760 606" width="760" role="img" aria-label="Deux postes partagent une seule adresse publique" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="606"/><g class="sq-acteur"><rect x="2.3000000000000114" y="12" width="165.39999999999998" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">PC A (10.10.0.57)</text></g><line class="sq-vie" x1="281.66666666666663" y1="43" x2="281.66666666666663" y2="606"/><g class="sq-acteur"><rect x="198.96666666666664" y="12" width="165.39999999999998" height="31" rx="8"/><text x="281.66666666666663" y="33" text-anchor="middle">PC B (10.10.0.58)</text></g><line class="sq-vie" x1="478.3333333333333" y1="60" x2="478.3333333333333" y2="606"/><g class="sq-acteur"><rect x="407.93333333333334" y="12" width="140.79999999999998" height="48" rx="8"/><text x="478.3333333333333" y="33" text-anchor="middle">Routeur NAT</text><text x="478.3333333333333" y="50" text-anchor="middle">(198.51.100.7)</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="606"/><g class="sq-acteur"><rect x="616.9" y="12" width="116.19999999999999" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Serveur Web</text></g><g class="sq-msg "><text x="281.66666666666663" y="66" text-anchor="middle">1. de 10.10.0.57:51544 vers 203.0.113.10:443</text><line x1="85.0" y1="78" x2="466.3333333333333" y2="78"/><polygon class="sq-pointe" points="476.3333333333333,78 464.3333333333333,72 464.3333333333333,84"/></g><g class="sq-note"><rect x="378.3333333333333" y="124" width="200" height="68" rx="6"/><text x="478.3333333333333" y="143" text-anchor="middle">traduit :</text><text x="478.3333333333333" y="161" text-anchor="middle">10.10.0.57:51544 ↔</text><text x="478.3333333333333" y="179" text-anchor="middle">198.51.100.7:40001</text></g><g class="sq-msg "><text x="576.6666666666666" y="218" text-anchor="middle">2. de 198.51.100.7:40001</text><text x="576.6666666666666" y="236" text-anchor="middle">vers 203.0.113.10:443</text><line x1="478.3333333333333" y1="248" x2="663.0" y2="248"/><polygon class="sq-pointe" points="673.0,248 661.0,242 661.0,254"/></g><g class="sq-msg "><text x="380.0" y="286" text-anchor="middle">3. de 10.10.0.58:51544</text><text x="380.0" y="304" text-anchor="middle">vers 203.0.113.10:443</text><line x1="281.66666666666663" y1="316" x2="466.3333333333333" y2="316"/><polygon class="sq-pointe" points="476.3333333333333,316 464.3333333333333,310 464.3333333333333,322"/></g><g class="sq-note"><rect x="378.3333333333333" y="362" width="200" height="68" rx="6"/><text x="478.3333333333333" y="381" text-anchor="middle">traduit :</text><text x="478.3333333333333" y="399" text-anchor="middle">10.10.0.58:51544 ↔</text><text x="478.3333333333333" y="417" text-anchor="middle">198.51.100.7:40002</text></g><g class="sq-msg rep"><text x="576.6666666666666" y="456" text-anchor="middle">4. réponse vers</text><text x="576.6666666666666" y="474" text-anchor="middle">198.51.100.7:40002</text><line x1="675.0" y1="486" x2="490.3333333333333" y2="486"/><polygon class="sq-pointe" points="480.3333333333333,486 492.3333333333333,480 492.3333333333333,492"/></g><g class="sq-msg rep"><text x="380.0" y="524" text-anchor="middle">5. retraduit vers</text><text x="380.0" y="542" text-anchor="middle">10.10.0.58:51544</text><line x1="478.3333333333333" y1="554" x2="293.66666666666663" y2="554"/><polygon class="sq-pointe" points="283.66666666666663,554 295.66666666666663,548 295.66666666666663,560"/></g></svg><figcaption>Deux postes partagent une seule adresse publique</figcaption></figure>
+<p>Le serveur Web voit deux connexions venant <strong>de la même adresse</strong>, mais de deux <strong>ports</strong> différents. Le routeur sait, grâce à sa table, à quel poste rendre chaque réponse.</p>
+<h2 id="les-trois-formes-de-nat">Les trois formes de NAT</h2>
+<table>
+<thead>
+<tr>
+<th>Forme</th>
+<th>Principe</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PAT</strong> (<em>overload</em>, NAT dynamique avec ports)</td>
+<td>plusieurs adresses privées → une adresse publique, distinguées par les ports</td>
+<td>accès Internet des postes</td>
+</tr>
+<tr>
+<td><strong>NAT statique</strong></td>
+<td>une adresse privée ↔ une adresse publique, de façon permanente</td>
+<td>rendre un serveur interne joignable depuis Internet</td>
+</tr>
+<tr>
+<td><strong>Redirection de port</strong> (NAT statique avec port)</td>
+<td>« le port 443 de l’adresse publique va vers 10.20.0.15:443 »</td>
+<td>publier un service avec une seule adresse publique</td>
+</tr>
+</tbody>
+</table>
+<h2 id="le-nat-nest-pas-un-pare-feu-mais-il-en-a-lair">Le NAT n’est pas un pare-feu… mais il en a l’air</h2>
+<p>Comme la table de traduction n’est créée que par des connexions <strong>sortantes</strong>, une connexion qui arrive d’Internet sans correspondance ne sait pas où aller : elle est jetée. Cela protège de fait les postes. Mais ce n’est pas une politique de sécurité : un seul NAT statique mal placé expose une machine. La sécurité se fait avec des règles de filtrage explicites.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>NAT</strong> — Traduction d’adresses entre un réseau privé et un réseau public.</li>
+<li><strong>PAT</strong> — <em>Port Address Translation</em>, NAT qui utilise les numéros de port pour partager une adresse publique.</li>
+<li><strong>Table de traduction</strong> — Liste des correspondances entre adresses et ports internes et externes.</li>
+<li><strong>Redirection de port</strong> — Règle qui envoie les connexions reçues sur un port public vers une machine interne ; <em>port forwarding</em>.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un serveur Web interne (10.20.0.15) doit être accessible depuis Internet sur l’adresse publique de l’entreprise. Le PAT des postes fonctionne. Que faut-il ajouter ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Une <strong>redirection de port</strong> (NAT statique) : port 443 de l’adresse publique vers <code>10.20.0.15:443</code>, <strong>et</strong> une règle de pare-feu qui autorise ce flux. Le PAT ne crée des correspondances que pour les connexions sortantes.</p>
+</details>
+<p><strong>2.</strong> Pourquoi le NAT est-il beaucoup moins nécessaire en IPv6 ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce qu’IPv6 fournit assez d’adresses pour que chaque machine ait une <strong>adresse publique</strong>. La pénurie qui a justifié le NAT disparaît. La protection des postes est assurée par un pare-feu à états, pas par la traduction.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco">interface GigabitEthernet0/0/0
+ description Internet
+ ip address 198.51.100.7 255.255.255.248
+ ip nat outside
+interface Vlan10
+ ip nat inside
+<span class="c">!</span>
+<span class="c">! PAT : les réseaux internes sortent avec l'adresse de l'interface Internet</span>
+ip access-list standard NAT-INTERNES
+ permit 10.0.0.0 0.255.255.255
+ip nat inside source list NAT-INTERNES interface GigabitEthernet0/0/0 overload
+<span class="c">!</span>
+<span class="c">! Publication d'un serveur Web</span>
+ip nat inside source static tcp 10.20.0.15 443 198.51.100.7 443 extendable
+</code></pre>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip nat translations
+Pro Inside global        Inside local        Outside local       Outside global
+tcp 198.51.100.7:40001   10.10.0.57:51544    203.0.113.10:443    203.0.113.10:443
+tcp 198.51.100.7:443     10.20.0.15:443      ---                 ---
+<span class="k">R1#</span> show ip nat statistics
+<span class="k">R1#</span> clear ip nat translation *
+</code></pre>
+<p>Vocabulaire Cisco : <strong>inside local</strong> (adresse réelle du poste), <strong>inside global</strong> (la même vue d’Internet), <strong>outside</strong> (le correspondant).</p>
+<h2 id="ce-que-le-nat-complique">Ce que le NAT complique</h2>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Problème</th>
+<th>Solution courante</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SIP, voix sur IP</td>
+<td>les adresses des flux audio sont écrites <strong>dans</strong> les messages SIP</td>
+<td>ALG SIP (souvent source de bugs), SBC, STUN/TURN/ICE</td>
+</tr>
+<tr>
+<td>FTP actif</td>
+<td>le client annonce son adresse et un port dans les données</td>
+<td>mode passif, ALG FTP</td>
+</tr>
+<tr>
+<td>IPsec</td>
+<td>AH ne supporte pas la modification de l’en-tête ; ESP n’a pas de ports</td>
+<td>NAT-T : encapsulation dans UDP 4500</td>
+</tr>
+<tr>
+<td>Connexions entrantes vers un poste</td>
+<td>pas de correspondance dans la table</td>
+<td>redirections, ou relais applicatif</td>
+</tr>
+<tr>
+<td><strong>Recouvrement d’adresses</strong></td>
+<td>deux réseaux privés utilisent <code>192.168.10.0/24</code> et doivent communiquer (fusion, VPN)</td>
+<td>NAT des deux côtés vers des plages neutres</td>
+</tr>
+</tbody>
+</table>
+<h2 id="epuisement-des-ports-et-cgnat">Épuisement des ports et CGNAT</h2>
+<p>Une adresse publique offre environ 64 000 ports par protocole et par destination. Un PAT très chargé (milliers de postes, applications qui ouvrent beaucoup de connexions) peut <strong>manquer de ports</strong> : de nouvelles connexions échouent au hasard. On ajoute alors des adresses publiques (un <em>pool</em> au lieu d’une interface).</p>
+<p>Les opérateurs appliquent parfois un second niveau de NAT, le <strong>CGNAT</strong> (plage <code>100.64.0.0/10</code>) : le client n’a même plus d’adresse publique propre, ce qui empêche toute publication de service depuis chez lui.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Deux entreprises qui fusionnent utilisent toutes deux <code>192.168.10.0/24</code>. Un VPN doit les relier rapidement. Que proposer ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Une <strong>double traduction</strong> aux extrémités du VPN : chaque site voit l’autre derrière une plage neutre (par exemple <code>10.201.10.0/24</code> pour l’entreprise A, <code>10.202.10.0/24</code> pour B). Les flux sont traduits en entrant et en sortant du tunnel. À plus long terme, renuméroter un des deux réseaux.</p>
+</details>
+<p><strong>2.</strong> Une redirection de port 443 vers un serveur interne est configurée, mais le site n’est pas joignable depuis Internet. <code>show ip nat translations</code> montre bien l’entrée statique. Que vérifier ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le <strong>filtrage</strong> : ACL ou pare-feu sur l’interface Internet qui doit autoriser TCP 443 vers l’adresse publique ; la <strong>route retour</strong> du serveur (sa passerelle doit être le routeur qui fait le NAT, sinon la réponse sort par ailleurs sans être retraduite) ; enfin le service lui-même.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/dhcp.html"><small>Fiche précédente</small><strong>DHCP</strong></a><a class="apres" href="../niveau-3/http.html"><small>Fiche suivante</small><strong>HTTP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-pas-assez-dadresses-publiques">Le problème : pas assez d’adresses publiques</a><a href="#comment-ca-marche-pat">Comment ça marche (PAT)</a><a href="#les-trois-formes-de-nat">Les trois formes de NAT</a><a href="#le-nat-nest-pas-un-pare-feu-mais-il-en-a-lair">Le NAT n’est pas un pare-feu… mais il en a l’air</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#ce-que-le-nat-complique">Ce que le NAT complique</a><a href="#epuisement-des-ports-et-cgnat">Épuisement des ports et CGNAT</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

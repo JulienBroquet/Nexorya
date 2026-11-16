@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NetFlow — NetFlow, IPFIX et sFlow | Nexorya</title>
+<meta name="description" content="NetFlow résume le trafic en « flux » — qui parle à qui, sur quel port, combien et combien de temps — sans copier les paquets ; on sait ainsi ce qui consomme un lien et l’on repère les comportements anormaux.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow" aria-current="page">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/netflow">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-5">Observer le réseau</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>NetFlow</h1><p class="nom-complet">NetFlow, IPFIX et sFlow</p>
+<p class="idee">NetFlow résume le trafic en « flux » — qui parle à qui, sur quel port, combien et combien de temps — sans copier les paquets ; on sait ainsi ce qui consomme un lien et l’on repère les comportements anormaux.</p><div class="badges"><span>Couche OSI 3 et 4</span><span>Découvrir : 7 min</span><span>Approfondir : 14 min</span><span>Avant : <a href="../niveau-3/tcp.html">TCP</a>, <a href="../niveau-3/udp.html">UDP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-savoir-qui-consomme">Le problème : savoir qui consomme</h2>
+<p>La supervision SNMP montre qu’un lien est saturé à 95 %. Mais <strong>par quoi</strong> ? Une sauvegarde, une mise à jour, un utilisateur qui télécharge des vidéos, un poste infecté qui exfiltre des données ? SNMP ne compte que des octets ; une capture complète serait trop lourde à garder.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>NetFlow tient une sorte de <strong>relevé détaillé des communications</strong> : pour chaque conversation, qui, avec qui, sur quel port, combien — sans le contenu.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 464.0 286.0" width="464.0" role="img" aria-label="Exportation des flux vers un collecteur" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien logique" x1="110.0" y1="50.0" x2="354.0" y2="120.0"/><text class="tp-etiq" x="235.3" y="73.5" text-anchor="middle">IPFIX (UDP)</text><line class="tp-lien logique" x1="110.0" y1="190.0" x2="354.0" y2="120.0"/><text class="tp-etiq" x="228.7" y="143.5" text-anchor="middle">IPFIX (UDP)</text><g transform="translate(110.0 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">Routeur WAN</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">exportateur</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">Cœur</text><text class="tp-sous" x="110.0" y="246.0" text-anchor="middle">exportateur</text><g transform="translate(354.0 120.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="354.0" y="160.0" text-anchor="middle">Collecteur</text><text class="tp-sous" x="354.0" y="176.0" text-anchor="middle">analyse, tableaux de bord</text></svg><figcaption>Exportation des flux vers un collecteur</figcaption></figure>
+<ol>
+<li>L’équipement observe le trafic et regroupe les paquets en <strong>flux</strong> (même source, destination, ports, protocole).</li>
+<li>Quand un flux se termine ou après un délai, il <strong>exporte</strong> un enregistrement vers le collecteur.</li>
+<li>Le collecteur stocke, agrège et présente : « top 10 des conversations sur le lien WAN », « trafic par application », « historique d’un poste ».</li>
+</ol>
+<h2 id="un-enregistrement-de-flux">Un enregistrement de flux</h2>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source → destination</td>
+<td>10.50.0.25:51544 → 10.20.0.40:443</td>
+</tr>
+<tr>
+<td>Protocole</td>
+<td>TCP</td>
+</tr>
+<tr>
+<td>Interfaces</td>
+<td>entrée Gi0/0/1, sortie Tunnel10</td>
+</tr>
+<tr>
+<td>Octets / paquets</td>
+<td>1,8 Go / 1,3 million</td>
+</tr>
+<tr>
+<td>Début / fin</td>
+<td>18:02:11 → 18:47:56</td>
+</tr>
+<tr>
+<td>DSCP</td>
+<td>8 (CS1, arrière-plan)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>NetFlow</strong> — Technologie Cisco d’export des statistiques de flux réseau.</li>
+<li><strong>IPFIX</strong> — Version standard de l’export de flux (RFC 7011).</li>
+<li><strong>sFlow</strong> — Méthode d’observation par échantillonnage de paquets, courante sur les switches.</li>
+<li><strong>Flux</strong> — Ensemble de paquets partageant les mêmes adresses, ports et protocole.</li>
+<li><strong>Collecteur</strong> — Logiciel qui reçoit, stocke et analyse les flux exportés.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>NetFlow permet-il de lire le contenu d’un e-mail ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> NetFlow ne garde que des <strong>métadonnées</strong> (qui, quand, combien, sur quel port), jamais le contenu des paquets. C’est ce qui le rend léger, et moins intrusif qu’une capture.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-flexible-netflow-cisco-ios-xe">Configuration (Flexible NetFlow, Cisco IOS-XE)</h2>
+<pre><code class="language-cisco">flow record FLUX-IPV4
+ match ipv4 source address
+ match ipv4 destination address
+ match transport source-port
+ match transport destination-port
+ match ipv4 protocol
+ match interface input
+ collect interface output
+ collect counter bytes long
+ collect counter packets long
+ collect timestamp absolute first
+ collect timestamp absolute last
+ collect ipv4 dscp
+<span class="c">!</span>
+flow exporter VERS-COLLECTEUR
+ destination 10.99.0.90
+ source Loopback0
+ transport udp 4739
+ export-protocol ipfix
+<span class="c">!</span>
+flow monitor MON-WAN
+ record FLUX-IPV4
+ exporter VERS-COLLECTEUR
+ cache timeout active 60
+<span class="c">!</span>
+interface GigabitEthernet0/0/1
+ ip flow monitor MON-WAN input
+ ip flow monitor MON-WAN output
+</code></pre>
+<p><code>cache timeout active 60</code> : un flux long (une sauvegarde d’une heure) est exporté <strong>toutes les 60 s</strong>, pour que les tableaux de bord montrent la charge en temps quasi réel.</p>
+<h2 id="cas-dusage">Cas d’usage</h2>
+<table>
+<thead>
+<tr>
+<th>Question</th>
+<th>Ce que montre NetFlow</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Qui sature le lien ?</td>
+<td>top des conversations et des applications sur l’interface</td>
+</tr>
+<tr>
+<td>Ce poste est-il compromis ?</td>
+<td>connexions vers des destinations inhabituelles, volumes sortants anormaux, balayages</td>
+</tr>
+<tr>
+<td>Quels flux pour ma matrice de segmentation ?</td>
+<td>inventaire réel de qui parle à qui avant de filtrer</td>
+</tr>
+<tr>
+<td>La QoS est-elle appliquée ?</td>
+<td>valeurs DSCP réelles par flux</td>
+</tr>
+<tr>
+<td>Faut-il augmenter ce lien ?</td>
+<td>tendances de consommation par application</td>
+</tr>
+</tbody>
+</table>
+<h2 id="echantillonnage">Échantillonnage</h2>
+<p>Sur des liens très rapides, analyser chaque paquet est coûteux. On <strong>échantillonne</strong> (1 paquet sur 1 000, par exemple) : les volumes sont estimés statistiquement. C’est le principe de <strong>sFlow</strong>, et une option de NetFlow. Bien pour les tendances et les gros flux, moins pour repérer un flux minuscule.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Le lien WAN d’une agence est saturé chaque jour de 12 h à 14 h. Comment NetFlow aide-t-il à décider entre « augmenter le lien » et « corriger un usage » ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le collecteur montre <strong>quelles conversations et applications</strong> occupent le lien à ces heures. Si c’est un usage légitime en croissance (visioconférence, SaaS), on augmente le lien ou l’on ajuste la QoS. Si c’est une mise à jour mal planifiée, une sauvegarde déclenchée au mauvais moment ou du streaming personnel, on corrige l’usage (planification, politique, filtrage) sans dépense.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/erspan.html"><small>Fiche précédente</small><strong>ERSPAN</strong></a><a class="apres" href="../niveau-5/observabilite.html"><small>Fiche suivante</small><strong>Observabilité</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-savoir-qui-consomme">Le problème : savoir qui consomme</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#un-enregistrement-de-flux">Un enregistrement de flux</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-flexible-netflow-cisco-ios-xe">Configuration (Flexible NetFlow, Cisco IOS-XE)</a><a href="#cas-dusage">Cas d’usage</a><a href="#echantillonnage">Échantillonnage</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

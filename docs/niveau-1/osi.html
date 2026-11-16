@@ -1,0 +1,349 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Les modèles OSI et TCP/IP — Une carte en couches pour tout le réseau | Nexorya</title>
+<meta name="description" content="Le modèle OSI découpe une communication en sept couches, chacune avec un rôle précis ; il sert de carte pour situer une technologie et localiser une panne.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi" aria-current="page">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/osi">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-1">Se repérer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Les modèles OSI et TCP/IP</h1><p class="nom-complet">Une carte en couches pour tout le réseau</p>
+<p class="idee">Le modèle OSI découpe une communication en sept couches, chacune avec un rôle précis ; il sert de carte pour situer une technologie et localiser une panne.</p><div class="badges"><span>Couche OSI 1 à 7</span><span>Découvrir : 10 min</span><span>Approfondir : 20 min</span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-trop-de-choses-a-la-fois">Le problème : trop de choses à la fois</h2>
+<p>Envoyer un message sur un réseau mélange des questions très différentes : comment transformer des 0 et des 1 en signal électrique ? À quel appareil voisin remettre le message ? Par quel chemin traverser la planète ? Comment s’assurer que tout est arrivé ? Comment le navigateur comprend-il la réponse ?</p>
+<p>Si un seul protocole devait tout gérer, il serait énorme et impossible à faire évoluer. Les ingénieurs ont donc <strong>découpé le problème en couches</strong>. Chaque couche s’occupe d’une seule question et rend service à la couche du dessus.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le modèle OSI est une <strong>carte</strong> : il découpe une communication en sept couches, de la plus concrète (le câble) à la plus abstraite (l’application). Il sert à situer chaque technologie et à localiser une panne.</p>
+</div>
+<h2 id="les-sept-couches-de-bas-en-haut">Les sept couches, de bas en haut</h2>
+<table>
+<thead>
+<tr>
+<th>N°</th>
+<th>Couche</th>
+<th>Question à laquelle elle répond</th>
+<th>Exemples</th>
+<th>Unité</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td><strong>Physique</strong></td>
+<td>Comment transformer des bits en signal ?</td>
+<td>câble, fibre, ondes Wi-Fi, connecteurs</td>
+<td>bit</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Liaison</strong></td>
+<td>À quel appareil <strong>voisin</strong> remettre le message ?</td>
+<td>Ethernet, Wi-Fi, adresses MAC, switch</td>
+<td>trame</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Réseau</strong></td>
+<td>Par quel <strong>chemin</strong> atteindre un autre réseau ?</td>
+<td>IP, routeur, adresses IP</td>
+<td>paquet</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Transport</strong></td>
+<td>À quel <strong>service</strong> remettre, et faut-il garantir l’arrivée ?</td>
+<td>TCP, UDP, numéros de port</td>
+<td>segment</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Session</td>
+<td>Comment ouvrir et maintenir un dialogue ?</td>
+<td>(rarement isolée en pratique)</td>
+<td>—</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Présentation</td>
+<td>Sous quelle forme coder les données ?</td>
+<td>encodage, compression, chiffrement</td>
+<td>—</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Application</strong></td>
+<td>Que signifie le message pour l’application ?</td>
+<td>HTTP, DNS, SMTP</td>
+<td>données</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre astuce">
+<p class="encadre-titre">Un moyen mnémotechnique</p>
+<p>De bas en haut : « <strong>P</strong>our <strong>L</strong>e <strong>R</strong>éseau, <strong>T</strong>out <strong>S</strong>e <strong>P</strong>asse <strong>A</strong>utomatiquement » — Physique, Liaison, Réseau, Transport, Session, Présentation, Application.</p>
+</div>
+<p>En entreprise, on parle constamment des couches 1 à 4 et de la couche 7. Les couches 5 et 6 existent surtout dans la théorie : en pratique, leur rôle est assuré par l’application ou par TLS.</p>
+<h2 id="le-voyage-dun-message-a-travers-les-couches">Le voyage d’un message à travers les couches</h2>
+<p>Au départ, chaque couche <strong>ajoute son en-tête</strong> au message reçu de la couche du dessus : c’est l’<strong>encapsulation</strong>. À l’arrivée, chaque couche <strong>retire</strong> l’en-tête qui la concerne.</p>
+<figure class="schema"><svg viewBox="0 0 760 544" width="760" role="img" aria-label="Encapsulation au départ, désencapsulation à l’arrivée" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="544"/><g class="sq-acteur"><rect x="26.900000000000006" y="12" width="116.19999999999999" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Application</text></g><line class="sq-vie" x1="232.5" y1="43" x2="232.5" y2="544"/><g class="sq-acteur"><rect x="182.6" y="12" width="99.8" height="31" rx="8"/><text x="232.5" y="33" text-anchor="middle">Transport</text></g><line class="sq-vie" x1="380.0" y1="43" x2="380.0" y2="544"/><g class="sq-acteur"><rect x="340.0" y="12" width="80" height="31" rx="8"/><text x="380.0" y="33" text-anchor="middle">Réseau</text></g><line class="sq-vie" x1="527.5" y1="43" x2="527.5" y2="544"/><g class="sq-acteur"><rect x="485.8" y="12" width="83.39999999999999" height="31" rx="8"/><text x="527.5" y="33" text-anchor="middle">Liaison</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="544"/><g class="sq-acteur"><rect x="629.2" y="12" width="91.6" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Physique</text></g><g class="sq-msg "><text x="158.75" y="66" text-anchor="middle">1. données « GET</text><text x="158.75" y="84" text-anchor="middle">/index.html »</text><line x1="85.0" y1="96" x2="220.5" y2="96"/><polygon class="sq-pointe" points="230.5,96 218.5,90 218.5,102"/></g><g class="sq-msg "><text x="306.25" y="134" text-anchor="middle">2. segment = en-tête</text><text x="306.25" y="152" text-anchor="middle">TCP (port 443) +</text><text x="306.25" y="170" text-anchor="middle">données</text><line x1="232.5" y1="182" x2="368.0" y2="182"/><polygon class="sq-pointe" points="378.0,182 366.0,176 366.0,188"/></g><g class="sq-msg "><text x="453.75" y="220" text-anchor="middle">3. paquet = en-tête</text><text x="453.75" y="238" text-anchor="middle">IP (adresses IP) +</text><text x="453.75" y="256" text-anchor="middle">segment</text><line x1="380.0" y1="268" x2="515.5" y2="268"/><polygon class="sq-pointe" points="525.5,268 513.5,262 513.5,274"/></g><g class="sq-msg "><text x="601.25" y="306" text-anchor="middle">4. trame = en-tête</text><text x="601.25" y="324" text-anchor="middle">Ethernet (adresses</text><text x="601.25" y="342" text-anchor="middle">MAC) + paquet +</text><text x="601.25" y="360" text-anchor="middle">contrôle</text><line x1="527.5" y1="372" x2="663.0" y2="372"/><polygon class="sq-pointe" points="673.0,372 661.0,366 661.0,378"/></g><g class="sq-note"><rect x="554" y="418" width="200" height="86" rx="6"/><text x="654.0" y="437" text-anchor="middle">la trame devient une</text><text x="654.0" y="455" text-anchor="middle">suite de bits, puis un</text><text x="654.0" y="473" text-anchor="middle">signal électrique,</text><text x="654.0" y="491" text-anchor="middle">lumineux ou radio</text></g></svg><figcaption>Encapsulation au départ, désencapsulation à l’arrivée</figcaption></figure>
+<h2 id="qui-travaille-a-quelle-couche">Qui travaille à quelle couche ?</h2>
+<p>Chaque équipement ne lit que les couches dont il a besoin :</p>
+<table>
+<thead>
+<tr>
+<th>Équipement</th>
+<th>Couche la plus haute qu’il lit</th>
+<th>Ce qu’il regarde</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Câble, répéteur</td>
+<td>1</td>
+<td>rien, il transporte le signal</td>
+</tr>
+<tr>
+<td>Switch</td>
+<td>2</td>
+<td>l’adresse MAC de destination</td>
+</tr>
+<tr>
+<td>Routeur</td>
+<td>3</td>
+<td>l’adresse IP de destination</td>
+</tr>
+<tr>
+<td>Pare-feu</td>
+<td>4 à 7</td>
+<td>adresses, ports, parfois l’application</td>
+</tr>
+<tr>
+<td>Ordinateur, serveur</td>
+<td>7</td>
+<td>tout, jusqu’au contenu</td>
+</tr>
+</tbody>
+</table>
+<p>C’est pour cela qu’on parle de « switch de niveau 2 », de « routage de niveau 3 » ou de « pare-feu de niveau 7 ».</p>
+<h2 id="depanner-avec-les-couches">Dépanner avec les couches</h2>
+<p>Une couche ne peut pas fonctionner si la couche du dessous est en panne. On dépanne donc <strong>de bas en haut</strong> :</p>
+<ol>
+<li><strong>Couche 1</strong> — le voyant du port est-il allumé ? le câble est-il branché ?</li>
+<li><strong>Couche 2</strong> — le poste est-il dans le bon VLAN ? le switch connaît-il son adresse MAC ?</li>
+<li><strong>Couche 3</strong> — le poste a-t-il une adresse IP et une passerelle correctes ? un <code>ping</code> passe-t-il ?</li>
+<li><strong>Couche 4</strong> — le port du service est-il ouvert, ou bloqué par un pare-feu ?</li>
+<li><strong>Couche 7</strong> — le service répond-il correctement ?</li>
+</ol>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>L’erreur la plus fréquente consiste à commencer par le haut — « le site doit être en panne » — alors que le câble est débranché. Partir du bas fait gagner un temps considérable.</p>
+</div>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Modèle OSI</strong> — Modèle de référence qui découpe une communication réseau en sept couches.</li>
+<li><strong>Couche</strong> — Niveau du modèle qui assure une fonction précise et rend service à la couche du dessus.</li>
+<li><strong>Trame</strong> — Unité de données de la couche 2 (liaison), avec adresses MAC et code de contrôle.</li>
+<li><strong>Segment</strong> — Unité de données de la couche 4 (transport), avec numéros de port.</li>
+<li><strong>Encapsulation</strong> — Ajout successif des en-têtes de chaque couche au départ du message.</li>
+<li><strong>Modèle TCP/IP</strong> — Modèle en quatre couches qui décrit le fonctionnement réel d’Internet.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un switch reçoit une trame. Jusqu’à quelle couche lit-il le message pour décider où l’envoyer ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Couche 2.</strong> Le switch lit l’en-tête Ethernet et l’adresse MAC de destination. Il n’a pas besoin de l’adresse IP ni du contenu pour livrer la trame dans le réseau local. (Un « switch de niveau 3 » sait en plus router, mais c’est alors sa fonction de routeur qui lit l’IP.)</p>
+</details>
+<p><strong>2.</strong> Un utilisateur dit : « le site de l’intranet ne s’affiche pas ». Son voyant réseau est éteint. Faut-il vérifier le serveur Web ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non, pas encore.</strong> Le voyant éteint signale un problème de <strong>couche 1</strong>. Tant qu’elle ne fonctionne pas, aucune couche supérieure ne peut fonctionner. On vérifie le câble, la prise et le port du switch avant tout le reste.</p>
+</details>
+<p><strong>3.</strong> Classe ces éléments par couche : adresse IP, port 443, adresse MAC, fibre optique, HTTP.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Fibre optique : <strong>1</strong>. Adresse MAC : <strong>2</strong>. Adresse IP : <strong>3</strong>. Port 443 : <strong>4</strong>. HTTP : <strong>7</strong>.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="osi-et-tcp-ip-deux-modeles-une-meme-realite">OSI et TCP/IP : deux modèles, une même réalité</h2>
+<p>Le modèle <strong>OSI</strong> (<em>Open Systems Interconnection</em>) a été publié par l’ISO en 1984 comme modèle de référence. Le modèle <strong>TCP/IP</strong>, issu des travaux qui ont donné Internet, décrit les protocoles réellement utilisés, en quatre couches :</p>
+<table>
+<thead>
+<tr>
+<th>Modèle TCP/IP (RFC 1122)</th>
+<th>Couches OSI correspondantes</th>
+<th>Protocoles</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Application</td>
+<td>5, 6, 7</td>
+<td>HTTP, DNS, TLS, SSH, SMTP</td>
+</tr>
+<tr>
+<td>Transport</td>
+<td>4</td>
+<td>TCP, UDP, QUIC (sur UDP)</td>
+</tr>
+<tr>
+<td>Internet</td>
+<td>3</td>
+<td>IPv4, IPv6, ICMP</td>
+</tr>
+<tr>
+<td>Accès réseau</td>
+<td>1, 2</td>
+<td>Ethernet, Wi-Fi, PPP</td>
+</tr>
+</tbody>
+</table>
+<p>Dans le métier, on utilise <strong>le vocabulaire OSI</strong> (« un problème de couche 2 ») pour décrire <strong>les protocoles TCP/IP</strong>. Les deux modèles ne s’opposent pas : l’un sert de langage commun, l’autre décrit l’implémentation.</p>
+<h2 id="ce-que-contient-chaque-en-tete">Ce que contient chaque en-tête</h2>
+<pre><code class="language-text">Trame Ethernet (couche 2)
+┌──────────────┬─────────────┬───────────┬───────────────────────────────┬─────┐
+│ MAC dest. 6o │ MAC src. 6o │ Type 2o   │ Paquet IP (46 à 1500 octets)   │ FCS │
+└──────────────┴─────────────┴───────────┴───────────────────────────────┴─────┘
+                                          │
+              Paquet IPv4 (couche 3)      ▼
+              ┌──────────────────────────────────────────┬──────────────────┐
+              │ Version, TTL, protocole, IP src, IP dest. │ Segment TCP/UDP  │
+              │ (20 octets minimum)                       │                  │
+              └──────────────────────────────────────────┴──────────────────┘
+                                                            │
+                                 Segment TCP (couche 4)     ▼
+                                 ┌──────────────────────────┬──────────┐
+                                 │ Port src, port dest, n° de │ Données  │
+                                 │ séquence… (20 o minimum)  │ (HTTP…)  │
+                                 └──────────────────────────┴──────────┘
+</code></pre>
+<p>Deux champs servent de <strong>lien</strong> entre les couches, pour que le récepteur sache à qui remettre le contenu :</p>
+<ul>
+<li>le champ <strong>Type</strong> (<em>EtherType</em>) de la trame : <code>0x0800</code> = IPv4, <code>0x86DD</code> = IPv6, <code>0x0806</code> = ARP ;</li>
+<li>le champ <strong>Protocole</strong> de l’en-tête IP : <code>6</code> = TCP, <code>17</code> = UDP, <code>1</code> = ICMP.</li>
+</ul>
+<p>C’est ce qu’on appelle le <strong>démultiplexage</strong> : chaque couche lit un numéro qui désigne la couche suivante.</p>
+<h2 id="ou-se-situent-les-technologies-entre-deux-couches">Où se situent les technologies « entre deux couches » ?</h2>
+<p>Le modèle est un outil de raisonnement, pas une loi physique. Plusieurs technologies ne rentrent pas parfaitement dans une case :</p>
+<table>
+<thead>
+<tr>
+<th>Technologie</th>
+<th>Pourquoi elle est ambiguë</th>
+<th>Classement courant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ARP</td>
+<td>Utilise des trames Ethernet pour découvrir des adresses IP</td>
+<td>« 2,5 » : entre 2 et 3</td>
+</tr>
+<tr>
+<td>MPLS</td>
+<td>Insère une étiquette entre l’en-tête Ethernet et l’en-tête IP</td>
+<td>« 2,5 »</td>
+</tr>
+<tr>
+<td>TLS</td>
+<td>Chiffre au-dessus de TCP, sous l’application</td>
+<td>6 (ou entre 4 et 7)</td>
+</tr>
+<tr>
+<td>VXLAN</td>
+<td>Transporte des trames Ethernet dans de l’UDP</td>
+<td>tunnel : une couche 2 au-dessus d’une couche 4</td>
+</tr>
+<tr>
+<td>QUIC</td>
+<td>Transport fiable construit au-dessus d’UDP</td>
+<td>4, implémenté dans l’application</td>
+</tr>
+</tbody>
+</table>
+<p>Quand une technologie est ambiguë, la bonne question n’est pas « quelle case ? » mais « <strong>quel en-tête ajoute-t-elle, et qui le lit ?</strong> ».</p>
+<h2 id="une-methode-de-depannage-par-couches">Une méthode de dépannage par couches</h2>
+<table>
+<thead>
+<tr>
+<th>Couche</th>
+<th>Questions</th>
+<th>Outils</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Lien établi ? vitesse et duplex corrects ? erreurs ?</td>
+<td>voyant, <code>show interfaces</code>, testeur de câble, puissance optique</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Bon VLAN ? MAC apprise ? boucle ?</td>
+<td><code>show mac address-table</code>, <code>show vlan</code>, <code>show spanning-tree</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Adresse, masque, passerelle ? route ?</td>
+<td><code>ipconfig</code>, <code>ping</code>, <code>traceroute</code>, <code>show ip route</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Port ouvert ? filtré ?</td>
+<td><code>Test-NetConnection -Port</code>, <code>nc -zv</code>, journaux du pare-feu</td>
+</tr>
+<tr>
+<td>7</td>
+<td>Réponse correcte de l’application ? certificat ? nom ?</td>
+<td>navigateur, <code>curl -v</code>, <code>nslookup</code>, journaux applicatifs</td>
+</tr>
+</tbody>
+</table>
+<p>Deux stratégies complémentaires :</p>
+<ul>
+<li><strong>de bas en haut</strong> quand le symptôme est flou (« plus rien ne marche ») ;</li>
+<li><strong>diviser pour régner</strong> quand on a un indice : on teste directement une couche du milieu (un <code>ping</code> vers la passerelle, par exemple). S’il réussit, les couches 1 à 3 fonctionnent jusque-là, et l’on cherche plus haut.</li>
+</ul>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Une capture montre une trame avec EtherType <code>0x0806</code>. Quel protocole transporte-t-elle, et y a-t-il un en-tête IP ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><code>0x0806</code> désigne <strong>ARP</strong>. Il n’y a <strong>pas d’en-tête IP</strong> : ARP est transporté directement dans la trame Ethernet, ce qui explique qu’on le classe « entre » les couches 2 et 3.</p>
+</details>
+<p><strong>2.</strong> Un <code>ping</code> vers le serveur fonctionne, mais l’application, qui écoute sur TCP 8443, ne répond pas. Quelles couches sont mises hors de cause, et que tester ensuite ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le ping prouve que les couches <strong>1, 2 et 3</strong> fonctionnent jusqu’au serveur. On teste ensuite la <strong>couche 4</strong> : <code>Test-NetConnection serveur -Port 8443</code> (Windows) ou <code>nc -zv serveur 8443</code> (Linux). Si le port est fermé ou filtré, on regarde le service sur le serveur et les pare-feu. S’il est ouvert, on remonte à la couche 7 (journaux de l’application, certificat).</p>
+</details>
+<p><strong>3.</strong> Pourquoi un switch de niveau 2 n’a-t-il pas besoin de modifier l’en-tête IP, alors qu’un routeur doit au moins décrémenter le TTL ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le switch reste <strong>dans le même réseau</strong> : il livre la trame telle quelle, sans toucher aux couches supérieures. Le routeur <strong>fait passer le paquet d’un réseau à un autre</strong> : il décrémente le TTL de l’en-tête IP (pour éviter les boucles de routage), recalcule la somme de contrôle IPv4 et fabrique une <strong>nouvelle trame</strong> avec de nouvelles adresses MAC pour le lien suivant.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../demarrer/commandes.html"><small>Fiche précédente</small><strong>Les commandes de base</strong></a><a class="apres" href="../niveau-1/mesures.html"><small>Fiche suivante</small><strong>Mesurer une connexion</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-trop-de-choses-a-la-fois">Le problème : trop de choses à la fois</a><a href="#les-sept-couches-de-bas-en-haut">Les sept couches, de bas en haut</a><a href="#le-voyage-dun-message-a-travers-les-couches">Le voyage d’un message à travers les couches</a><a href="#qui-travaille-a-quelle-couche">Qui travaille à quelle couche ?</a><a href="#depanner-avec-les-couches">Dépanner avec les couches</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#osi-et-tcp-ip-deux-modeles-une-meme-realite">OSI et TCP/IP : deux modèles, une même réalité</a><a href="#ce-que-contient-chaque-en-tete">Ce que contient chaque en-tête</a><a href="#ou-se-situent-les-technologies-entre-deux-couches">Où se situent les technologies « entre deux couches » ?</a><a href="#une-methode-de-depannage-par-couches">Une méthode de dépannage par couches</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

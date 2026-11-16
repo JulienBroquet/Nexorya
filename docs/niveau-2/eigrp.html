@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EIGRP — Enhanced Interior Gateway Routing Protocol | Nexorya</title>
+<meta name="description" content="EIGRP est un protocole de routage d’origine Cisco qui calcule ses chemins avec la bande passante et le délai, et garde en réserve un chemin de secours garanti sans boucle pour basculer instantanément.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp" aria-current="page">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/eigrp">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-3">Choisir un chemin</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>EIGRP</h1><p class="nom-complet">Enhanced Interior Gateway Routing Protocol</p>
+<p class="idee">EIGRP est un protocole de routage d’origine Cisco qui calcule ses chemins avec la bande passante et le délai, et garde en réserve un chemin de secours garanti sans boucle pour basculer instantanément.</p><div class="badges"><span>Couche OSI 3 (protocole IP 88)</span><span>Découvrir : 7 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-2/passerelle.html">La table de routage</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Les entreprises équipées uniquement en Cisco ont longtemps voulu un protocole plus simple qu’OSPF à configurer, plus intelligent que RIP, et capable de basculer instantanément sur un chemin de secours. Cisco a créé EIGRP.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>EIGRP choisit le chemin le plus rapide d’après la bande passante et le délai, et <strong>prépare à l’avance</strong> un chemin de secours dont il a prouvé qu’il ne crée pas de boucle.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<ol>
+<li>Les routeurs découvrent leurs voisins avec des <strong>Hello</strong> (toutes les 5 s sur un LAN).</li>
+<li>Ils échangent leurs routes <strong>une fois</strong>, puis seulement les <strong>changements</strong> (pas de mises à jour périodiques comme RIP).</li>
+<li>Pour chaque réseau, chaque routeur retient :
+   - le <strong>successeur</strong> : le voisin par lequel passe le meilleur chemin ;
+   - un éventuel <strong>successeur possible</strong> : un voisin de secours dont le chemin est garanti sans boucle.</li>
+<li>Si le successeur disparaît et qu’un successeur possible existe, la bascule est <strong>immédiate</strong>. Sinon, le routeur interroge ses voisins (<em>query</em>) pour trouver un nouveau chemin.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>EIGRP</strong> — Protocole de routage hybride d’origine Cisco, fondé sur l’algorithme DUAL.</li>
+<li><strong>Successeur</strong> — Voisin par lequel passe le meilleur chemin vers un réseau.</li>
+<li><strong>Successeur possible</strong> — Voisin de secours dont le chemin est garanti sans boucle ; <em>feasible successor</em>.</li>
+<li><strong>Système autonome (AS)</strong> — Numéro qui regroupe les routeurs EIGRP qui doivent échanger leurs routes.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi EIGRP peut-il basculer plus vite qu’OSPF dans certains cas ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que le <strong>successeur possible</strong> est calculé <strong>à l’avance</strong> : en cas de panne, le routeur l’installe aussitôt, sans recalcul ni échange. OSPF doit, lui, recevoir la mise à jour et recalculer (très vite aussi sur du matériel moderne).</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="la-metrique">La métrique</h2>
+<p>Avec les coefficients par défaut (K1 = K3 = 1, les autres à 0) :</p>
+<pre><code class="language-text">métrique = 256 × ( 10^7 / bande passante minimale du chemin en kb/s  +  somme des délais en dizaines de µs )
+
+Exemple : chemin dont le lien le plus lent est à 100 Mb/s, 3 liens de 10 µs de délai chacun
+  10^7 / 100 000 = 100      délai : 3 × 1 = 3      métrique = 256 × 103 = 26 368
+</code></pre>
+<p>Les coefficients K doivent être <strong>identiques</strong> sur tous les voisins, sinon l’adjacence ne se forme pas. Les versions récentes utilisent des <strong>métriques étendues</strong> (<em>wide metrics</em>) adaptées aux liens au-delà de 10 Gb/s.</p>
+<h2 id="la-condition-de-faisabilite">La condition de faisabilité</h2>
+<ul>
+<li><strong>FD</strong> (<em>Feasible Distance</em>) : la meilleure métrique totale connue vers le réseau.</li>
+<li><strong>RD</strong> (<em>Reported Distance</em>) : la métrique annoncée par un voisin, c’est-à-dire sa propre distance vers le réseau.</li>
+</ul>
+<p>Un voisin devient successeur possible si <strong>sa RD est strictement inférieure à la FD</strong> du routeur. Cela prouve qu’il est plus proche de la destination que le routeur lui-même : il ne peut donc pas renvoyer le trafic vers lui (pas de boucle).</p>
+<h2 id="configuration-cisco-ios-mode-nomme">Configuration (Cisco IOS, mode nommé)</h2>
+<pre><code class="language-cisco">router eigrp ENTREPRISE
+ address-family ipv4 unicast autonomous-system 100
+  af-interface default
+   passive-interface
+  exit-af-interface
+  af-interface GigabitEthernet0/0/1
+   no passive-interface
+  exit-af-interface
+  network 10.0.0.0
+  eigrp router-id 10.255.255.1
+</code></pre>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip eigrp topology 10.9.0.0/24
+P 10.9.0.0/24, 1 successors, FD is 26368
+        via 10.255.0.2 (26368/2816), GigabitEthernet0/0/1
+        via 10.255.0.6 (28672/26112), GigabitEthernet0/0/2
+</code></pre>
+<p>La seconde ligne a une RD de 26 112, <strong>inférieure</strong> à la FD de 26 368 : c’est un <strong>successeur possible</strong>.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un voisin annonce une route avec une RD de 30 000 ; la FD du routeur vers ce réseau est 26 368. Ce voisin peut-il être successeur possible ? Pourquoi ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> Sa RD (30 000) n’est pas inférieure à la FD (26 368) : rien ne garantit que son chemin ne passe pas par le routeur lui-même. EIGRP ne le garde pas en secours immédiat ; si le successeur tombe, il devra interroger ses voisins.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/ospf.html"><small>Fiche précédente</small><strong>OSPF</strong></a><a class="apres" href="../niveau-2/is-is.html"><small>Fiche suivante</small><strong>IS-IS</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#la-metrique">La métrique</a><a href="#la-condition-de-faisabilite">La condition de faisabilité</a><a href="#configuration-cisco-ios-mode-nomme">Configuration (Cisco IOS, mode nommé)</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

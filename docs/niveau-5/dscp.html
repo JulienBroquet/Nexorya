@@ -1,0 +1,132 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DSCP — Differentiated Services Code Point | Nexorya</title>
+<meta name="description" content="Le DSCP est une étiquette de 6 bits dans l’en-tête IP qui indique la classe de service d’un paquet ; chaque équipement sur le chemin la lit pour savoir comment le traiter.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp" aria-current="page">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/dscp">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-4">Garantir la qualité</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>DSCP</h1><p class="nom-complet">Differentiated Services Code Point</p>
+<p class="idee">Le DSCP est une étiquette de 6 bits dans l’en-tête IP qui indique la classe de service d’un paquet ; chaque équipement sur le chemin la lit pour savoir comment le traiter.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-5/qos.html">QoS</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Le routeur du WAN doit savoir quels paquets sont de la voix. Il pourrait analyser chaque paquet en détail, mais c’est coûteux, et chaque équipement sur le chemin devrait refaire ce travail. Il est plus simple de <strong>coller une étiquette</strong> sur le paquet une fois pour toutes.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le DSCP est une étiquette de priorité inscrite dans chaque paquet IP : on la pose une fois à l’entrée du réseau, et tous les équipements suivants s’en servent pour trier.</p>
+</div>
+<h2 id="ou-se-trouve-t-il">Où se trouve-t-il ?</h2>
+<p>Dans l’octet <strong>Traffic Class</strong> (IPv6) ou <strong>ToS</strong> (IPv4) de l’en-tête IP : les 6 premiers bits sont le <strong>DSCP</strong>, les 2 derniers servent à la notification de congestion (ECN).</p>
+<h2 id="les-valeurs-courantes">Les valeurs courantes</h2>
+<table>
+<thead>
+<tr>
+<th>Nom</th>
+<th>Valeur</th>
+<th>Usage habituel</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EF</strong></td>
+<td>46</td>
+<td>voix</td>
+</tr>
+<tr>
+<td><strong>AF41</strong></td>
+<td>34</td>
+<td>visioconférence</td>
+</tr>
+<tr>
+<td><strong>CS3</strong></td>
+<td>24</td>
+<td>signalisation (SIP)</td>
+</tr>
+<tr>
+<td><strong>AF21</strong></td>
+<td>18</td>
+<td>applications métier</td>
+</tr>
+<tr>
+<td><strong>CS6</strong></td>
+<td>48</td>
+<td>protocoles de routage (marqués par les routeurs eux-mêmes)</td>
+</tr>
+<tr>
+<td><strong>0 (BE)</strong></td>
+<td>0</td>
+<td>tout le reste</td>
+</tr>
+<tr>
+<td><strong>CS1</strong></td>
+<td>8</td>
+<td>arrière-plan (sauvegardes)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>DSCP</strong> — Champ de 6 bits de l’en-tête IP qui indique la classe de service.</li>
+<li><strong>EF</strong> — <em>Expedited Forwarding</em>, valeur 46, réservée à la voix.</li>
+<li><strong>AF</strong> — <em>Assured Forwarding</em>, familles de classes avec une priorité de rejet (AF11 à AF43).</li>
+<li><strong>CoS</strong> — <em>Class of Service</em>, priorité sur 3 bits dans l’étiquette 802.1Q, au niveau 2.</li>
+<li><strong>Frontière de confiance</strong> — Point du réseau à partir duquel on fait confiance au marquage reçu.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un utilisateur configure son PC pour marquer tout son trafic en EF. Que doit faire le réseau ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Ne <strong>pas faire confiance</strong> au marquage venant d’un PC : sur le port d’accès, le switch <strong>remarque</strong> ce trafic (en 0, ou selon une classification qu’il réalise lui-même). On ne fait confiance qu’aux équipements maîtrisés, comme les téléphones IP.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="lire-les-af">Lire les AF</h2>
+<p><code>AFxy</code> : <strong>x</strong> = classe (1 à 4, plus elle est élevée, plus la classe est importante), <strong>y</strong> = priorité de rejet (1 à 3, plus elle est élevée, plus le paquet est jeté tôt en cas de congestion). Valeur décimale = 8x + 2y. Exemple : AF41 = 32 + 2 = 34.</p>
+<h2 id="marquer-et-faire-confiance-cisco-ios-xe">Marquer et faire confiance (Cisco IOS-XE)</h2>
+<pre><code class="language-cisco"><span class="c">! Remarquer le trafic d'un PC selon des critères</span>
+class-map match-any ERP
+ match access-group name ERP-TRAFIC
+policy-map ACCES-ENTREE
+ class ERP
+  set dscp af21
+ class class-default
+  set dscp default
+<span class="c">!</span>
+interface GigabitEthernet1/0/5
+ trust device cisco-phone
+ service-policy input ACCES-ENTREE
+</code></pre>
+<h2 id="verifier-le-marquage">Vérifier le marquage</h2>
+<p>Dans Wireshark, la colonne <strong>DSCP</strong> (champ <code>ip.dsfield.dscp</code>) montre la valeur de chaque paquet. Filtrer <code>ip.dsfield.dscp == 46</code> isole la voix. En capturant à deux endroits du chemin, on voit si un équipement <strong>efface</strong> le marquage (souvent un opérateur ou un pare-feu).</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Les paquets de voix partent du téléphone marqués EF, mais arrivent au site distant marqués 0. La QoS du site distant ne les reconnaît plus. Que vérifier ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Un équipement sur le chemin <strong>remarque</strong> ou efface le DSCP : un switch d’accès qui ne fait pas confiance au téléphone, une politique de remarquage sur le routeur WAN, un pare-feu, ou l’opérateur (sur Internet, le DSCP est souvent remis à zéro ; sur un VPN MPLS, il doit correspondre aux classes du contrat). Capturer à chaque étape pour trouver l’endroit.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/qos.html"><small>Fiche précédente</small><strong>QoS</strong></a><a class="apres" href="../niveau-5/span.html"><small>Fiche suivante</small><strong>SPAN</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#ou-se-trouve-t-il">Où se trouve-t-il ?</a><a href="#les-valeurs-courantes">Les valeurs courantes</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#lire-les-af">Lire les AF</a><a href="#marquer-et-faire-confiance-cisco-ios-xe">Marquer et faire confiance (Cisco IOS-XE)</a><a href="#verifier-le-marquage">Vérifier le marquage</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

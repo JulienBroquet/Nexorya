@@ -1,0 +1,313 @@
+# QCM du niveau 5 — WAN, datacenter et exploitation. Format : voir CONTRIBUTING.md.
+# La bonne réponse est écrite en premier ; le générateur mélange les propositions.
+niveau: 5
+titre: "WAN, datacenter et exploitation"
+questions:
+
+- niveau: "Découverte"
+  situation: "Une entreprise relie son siège et ses 40 agences."
+  question: "Quel type de réseau désigne ces liaisons entre sites éloignés ?"
+  bonne: ["Un WAN", "Le WAN relie des sites distants, généralement via des opérateurs."]
+  fausses:
+    - ["Un LAN", "Le LAN est le réseau local d’un bâtiment ou d’un site."]
+    - ["Un VLAN", "Un VLAN est un découpage logique à l’intérieur d’un réseau local."]
+    - ["Un PAN", "Un PAN est un réseau personnel de très courte portée (Bluetooth)."]
+  retenir: "LAN = un site ; MAN = une ville ; WAN = des sites éloignés."
+  fiche: "wan"
+
+- niveau: "Découverte"
+  situation: "Le cœur d’un réseau de campus est conçu en trois couches."
+  question: "Où sont branchés les postes de travail ?"
+  bonne: ["Sur la couche d’accès", "Les switches d’accès raccordent les postes, téléphones et bornes Wi-Fi."]
+  fausses:
+    - ["Sur la couche cœur", "Le cœur relie les distributions entre elles, à très haut débit, sans postes."]
+    - ["Sur la couche distribution", "La distribution agrège les switches d’accès et assure le routage entre VLAN."]
+    - ["Directement sur le routeur WAN", "Le routeur WAN relie le site au reste de l’entreprise, pas les postes."]
+  retenir: "Accès (postes) → distribution (agrégation, routage) → cœur (transport rapide)."
+  fiche: "lan"
+
+- niveau: "Découverte"
+  situation: "Pendant les sauvegardes du soir, les appels téléphoniques vers le siège deviennent hachés."
+  question: "Quel mécanisme permet de faire passer la voix en priorité ?"
+  bonne: ["La QoS", "Elle crée des files d’attente avec des priorités : la voix passe devant les sauvegardes."]
+  fausses:
+    - ["Le spanning tree", "STP évite les boucles de niveau 2, il ne gère pas les priorités de trafic."]
+    - ["Le NAT", "Le NAT traduit des adresses, il ne trie pas le trafic."]
+    - ["Le DHCP", "Le DHCP distribue des adresses, il n’intervient pas sur la priorité."]
+  retenir: "Saturation + flux sensibles → QoS."
+  fiche: "qos"
+
+- niveau: "Découverte"
+  situation: "Un technicien veut voir avec Wireshark le trafic d’un serveur branché sur un switch."
+  question: "Que doit-il configurer sur le switch ?"
+  bonne: ["Un port miroir (SPAN) vers le port de son PC", "Le switch recopie le trafic du port du serveur vers celui de l’analyseur."]
+  fausses:
+    - ["Rien : brancher son PC suffit", "Un switch n’envoie à un port que le trafic qui lui est destiné."]
+    - ["Un VLAN dédié pour son PC", "Changer de VLAN ne lui fait pas recevoir le trafic du serveur."]
+    - ["Désactiver le spanning tree", "STP n’a aucun lien avec la copie de trafic, et le désactiver est risqué."]
+  retenir: "Observer un autre port d’un switch → SPAN (ou TAP)."
+  fiche: "span"
+
+- niveau: "Découverte"
+  situation: "La supervision montre un lien WAN saturé, mais pas par quoi."
+  question: "Quel outil indique quelles conversations occupent le lien ?"
+  bonne: ["NetFlow / IPFIX", "Il résume le trafic en flux : qui parle à qui, sur quel port, combien."]
+  fausses:
+    - ["Syslog", "Syslog transporte des événements, pas des statistiques par conversation."]
+    - ["NTP", "NTP synchronise les horloges."]
+    - ["Un traceroute", "Le traceroute montre le chemin, pas la répartition du trafic."]
+  retenir: "Qui consomme ? → NetFlow ; combien au total ? → SNMP."
+  fiche: "netflow"
+
+- niveau: "Découverte"
+  situation: "Il faut ajouter le même VLAN sur 200 switches."
+  question: "Quel est le principal intérêt de l’automatiser ?"
+  bonne: ["La modification est appliquée partout de façon identique et vérifiable", "Un outil applique une description unique, sans oubli ni faute de frappe."]
+  fausses:
+    - ["Le VLAN fonctionne mieux", "Un VLAN configuré à la main fonctionne exactement pareil."]
+    - ["Il n’y a plus besoin de comprendre les VLAN", "Il faut au contraire bien comprendre ce qu’on automatise."]
+    - ["Les switches n’ont plus besoin d’être administrés", "L’automatisation est une façon d’administrer, pas de s’en passer."]
+  retenir: "Automatiser = rapide, identique, vérifiable."
+  fiche: "automatisation"
+
+- niveau: "Découverte"
+  situation: "Un administrateur modifie à distance l’ACL du routeur d’une agence et perd la connexion."
+  question: "Quelle précaution aurait permis de récupérer l’accès automatiquement ?"
+  bonne: ["Programmer un redémarrage avant la modification (reload in 10)", "Si l’on perd la main, le routeur redémarre sur la configuration enregistrée, sans l’erreur."]
+  fausses:
+    - ["Enregistrer la configuration juste après la modification", "On enregistrerait l’erreur, qui survivrait au redémarrage."]
+    - ["Faire la modification en Telnet plutôt qu’en SSH", "Le protocole d’accès ne change rien, et Telnet n’est pas chiffré."]
+    - ["Désactiver l’ACL pendant la modification", "L’agence serait exposée, et l’erreur persisterait à la réactivation."]
+  retenir: "À distance : un filet (reload in, commit confirmed) avant de toucher."
+  fiche: "changement"
+
+- niveau: "Découverte"
+  situation: "Dans le cloud, un serveur de base de données ne doit pas être accessible depuis Internet."
+  question: "Où le placer ?"
+  bonne: ["Dans un sous-réseau privé, sans adresse publique", "Aucune route entrante depuis Internet ne peut l’atteindre."]
+  fausses:
+    - ["Dans un sous-réseau public avec un mot de passe fort", "Il resterait exposé aux attaques depuis Internet."]
+    - ["Dans un autre fournisseur cloud", "Cela ne règle pas la question de l’exposition."]
+    - ["Derrière un DNS privé", "Masquer son nom ne l’empêche pas d’être joignable par son adresse."]
+  retenir: "Cloud : seul le point d’entrée est public ; le reste en sous-réseaux privés."
+  fiche: "cloud"
+
+- niveau: "Pratique"
+  situation: "Un opérateur propose de relier 30 agences par un service où il transporte des étiquettes plutôt que de router chaque paquet."
+  question: "De quelle technologie s’agit-il ?"
+  bonne: ["MPLS", "Le cœur de l’opérateur commute sur des étiquettes et sépare les clients par des VRF."]
+  fausses:
+    - ["VXLAN", "VXLAN étend des réseaux de niveau 2 dans un datacenter, au-dessus d’IP."]
+    - ["802.1Q", "802.1Q étiquette les trames d’un VLAN sur un lien, pas un service opérateur."]
+    - ["NAT", "Le NAT traduit les adresses, il ne transporte pas des étiquettes."]
+  retenir: "VPN MPLS = étiquettes dans le cœur + VRF par client."
+  fiche: "mpls"
+
+- niveau: "Pratique"
+  situation: "Un routeur doit séparer totalement les réseaux « production » et « invités », avec des plages d’adresses qui se chevauchent."
+  question: "Quelle fonctionnalité utiliser ?"
+  bonne: ["Des VRF", "Chaque VRF a sa propre table de routage : les mêmes adresses peuvent exister dans les deux."]
+  fausses:
+    - ["Des ACL", "Les ACL filtrent mais ne permettent pas des plages identiques dans une même table."]
+    - ["Des VLAN uniquement", "Les VLAN séparent au niveau 2, mais le routeur les mélange dans une seule table."]
+    - ["La QoS", "La QoS gère les priorités, pas l’isolation du routage."]
+  retenir: "VRF = plusieurs routeurs virtuels dans un seul."
+  fiche: "vrf"
+
+- niveau: "Pratique"
+  situation: "Un routeur a deux chemins de même coût vers une destination. Le trafic d’un même flux TCP doit éviter d’arriver dans le désordre."
+  question: "Comment l’ECMP répartit-il le trafic ?"
+  bonne: ["Par flux, en calculant une empreinte (hachage) des adresses et ports", "Tous les paquets d’un même flux prennent le même chemin."]
+  fausses:
+    - ["Paquet par paquet, à tour de rôle", "Cela mélangerait l’ordre des paquets d’un même flux."]
+    - ["Selon la charge instantanée de chaque lien", "L’ECMP classique ne mesure pas la charge."]
+    - ["Il n’utilise que le premier chemin", "Il utilise tous les chemins de même coût."]
+  retenir: "ECMP = répartition par flux (hachage)."
+  fiche: "ecmp"
+
+- niveau: "Pratique"
+  situation: "Dans un datacenter routé en couche 3, des machines virtuelles doivent rester dans le même sous-réseau même sur des racks différents."
+  question: "Quelle technologie transporte ce niveau 2 au-dessus du réseau IP ?"
+  bonne: ["VXLAN", "Il encapsule les trames Ethernet dans UDP pour les transporter au-dessus d’IP."]
+  fausses:
+    - ["Spanning tree", "STP gère les boucles d’un réseau de niveau 2, il ne l’étend pas au-dessus d’IP."]
+    - ["DHCP relay", "Le relais DHCP transmet des requêtes DHCP, il ne transporte pas des trames."]
+    - ["QinQ", "QinQ empile des étiquettes VLAN sur un réseau Ethernet, pas au-dessus d’IP routé."]
+  retenir: "VXLAN = Ethernet dans UDP ; VNI = 16 millions de segments."
+  fiche: "vxlan"
+
+- niveau: "Pratique"
+  situation: "Dans une fabrique VXLAN, les VTEP doivent apprendre où se trouvent les adresses MAC sans inonder le réseau."
+  question: "Quel plan de contrôle utilise-t-on ?"
+  bonne: ["EVPN, avec BGP", "Les VTEP s’annoncent par BGP les adresses MAC et IP qu’ils hébergent."]
+  fausses:
+    - ["OSPF seul", "OSPF assure la joignabilité des VTEP mais n’annonce pas les adresses MAC."]
+    - ["ARP en broadcast sur tout le datacenter", "C’est justement ce qu’on veut éviter."]
+    - ["SNMP", "SNMP sert à la supervision."]
+  retenir: "VXLAN transporte, EVPN (BGP) informe."
+  fiche: "evpn"
+
+- niveau: "Pratique"
+  situation: "Deux switches de distribution doivent apparaître comme un seul pour un switch d’accès raccordé en LACP par deux câbles, un vers chacun."
+  question: "Quelle technologie le permet ?"
+  bonne: ["Le MLAG (ou vPC, ou empilement)", "Les deux switches présentent un même identifiant LACP : les deux liens forment un seul agrégat."]
+  fausses:
+    - ["Le spanning tree", "STP bloquerait un des deux liens."]
+    - ["HSRP", "HSRP partage une passerelle IP, il n’agrège pas des liens vers deux switches."]
+    - ["Le trunk 802.1Q", "Le trunk transporte plusieurs VLAN, il ne crée pas d’agrégat multi-switch."]
+  retenir: "Agrégat vers deux switches = MLAG / vPC / stack."
+  fiche: "redondance-switches"
+
+- niveau: "Pratique"
+  situation: "Une politique QoS est appliquée en sortie d’un routeur dont le lien physique est à 1 Gb/s, alors que le contrat opérateur est de 50 Mb/s. La voix reste hachée."
+  question: "Que manque-t-il ?"
+  bonne: ["Un lissage (shaping) à 50 Mb/s contenant la politique", "La congestion a lieu chez l’opérateur ; le lissage la ramène dans le routeur, où les priorités s’appliquent."]
+  fausses:
+    - ["Une file prioritaire plus grande", "Les files du routeur ne se remplissent jamais à 1 Gb/s."]
+    - ["Un marquage DSCP différent", "Le marquage ne sert à rien si la file d’attente n’est pas chez soi."]
+    - ["Augmenter le débit à 1 Gb/s", "La QoS serait alors inutile, mais le problème de conception reste."]
+  retenir: "QoS WAN = lisser au débit du contrat, puis prioriser."
+  fiche: "qos"
+
+- niveau: "Pratique"
+  situation: "Les paquets de voix d’un téléphone IP doivent être reconnus par tous les routeurs du chemin."
+  question: "Quelle valeur DSCP leur donne-t-on habituellement ?"
+  bonne: ["EF (46)", "Expedited Forwarding est la classe réservée à la voix."]
+  fausses:
+    - ["CS1 (8)", "CS1 désigne le trafic d’arrière-plan, moins prioritaire que le défaut."]
+    - ["0", "0 est la classe par défaut (best effort)."]
+    - ["AF21 (18)", "AF21 sert habituellement aux applications métier."]
+  retenir: "Voix = EF 46 ; arrière-plan = CS1 8."
+  fiche: "dscp"
+
+- niveau: "Pratique"
+  situation: "Le SOC au siège doit analyser le trafic d’un port dans une agence distante."
+  question: "Quelle variante du port miroir utiliser ?"
+  bonne: ["ERSPAN", "La copie est encapsulée dans GRE et routée jusqu’à l’analyseur du siège."]
+  fausses:
+    - ["SPAN local", "Il exige un analyseur branché sur le même switch."]
+    - ["NetFlow", "NetFlow donne des résumés de flux, pas les paquets eux-mêmes."]
+    - ["Syslog", "Syslog transporte des événements, pas du trafic."]
+  retenir: "Miroir à distance à travers un réseau routé = ERSPAN."
+  fiche: "erspan"
+
+- niveau: "Pratique"
+  situation: "Un script relance le déploiement des VLAN sur des switches où certains existent déjà."
+  question: "Quelle propriété garantit qu’il ne cassera rien ?"
+  bonne: ["L’idempotence", "Le même résultat est obtenu qu’on exécute l’action une ou plusieurs fois."]
+  fausses:
+    - ["La redondance", "La redondance concerne la disponibilité, pas le comportement d’un script."]
+    - ["La convergence", "La convergence concerne les protocoles de routage."]
+    - ["Le chiffrement", "Le chiffrement protège les échanges, pas le résultat."]
+  retenir: "Idempotent = relançable sans danger."
+  fiche: "automatisation"
+
+- niveau: "Pratique"
+  situation: "Un serveur dans un sous-réseau privé d’un VPC doit télécharger ses mises à jour sur Internet sans être joignable depuis Internet."
+  question: "De quoi a-t-il besoin ?"
+  bonne: ["D’une NAT gateway et d’une route par défaut vers elle", "Il peut sortir via la NAT, sans adresse publique entrante."]
+  fausses:
+    - ["D’une adresse IP publique", "Il deviendrait joignable depuis Internet."]
+    - ["D’un groupe de sécurité ouvert en entrée", "Cela l’exposerait, et ne lui donnerait pas de route sortante."]
+    - ["D’un VPN vers le siège", "Le VPN relie au siège, pas directement à Internet."]
+  retenir: "Privé qui sort sans être joint = NAT gateway."
+  fiche: "cloud"
+
+- niveau: "Pratique"
+  situation: "Une entreprise veut utiliser plusieurs liens Internet bon marché par agence, choisis automatiquement selon leur qualité et l’application."
+  question: "Quelle architecture répond à ce besoin ?"
+  bonne: ["Le SD-WAN", "Un contrôleur central pilote des tunnels sur plusieurs liens et oriente chaque application selon la qualité mesurée."]
+  fausses:
+    - ["Le spanning tree", "STP concerne les boucles d’un réseau local."]
+    - ["Le MPLS seul", "MPLS est un service opérateur, il ne choisit pas entre plusieurs liens Internet."]
+    - ["Le VRRP", "VRRP partage une passerelle entre routeurs d’un même réseau local."]
+  retenir: "Plusieurs liens + choix par application + pilotage central = SD-WAN."
+  fiche: "sd-wan"
+
+- niveau: "Expert"
+  situation: "Une capture faite par SPAN d’un port à 10 Gb/s chargé à 7 Gb/s dans chaque sens montre de nombreuses retransmissions que les machines ne voient pas."
+  question: "Quelle est l’explication la plus probable ?"
+  bonne: ["Le port destination ne peut pas absorber 14 Gb/s de copies : des copies sont perdues", "L’analyseur voit des trous qui n’existent pas réellement."]
+  fausses:
+    - ["Le réseau perd réellement des paquets", "Les machines ne voient aucune retransmission : la perte est dans la capture."]
+    - ["Wireshark affiche mal le TCP", "Wireshark interprète correctement ce qu’il reçoit, c’est la capture qui est incomplète."]
+    - ["Le SPAN modifie les numéros de séquence", "Le SPAN copie les trames sans les modifier."]
+  retenir: "Capture SPAN : vérifier que le port destination suit le volume ; sinon TAP."
+  fiche: "span"
+
+- niveau: "Expert"
+  situation: "Dans un VPN MPLS, deux clients utilisent tous deux 10.1.0.0/16. Les routeurs PE doivent annoncer ces deux préfixes en BGP sans les confondre."
+  question: "Quel élément les distingue ?"
+  bonne: ["Le Route Distinguisher ajouté au préfixe", "Il rend chaque préfixe unique dans BGP ; les Route Targets décident ensuite quelles VRF l’importent."]
+  fausses:
+    - ["Le numéro d’AS du client", "Plusieurs clients peuvent avoir le même AS privé ; ce n’est pas ce qui distingue les préfixes."]
+    - ["L’étiquette de transport MPLS", "Elle sert à traverser le cœur jusqu’au PE, pas à distinguer les préfixes."]
+    - ["La valeur DSCP", "Le DSCP concerne la QoS."]
+  retenir: "RD = rendre unique ; RT = choisir qui importe."
+  fiche: "mpls"
+
+- niveau: "Expert"
+  situation: "Un hachage ECMP utilise uniquement les adresses IP source et destination. Tout le trafic passe entre deux serveurs de sauvegarde."
+  question: "Pourquoi un seul des quatre liens est-il saturé ?"
+  bonne: ["Un seul couple d’adresses donne toujours le même résultat de hachage", "Tous les flux entre ces deux serveurs prennent le même chemin ; ajouter les ports au hachage répartirait les connexions."]
+  fausses:
+    - ["L’ECMP est désactivé", "Les autres liens transportent le reste du trafic : l’ECMP fonctionne."]
+    - ["Les liens n’ont pas le même coût", "Ils sont bien utilisés pour d’autres flux."]
+    - ["Les serveurs utilisent UDP", "Le protocole ne change rien si le hachage n’utilise que les adresses."]
+  retenir: "Peu de flux ou peu d’entropie = ECMP déséquilibré."
+  fiche: "ecmp"
+
+- niveau: "Expert"
+  situation: "Dans une fabrique EVPN, une machine virtuelle est migrée d’un rack à l’autre. Le trafic doit la retrouver immédiatement."
+  question: "Que se passe-t-il ?"
+  bonne: ["Le nouveau VTEP annonce l’adresse MAC avec un numéro de séquence plus élevé, et tous les VTEP mettent à jour leur table", "EVPN gère la mobilité des adresses par des annonces BGP."]
+  fausses:
+    - ["Il faut attendre l’expiration des tables MAC (5 minutes)", "C’est le comportement d’un switch classique, qu’EVPN évite."]
+    - ["Le spanning tree recalcule l’arbre", "Une fabrique VXLAN EVPN ne repose pas sur STP."]
+    - ["L’administrateur doit modifier la configuration des VTEP", "La mobilité est gérée automatiquement."]
+  retenir: "EVPN : mobilité MAC par annonce BGP avec numéro de séquence."
+  fiche: "evpn"
+
+- niveau: "Expert"
+  situation: "Les téléphones IP marquent EF, mais les paquets arrivent au site distant marqués 0."
+  question: "Quelle démarche permet de trouver la cause ?"
+  bonne: ["Capturer à plusieurs points du chemin pour trouver où le DSCP est réécrit", "Un switch sans confiance, une politique de remarquage, un pare-feu ou l’opérateur peut l’effacer."]
+  fausses:
+    - ["Changer la valeur EF en AF41", "Toute valeur serait effacée au même endroit."]
+    - ["Augmenter la file prioritaire", "Les paquets ne sont plus reconnus comme voix : la file ne les concerne plus."]
+    - ["Redémarrer les téléphones", "Ils marquent correctement : le problème est sur le chemin."]
+  retenir: "DSCP perdu → trouver l’équipement qui réécrit, capture à l’appui."
+  fiche: "dscp"
+
+- niveau: "Expert"
+  situation: "À 9 h 12, la latence des sondes vers l’ERP passe de 15 à 220 ms sur un site. Les journaux ne montrent rien ; NetFlow montre une sauvegarde démarrée à 9 h 10."
+  question: "Quelle conclusion et quelle action durable ?"
+  bonne: ["La sauvegarde sature le lien ; la replanifier et la classer en arrière-plan (CS1) dans la QoS", "Pas de panne, mais une congestion causée par un flux non prioritaire."]
+  fausses:
+    - ["Le routeur est défaillant, le remplacer", "Rien n’indique de panne : pas d’erreur, pas d’événement."]
+    - ["Le serveur ERP est lent, l’équipe applicative doit enquêter", "La latence réseau mesurée par les sondes a augmenté, pas le temps de traitement."]
+    - ["Doubler le débit sans autre analyse", "Cela coûte cher et la prochaine sauvegarde pourrait encore tout prendre."]
+  retenir: "Corréler métriques, journaux et flux dans le temps."
+  fiche: "observabilite"
+
+- niveau: "Expert"
+  situation: "Un collègue ajoute un VLAN à la main en urgence. La nuit suivante, l’automatisation en mode « remplacer » le supprime."
+  question: "Quelle règle aurait évité ce problème ?"
+  bonne: ["Toute modification passe par la source de vérité, même en urgence, et les dérives sont signalées avant d’être écrasées", "L’automatisation applique ce qui est décrit ; le changement manuel n’y était pas."]
+  fausses:
+    - ["Désactiver l’automatisation pendant les urgences, définitivement", "On perdrait la garantie de cohérence."]
+    - ["Interdire toute modification urgente", "Les urgences existent ; il faut un processus pour elles."]
+    - ["Passer l’automatisation en lecture seule", "On perdrait son intérêt principal."]
+  retenir: "Source de vérité d’abord ; rapports de dérive avant correction."
+  fiche: "automatisation"
+
+- niveau: "Expert"
+  situation: "Un script qui analyse la sortie texte de « show interfaces » donne des résultats absurdes après une mise à jour logicielle."
+  question: "Quelle approche rend l’outil indépendant de la mise en forme ?"
+  bonne: ["Lire les données par une API structurée (NETCONF / RESTCONF avec des modèles YANG)", "Les valeurs sont des champs nommés, quel que soit l’affichage de la version."]
+  fausses:
+    - ["Réécrire les expressions régulières à chaque version", "Cela fonctionne jusqu’à la prochaine mise à jour."]
+    - ["Utiliser Telnet au lieu de SSH", "Le transport ne change pas le format de sortie."]
+    - ["Bloquer les mises à jour", "On s’expose aux failles de sécurité."]
+  retenir: "Programmes ↔ équipements : données structurées (YANG), pas du texte."
+  fiche: "netconf"

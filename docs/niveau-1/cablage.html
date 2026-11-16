@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Câbles cuivre et fibres — Choisir le bon support physique | Nexorya</title>
+<meta name="description" content="Le cuivre transporte des impulsions électriques jusqu’à 100 mètres ; la fibre transporte de la lumière sur des centaines de mètres ou des dizaines de kilomètres.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage" aria-current="page">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/cablage">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-2">Câbles, fibre et énergie</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Câbles cuivre et fibres</h1><p class="nom-complet">Choisir le bon support physique</p>
+<p class="idee">Le cuivre transporte des impulsions électriques jusqu’à 100 mètres ; la fibre transporte de la lumière sur des centaines de mètres ou des dizaines de kilomètres.</p><div class="badges"><span>Couche OSI 1</span><span>Découvrir : 9 min</span><span>Approfondir : 18 min</span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-relier-deux-equipements">Le problème : relier deux équipements</h2>
+<p>Entre un ordinateur et la prise murale, entre deux étages, entre deux bâtiments, entre deux villes : la distance, le débit voulu et l’environnement (bureaux, usine, extérieur) changent tout. Il existe deux grandes familles de câbles réseau, et le choix n’est pas une question de goût.</p>
+<h2 id="le-cuivre-la-paire-torsadee">Le cuivre : la paire torsadée</h2>
+<p>C’est le câble « réseau » que tout le monde connaît, terminé par une prise <strong>RJ45</strong>. À l’intérieur, <strong>quatre paires</strong> de fils de cuivre torsadés deux à deux. La torsade limite les interférences entre fils et avec l’extérieur.</p>
+<ul>
+<li><strong>Distance maximale : 100 mètres</strong> par segment (90 m de câble fixe + 10 m de cordons).</li>
+<li>Le signal est <strong>électrique</strong> : il est sensible aux perturbations (moteurs, néons, câbles électriques proches).</li>
+<li>La <strong>catégorie</strong> du câble indique la vitesse qu’il supporte :</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Catégorie</th>
+<th>Usage courant</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cat5e</td>
+<td>jusqu’à 1 Gb/s</td>
+</tr>
+<tr>
+<td>Cat6</td>
+<td>1 Gb/s ; 10 Gb/s sur moins de 55 m</td>
+</tr>
+<tr>
+<td>Cat6A</td>
+<td>10 Gb/s sur 100 m — le standard des installations récentes</td>
+</tr>
+</tbody>
+</table>
+<p>Le cuivre peut aussi <strong>transporter du courant</strong> pour alimenter un téléphone, une caméra ou une borne Wi-Fi : c’est le <a href="poe.html">PoE</a>.</p>
+<h2 id="la-fibre-optique-de-la-lumiere-dans-du-verre">La fibre optique : de la lumière dans du verre</h2>
+<p>Une fibre est un fil de verre plus fin qu’un cheveu. Le signal est <strong>lumineux</strong> : une diode laser s’allume et s’éteint des milliards de fois par seconde.</p>
+<ul>
+<li><strong>Insensible aux perturbations électriques</strong>, idéale entre bâtiments (pas de problème de mise à la terre ni de foudre).</li>
+<li><strong>Longues distances</strong> : de quelques centaines de mètres à plusieurs dizaines de kilomètres.</li>
+<li>On l’utilise <strong>par paires</strong> : une fibre pour émettre, une pour recevoir.</li>
+</ul>
+<p>Il en existe deux types :</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Cœur</th>
+<th>Distance typique</th>
+<th>Gaine (code couleur courant)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Multimode</strong> (OM3, OM4)</td>
+<td>large, 50 µm</td>
+<td>jusqu’à quelques centaines de mètres</td>
+<td>turquoise ou violette</td>
+</tr>
+<tr>
+<td><strong>Monomode</strong> (OS2)</td>
+<td>très fin, 9 µm</td>
+<td>plusieurs kilomètres à dizaines de kilomètres</td>
+<td>jaune</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie du couloir</p>
+<p>Dans une fibre multimode, la lumière rebondit sur les parois d’un large couloir en empruntant plusieurs trajets (plusieurs « modes ») : les rayons n’arrivent pas tous au même moment, ce qui limite la distance. Dans une fibre monomode, le couloir est si étroit qu’un seul trajet est possible : le signal reste net beaucoup plus loin.</p>
+</div>
+<h2 id="comment-brancher-une-fibre-sur-un-switch">Comment brancher une fibre sur un switch ?</h2>
+<p>Un switch a rarement une prise fibre intégrée. Il possède des <strong>cages</strong> où l’on glisse un petit <strong>module optique</strong> (SFP, SFP+…) qui convertit le signal électrique en lumière. On choisit le module selon la fibre et la distance. C’est l’objet des fiches <a href="sfp.html">SFP</a> et <a href="sfp-plus.html">SFP+</a>.</p>
+<figure class="schema"><svg viewBox="0 0 464.0 426.0" width="464.0" role="img" aria-label="Un campus typique — cuivre dans les étages, fibre entre les bâtiments" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="232.0" y1="50.0" x2="110.0" y2="190.0"/><text class="tp-etiq" x="162.0" y="112.1" text-anchor="end">fibre multimode</text><line class="tp-lien " x1="232.0" y1="50.0" x2="354.0" y2="190.0"/><text class="tp-etiq" x="302.0" y="112.1" text-anchor="start">fibre monomode</text><line class="tp-lien " x1="110.0" y1="190.0" x2="110.0" y2="330.0"/><text class="tp-etiq" x="122.0" y="264.0" text-anchor="start">cuivre Cat6A</text><line class="tp-lien " x1="354.0" y1="190.0" x2="354.0" y2="330.0"/><text class="tp-etiq" x="366.0" y="264.0" text-anchor="start">cuivre Cat6A</text><g transform="translate(232.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="232.0" y="90.0" text-anchor="middle">Switch de cœur</text><text class="tp-sous" x="232.0" y="106.0" text-anchor="middle">bâtiment A</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">Switch d’étage</text><text class="tp-sous" x="110.0" y="246.0" text-anchor="middle">bâtiment A</text><g transform="translate(354.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="354.0" y="230.0" text-anchor="middle">Switch</text><text class="tp-sous" x="354.0" y="246.0" text-anchor="middle">bâtiment B, à 350 m</text><g transform="translate(110.0 330.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="370.0" text-anchor="middle">Poste</text><g transform="translate(354.0 330.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="354.0" y="370.0" text-anchor="middle">Poste</text></svg><figcaption>Un campus typique — cuivre dans les étages, fibre entre les bâtiments</figcaption></figure>
+<h2 id="erreurs-frequentes">Erreurs fréquentes</h2>
+<ul>
+<li><strong>Dépasser 100 m en cuivre</strong> : le lien peut monter mais produire des erreurs, ou redescendre à une vitesse inférieure.</li>
+<li><strong>Mélanger les types</strong> : un module prévu pour du monomode en face d’une fibre multimode (ou l’inverse), ou deux modules de types différents aux deux extrémités.</li>
+<li><strong>Croiser mal les fibres</strong> : l’émission d’un côté doit arriver sur la réception de l’autre. Si le lien ne monte pas, inverser les deux fibres d’un côté est le premier test.</li>
+<li><strong>Regarder dans une fibre active</strong> : les lasers de certains modules sont invisibles et peuvent abîmer l’œil.</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Paire torsadée</strong> — Câble en cuivre composé de quatre paires de fils torsadés, terminé par des prises RJ45.</li>
+<li><strong>RJ45</strong> — Connecteur à 8 contacts des câbles Ethernet en cuivre.</li>
+<li><strong>Fibre multimode</strong> — Fibre à cœur large pour les distances courtes, souvent turquoise (OM3) ou violette (OM4).</li>
+<li><strong>Fibre monomode</strong> — Fibre à cœur très fin pour les longues distances, généralement jaune (OS2).</li>
+<li><strong>Module optique</strong> — Petit boîtier enfichable qui convertit le signal électrique du switch en lumière.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Il faut relier deux bâtiments distants de 600 mètres à 10 Gb/s. Cuivre ou fibre ? Quel type ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Fibre</strong>, car le cuivre est limité à 100 m. À 600 m et 10 Gb/s, la <strong>monomode</strong> est le choix sûr (avec des modules 10GBASE-LR, prévus pour 10 km). La multimode OM4 est limitée à environ 400 m à 10 Gb/s.</p>
+</details>
+<p><strong>2.</strong> Un lien fibre neuf ne monte pas. Les modules sont bons et identiques des deux côtés. Quel test simple faire en premier ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Inverser les deux fibres à une extrémité.</strong> Si l’émission arrive sur l’émission d’en face, aucune lumière n’est reçue. C’est l’erreur la plus fréquente sur un lien neuf.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-normes-ethernet-cuivre">Les normes Ethernet cuivre</h2>
+<p>Le nom d’une norme Ethernet se lit ainsi : <strong>débit</strong>BASE-<strong>support</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Norme</th>
+<th>Débit</th>
+<th>Paires utilisées</th>
+<th>Câble minimum</th>
+<th>Distance</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100BASE-TX</td>
+<td>100 Mb/s</td>
+<td>2</td>
+<td>Cat5</td>
+<td>100 m</td>
+</tr>
+<tr>
+<td>1000BASE-T</td>
+<td>1 Gb/s</td>
+<td>4</td>
+<td>Cat5e</td>
+<td>100 m</td>
+</tr>
+<tr>
+<td>2.5GBASE-T / 5GBASE-T</td>
+<td>2,5 / 5 Gb/s</td>
+<td>4</td>
+<td>Cat5e / Cat6</td>
+<td>100 m</td>
+</tr>
+<tr>
+<td>10GBASE-T</td>
+<td>10 Gb/s</td>
+<td>4</td>
+<td>Cat6A (Cat6 : ≤ 55 m)</td>
+<td>100 m</td>
+</tr>
+</tbody>
+</table>
+<p>Les normes 2,5 et 5 Gb/s (NBASE-T, IEEE 802.3bz) servent surtout à alimenter les bornes Wi-Fi 6 et 7, dont le débit dépasse 1 Gb/s, sans recâbler un bâtiment en Cat6A.</p>
+<p><strong>Blindage</strong> : U/UTP (aucun blindage), F/UTP (blindage global), S/FTP (chaque paire blindée). Un câble blindé n’apporte rien si la chaîne de mise à la terre n’est pas continue d’un bout à l’autre.</p>
+<h2 id="les-normes-ethernet-fibre">Les normes Ethernet fibre</h2>
+<table>
+<thead>
+<tr>
+<th>Norme</th>
+<th>Débit</th>
+<th>Fibre</th>
+<th>Longueur d’onde</th>
+<th>Portée typique</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1000BASE-SX</td>
+<td>1 Gb/s</td>
+<td>multimode</td>
+<td>850 nm</td>
+<td>550 m (OM2)</td>
+</tr>
+<tr>
+<td>1000BASE-LX</td>
+<td>1 Gb/s</td>
+<td>monomode</td>
+<td>1310 nm</td>
+<td>10 km</td>
+</tr>
+<tr>
+<td>10GBASE-SR</td>
+<td>10 Gb/s</td>
+<td>multimode</td>
+<td>850 nm</td>
+<td>300 m (OM3), 400 m (OM4)</td>
+</tr>
+<tr>
+<td>10GBASE-LR</td>
+<td>10 Gb/s</td>
+<td>monomode</td>
+<td>1310 nm</td>
+<td>10 km</td>
+</tr>
+<tr>
+<td>10GBASE-ER</td>
+<td>10 Gb/s</td>
+<td>monomode</td>
+<td>1550 nm</td>
+<td>40 km</td>
+</tr>
+<tr>
+<td>25GBASE-SR</td>
+<td>25 Gb/s</td>
+<td>multimode</td>
+<td>850 nm</td>
+<td>70 m (OM3), 100 m (OM4)</td>
+</tr>
+<tr>
+<td>100GBASE-SR4</td>
+<td>100 Gb/s</td>
+<td>multimode, 8 fibres (MPO)</td>
+<td>850 nm</td>
+<td>70 m (OM3), 100 m (OM4)</td>
+</tr>
+<tr>
+<td>100GBASE-LR4</td>
+<td>100 Gb/s</td>
+<td>monomode, 2 fibres</td>
+<td>4 longueurs d’onde autour de 1310 nm</td>
+<td>10 km</td>
+</tr>
+</tbody>
+</table>
+<p>Le suffixe <strong>S</strong> (<em>short</em>) désigne la courte portée en multimode, <strong>L</strong> (<em>long</em>) 10 km en monomode, <strong>E</strong> (<em>extended</em>) 40 km.</p>
+<h2 id="connecteurs-et-polissage">Connecteurs et polissage</h2>
+<ul>
+<li><strong>LC</strong> : petit connecteur duplex, standard sur les modules SFP. <strong>SC</strong> : plus gros, fréquent sur les tiroirs optiques anciens et les réseaux d’opérateur. <strong>MPO/MTP</strong> : 12 ou 24 fibres dans un seul connecteur, pour le 40 et le 100 Gb/s parallèles.</li>
+<li><strong>UPC</strong> (embout bleu) et <strong>APC</strong> (embout vert, poli en biais à 8°) : <strong>ne jamais les connecter ensemble</strong>. Le contact est mauvais et peut endommager les embouts. L’APC est courant en FTTH et en vidéo.</li>
+</ul>
+<h2 id="le-budget-optique">Le budget optique</h2>
+<p>Un lien fibre fonctionne si la puissance reçue reste dans la plage acceptée par le récepteur. On fait le bilan :</p>
+<pre><code class="language-text">budget disponible = puissance émise minimale − sensibilité du récepteur
+pertes du lien    = longueur × atténuation + connecteurs + épissures + marge
+
+Exemple : 10GBASE-LR, fibre OS2 de 6 km, 4 connecteurs, 2 épissures
+  atténuation fibre   : 6 km × 0,4 dB/km    = 2,4 dB
+  connecteurs         : 4 × 0,5 dB          = 2,0 dB
+  épissures           : 2 × 0,1 dB          = 0,2 dB
+  marge de vieillissement                    = 1,0 dB
+  total                                      = 5,6 dB   (budget LR ≈ 6,2 dB : ça passe, de justesse)
+</code></pre>
+<p>Sur un switch, on vérifie la puissance reçue avec la surveillance optique numérique (DOM/DDM) :</p>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show interfaces TenGigabitEthernet1/1/1 transceiver detail
+                              Optical   High Alarm  High Warn  Low Warn  Low Alarm
+Port       Temperature        Rx Power  Threshold   Threshold  Threshold Threshold
+---------  -----------        --------  ---------   ---------  --------- ---------
+Te1/1/1    32.1 C             -14.2     0.5         -1.0       -14.4     -18.4
+</code></pre>
+<p>Une puissance reçue de -14,2 dBm, juste au-dessus du seuil d’avertissement bas (-14,4), annonce un lien fragile : fibre sale, courbure trop serrée, connecteur abîmé ou distance excessive.</p>
+<div class="encadre astuce">
+<p class="encadre-titre">Astuce</p>
+<p><strong>Nettoyer avant de remplacer.</strong> Une poussière sur l’embout d’un connecteur suffit à perdre plusieurs dB. Un stylo nettoyant et un microscope de contrôle résolvent une grande partie des pannes optiques, pour un coût dérisoire.</p>
+</div>
+<h2 id="depannage-physique-une-methode">Dépannage physique : une méthode</h2>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Causes probables</th>
+<th>Vérification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Lien <code>down/down</code>, cuivre</td>
+<td>câble débranché ou coupé, port désactivé</td>
+<td>voyant, <code>show interfaces status</code>, testeur de câble</td>
+</tr>
+<tr>
+<td>Lien à 100 Mb/s au lieu de 1 Gb/s</td>
+<td>une ou deux paires abîmées</td>
+<td>testeur de câble (les 4 paires)</td>
+</tr>
+<tr>
+<td>Erreurs CRC qui augmentent</td>
+<td>connecteur mal serti, interférences, désaccord de duplex</td>
+<td><code>show interfaces</code>, remplacer le cordon, vérifier le duplex</td>
+</tr>
+<tr>
+<td>Lien fibre <code>down</code>, aucune lumière reçue</td>
+<td>fibres inversées, module incompatible, fibre coupée</td>
+<td>inverser les fibres, <code>show interfaces transceiver</code>, photomètre</td>
+</tr>
+<tr>
+<td>Lien fibre instable</td>
+<td>puissance reçue proche du seuil</td>
+<td>nettoyer, mesurer, réduire les connecteurs intermédiaires</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un lien 10GBASE-SR en OM3 doit couvrir 350 m. Est-ce conforme ? Que proposer ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non</strong> : 10GBASE-SR est spécifié pour 300 m en OM3. Options : passer en <strong>OM4</strong> (400 m) si la fibre est remplacée, ou utiliser des modules <strong>10GBASE-LR</strong> sur de la <strong>monomode</strong>. Garder des modules SR sur 350 m d’OM3 pourrait fonctionner en apparence, mais sans marge : le lien risque d’être instable.</p>
+</details>
+<p><strong>2.</strong> Un technicien relie un tiroir optique en SC/APC à un cordon SC/UPC. Que risque-t-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Un <strong>mauvais contact</strong> (perte importante et réflexions) et une <strong>détérioration des embouts</strong>, car les faces polies à 8° et à plat ne s’appuient pas correctement. Il faut des connecteurs de même polissage aux deux extrémités d’une connexion.</p>
+</details>
+<p><strong>3.</strong> Un switch d’étage est à 120 m du local technique, en cuivre Cat6A. Le lien monte à 1 Gb/s mais présente des erreurs. Explique pourquoi et propose deux solutions.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La limite de <strong>100 m</strong> est dépassée : le signal est trop affaibli et les erreurs apparaissent. Solutions : une <strong>liaison fibre</strong> (modules SFP + fibre multimode) entre le local et l’étage, ou un <strong>switch intermédiaire</strong> placé avant les 100 m (à condition de disposer d’un local adapté et alimenté).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/mesures.html"><small>Fiche précédente</small><strong>Mesurer une connexion</strong></a><a class="apres" href="../niveau-1/phy.html"><small>Fiche suivante</small><strong>PHY</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-relier-deux-equipements">Le problème : relier deux équipements</a><a href="#le-cuivre-la-paire-torsadee">Le cuivre : la paire torsadée</a><a href="#la-fibre-optique-de-la-lumiere-dans-du-verre">La fibre optique : de la lumière dans du verre</a><a href="#comment-brancher-une-fibre-sur-un-switch">Comment brancher une fibre sur un switch ?</a><a href="#erreurs-frequentes">Erreurs fréquentes</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-normes-ethernet-cuivre">Les normes Ethernet cuivre</a><a href="#les-normes-ethernet-fibre">Les normes Ethernet fibre</a><a href="#connecteurs-et-polissage">Connecteurs et polissage</a><a href="#le-budget-optique">Le budget optique</a><a href="#depannage-physique-une-methode">Dépannage physique : une méthode</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

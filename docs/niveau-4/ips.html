@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IPS — Système de prévention d’intrusion | Nexorya</title>
+<meta name="description" content="Un IPS est placé sur le chemin du trafic ; il fait la même analyse qu’un IDS, mais peut bloquer immédiatement les paquets d’une attaque reconnue.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips" aria-current="page">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/ips">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-4">Détecter et bloquer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>IPS</h1><p class="nom-complet">Système de prévention d’intrusion</p>
+<p class="idee">Un IPS est placé sur le chemin du trafic ; il fait la même analyse qu’un IDS, mais peut bloquer immédiatement les paquets d’une attaque reconnue.</p><div class="badges"><span>Couche OSI 3 à 7</span><span>Découvrir : 5 min</span><span>Approfondir : 10 min</span><span>Avant : <a href="../niveau-4/ids.html">IDS</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Un IDS alerte, mais une attaque automatique peut aboutir en quelques secondes, bien avant qu’un humain lise l’alerte. Il faut parfois <strong>bloquer automatiquement</strong>.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>L’IPS est un IDS placé <strong>sur le chemin</strong> du trafic : quand il reconnaît une attaque, il jette les paquets au lieu de seulement prévenir.</p>
+</div>
+<h2 id="ids-ou-ips">IDS ou IPS ?</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>IDS</th>
+<th>IPS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Position</td>
+<td>hors bande (copie du trafic)</td>
+<td><strong>en ligne</strong></td>
+</tr>
+<tr>
+<td>Action</td>
+<td>alerte</td>
+<td>alerte <strong>et bloque</strong></td>
+</tr>
+<tr>
+<td>Effet d’une fausse détection</td>
+<td>une alerte inutile</td>
+<td><strong>un service légitime coupé</strong></td>
+</tr>
+<tr>
+<td>Effet d’une panne</td>
+<td>on perd la visibilité</td>
+<td>on peut perdre le <strong>réseau</strong> (sauf mode de secours)</td>
+</tr>
+<tr>
+<td>Latence ajoutée</td>
+<td>aucune</td>
+<td>un peu</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>IPS</strong> — <em>Intrusion Prevention System</em>, système qui détecte et bloque les attaques en ligne.</li>
+<li><strong>En ligne</strong> — Placé sur le chemin du trafic, que tout paquet doit traverser.</li>
+<li><strong>Fail-open / fail-closed</strong> — Comportement en cas de panne : laisser passer le trafic, ou tout bloquer.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Après la mise à jour des signatures de l’IPS, une application métier cesse de fonctionner. Que s’est-il probablement passé ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Une nouvelle signature produit un <strong>faux positif</strong> sur le trafic de l’application : l’IPS bloque des échanges légitimes. Les journaux de l’IPS indiquent la signature en cause ; on crée une exception ciblée (et l’on signale le faux positif à l’éditeur) plutôt que de désactiver tout l’IPS.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="deployer-sans-tout-casser">Déployer sans tout casser</h2>
+<ol>
+<li><strong>Mode détection</strong> sur tout le trafic : observer les alertes pendant quelques semaines.</li>
+<li><strong>Ajuster</strong> : désactiver les signatures sans objet, créer des exceptions pour les faux positifs.</li>
+<li><strong>Bloquer</strong> d’abord les signatures fiables et graves (exploits critiques, logiciels malveillants connus).</li>
+<li>Élargir progressivement, en surveillant les incidents.</li>
+</ol>
+<h2 id="disponibilite">Disponibilité</h2>
+<ul>
+<li><strong>Fail-open</strong> (<em>bypass</em> matériel ou logiciel) : si l’IPS tombe, le trafic passe sans inspection. Priorité à la disponibilité.</li>
+<li><strong>Fail-closed</strong> : si l’IPS tombe, plus rien ne passe. Priorité à la sécurité.</li>
+<li>En pratique, on met deux équipements en <strong>haute disponibilité</strong>, et l’on choisit le comportement selon la criticité de chaque lien.</li>
+</ul>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Pourquoi l’IPS est-il moins efficace sur le trafic Internet des postes que sur le trafic vers les serveurs publiés ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le trafic des postes vers Internet est presque entièrement <strong>chiffré</strong> (HTTPS) : sans inspection TLS, l’IPS ne voit pas les contenus. Pour les <strong>serveurs publiés</strong>, l’entreprise détient les certificats et peut faire inspecter le trafic déchiffré (sur le reverse proxy ou le pare-feu), ce qui permet de reconnaître les exploits.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/ids.html"><small>Fiche précédente</small><strong>IDS</strong></a><a class="apres" href="../niveau-4/ngfw.html"><small>Fiche suivante</small><strong>NGFW</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#ids-ou-ips">IDS ou IPS ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#deployer-sans-tout-casser">Déployer sans tout casser</a><a href="#disponibilite">Disponibilité</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

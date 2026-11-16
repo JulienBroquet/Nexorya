@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SFTP — SSH File Transfer Protocol | Nexorya</title>
+<meta name="description" content="SFTP transfère des fichiers à l’intérieur d’une session SSH — tout est chiffré, et un seul port (22) suffit.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp" aria-current="page">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/sftp">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-5">Transférer, partager, s’identifier</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>SFTP</h1><p class="nom-complet">SSH File Transfer Protocol</p>
+<p class="idee">SFTP transfère des fichiers à l’intérieur d’une session SSH — tout est chiffré, et un seul port (22) suffit.</p><div class="badges"><span>Couche OSI 7 (TCP 22)</span><span>Découvrir : 4 min</span><span>Approfondir : 8 min</span><span>Avant : <a href="../niveau-3/ssh.html">SSH</a>, <a href="../niveau-3/ftp.html">FTP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>FTP est en clair et traverse mal les pare-feu ; TFTP n’a pas d’authentification. Pour échanger des fichiers de façon sûre — sauvegardes, échanges de factures avec un partenaire, dépôt de journaux —, il faut un protocole chiffré, authentifié et simple à filtrer.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>SFTP utilise une session SSH ordinaire pour transférer des fichiers : mêmes garanties que SSH, même port 22.</p>
+</div>
+<h2 id="sftp-ftps-scp-ne-pas-confondre">SFTP, FTPS, SCP : ne pas confondre</h2>
+<table>
+<thead>
+<tr>
+<th>Nom</th>
+<th>Ce que c’est</th>
+<th>Port</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SFTP</strong></td>
+<td>transfert de fichiers dans SSH</td>
+<td>22</td>
+</tr>
+<tr>
+<td><strong>FTPS</strong></td>
+<td>FTP classique protégé par TLS (garde les deux connexions)</td>
+<td>21 (+ plage de données), ou 990</td>
+</tr>
+<tr>
+<td><strong>SCP</strong></td>
+<td>copie simple via SSH, sans navigation dans les dossiers</td>
+<td>22</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>SFTP</strong> — Protocole de transfert de fichiers chiffré, intégré à SSH.</li>
+<li><strong>SCP</strong> — Copie de fichiers via SSH.</li>
+<li><strong>Chroot</strong> — Enfermement d’un utilisateur dans un dossier, dont il ne peut pas sortir.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un partenaire demande « un accès SFTP ». Quels ports faut-il ouvrir sur le pare-feu ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Uniquement le <strong>TCP 22</strong> vers le serveur SFTP (idéalement limité à l’adresse du partenaire). Pas de plage de ports supplémentaire, contrairement à FTP.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="un-serveur-sftp-cloisonne-openssh">Un serveur SFTP cloisonné (OpenSSH)</h2>
+<pre><code class="language-text"><span class="c"># /etc/ssh/sshd_config</span>
+Match Group partenaires
+    ChrootDirectory /srv/sftp/%u
+    ForceCommand internal-sftp
+    AllowTcpForwarding no
+    X11Forwarding no
+    PasswordAuthentication no
+</code></pre>
+<p>Les comptes du groupe <code>partenaires</code> ne peuvent faire <strong>que</strong> du SFTP, enfermés dans leur dossier, avec authentification par <strong>clé</strong>. Le dossier racine du chroot doit appartenir à <code>root</code> et ne pas être modifiable par l’utilisateur.</p>
+<pre><code class="language-bash">$ sftp -i ~/.ssh/cle_partenaire facture@sftp.exemple.fr
+sftp&gt; put factures-2026-11.zip
+$ scp -i ~/.ssh/cle_partenaire rapport.pdf facture@sftp.exemple.fr:/depot/
+</code></pre>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Pourquoi l’authentification par clé est-elle recommandée pour un échange automatique quotidien avec un partenaire ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Elle évite de stocker un <strong>mot de passe</strong> en clair dans un script, résiste à la force brute, et permet de <strong>révoquer</strong> l’accès en retirant la clé publique sans changer de mot de passe partagé. On peut aussi restreindre ce que la clé autorise (commande forcée, adresse source).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/tftp.html"><small>Fiche précédente</small><strong>TFTP</strong></a><a class="apres" href="../niveau-3/smb.html"><small>Fiche suivante</small><strong>SMB</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#sftp-ftps-scp-ne-pas-confondre">SFTP, FTPS, SCP : ne pas confondre</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#un-serveur-sftp-cloisonne-openssh">Un serveur SFTP cloisonné (OpenSSH)</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

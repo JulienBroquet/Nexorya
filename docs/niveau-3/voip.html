@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>La téléphonie sur IP — Construire un réseau qui transporte bien la voix | Nexorya</title>
+<meta name="description" content="Un réseau prêt pour la voix met les téléphones dans un VLAN dédié, les alimente en PoE, leur donne la priorité absolue et surveille latence, gigue et pertes.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip" aria-current="page">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/voip">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-6">Voix et mobilité</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>La téléphonie sur IP</h1><p class="nom-complet">Construire un réseau qui transporte bien la voix</p>
+<p class="idee">Un réseau prêt pour la voix met les téléphones dans un VLAN dédié, les alimente en PoE, leur donne la priorité absolue et surveille latence, gigue et pertes.</p><div class="badges"><span>Couche OSI 2 à 7</span><span>Découvrir : 9 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-3/sip.html">SIP</a>, <a href="../niveau-3/rtp.html">RTP</a>, <a href="../niveau-1/vlan.html">VLAN</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-la-voix-ne-pardonne-rien">Le problème : la voix ne pardonne rien</h2>
+<p>Un e-mail qui arrive une seconde plus tard, personne ne le remarque. Une voix qui arrive avec 300 ms de retard, des trous ou de l’écho rend la conversation pénible. Le réseau doit donc <strong>traiter la voix à part</strong>.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>La téléphonie sur IP fonctionne bien quand chaque couche du réseau est préparée pour elle : un VLAN dédié, l’alimentation par le câble, et une priorité absolue sur tous les liens.</p>
+</div>
+<h2 id="les-briques-dun-reseau-pret-pour-la-voix">Les briques d’un réseau prêt pour la voix</h2>
+<figure class="schema"><svg viewBox="0 0 830.0 146.0" width="830.0" role="img" aria-label="Un poste de travail avec téléphone IP" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="256.4" y2="50.0"/><line class="tp-lien " x1="256.4" y1="50.0" x2="415.0" y2="50.0"/><text class="tp-etiq" x="335.7" y="38.0" text-anchor="middle">un seul câble</text><line class="tp-lien " x1="415.0" y1="50.0" x2="573.5999999999999" y2="50.0"/><line class="tp-lien " x1="573.5999999999999" y1="50.0" x2="720.0" y2="50.0"/><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">PC</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">VLAN 10, non étiqueté</text><g transform="translate(256.4 50.0)"><rect class="tp-ico" x="-13" y="-20" width="26" height="40" rx="5"/><rect class="tp-ico-plein" x="-8" y="-14" width="16" height="12" rx="2" opacity=".35"/></g><text class="tp-lib" x="256.4" y="90.0" text-anchor="middle">Téléphone IP</text><text class="tp-sous" x="256.4" y="106.0" text-anchor="middle">VLAN 20, étiqueté, PoE</text><g transform="translate(415.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="415.0" y="90.0" text-anchor="middle">Switch d’accès</text><text class="tp-sous" x="415.0" y="106.0" text-anchor="middle">PoE, QoS, voice vlan 20</text><g transform="translate(573.5999999999999 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="573.5999999999999" y="90.0" text-anchor="middle">Cœur</text><text class="tp-sous" x="573.5999999999999" y="106.0" text-anchor="middle">QoS</text><g transform="translate(720.0 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="720.0" y="90.0" text-anchor="middle">IPBX</text><text class="tp-sous" x="720.0" y="106.0" text-anchor="middle">signalisation SIP</text></svg><figcaption>Un poste de travail avec téléphone IP</figcaption></figure>
+<table>
+<thead>
+<tr>
+<th>Brique</th>
+<th>Rôle</th>
+<th>Fiche</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VLAN voix</td>
+<td>séparer les téléphones, appliquer la QoS facilement</td>
+<td><a href="../niveau-1/vlan.html">VLAN</a></td>
+</tr>
+<tr>
+<td>CDP / LLDP-MED</td>
+<td>annoncer au téléphone son VLAN et négocier sa puissance</td>
+<td><a href="../niveau-1/lldp.html">LLDP</a></td>
+</tr>
+<tr>
+<td>PoE</td>
+<td>alimenter le téléphone par le câble</td>
+<td><a href="../niveau-1/poe.html">PoE</a></td>
+</tr>
+<tr>
+<td>DHCP</td>
+<td>adresse, et souvent l’adresse du serveur de configuration (options 66/150)</td>
+<td><a href="dhcp.html">DHCP</a></td>
+</tr>
+<tr>
+<td>QoS</td>
+<td>faire passer la voix avant tout le reste</td>
+<td><a href="../niveau-5/qos.html">QoS</a></td>
+</tr>
+<tr>
+<td>SIP / RTP</td>
+<td>signalisation et transport de la voix</td>
+<td><a href="sip.html">SIP</a>, <a href="rtp.html">RTP</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>VoIP</strong> — <em>Voice over IP</em>, transport de la voix sur un réseau IP.</li>
+<li><strong>VLAN voix</strong> — VLAN réservé aux téléphones, transporté étiqueté sur le même port que le PC.</li>
+<li><strong>EF</strong> — <em>Expedited Forwarding</em>, marquage DSCP 46 réservé à la voix.</li>
+<li><strong>MOS</strong> — Note de qualité perçue d’un appel, de 1 à 5.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Les appels sont parfaits le matin, mais hachés tous les soirs pendant les sauvegardes vers le site distant. Qu’est-ce qui manque ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La <strong>qualité de service</strong> sur le lien vers le site distant : quand la sauvegarde sature le lien, les paquets de voix attendent dans la même file que ceux de la sauvegarde. Il faut marquer la voix (EF) et lui réserver une <strong>file prioritaire</strong> sur ce lien.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-dun-port-dacces-cisco-ios">Configuration d’un port d’accès (Cisco IOS)</h2>
+<pre><code class="language-cisco">interface GigabitEthernet1/0/5
+ description Bureau 214 - téléphone + PC
+ switchport mode access
+ switchport access vlan 10
+ switchport voice vlan 20
+ trust device cisco-phone          ! faire confiance au marquage seulement si c'est un téléphone (selon la plateforme)
+ auto qos voip cisco-phone         ! modèle de QoS Cisco (ou une politique QoS manuelle)
+ power inline auto
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+</code></pre>
+<h2 id="dimensionner-un-lien-wan">Dimensionner un lien WAN</h2>
+<pre><code class="language-text">Site de 40 personnes, au plus 12 appels simultanés vers l’extérieur en G.711
+  12 × 87 kb/s ≈ 1,05 Mb/s par sens pour la voix
+  + signalisation, marge : réserver ≈ 1,5 Mb/s en file prioritaire
+  Ne pas dépasser environ 33 % du lien en file prioritaire (bonne pratique)
+</code></pre>
+<p>Si le lien est petit, un codec compressé (G.729, Opus à bas débit) réduit le besoin, au prix d’une légère baisse de qualité.</p>
+<h2 id="methode-de-depannage-par-symptome">Méthode de dépannage par symptôme</h2>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Pistes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Le téléphone ne s’allume pas</td>
+<td>PoE : budget, classe, câble</td>
+</tr>
+<tr>
+<td>Il s’allume mais ne s’enregistre pas</td>
+<td>VLAN voix, DHCP (options), joignabilité de l’IPBX, SIP 5060/5061 filtré</td>
+</tr>
+<tr>
+<td>Appel établi, pas de son / son dans un seul sens</td>
+<td>RTP filtré, NAT, ALG SIP, routage asymétrique</td>
+</tr>
+<tr>
+<td>Voix hachée à certaines heures</td>
+<td>congestion : QoS absente ou mal appliquée ; vérifier les <code>output drops</code> et les files</td>
+</tr>
+<tr>
+<td>Écho</td>
+<td>souvent lié aux terminaux (casques, passerelles analogiques), ou à une latence élevée qui rend un écho existant audible</td>
+</tr>
+<tr>
+<td>Appels qui coupent au bout de 30 s ou 15 min</td>
+<td>délais du pare-feu ou du NAT pour UDP, absence de rafraîchissement SIP</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Dans un site, les téléphones prennent une adresse dans le VLAN 10 (données) au lieu du VLAN 20. Le port est configuré avec <code>switchport voice vlan 20</code>. Que vérifier ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le téléphone doit <strong>apprendre</strong> le VLAN voix par <strong>CDP</strong> (téléphones Cisco) ou <strong>LLDP-MED</strong> (autres marques). Si LLDP est désactivé sur le switch (souvent le cas par défaut sur Cisco) et que le téléphone n’est pas Cisco, il ne connaît pas le VLAN 20 et démarre dans le VLAN natif du port (10). Activer <code>lldp run</code>, ou configurer le VLAN sur le téléphone ou par une option DHCP.</p>
+</details>
+<p><strong>2.</strong> Calcule le débit nécessaire pour 20 appels simultanés en G.711 sur un lien WAN, à environ 87 kb/s par appel et par sens.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>20 × 87 = <strong>1 740 kb/s ≈ 1,74 Mb/s par sens</strong>. On réserve environ 2 Mb/s en file prioritaire, et l’on vérifie que cela reste raisonnable par rapport à la capacité du lien.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/rtp.html"><small>Fiche précédente</small><strong>RTP</strong></a><a class="apres" href="../niveau-3/wifi-entreprise.html"><small>Fiche suivante</small><strong>Wi-Fi d’entreprise</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-la-voix-ne-pardonne-rien">Le problème : la voix ne pardonne rien</a><a href="#les-briques-dun-reseau-pret-pour-la-voix">Les briques d’un réseau prêt pour la voix</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-dun-port-dacces-cisco-ios">Configuration d’un port d’accès (Cisco IOS)</a><a href="#dimensionner-un-lien-wan">Dimensionner un lien WAN</a><a href="#methode-de-depannage-par-symptome">Méthode de dépannage par symptôme</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

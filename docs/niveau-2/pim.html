@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PIM — Protocol Independent Multicast | Nexorya</title>
+<meta name="description" content="PIM fait construire aux routeurs l’arbre de distribution d’un flux multicast, depuis la source jusqu’aux réseaux qui ont des abonnés, en s’appuyant sur la table de routage existante.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim" aria-current="page">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/pim">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-6">Diffuser à plusieurs, le multicast</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>PIM</h1><p class="nom-complet">Protocol Independent Multicast</p>
+<p class="idee">PIM fait construire aux routeurs l’arbre de distribution d’un flux multicast, depuis la source jusqu’aux réseaux qui ont des abonnés, en s’appuyant sur la table de routage existante.</p><div class="badges"><span>Couche OSI 3 (protocole IP 103)</span><span>Découvrir : 7 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-2/igmp.html">IGMP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-relier-les-abonnes-a-la-source-a-travers-plusieurs-routeurs">Le problème : relier les abonnés à la source à travers plusieurs routeurs</h2>
+<p>IGMP fonctionne entre un poste et <strong>son</strong> routeur. Mais la source vidéo est au datacenter, et les abonnés sont dans dix bâtiments. Il faut que les routeurs entre les deux construisent un chemin — un arbre — sans boucle et sans envoyer le flux là où personne ne le veut.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Chaque routeur qui a des abonnés envoie un <strong>Join</strong> vers la source ; de proche en proche, ces Join tracent l’arbre que le flux suivra en sens inverse.</p>
+</div>
+<h2 id="comment-ca-marche-pim-sparse-mode-ssm">Comment ça marche (PIM Sparse Mode, SSM)</h2>
+<figure class="schema"><svg viewBox="0 0 760 484" width="760" role="img" aria-label="Construction de l’arbre en SSM" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="484"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Poste</text></g><line class="sq-vie" x1="232.5" y1="43" x2="232.5" y2="484"/><g class="sq-acteur"><rect x="190.8" y="12" width="83.39999999999999" height="31" rx="8"/><text x="232.5" y="33" text-anchor="middle">R-étage</text></g><line class="sq-vie" x1="380.0" y1="43" x2="380.0" y2="484"/><g class="sq-acteur"><rect x="340.0" y="12" width="80" height="31" rx="8"/><text x="380.0" y="33" text-anchor="middle">R-cœur</text></g><line class="sq-vie" x1="527.5" y1="43" x2="527.5" y2="484"/><g class="sq-acteur"><rect x="465.3" y="12" width="124.39999999999999" height="31" rx="8"/><text x="527.5" y="33" text-anchor="middle">R-datacenter</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="484"/><g class="sq-acteur"><rect x="635.0" y="12" width="80" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Source</text></g><g class="sq-msg "><text x="158.75" y="66" text-anchor="middle">1. IGMPv3 : « groupe</text><text x="158.75" y="84" text-anchor="middle">232.1.1.1 depuis la</text><text x="158.75" y="102" text-anchor="middle">source S »</text><line x1="85.0" y1="114" x2="220.5" y2="114"/><polygon class="sq-pointe" points="230.5,114 218.5,108 218.5,120"/></g><g class="sq-msg "><text x="306.25" y="152" text-anchor="middle">2. PIM Join (S, G)</text><text x="306.25" y="170" text-anchor="middle">vers la source</text><line x1="232.5" y1="182" x2="368.0" y2="182"/><polygon class="sq-pointe" points="378.0,182 366.0,176 366.0,188"/></g><g class="sq-msg "><text x="453.75" y="220" text-anchor="middle">3. PIM Join (S, G)</text><line x1="380.0" y1="232" x2="515.5" y2="232"/><polygon class="sq-pointe" points="525.5,232 513.5,226 513.5,238"/></g><g class="sq-msg "><text x="601.25" y="270" text-anchor="middle">4. flux 232.1.1.1</text><line x1="675.0" y1="282" x2="539.5" y2="282"/><polygon class="sq-pointe" points="529.5,282 541.5,276 541.5,288"/></g><g class="sq-msg "><text x="453.75" y="320" text-anchor="middle">5. flux</text><line x1="527.5" y1="332" x2="392.0" y2="332"/><polygon class="sq-pointe" points="382.0,332 394.0,326 394.0,338"/></g><g class="sq-msg "><text x="306.25" y="370" text-anchor="middle">6. flux</text><line x1="380.0" y1="382" x2="244.5" y2="382"/><polygon class="sq-pointe" points="234.5,382 246.5,376 246.5,388"/></g><g class="sq-msg "><text x="158.75" y="420" text-anchor="middle">7. flux</text><line x1="232.5" y1="432" x2="97.0" y2="432"/><polygon class="sq-pointe" points="87.0,432 99.0,426 99.0,438"/></g></svg><figcaption>Construction de l’arbre en SSM</figcaption></figure>
+<ol>
+<li>Le poste s’abonne avec IGMP.</li>
+<li>Son routeur envoie un <strong>Join</strong> au voisin situé <strong>en direction de la source</strong> (selon la table de routage unicast).</li>
+<li>Chaque routeur fait de même jusqu’à la source.</li>
+<li>Le flux descend le long des Join. Chaque routeur sait sur quelles interfaces le recopier.</li>
+<li>Quand plus personne n’est abonné, les routeurs envoient des <strong>Prune</strong> et l’arbre se défait.</li>
+</ol>
+<h2 id="le-controle-rpf">Le contrôle RPF</h2>
+<p>Pour éviter les boucles, un routeur n’accepte un paquet multicast que s’il arrive par <strong>l’interface qu’il utiliserait pour joindre la source</strong> en unicast. C’est le contrôle <strong>RPF</strong> (<em>Reverse Path Forwarding</em>). Un paquet arrivé « par le mauvais côté » est jeté.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>PIM</strong> — <em>Protocol Independent Multicast</em>, protocole de routage multicast entre routeurs.</li>
+<li><strong>Join / Prune</strong> — Message PIM qui ajoute / retire une branche de l’arbre de distribution.</li>
+<li><strong>RPF</strong> — <em>Reverse Path Forwarding</em>, vérification qu’un paquet multicast arrive par l’interface qui mène vers sa source.</li>
+<li><strong>RP</strong> — <em>Rendezvous Point</em>, routeur qui met en relation sources et récepteurs en ASM.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un flux multicast arrive sur un routeur par l’interface Gi0/1, mais sa route vers la source passe par Gi0/2. Que fait le routeur ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Il <strong>jette</strong> le flux : le contrôle <strong>RPF</strong> échoue. Le paquet n’arrive pas par l’interface qui mène vers la source. Il faut corriger le routage unicast (ou ajouter une route statique multicast) pour que le chemin vers la source passe par Gi0/1, ou faire arriver le flux par Gi0/2.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="asm-le-point-de-rendez-vous">ASM : le point de rendez-vous</h2>
+<p>En ASM, les récepteurs demandent seulement le groupe (<em>, G). Le routeur ne sait pas où est la source : il envoie son Join vers le </em><em>RP</em>*.</p>
+<ol>
+<li>Les Join des récepteurs construisent un <strong>arbre partagé</strong> enraciné au RP.</li>
+<li>Le premier routeur de la source <strong>enregistre</strong> la source auprès du RP (messages <em>Register</em>).</li>
+<li>Le RP fait descendre le flux sur l’arbre partagé.</li>
+<li>Ensuite, le routeur des récepteurs bascule en général sur l’<strong>arbre de la source</strong> (SPT), plus direct.</li>
+</ol>
+<p>Le RP est défini statiquement, ou découvert dynamiquement (<strong>BSR</strong>, ou Auto-RP chez Cisco). On le rend redondant avec <strong>Anycast RP</strong> (plusieurs RP qui partagent la même adresse et se synchronisent avec MSDP).</p>
+<h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco">ip multicast-routing
+<span class="c">!</span>
+interface range GigabitEthernet0/0/0 - 1
+ ip pim sparse-mode
+interface Vlan30
+ ip pim sparse-mode
+<span class="c">!</span>
+<span class="c">! SSM : plage par défaut 232.0.0.0/8</span>
+ip pim ssm default
+<span class="c">!</span>
+<span class="c">! ASM : RP statique pour les groupes internes</span>
+ip access-list standard GROUPES-ASM
+ permit 239.0.0.0 0.255.255.255
+ip pim rp-address 10.255.255.10 GROUPES-ASM
+</code></pre>
+<h2 id="verification">Vérification</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip pim neighbor
+Neighbor          Interface                Uptime/Expires    Ver   DR
+Address                                                            Prio/Mode
+10.255.0.2        GigabitEthernet0/0/1     2d03h/00:01:34    v2    1 / S P G
+
+<span class="k">R1#</span> show ip mroute 232.1.1.1
+(198.51.100.20, 232.1.1.1), 00:14:22/00:03:01, flags: sTI
+  Incoming interface: GigabitEthernet0/0/1, RPF nbr 10.255.0.2
+  Outgoing interface list:
+    Vlan30, Forward/Sparse, 00:14:22/00:02:41
+
+<span class="k">R1#</span> show ip rpf 198.51.100.20
+RPF information for ? (198.51.100.20)
+  RPF interface: GigabitEthernet0/0/1
+  RPF neighbor: ? (10.255.0.2)
+  RPF route/mask: 198.51.100.0/24
+  RPF type: unicast (ospf 1)
+</code></pre>
+<p>Lecture de <code>show ip mroute</code> : l’entrée (S, G) existe, le flux <strong>entre</strong> par Gi0/0/1 (vers la source) et <strong>sort</strong> vers le Vlan30 où se trouvent les abonnés. Une liste de sortie vide (<code>Null</code>) signifie qu’aucun abonné n’a été signalé sur ce routeur.</p>
+<h2 id="depannage">Dépannage</h2>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Piste</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pas de voisin PIM</td>
+<td>PIM non activé sur l’interface, ACL bloquant le protocole 103</td>
+</tr>
+<tr>
+<td>Entrée (S, G) absente</td>
+<td>la source n’émet pas, ou son TTL est trop petit</td>
+</tr>
+<tr>
+<td>Entrée présente, liste de sortie vide</td>
+<td>pas d’abonnement IGMP reçu sur ce routeur</td>
+</tr>
+<tr>
+<td>Flux reçu puis jeté (compteur RPF failed)</td>
+<td>le chemin unicast vers la source ne passe pas par l’interface d’arrivée</td>
+</tr>
+<tr>
+<td>ASM : rien ne passe</td>
+<td>RP non défini, incohérent entre routeurs, ou injoignable</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Pourquoi recommande-t-on SSM plutôt qu’ASM pour une diffusion vidéo interne dont la source est connue ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>SSM supprime le <strong>RP</strong> et la découverte des sources : la configuration est plus simple, l’arbre est direct dès le début, et un appareil quelconque ne peut pas injecter un flux parasite dans le groupe (le récepteur ne reçoit que la source demandée). Il faut seulement que les récepteurs supportent IGMPv3.</p>
+</details>
+<p><strong>2.</strong> <code>show ip mroute</code> montre un flux en entrée sur un routeur, mais le compteur « RPF failed » augmente et rien ne sort. Après vérification, la route vers la source a été modifiée la veille pour passer par un autre lien. Que se passe-t-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le flux continue d’arriver par l’<strong>ancien</strong> chemin, alors que la table unicast désigne désormais <strong>un autre</strong> lien vers la source : le contrôle RPF échoue et les paquets sont jetés. Il faut que le flux arrive par l’interface RPF (en général, les Join PIM se réorientent d’eux-mêmes ; sinon, vérifier PIM sur le nouveau lien) ou ajouter une route statique multicast (<code>ip mroute</code>) si le chemin multicast doit volontairement différer.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/mld.html"><small>Fiche précédente</small><strong>MLD</strong></a><a class="apres" href="../niveau-3/tcp.html"><small>Fiche suivante · Services et applications</small><strong>TCP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-relier-les-abonnes-a-la-source-a-travers-plusieurs-routeurs">Le problème : relier les abonnés à la source à travers plusieurs routeurs</a><a href="#comment-ca-marche-pim-sparse-mode-ssm">Comment ça marche (PIM Sparse Mode, SSM)</a><a href="#le-controle-rpf">Le contrôle RPF</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#asm-le-point-de-rendez-vous">ASM : le point de rendez-vous</a><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#verification">Vérification</a><a href="#depannage">Dépannage</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

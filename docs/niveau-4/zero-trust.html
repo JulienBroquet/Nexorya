@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Zero Trust — Ne plus faire confiance par défaut | Nexorya</title>
+<meta name="description" content="Le Zero Trust supprime la confiance accordée à un appareil parce qu’il est « dans le réseau » ; chaque accès est vérifié selon l’identité, l’état de l’appareil et le contexte, et limité au strict nécessaire.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust" aria-current="page">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/zero-trust">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-5">Protéger le réseau lui-même</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Zero Trust</h1><p class="nom-complet">Ne plus faire confiance par défaut</p>
+<p class="idee">Le Zero Trust supprime la confiance accordée à un appareil parce qu’il est « dans le réseau » ; chaque accès est vérifié selon l’identité, l’état de l’appareil et le contexte, et limité au strict nécessaire.</p><div class="badges"><span>Couche OSI transversal</span><span>Découvrir : 9 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-4/segmentation.html">Segmenter le réseau</a>, <a href="../niveau-4/mfa.html">MFA</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-le-chateau-fort">Le problème : le château fort</h2>
+<p>Le modèle traditionnel ressemble à un château fort : un mur épais (le pare-feu Internet) et, une fois à l’intérieur, on circule librement. Or les attaques modernes passent <strong>par l’intérieur</strong> : un poste piégé par un e-mail, un mot de passe volé utilisé sur le VPN, un prestataire compromis. Une fois dedans, l’attaquant se déplace sans obstacle jusqu’aux serveurs et aux sauvegardes. Et les utilisateurs et applications ne sont plus seulement « dedans » : télétravail, cloud, mobiles.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Être « dans le réseau » ne donne plus aucun droit : chaque accès à chaque application est vérifié — qui es-tu, depuis quel appareil, dans quel contexte — et n’ouvre que ce qui est nécessaire.</p>
+</div>
+<h2 id="les-principes">Les principes</h2>
+<ol>
+<li><strong>Vérifier explicitement</strong> chaque demande : identité forte (MFA, idéalement FIDO2), appareil connu et en bon état (à jour, chiffré, protégé), contexte (lieu, heure, comportement).</li>
+<li><strong>Moindre privilège</strong> : accès à une <strong>application</strong> précise, pas à un réseau entier ; droits limités dans le temps quand c’est possible.</li>
+<li><strong>Supposer la compromission</strong> : segmenter finement, chiffrer, journaliser, et concevoir chaque zone comme si sa voisine était déjà compromise.</li>
+</ol>
+<h2 id="ce-que-cela-change-concretement">Ce que cela change concrètement</h2>
+<table>
+<thead>
+<tr>
+<th>Avant</th>
+<th>Avec une démarche Zero Trust</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>VPN qui donne accès à tout le réseau</td>
+<td>accès par application (ZTNA), après vérification de l’utilisateur et du poste</td>
+</tr>
+<tr>
+<td>Tous les postes d’un VLAN se voient</td>
+<td>microsegmentation : un poste ne parle qu’aux serveurs dont il a besoin</td>
+</tr>
+<tr>
+<td>Mot de passe seul en interne</td>
+<td>MFA aussi en interne, pour les accès sensibles</td>
+</tr>
+<tr>
+<td>Administrateurs avec des droits permanents</td>
+<td>droits accordés pour une tâche et une durée (PAM, accès juste-à-temps)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Zero Trust</strong> — Modèle de sécurité qui ne fait confiance à aucun accès par défaut et vérifie chacun.</li>
+<li><strong>ZTNA</strong> — <em>Zero Trust Network Access</em>, accès à des applications précises après vérification, en remplacement du VPN « tout le réseau ».</li>
+<li><strong>Microsegmentation</strong> — Contrôle des échanges entre machines individuelles ou petits groupes, même dans un même réseau.</li>
+<li><strong>Conformité de l’appareil</strong> — Vérification qu’un appareil respecte la politique (mises à jour, chiffrement, antivirus).</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un prestataire se connecte au VPN avec un compte valide et MFA. Dans un modèle Zero Trust, à quoi devrait-il avoir accès ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Uniquement</strong> aux applications ou équipements nécessaires à sa mission (par exemple l’interface d’administration d’un seul serveur), éventuellement pour une durée limitée et avec sa session enregistrée. Pas à tout le réseau interne, même s’il est authentifié.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="le-role-du-reseau-dans-le-zero-trust">Le rôle du réseau dans le Zero Trust</h2>
+<p>Le Zero Trust est souvent présenté comme une affaire d’identité, mais le réseau en est une pièce maîtresse :</p>
+<table>
+<thead>
+<tr>
+<th>Brique réseau</th>
+<th>Contribution</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>802.1X / NAC</strong></td>
+<td>identifier chaque appareil qui se branche, et lui attribuer des droits selon son profil</td>
+</tr>
+<tr>
+<td><strong>Segmentation et VRF</strong></td>
+<td>séparer les grandes zones, forcer le passage par des points de contrôle</td>
+</tr>
+<tr>
+<td><strong>Étiquettes de groupe</strong> (Cisco TrustSec / SGT, groupes de sécurité)</td>
+<td>filtrer selon le <strong>rôle</strong> de la source et de la destination plutôt que selon les adresses</td>
+</tr>
+<tr>
+<td><strong>Pare-feu internes et microsegmentation</strong> (hôte, hyperviseur, cloud)</td>
+<td>limiter les échanges est-ouest</td>
+</tr>
+<tr>
+<td><strong>ZTNA / SSE</strong></td>
+<td>accès aux applications sans exposer le réseau</td>
+</tr>
+<tr>
+<td><strong>Télémétrie</strong> (NetFlow, journaux)</td>
+<td>détecter les comportements anormaux, alimenter les décisions</td>
+</tr>
+</tbody>
+</table>
+<h2 id="une-demarche-progressive">Une démarche progressive</h2>
+<ol>
+<li><strong>Inventorier</strong> les utilisateurs, appareils, applications et flux réels.</li>
+<li><strong>Identité forte</strong> partout : MFA résistante à l’hameçonnage, en priorité pour les administrateurs et les accès distants.</li>
+<li><strong>Gérer les appareils</strong> : seuls les appareils connus et conformes accèdent aux ressources sensibles.</li>
+<li><strong>Segmenter</strong> à grandes mailles (zones), puis <strong>microsegmenter</strong> les zones critiques (serveurs, administration, sauvegardes).</li>
+<li><strong>Remplacer</strong> progressivement le VPN global par des accès par application.</li>
+<li><strong>Mesurer</strong> et ajuster en continu, à partir des journaux.</li>
+</ol>
+<p>Le référentiel le plus cité est la publication <strong>NIST SP 800-207</strong> ; l’ANSSI publie aussi des recommandations sur le sujet.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Pourquoi la microsegmentation freine-t-elle un rançongiciel, même quand il a infecté un poste légitime ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le rançongiciel se propage en se connectant à d’autres machines (SMB, RDP, outils d’administration). Si chaque poste n’est autorisé à joindre que quelques serveurs précis, sur quelques ports, il ne peut pas atteindre les autres postes ni les serveurs et sauvegardes hors de sa liste : la propagation est <strong>contenue</strong>.</p>
+</details>
+<p><strong>2.</strong> Un dirigeant demande « d’acheter une solution Zero Trust ». Que lui répondre ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le Zero Trust est une <strong>démarche</strong> qui s’appuie sur plusieurs briques (identité, gestion des appareils, segmentation, accès par application, supervision), dont certaines existent souvent déjà. Un produit (ZTNA, NAC, microsegmentation) peut en couvrir une partie, mais le résultat dépend de l’inventaire, des politiques définies et de leur application progressive. Proposer une feuille de route par étapes, en commençant par l’identité forte et la protection des accès d’administration.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/durcissement.html"><small>Fiche précédente</small><strong>Durcir un équipement</strong></a><a class="apres" href="../niveau-5/lan.html"><small>Fiche suivante · WAN, datacenter et exploitation</small><strong>LAN</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-le-chateau-fort">Le problème : le château fort</a><a href="#les-principes">Les principes</a><a href="#ce-que-cela-change-concretement">Ce que cela change concrètement</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#le-role-du-reseau-dans-le-zero-trust">Le rôle du réseau dans le Zero Trust</a><a href="#une-demarche-progressive">Une démarche progressive</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

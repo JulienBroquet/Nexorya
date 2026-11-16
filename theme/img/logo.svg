@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-labelledby="t">
+  <title id="t">Nexorya</title>
+  <rect width="64" height="64" rx="16" fill="#15213B"/>
+  <path d="M18 46 V18 L46 46 V18" fill="none" stroke="#2B59E6" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M18 46 V18 L46 46 V18" fill="none" stroke="#7FA0FF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="2 6" opacity=".9"/>
+  <circle cx="18" cy="46" r="6" fill="#F6F8FC"/>
+  <circle cx="18" cy="18" r="6" fill="#F6F8FC"/>
+  <circle cx="46" cy="46" r="6" fill="#F6F8FC"/>
+  <circle cx="46" cy="18" r="7" fill="#FFB020"/>
+  <circle cx="46" cy="18" r="11" fill="none" stroke="#FFB020" stroke-width="1.5" opacity=".45"/>
+</svg>

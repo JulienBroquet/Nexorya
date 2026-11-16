@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IPsec — Sécurité au niveau IP | Nexorya</title>
+<meta name="description" content="IPsec chiffre et authentifie les paquets IP entre deux équipements ; il sert à relier des sites à travers Internet comme s’ils étaient sur un réseau privé.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec" aria-current="page">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/ipsec">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-3">Filtrer et chiffrer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>IPsec</h1><p class="nom-complet">Sécurité au niveau IP</p>
+<p class="idee">IPsec chiffre et authentifie les paquets IP entre deux équipements ; il sert à relier des sites à travers Internet comme s’ils étaient sur un réseau privé.</p><div class="badges"><span>Couche OSI 3 (ESP = protocole IP 50 ; IKE = UDP 500 et 4500)</span><span>Découvrir : 10 min</span><span>Approfondir : 22 min</span><span>Avant : <a href="../niveau-4/pki.html">PKI</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-relier-deux-sites-a-travers-internet">Le problème : relier deux sites à travers Internet</h2>
+<p>Une entreprise a un siège à Lyon et une agence à Nantes. Une liaison privée louée coûte cher ; Internet est partout et peu coûteux, mais rien n’y est confidentiel. Il faut que le trafic entre les deux sites soit <strong>chiffré</strong>, <strong>authentifié</strong> (venant bien de l’autre site) et <strong>intact</strong>.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Les deux routeurs se mettent d’accord sur des clés (IKE), puis chiffrent chaque paquet échangé entre les deux réseaux (ESP) : Internet ne voit passer que des données illisibles entre deux adresses publiques.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 854.4 146.0" width="854.4" role="img" aria-label="Un tunnel IPsec entre deux sites" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="268.6" y2="50.0"/><line class="tp-lien " x1="268.6" y1="50.0" x2="427.2" y2="50.0"/><line class="tp-lien " x1="427.2" y1="50.0" x2="585.8" y2="50.0"/><line class="tp-lien " x1="585.8" y1="50.0" x2="744.4" y2="50.0"/><line class="tp-lien logique" x1="268.6" y1="50.0" x2="585.8" y2="50.0"/><text class="tp-etiq" x="427.2" y="38.0" text-anchor="middle">tunnel chiffré</text><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">LAN siège</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">10.10.0.0/16</text><g transform="translate(268.6 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="268.6" y="90.0" text-anchor="middle">Routeur siège</text><text class="tp-sous" x="268.6" y="106.0" text-anchor="middle">198.51.100.7</text><g transform="translate(427.2 50.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="427.2" y="90.0" text-anchor="middle">Internet</text><g transform="translate(585.8 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="585.8" y="90.0" text-anchor="middle">Routeur agence</text><text class="tp-sous" x="585.8" y="106.0" text-anchor="middle">203.0.113.20</text><g transform="translate(744.4 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="744.4" y="90.0" text-anchor="middle">LAN agence</text><text class="tp-sous" x="744.4" y="106.0" text-anchor="middle">10.50.0.0/24</text></svg><figcaption>Un tunnel IPsec entre deux sites</figcaption></figure>
+<ol>
+<li><strong>Phase 1 (IKE)</strong> : les deux routeurs s’authentifient (clé partagée ou certificats) et établissent un canal de contrôle chiffré.</li>
+<li><strong>Phase 2</strong> : dans ce canal, ils négocient le chiffrement du trafic et les <strong>réseaux à protéger</strong> : « de 10.10.0.0/16 vers 10.50.0.0/24 ».</li>
+<li><strong>Transfert</strong> : chaque paquet entre ces réseaux est chiffré dans <strong>ESP</strong> et envoyé à l’adresse publique de l’autre routeur, qui le déchiffre.</li>
+<li>Les clés sont <strong>renouvelées</strong> régulièrement.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>IPsec</strong> — Ensemble de protocoles qui sécurisent les paquets IP : chiffrement, intégrité, authentification.</li>
+<li><strong>IKE</strong> — <em>Internet Key Exchange</em>, protocole qui authentifie les deux extrémités et négocie les clés (IKEv2 aujourd’hui).</li>
+<li><strong>ESP</strong> — <em>Encapsulating Security Payload</em>, en-tête IPsec qui chiffre et protège les paquets.</li>
+<li><strong>SA</strong> — <em>Security Association</em>, ensemble des paramètres de sécurité négociés pour un sens de communication.</li>
+<li><strong>Sélecteurs de trafic</strong> — Réseaux source et destination que le tunnel doit protéger.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Le tunnel IPsec entre le siège et l’agence est établi, mais aucun ping ne passe. Que vérifier en priorité ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Que le trafic est bien <strong>dirigé dans le tunnel</strong> (route ou sélecteurs de trafic qui correspondent aux réseaux testés, des deux côtés), qu’aucun <strong>NAT</strong> ne modifie les adresses avant le chiffrement, et que les <strong>pare-feu</strong> des deux LAN autorisent le trafic. Un tunnel établi prouve seulement que la négociation a réussi.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="mode-tunnel-et-mode-transport">Mode tunnel et mode transport</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Ce qui est protégé</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tunnel</strong></td>
+<td>tout le paquet d’origine, encapsulé dans un nouvel en-tête IP</td>
+<td>VPN site à site, accès distant</td>
+</tr>
+<tr>
+<td><strong>Transport</strong></td>
+<td>seulement le contenu ; l’en-tête IP d’origine reste</td>
+<td>protection entre deux hôtes, GRE sur IPsec</td>
+</tr>
+</tbody>
+</table>
+<p>L’encapsulation ajoute 50 à 70 octets : penser à la <strong>MTU</strong> et au <strong>MSS</strong> (<code>ip tcp adjust-mss</code>). Voir <a href="../niveau-1/mtu.html">MTU</a>.</p>
+<h2 id="configuration-ikev2-avec-interface-tunnel-cisco-ios-xe">Configuration IKEv2 avec interface tunnel (Cisco IOS-XE)</h2>
+<pre><code class="language-cisco">crypto ikev2 proposal PROP-AES
+ encryption aes-gcm-256
+ prf sha384
+ group 19 20
+crypto ikev2 policy POL
+ proposal PROP-AES
+crypto ikev2 keyring CLES
+ peer AGENCE
+  address 203.0.113.20
+  pre-shared-key Une-Cle-Tres-Longue-Ou-Des-Certificats
+crypto ikev2 profile PROF-AGENCE
+ match identity remote address 203.0.113.20 255.255.255.255
+ authentication remote pre-share
+ authentication local pre-share
+ keyring local CLES
+<span class="c">!</span>
+crypto ipsec transform-set TS esp-gcm 256
+ mode tunnel
+crypto ipsec profile IPSEC-AGENCE
+ set transform-set TS
+ set ikev2-profile PROF-AGENCE
+<span class="c">!</span>
+interface Tunnel10
+ ip address 172.31.0.1 255.255.255.252
+ ip mtu 1400
+ ip tcp adjust-mss 1360
+ tunnel source GigabitEthernet0/0/0
+ tunnel destination 203.0.113.20
+ tunnel mode ipsec ipv4
+ tunnel protection ipsec profile IPSEC-AGENCE
+<span class="c">!</span>
+ip route 10.50.0.0 255.255.255.0 Tunnel10
+</code></pre>
+<p>Avec une <strong>interface tunnel</strong> (VTI), le choix du trafic chiffré se fait par le <strong>routage</strong> (route statique ou protocole de routage dans le tunnel), ce qui est plus simple à exploiter que les anciennes <em>crypto maps</em> fondées sur des ACL.</p>
+<h2 id="verifier">Vérifier</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show crypto ikev2 sa
+ Tunnel-id Local                 Remote                fvrf/ivrf            Status
+ 1         198.51.100.7/500      203.0.113.20/500      none/none            READY
+<span class="k">R1#</span> show crypto ipsec sa interface Tunnel10 | include pkts|spi
+    #pkts encaps: 18342, #pkts encrypt: 18342, #pkts digest: 18342
+    #pkts decaps: 0, #pkts decrypt: 0, #pkts verify: 0
+</code></pre>
+<p>Lecture : on <strong>chiffre</strong> et envoie (encaps 18 342), mais on ne <strong>reçoit</strong> rien (decaps 0). Le problème est <strong>de l’autre côté</strong> ou <strong>au retour</strong> : route de l’agence vers le siège absente dans le tunnel, sélecteurs incohérents, ESP filtré par un équipement intermédiaire, ou NAT qui empêche ESP (il faut alors NAT-T sur UDP 4500).</p>
+<h2 id="pannes-de-negociation-frequentes">Pannes de négociation fréquentes</h2>
+<table>
+<thead>
+<tr>
+<th>Message ou symptôme</th>
+<th>Cause</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Aucune proposition acceptable</td>
+<td>algorithmes différents des deux côtés</td>
+</tr>
+<tr>
+<td>Échec d’authentification</td>
+<td>clé partagée différente, identité inattendue, certificat non approuvé</td>
+</tr>
+<tr>
+<td>Phase 1 OK, phase 2 refusée (<code>TS_UNACCEPTABLE</code>)</td>
+<td>sélecteurs de trafic (réseaux) différents</td>
+</tr>
+<tr>
+<td>Tunnel qui tombe toutes les heures</td>
+<td>durées de vie incohérentes, renégociation qui échoue</td>
+</tr>
+<tr>
+<td>Rien ne se négocie</td>
+<td>UDP 500/4500 filtré, mauvaise adresse de pair</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> <code>show crypto ipsec sa</code> montre <code>#pkts decaps: 25000</code> et <code>#pkts encaps: 0</code> sur le routeur du siège. Que se passe-t-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le siège <strong>reçoit et déchiffre</strong> le trafic de l’agence, mais n’envoie <strong>rien</strong> dans le tunnel : sa <strong>route vers le LAN de l’agence</strong> ne passe pas par le tunnel (ou ses sélecteurs ne correspondent pas). Les réponses partent ailleurs (souvent vers Internet). Vérifier <code>show ip route 10.50.0.0</code>.</p>
+</details>
+<p><strong>2.</strong> L’agence est derrière une box qui fait du NAT. La phase 1 réussit, mais aucun paquet n’est déchiffré au siège. Quel mécanisme doit être actif, et sur quel port ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>NAT-T</strong> (<em>NAT Traversal</em>) : ESP n’ayant pas de ports, la box ne peut pas le traduire correctement. IKE détecte le NAT et encapsule ESP dans <strong>UDP 4500</strong>. Il faut que l’UDP 4500 soit autorisé des deux côtés (et que NAT-T ne soit pas désactivé).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/segmentation.html"><small>Fiche précédente</small><strong>Segmenter le réseau</strong></a><a class="apres" href="../niveau-4/vpn.html"><small>Fiche suivante</small><strong>VPN</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-relier-deux-sites-a-travers-internet">Le problème : relier deux sites à travers Internet</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#mode-tunnel-et-mode-transport">Mode tunnel et mode transport</a><a href="#configuration-ikev2-avec-interface-tunnel-cisco-ios-xe">Configuration IKEv2 avec interface tunnel (Cisco IOS-XE)</a><a href="#verifier">Vérifier</a><a href="#pannes-de-negociation-frequentes">Pannes de négociation fréquentes</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

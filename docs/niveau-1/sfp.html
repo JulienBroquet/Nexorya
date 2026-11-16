@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SFP — Small Form-factor Pluggable | Nexorya</title>
+<meta name="description" content="Un SFP est un petit module qu’on glisse dans un port du switch pour choisir le type de liaison — fibre courte, fibre longue ou cuivre — sans changer de switch.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp" aria-current="page">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/sfp">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-2">Câbles, fibre et énergie</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>SFP</h1><p class="nom-complet">Small Form-factor Pluggable</p>
+<p class="idee">Un SFP est un petit module qu’on glisse dans un port du switch pour choisir le type de liaison — fibre courte, fibre longue ou cuivre — sans changer de switch.</p><div class="badges"><span>Couche OSI 1</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-1/cablage.html">Câbles cuivre et fibres</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-un-switch-des-besoins-differents">Le problème : un switch, des besoins différents</h2>
+<p>Un même modèle de switch peut être installé dans un bureau, au bout d’une fibre de 300 m ou à 20 km d’un autre site. Si le type de fibre était soudé dans le switch, il faudrait un modèle par situation. La solution : des <strong>ports modulaires</strong>, dans lesquels on insère le module adapté à chaque lien.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le SFP est un <strong>adaptateur enfichable</strong> : le switch fournit une cage standard, le module choisi décide du type de liaison (fibre courte, fibre longue, cuivre).</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<ol>
+<li>Le switch possède des <strong>cages SFP</strong> vides, souvent les derniers ports de la face avant.</li>
+<li>On y glisse un <strong>module</strong> adapté au lien, même switch allumé (on dit « à chaud »).</li>
+<li>Le module contient un <strong>émetteur laser</strong> et un <strong>récepteur</strong> : il transforme le signal électrique du switch en lumière, et inversement.</li>
+<li>On branche la fibre (connecteur LC double) sur le module.</li>
+<li>Le switch lit une petite mémoire du module pour connaître son type, puis active le port.</li>
+</ol>
+<figure class="schema"><svg viewBox="0 0 586.0 146.0" width="586.0" role="img" aria-label="Deux bâtiments reliés par des modules SFP" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="476.0" y2="50.0"/><text class="tp-etiq" x="293.0" y="38.0" text-anchor="middle">fibre monomode, 2 km</text><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">Switch bâtiment A</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">module 1000BASE-LX</text><g transform="translate(476.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">Switch bâtiment B</text><text class="tp-sous" x="476.0" y="106.0" text-anchor="middle">module 1000BASE-LX</text></svg><figcaption>Deux bâtiments reliés par des modules SFP</figcaption></figure>
+<h2 id="les-modules-les-plus-courants-a-1-gb-s">Les modules les plus courants à 1 Gb/s</h2>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Fibre</th>
+<th>Distance</th>
+<th>Repère</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1000BASE-SX</td>
+<td>multimode</td>
+<td>jusqu’à 550 m</td>
+<td>courte portée</td>
+</tr>
+<tr>
+<td>1000BASE-LX/LH</td>
+<td>monomode</td>
+<td>10 km</td>
+<td>longue portée</td>
+</tr>
+<tr>
+<td>1000BASE-T</td>
+<td>cuivre RJ45</td>
+<td>100 m</td>
+<td>pour brancher un câble cuivre dans une cage SFP</td>
+</tr>
+</tbody>
+</table>
+<h2 id="erreurs-frequentes">Erreurs fréquentes</h2>
+<ul>
+<li><strong>Modules différents aux deux bouts</strong> : un SX en face d’un LX ne fonctionnera pas (longueurs d’onde et fibres différentes).</li>
+<li><strong>Module « non supporté »</strong> : certains constructeurs n’acceptent que leurs modules ou des modules compatibles programmés pour eux. Le port reste désactivé avec un message d’erreur.</li>
+<li><strong>Confondre SFP et SFP+</strong> : un module SFP+ (10 Gb/s) n’est pas un SFP (1 Gb/s), même s’ils ont la même forme. Voir <a href="sfp-plus.html">SFP+</a>.</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>SFP</strong> — <em>Small Form-factor Pluggable</em>, module enfichable qui adapte un port de switch à un type de liaison, typiquement à 1 Gb/s.</li>
+<li><strong>Cage</strong> — Logement vide d’un switch où l’on insère un module SFP.</li>
+<li><strong>Branchement à chaud</strong> — Insertion ou retrait d’un module sans éteindre l’équipement.</li>
+<li><strong>Longueur d’onde</strong> — « Couleur » de la lumière émise par le module, en nanomètres (850, 1310, 1550 nm).</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un administrateur relie deux switches avec un module 1000BASE-SX d’un côté et un 1000BASE-LX de l’autre. Le lien reste éteint. Pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les deux modules ne sont <strong>pas compatibles</strong> : le SX émet à 850 nm pour de la fibre multimode, le LX à 1310 nm pour de la monomode. Il faut <strong>deux modules du même type</strong> et une fibre adaptée.</p>
+</details>
+<p><strong>2.</strong> Quel est l’intérêt d’un module SFP 1000BASE-T ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Il permet de brancher un <strong>câble cuivre RJ45</strong> dans une cage SFP, par exemple lorsqu’il ne reste plus de port cuivre libre, ou pour relier un équipement qui n’a pas de fibre. La distance reste limitée à 100 m.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="ce-que-contient-un-module">Ce que contient un module</h2>
+<ul>
+<li>un <strong>émetteur</strong> : laser VCSEL à 850 nm (multimode, peu coûteux) ou laser DFB/FP à 1310 et 1550 nm (monomode) ;</li>
+<li>un <strong>récepteur</strong> : photodiode PIN, ou APD pour les très longues portées ;</li>
+<li>une <strong>EEPROM</strong> (norme SFF-8472) qui décrit le module : type, constructeur, numéro de série, longueur d’onde, distance ;</li>
+<li>la <strong>surveillance numérique</strong> (DOM/DDM) : température, tension, courant du laser, puissance émise et reçue.</li>
+</ul>
+<p>Le format, la connectique électrique et les dimensions sont fixés par un accord entre industriels (MSA, <em>Multi-Source Agreement</em>) : c’est ce qui rend les modules interchangeables entre fabricants… quand le constructeur du switch ne les bloque pas.</p>
+<h2 id="modules-monofibres-bidi-et-multiplexage">Modules monofibres (BiDi) et multiplexage</h2>
+<p>Un module <strong>BiDi</strong> émet et reçoit sur <strong>une seule fibre</strong>, avec deux longueurs d’onde différentes (par exemple 1310 nm dans un sens et 1550 nm dans l’autre). Il faut alors <strong>une paire assortie</strong> : un module « 1310/1550 » d’un côté et « 1550/1310 » de l’autre. On économise ainsi une fibre, ce qui compte lorsque les fibres entre bâtiments sont rares ou louées.</p>
+<p>Les modules <strong>CWDM</strong> et <strong>DWDM</strong> émettent sur des longueurs d’onde précises : avec un multiplexeur passif, on fait passer plusieurs liens sur la même paire de fibres.</p>
+<h2 id="verifier-un-module-cisco-ios">Vérifier un module (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show inventory
+NAME: &quot;GigabitEthernet1/1/1&quot;, DESCR: &quot;1000BaseLX SFP&quot;
+PID: GLC-LH-SMD        , VID: V01  , SN: FNS12345ABC
+
+<span class="k">SW1#</span> show interfaces GigabitEthernet1/1/1 transceiver
+                                Optical   Optical
+           Temperature  Voltage  Tx Power  Rx Power
+Port       (Celsius)    (Volts)  (dBm)     (dBm)
+---------  -----------  -------  --------  --------
+Gi1/1/1    29.4         3.29     -5.8      -9.1
+</code></pre>
+<ul>
+<li>Puissance émise de -5,8 dBm : normale pour un module LX.</li>
+<li>Puissance reçue de -9,1 dBm : confortable (la sensibilité d’un LX est d’environ -20 dBm).</li>
+</ul>
+<p>Si le module est refusé, le journal affiche un message de type <code>%PHY-4-UNSUPPORTED_TRANSCEIVER</code> et le port passe en err-disabled. La commande <code>service unsupported-transceiver</code> existe sur certaines plateformes, mais elle n’est pas documentée par le constructeur et peut affecter le support : à décider en connaissance de cause.</p>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Un module longue portée (ZX, 70 km) branché sur une fibre courte peut <strong>saturer</strong> le récepteur d’en face, voire l’endommager : trop de lumière est aussi un problème. On insère alors un <strong>atténuateur optique</strong>.</p>
+</div>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un lien LX de 1,5 km affiche une puissance reçue de -2 dBm et des erreurs. Le module d’en face est un ZX. Que se passe-t-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le module ZX émet fort, pour 70 km. Sur 1,5 km, la puissance reçue (-2 dBm) dépasse la plage du récepteur LX : il est <strong>saturé</strong>, d’où les erreurs. Il faut des modules du même type (LX des deux côtés) ou un <strong>atténuateur</strong> adapté.</p>
+</details>
+<p><strong>2.</strong> Il ne reste qu’une fibre disponible entre deux bâtiments. Comment établir un lien à 1 Gb/s ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Avec une <strong>paire de modules BiDi</strong> assortis (par exemple 1310 nm TX / 1550 nm RX d’un côté, l’inverse de l’autre). Chaque sens utilise sa propre longueur d’onde sur la même fibre.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/phy.html"><small>Fiche précédente</small><strong>PHY</strong></a><a class="apres" href="../niveau-1/sfp-plus.html"><small>Fiche suivante</small><strong>SFP+ et au-delà</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-un-switch-des-besoins-differents">Le problème : un switch, des besoins différents</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-modules-les-plus-courants-a-1-gb-s">Les modules les plus courants à 1 Gb/s</a><a href="#erreurs-frequentes">Erreurs fréquentes</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#ce-que-contient-un-module">Ce que contient un module</a><a href="#modules-monofibres-bidi-et-multiplexage">Modules monofibres (BiDi) et multiplexage</a><a href="#verifier-un-module-cisco-ios">Vérifier un module (Cisco IOS)</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

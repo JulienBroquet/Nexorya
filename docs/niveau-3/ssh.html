@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SSH — Secure Shell | Nexorya</title>
+<meta name="description" content="SSH ouvre une session chiffrée vers un serveur ou un équipement réseau pour l’administrer à distance, en remplaçant Telnet qui faisait tout passer en clair.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh" aria-current="page">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/ssh">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-4">Administrer et superviser</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>SSH</h1><p class="nom-complet">Secure Shell</p>
+<p class="idee">SSH ouvre une session chiffrée vers un serveur ou un équipement réseau pour l’administrer à distance, en remplaçant Telnet qui faisait tout passer en clair.</p><div class="badges"><span>Couche OSI 7 (TCP 22)</span><span>Découvrir : 7 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-3/tcp.html">TCP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-administrer-a-distance-sans-tout-devoiler">Le problème : administrer à distance sans tout dévoiler</h2>
+<p>Un administrateur configure 200 switches répartis dans plusieurs bâtiments. Il ne va pas se brancher sur chacun avec un câble console. Il se connecte à distance… mais si la connexion est en clair, comme avec l’ancien <strong>Telnet</strong>, son mot de passe administrateur peut être capturé par n’importe qui sur le réseau.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>SSH ouvre une ligne de commande à distance <strong>chiffrée</strong> : le mot de passe, les commandes et les réponses sont illisibles pour un observateur, et le client vérifie qu’il parle au bon serveur.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<ol>
+<li>Le client se connecte au port <strong>22</strong> du serveur.</li>
+<li>Le serveur présente sa <strong>clé d’hôte</strong>. À la première connexion, le client affiche son <strong>empreinte</strong> et demande confirmation ; il la mémorise ensuite.</li>
+<li>Les deux établissent une clé de chiffrement de session.</li>
+<li>L’utilisateur s’authentifie : mot de passe, ou mieux, <strong>clé personnelle</strong>.</li>
+<li>La session commence : tout est chiffré.</li>
+</ol>
+<pre><code class="language-text">$ ssh admin@sw-etage2.exemple.fr
+The authenticity of host 'sw-etage2.exemple.fr (10.99.0.21)' can't be established.
+ED25519 key fingerprint is SHA256:mT3k2bq1…
+Are you sure you want to continue connecting (yes/no)? yes
+admin@sw-etage2.exemple.fr's password:
+SW-ETAGE2#
+</code></pre>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Si, lors d’une connexion ultérieure, SSH affiche « REMOTE HOST IDENTIFICATION HAS CHANGED », la clé du serveur a changé. C’est normal après une réinstallation de l’équipement… mais cela peut aussi être une <strong>interception</strong>. Vérifie avant d’accepter.</p>
+</div>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>SSH</strong> — <em>Secure Shell</em>, protocole d’accès à distance chiffré.</li>
+<li><strong>Telnet</strong> — Ancien protocole d’accès à distance, sans chiffrement, à proscrire.</li>
+<li><strong>Clé d’hôte</strong> — Clé qui identifie un serveur SSH ; son empreinte est mémorisée par les clients.</li>
+<li><strong>Authentification par clé</strong> — Connexion prouvée par une clé privée détenue par l’utilisateur, plutôt que par un mot de passe.</li>
+<li><strong>Bastion</strong> — Serveur intermédiaire par lequel passent obligatoirement les connexions d’administration.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi Telnet doit-il être désactivé même dans un réseau interne « de confiance » ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que tout y circule <strong>en clair</strong>, y compris les mots de passe administrateur. Un poste compromis, un port miroir mal placé ou une capture suffisent à les récupérer. Le réseau interne n’est pas un lieu sûr par principe.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="activer-ssh-sur-un-equipement-cisco">Activer SSH sur un équipement Cisco</h2>
+<pre><code class="language-cisco">hostname SW-ETAGE2
+ip domain name exemple.fr
+crypto key generate rsa modulus 3072
+ip ssh version 2
+ip ssh time-out 60
+ip ssh authentication-retries 3
+<span class="c">!</span>
+username admin privilege 15 algorithm-type scrypt secret Un-Mot-De-Passe-Long
+<span class="c">!</span>
+ip access-list standard ADMIN-SEULEMENT
+ permit 10.99.0.0 0.0.0.255
+ deny any log
+<span class="c">!</span>
+line vty 0 15
+ transport input ssh
+ login local
+ access-class ADMIN-SEULEMENT in
+ exec-timeout 10 0
+</code></pre>
+<ul>
+<li><code>transport input ssh</code> : refuse Telnet sur les lignes VTY.</li>
+<li><code>access-class</code> : seules les machines du réseau d’administration peuvent se connecter.</li>
+<li>En production, l’authentification passe par un serveur <strong>TACACS+</strong> ou RADIUS (comptes nominatifs, traçabilité), avec un compte local de secours. Voir <a href="../niveau-4/aaa.html">AAA</a>.</li>
+</ul>
+<div class="encadre attention">
+<p class="encadre-titre">Attention en production</p>
+<p>Appliquer <code>access-class</code> ou <code>transport input ssh</code> <strong>à distance</strong> peut te couper ton propre accès. Garde une session ouverte, prépare un accès console de secours, et utilise <code>reload in 10</code> avant les modifications risquées (le redémarrage programmé restaure la configuration sauvegardée si tu perds la main ; annule-le avec <code>reload cancel</code>).</p>
+</div>
+<h2 id="authentification-par-cle">Authentification par clé</h2>
+<pre><code class="language-bash">$ ssh-keygen -t ed25519 -C &quot;alice@exemple.fr&quot;
+$ ssh-copy-id alice@srv-app01.exemple.fr
+$ ssh alice@srv-app01.exemple.fr          # plus de mot de passe ; la clé privée peut être protégée par une phrase de passe
+</code></pre>
+<p>Bonnes pratiques côté serveurs Linux : désactiver la connexion directe de <code>root</code>, désactiver l’authentification par mot de passe une fois les clés déployées, et limiter les utilisateurs autorisés.</p>
+<h2 id="fonctions-utiles">Fonctions utiles</h2>
+<table>
+<thead>
+<tr>
+<th>Usage</th>
+<th>Commande</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Rebondir par un bastion</td>
+<td><code>ssh -J bastion.exemple.fr admin@10.99.0.21</code></td>
+</tr>
+<tr>
+<td>Copier un fichier</td>
+<td><code>scp sauvegarde.cfg admin@srv:/sauvegardes/</code> ou <code>sftp</code></td>
+</tr>
+<tr>
+<td>Tunnel local (atteindre un service interne)</td>
+<td><code>ssh -L 8443:intranet:443 bastion</code> puis <code>https://localhost:8443</code></td>
+</tr>
+<tr>
+<td>Diagnostiquer une connexion</td>
+<td><code>ssh -vvv admin@hôte</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="verification-cote-cisco">Vérification côté Cisco</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show ip ssh
+SSH Enabled - version 2.0
+Authentication methods:publickey,keyboard-interactive,password
+<span class="k">SW1#</span> show ssh
+Connection Version Mode Encryption  Hmac         State          Username
+0          2.0     IN   aes256-ctr  hmac-sha2-256 Session started admin
+</code></pre>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Après avoir appliqué <code>access-class ADMIN-SEULEMENT in</code> sur les lignes VTY, l’administrateur, connecté depuis le Wi-Fi des employés, ne peut plus se reconnecter. Que s’est-il passé ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Son poste Wi-Fi n’est pas dans le réseau <code>10.99.0.0/24</code> autorisé par l’ACL : les nouvelles connexions sont refusées (sa session en cours peut continuer jusqu’à sa fermeture). Il faut se connecter depuis le réseau d’administration (bastion) ou par la console pour corriger.</p>
+</details>
+<p><strong>2.</strong> Pourquoi faire passer les accès d’administration par un bastion plutôt que d’autoriser les postes des administrateurs ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le bastion <strong>centralise</strong> les accès : une seule source autorisée dans les ACL des équipements, une authentification forte (MFA) au même endroit, et la <strong>journalisation</strong> (voire l’enregistrement) des sessions. Un poste d’administrateur compromis ne donne plus d’accès direct à tous les équipements.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/proxy.html"><small>Fiche précédente</small><strong>Proxy et répartiteur de charge</strong></a><a class="apres" href="../niveau-3/rdp.html"><small>Fiche suivante</small><strong>RDP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-administrer-a-distance-sans-tout-devoiler">Le problème : administrer à distance sans tout dévoiler</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#activer-ssh-sur-un-equipement-cisco">Activer SSH sur un équipement Cisco</a><a href="#authentification-par-cle">Authentification par clé</a><a href="#fonctions-utiles">Fonctions utiles</a><a href="#verification-cote-cisco">Vérification côté Cisco</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

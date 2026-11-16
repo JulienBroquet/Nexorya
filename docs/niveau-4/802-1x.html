@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>802.1X — Contrôle d’accès par port | Nexorya</title>
+<meta name="description" content="Avec 802.1X, une prise réseau ou un réseau Wi-Fi reste fermé tant que l’appareil n’a pas prouvé son identité ; le serveur décide ensuite dans quel VLAN il entre.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x" aria-current="page">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/802-1x">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-1">Qui a le droit d’entrer ?</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>802.1X</h1><p class="nom-complet">Contrôle d’accès par port</p>
+<p class="idee">Avec 802.1X, une prise réseau ou un réseau Wi-Fi reste fermé tant que l’appareil n’a pas prouvé son identité ; le serveur décide ensuite dans quel VLAN il entre.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 10 min</span><span>Approfondir : 20 min</span><span>Avant : <a href="../niveau-4/radius.html">RADIUS</a>, <a href="../niveau-1/vlan.html">VLAN</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-nimporte-qui-peut-se-brancher">Le problème : n’importe qui peut se brancher</h2>
+<p>Dans une salle de réunion, un visiteur branche son ordinateur sur la prise murale : il obtient une adresse et accède au réseau interne. Un attaquant peut faire de même avec un petit boîtier caché sous un bureau. Une prise réseau ouverte, c’est une porte d’entrée sans serrure.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>802.1X met une <strong>serrure sur chaque prise</strong> : le port reste fermé jusqu’à ce que l’appareil prouve son identité auprès d’un serveur, qui décide ensuite où il a le droit d’aller.</p>
+</div>
+<h2 id="les-trois-acteurs">Les trois acteurs</h2>
+<figure class="schema"><svg viewBox="0 0 708.0 146.0" width="708.0" role="img" aria-label="Les trois rôles de 802.1X" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="354.0" y2="50.0"/><text class="tp-etiq" x="232.0" y="38.0" text-anchor="middle">EAP sur Ethernet (EAPoL)</text><line class="tp-lien " x1="354.0" y1="50.0" x2="598.0" y2="50.0"/><text class="tp-etiq" x="476.0" y="38.0" text-anchor="middle">EAP dans RADIUS</text><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">Demandeur</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">le poste</text><g transform="translate(354.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">Authentificateur</text><text class="tp-sous" x="354.0" y="106.0" text-anchor="middle">le switch ou la borne</text><g transform="translate(598.0 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="598.0" y="90.0" text-anchor="middle">Serveur d’authentification</text><text class="tp-sous" x="598.0" y="106.0" text-anchor="middle">RADIUS</text></svg><figcaption>Les trois rôles de 802.1X</figcaption></figure>
+<ol>
+<li>Le poste se branche ; le port est <strong>fermé</strong> à tout sauf aux messages d’authentification.</li>
+<li>Le switch demande l’identité du poste et <strong>relaie</strong> l’échange vers le serveur RADIUS. Il ne vérifie rien lui-même.</li>
+<li>Le serveur vérifie (mot de passe, ou mieux, <strong>certificat</strong>) et répond « accepté, VLAN 10 » ou « refusé ».</li>
+<li>Le switch <strong>ouvre</strong> le port dans le bon VLAN, ou le laisse fermé.</li>
+</ol>
+<h2 id="et-les-imprimantes">Et les imprimantes ?</h2>
+<p>Une imprimante, une caméra ou un vieux badgeur ne savent souvent pas faire 802.1X. On utilise alors <strong>MAB</strong> (<em>MAC Authentication Bypass</em>) : le switch envoie l’adresse MAC de l’appareil au serveur RADIUS comme identifiant. C’est <strong>plus faible</strong> (une adresse MAC se copie facilement), donc on donne à ces appareils des droits très limités (un VLAN dédié, une ACL stricte), et l’on complète par du profilage.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>802.1X</strong> — Norme de contrôle d’accès par port, qui exige une authentification avant d’ouvrir l’accès au réseau.</li>
+<li><strong>Demandeur</strong> — Logiciel du poste qui réalise l’authentification ; <em>supplicant</em>.</li>
+<li><strong>Authentificateur</strong> — Switch ou borne qui relaie l’authentification et ouvre ou ferme l’accès.</li>
+<li><strong>EAPoL</strong> — Transport des messages EAP sur Ethernet ou Wi-Fi, entre le poste et l’authentificateur.</li>
+<li><strong>MAB</strong> — Authentification d’un appareil par son adresse MAC, pour ceux qui ne gèrent pas 802.1X.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un visiteur branche son ordinateur personnel sur une prise protégée par 802.1X. Que se passe-t-il ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Son ordinateur n’a ni identifiants ni certificat de l’entreprise : l’authentification échoue (ou n’a même pas lieu). Selon la politique, le port reste <strong>fermé</strong> ou le place dans un <strong>VLAN invités</strong> qui ne donne accès qu’à Internet.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-type-dun-port-dacces-cisco-ios-xe-mode-classique">Configuration type d’un port d’accès (Cisco IOS-XE, mode classique)</h2>
+<pre><code class="language-cisco">dot1x system-auth-control
+<span class="c">!</span>
+interface GigabitEthernet1/0/5
+ switchport mode access
+ switchport access vlan 999                 ! VLAN sans accès tant que rien n'est autorisé
+ switchport voice vlan 20
+ authentication host-mode multi-domain      ! un téléphone + un PC
+ authentication order dot1x mab
+ authentication priority dot1x mab
+ authentication port-control auto
+ authentication periodic
+ authentication timer reauthenticate server
+ authentication event server dead action authorize vlan 10   ! VLAN critique si RADIUS est hors service
+ authentication event server alive action reinitialize
+ mab
+ dot1x pae authenticator
+ dot1x timeout tx-period 7
+ spanning-tree portfast
+</code></pre>
+<ul>
+<li><code>host-mode multi-domain</code> : un appareil dans le domaine <strong>voix</strong> (téléphone) et un dans le domaine <strong>données</strong> (PC).</li>
+<li><code>order dot1x mab</code> : essayer 802.1X, puis MAB si l’appareil ne répond pas.</li>
+<li><code>server dead action</code> : si <strong>aucun</strong> serveur RADIUS ne répond, autoriser dans un VLAN de secours plutôt que de bloquer tout l’étage.</li>
+</ul>
+<p>Sur les versions récentes (IBNS 2.0), la même logique s’écrit avec des politiques (<code>policy-map type control subscriber</code>), plus souples.</p>
+<h2 id="deployer-sans-tout-casser-le-mode-surveillance">Déployer sans tout casser : le mode surveillance</h2>
+<p>Activer 802.1X en mode bloquant d’un coup provoque des pannes partout (postes mal configurés, imprimantes oubliées). On procède par étapes :</p>
+<ol>
+<li><strong>Mode surveillance</strong> (<em>monitor mode</em>, <code>access-session open</code>) : le port reste ouvert, les authentifications ont lieu et sont journalisées. On corrige les échecs.</li>
+<li><strong>Mode à impact limité</strong> : ouvert, mais avec une ACL qui ne laisse passer que l’essentiel (DHCP, DNS, PXE) avant l’authentification.</li>
+<li><strong>Mode fermé</strong> : seul EAP passe avant l’authentification.</li>
+</ol>
+<h2 id="verification">Vérification</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show access-session interface Gi1/0/5 details
+            Interface:  GigabitEthernet1/0/5
+          MAC Address:  3c22.fb1a.097e
+            User-Name:  host/PC-COMPTA-12.exemple.fr
+               Status:  Authorized
+               Domain:  DATA
+       Current Policy:  POLICY_Gi1/0/5
+    Server Policies:
+            Vlan Group:  Vlan: 10
+    Method status list:
+       Method           State
+       dot1x            Authc Success
+</code></pre>
+<p><code>host/PC-COMPTA-12…</code> : c’est la <strong>machine</strong> qui s’est authentifiée (certificat machine), avant même l’ouverture de session de l’utilisateur. C’est ce qui permet aux postes de joindre le domaine et de recevoir leurs mises à jour la nuit.</p>
+<h2 id="limites-a-connaitre">Limites à connaître</h2>
+<ul>
+<li>Un attaquant peut se placer <strong>entre</strong> un poste authentifié et le switch (petit switch ou boîtier transparent) et profiter du port ouvert. <strong>MACsec</strong> (chiffrement du lien) ou le mode <strong>single-host/multi-auth</strong> limitent ce risque.</li>
+<li>MAB repose sur une adresse MAC facile à usurper : profilage et ACL strictes sont indispensables.</li>
+</ul>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Après le passage en mode fermé, les imprimantes d’un étage n’impriment plus. Elles ne gèrent pas 802.1X. Que manque-t-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>MAB</strong> (et sa règle sur le serveur RADIUS) : les adresses MAC des imprimantes doivent être connues du serveur (liste, ou profilage) et associées à un VLAN ou une ACL adaptée. Il faut aussi <code>authentication order dot1x mab</code> sur les ports, et éventuellement réduire le délai avant MAB (<code>tx-period</code>).</p>
+</details>
+<p><strong>2.</strong> Les postes s’authentifient correctement, mais le premier démarrage le matin est très long et les scripts d’ouverture de session échouent. Quelle hypothèse ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Seule l’<strong>authentification utilisateur</strong> est configurée : tant que personne n’a ouvert de session, le port reste fermé et le poste ne peut joindre ni le domaine ni le serveur DHCP. Activer l’<strong>authentification machine</strong> (certificat de l’ordinateur) pour que le port s’ouvre dès le démarrage.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/eap-tls.html"><small>Fiche précédente</small><strong>EAP-TLS</strong></a><a class="apres" href="../niveau-4/wpa-entreprise.html"><small>Fiche suivante</small><strong>WPA Entreprise</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-nimporte-qui-peut-se-brancher">Le problème : n’importe qui peut se brancher</a><a href="#les-trois-acteurs">Les trois acteurs</a><a href="#et-les-imprimantes">Et les imprimantes ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-type-dun-port-dacces-cisco-ios-xe-mode-classique">Configuration type d’un port d’accès (Cisco IOS-XE, mode classique)</a><a href="#deployer-sans-tout-casser-le-mode-surveillance">Déployer sans tout casser : le mode surveillance</a><a href="#verification">Vérification</a><a href="#limites-a-connaitre">Limites à connaître</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

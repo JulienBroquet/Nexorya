@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>UDP — User Datagram Protocol | Nexorya</title>
+<meta name="description" content="UDP envoie des messages sans connexion ni vérification d’arrivée ; c’est rapide et simple, idéal quand une donnée en retard ne sert plus à rien.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp" aria-current="page">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/udp">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-1">Transporter les données</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>UDP</h1><p class="nom-complet">User Datagram Protocol</p>
+<p class="idee">UDP envoie des messages sans connexion ni vérification d’arrivée ; c’est rapide et simple, idéal quand une donnée en retard ne sert plus à rien.</p><div class="badges"><span>Couche OSI 4</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-3/tcp.html">TCP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-la-fiabilite-a-un-prix">Le problème : la fiabilité a un prix</h2>
+<p>TCP garantit tout, mais au prix d’une ouverture de connexion, d’accusés et de retransmissions. Pour un appel vocal, une syllabe renvoyée une demi-seconde plus tard ne sert à rien : il vaut mieux la perdre et passer à la suivante. Pour une question DNS, ouvrir une connexion juste pour un message de 50 octets serait du gaspillage.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>UDP envoie chaque message tel quel, sans connexion préalable et sans vérifier qu’il arrive : c’est à l’application de décider quoi faire en cas de perte.</p>
+</div>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie de la carte postale</p>
+<p>TCP, c’est le recommandé avec accusé de réception. UDP, c’est la carte postale : on l’écrit, on la poste, et l’on passe à autre chose. Pas de garantie, mais aucune attente.</p>
+</div>
+<h2 id="tcp-ou-udp">TCP ou UDP ?</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>TCP</th>
+<th>UDP</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Connexion</td>
+<td>oui (SYN, SYN-ACK, ACK)</td>
+<td>non</td>
+</tr>
+<tr>
+<td>Garantie d’arrivée</td>
+<td>oui, retransmissions</td>
+<td>non</td>
+</tr>
+<tr>
+<td>Ordre</td>
+<td>rétabli</td>
+<td>non garanti</td>
+</tr>
+<tr>
+<td>Contrôle de congestion</td>
+<td>oui</td>
+<td>non (à la charge de l’application)</td>
+</tr>
+<tr>
+<td>En-tête</td>
+<td>20 octets minimum</td>
+<td><strong>8 octets</strong></td>
+</tr>
+<tr>
+<td>Usages</td>
+<td>Web, e-mail, fichiers, SSH</td>
+<td>voix, vidéo en direct, DNS, DHCP, NTP, SNMP, jeux, QUIC</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>UDP</strong> — Protocole de transport simple, sans connexion ni garantie d’arrivée.</li>
+<li><strong>Datagramme</strong> — Message UDP envoyé indépendamment des autres.</li>
+<li><strong>Sans connexion</strong> — Fonctionnement où l’on envoie sans établir de session au préalable.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi la voix sur IP utilise-t-elle UDP plutôt que TCP ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Une syllabe <strong>retransmise</strong> arriverait trop tard pour être utile, et TCP bloquerait les syllabes suivantes en attendant celle qui manque. Avec UDP, une perte produit un minuscule trou dans le son, que le téléphone masque, et la conversation continue.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="len-tete-udp">L’en-tête UDP</h2>
+<pre><code class="language-text"> 0               16              31
++----------------+----------------+
+|  Port source   |  Port destin.  |
++----------------+----------------+
+|    Longueur    | Somme contrôle |
++----------------+----------------+
+|           Données…              |
+</code></pre>
+<p>En IPv4, la somme de contrôle est facultative (0 = absente) ; en IPv6, elle est <strong>obligatoire</strong>, puisque l’en-tête IPv6 n’en a plus.</p>
+<h2 id="diagnostiquer-un-service-udp">Diagnostiquer un service UDP</h2>
+<p>Avec UDP, il n’y a pas de SYN/SYN-ACK pour prouver qu’un port est ouvert :</p>
+<ul>
+<li>si un port UDP est <strong>fermé</strong>, la machine renvoie en principe un <strong>ICMP Port Unreachable</strong> ;</li>
+<li>si un <strong>pare-feu</strong> jette le paquet, on n’obtient <strong>rien</strong> — exactement comme si le service fonctionnait mais ne répondait pas à cette requête-là.</li>
+</ul>
+<p>On teste donc avec un <strong>client du protocole lui-même</strong> : <code>nslookup</code> ou <code>dig</code> pour le DNS, <code>ntpq -p</code> ou <code>w32tm /stripchart</code> pour NTP, <code>snmpwalk</code> pour SNMP. Les outils génériques (<code>nc -u</code>) donnent des résultats ambigus.</p>
+<pre><code class="language-bash">$ dig @10.99.0.53 intranet.exemple.test +short     # DNS en UDP 53
+10.20.0.15
+$ sudo tcpdump -ni eth0 udp port 53                 # voir les questions et réponses
+</code></pre>
+<h2 id="pare-feu-a-etats-et-udp">Pare-feu à états et UDP</h2>
+<p>Un pare-feu suit les « connexions » UDP en associant une réponse à une requête récente (même couple d’adresses et de ports) pendant un délai court (souvent 30 à 120 s). Pour les flux longs mais intermittents (voix, VPN), ce délai peut expirer : les applications envoient des messages de maintien (<em>keepalive</em>).</p>
+<h2 id="udp-comme-base-dautres-protocoles">UDP comme base d’autres protocoles</h2>
+<p>UDP sert de transport « nu » à des protocoles qui ajoutent leur propre fiabilité ou leur propre logique : <strong>QUIC</strong> (fiabilité, chiffrement, multiplexage, sur UDP 443), <strong>RTP</strong> (numérotation et horodatage des médias), <strong>DTLS</strong> (TLS pour datagrammes), <strong>VXLAN</strong> (UDP 4789), <strong>WireGuard</strong>. Voir <a href="quic.html">QUIC</a> et <a href="rtp.html">RTP</a>.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un pare-feu bloque l’UDP 53 sortant d’un réseau. Les postes utilisent un DNS sur Internet. Que voient les utilisateurs, et comment le prouver ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les noms ne se résolvent plus (délais d’attente, « serveur introuvable »), alors que la navigation par adresse IP fonctionne. Preuve : <code>nslookup www.exemple.fr 1.1.1.1</code> échoue par délai d’attente, et une capture sur le poste montre des requêtes sans réponse. Les journaux du pare-feu montrent les rejets UDP/53.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/tcp.html"><small>Fiche précédente</small><strong>TCP</strong></a><a class="apres" href="../niveau-3/dns.html"><small>Fiche suivante</small><strong>DNS</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-la-fiabilite-a-un-prix">Le problème : la fiabilité a un prix</a><a href="#tcp-ou-udp">TCP ou UDP ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#len-tete-udp">L’en-tête UDP</a><a href="#diagnostiquer-un-service-udp">Diagnostiquer un service UDP</a><a href="#pare-feu-a-etats-et-udp">Pare-feu à états et UDP</a><a href="#udp-comme-base-dautres-protocoles">UDP comme base d’autres protocoles</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

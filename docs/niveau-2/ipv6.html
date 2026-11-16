@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IPv6 — Internet Protocol version 6 | Nexorya</title>
+<meta name="description" content="IPv6 utilise des adresses de 128 bits — assez pour donner une adresse publique à chaque appareil — et simplifie la configuration automatique des machines.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6" aria-current="page">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/ipv6">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-1">Adresser les machines</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>IPv6</h1><p class="nom-complet">Internet Protocol version 6</p>
+<p class="idee">IPv6 utilise des adresses de 128 bits — assez pour donner une adresse publique à chaque appareil — et simplifie la configuration automatique des machines.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 10 min</span><span>Approfondir : 20 min</span><span>Avant : <a href="../niveau-2/ipv4.html">IPv4</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-la-penurie-dadresses">Le problème : la pénurie d’adresses</h2>
+<p>IPv4 offre environ 4,3 milliards d’adresses. C’était énorme en 1981, c’est trop peu aujourd’hui : smartphones, objets connectés, serveurs dans le cloud… Les dernières adresses IPv4 libres ont été distribuées au début des années 2010. On a tenu grâce au <a href="../niveau-3/nat.html">NAT</a>, qui cache des réseaux entiers derrière une seule adresse publique, mais au prix de complications.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>IPv6 utilise des adresses de <strong>128 bits</strong> au lieu de 32 : il y en a assez pour que chaque appareil de la planète ait des milliards d’adresses publiques, sans NAT.</p>
+</div>
+<h2 id="a-quoi-ressemble-une-adresse-ipv6">À quoi ressemble une adresse IPv6 ?</h2>
+<p><code>2001:0db8:0010:0020:0000:0000:0000:0025</code></p>
+<p>Huit groupes de quatre chiffres hexadécimaux. Comme c’est long, on l’abrège avec deux règles :</p>
+<ol>
+<li>On supprime les <strong>zéros en tête</strong> de chaque groupe : <code>2001:db8:10:20:0:0:0:25</code>.</li>
+<li>On remplace <strong>une seule</strong> suite de groupes nuls par <code>::</code> : <code>2001:db8:10:20::25</code>.</li>
+</ol>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Le <code>::</code> ne peut apparaître <strong>qu’une fois</strong> dans une adresse. Sinon, impossible de savoir combien de groupes nuls il remplace à chaque endroit.</p>
+</div>
+<h2 id="partie-reseau-et-partie-interface">Partie réseau et partie interface</h2>
+<p>Comme en IPv4, une adresse IPv6 a une partie réseau et une partie machine, séparées par un <strong>préfixe</strong>. Mais en IPv6, la règle est simple : <strong>un réseau local fait /64</strong>.</p>
+<pre><code class="language-text">2001:db8:10:20 : 0000:0000:0000:0025
+└── 64 bits réseau ──┘ └──── 64 bits interface ────┘
+</code></pre>
+<p>Un /64 contient 2⁶⁴ adresses — 18 milliards de milliards — pour un seul réseau local. On ne compte plus les adresses en IPv6 : on compte les <strong>réseaux</strong>.</p>
+<h2 id="plusieurs-adresses-par-interface">Plusieurs adresses par interface</h2>
+<p>En IPv6, il est normal qu’une carte réseau ait plusieurs adresses :</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Commence par</th>
+<th>Portée</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lien local</strong></td>
+<td><code>fe80::</code></td>
+<td>le lien seulement, jamais routée</td>
+<td><code>fe80::3e22:fbff:fe1a:97e</code></td>
+</tr>
+<tr>
+<td><strong>Globale</strong> (publique)</td>
+<td><code>2000::/3</code> (souvent <code>2…</code> ou <code>3…</code>)</td>
+<td>Internet</td>
+<td><code>2001:db8:10:20::25</code></td>
+</tr>
+<tr>
+<td><strong>Unique locale</strong> (privée)</td>
+<td><code>fd00::/8</code></td>
+<td>interne à l’organisation</td>
+<td><code>fd12:3456:789a:1::25</code></td>
+</tr>
+<tr>
+<td>Boucle locale</td>
+<td><code>::1</code></td>
+<td>la machine elle-même</td>
+<td><code>::1</code></td>
+</tr>
+</tbody>
+</table>
+<p>L’adresse de lien local existe <strong>toujours</strong> et sert aux échanges avec les voisins directs : découverte des routeurs, protocoles de routage.</p>
+<h2 id="pas-de-broadcast">Pas de broadcast</h2>
+<p>IPv6 ne connaît <strong>pas</strong> le broadcast. Ce qu’IPv4 faisait en criant à tout le monde (ARP, par exemple), IPv6 le fait avec du <strong>multicast</strong> ciblé et le protocole <a href="ndp.html">NDP</a>. Les machines peuvent même se configurer seules : le routeur annonce le préfixe du réseau, et chaque machine fabrique son adresse.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>IPv6</strong> — Version 6 du protocole IP, avec des adresses de 128 bits.</li>
+<li><strong>Adresse de lien local</strong> — Adresse IPv6 en fe80:: valable uniquement sur le lien, présente sur chaque interface.</li>
+<li><strong>Adresse globale</strong> — Adresse IPv6 publique, routable sur Internet.</li>
+<li><strong>/64</strong> — Taille standard d’un réseau local IPv6.</li>
+<li><strong>Double pile</strong> — Fonctionnement simultané d’IPv4 et d’IPv6 sur les mêmes équipements ; <em>dual stack</em>.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Abrège l’adresse <code>2001:0db8:0000:0000:0001:0000:0000:0010</code>.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><code>2001:db8::1:0:0:10</code>. On supprime les zéros de tête, puis on remplace la <strong>plus longue</strong> suite de groupes nuls (les groupes 3 et 4, ou 6 et 7 — à longueur égale, la première) par <code>::</code>. Les autres groupes nuls restent écrits <code>0</code>.</p>
+</details>
+<p><strong>2.</strong> Pourquoi <code>fe80::1</code> peut-il exister sur toutes les interfaces d’un routeur en même temps ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce qu’une adresse de lien local n’est valable <strong>que sur son lien</strong> et n’est jamais routée. Il n’y a pas de conflit entre deux liens différents. C’est d’ailleurs une pratique courante de donner <code>fe80::1</code> aux passerelles pour les reconnaître facilement.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="len-tete-ipv6">L’en-tête IPv6</h2>
+<p>L’en-tête IPv6 est <strong>fixe</strong> (40 octets) et plus simple que celui d’IPv4 :</p>
+<table>
+<thead>
+<tr>
+<th>Champ</th>
+<th>Taille</th>
+<th>Remarque</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Version</td>
+<td>4 bits</td>
+<td>6</td>
+</tr>
+<tr>
+<td>Traffic Class</td>
+<td>8 bits</td>
+<td>équivalent DSCP + ECN</td>
+</tr>
+<tr>
+<td>Flow Label</td>
+<td>20 bits</td>
+<td>marquage d’un flux</td>
+</tr>
+<tr>
+<td>Payload Length</td>
+<td>16 bits</td>
+<td>taille des données</td>
+</tr>
+<tr>
+<td><strong>Next Header</strong></td>
+<td>8 bits</td>
+<td>type de l’en-tête suivant (TCP 6, UDP 17, ICMPv6 58, ou un en-tête d’extension)</td>
+</tr>
+<tr>
+<td><strong>Hop Limit</strong></td>
+<td>8 bits</td>
+<td>équivalent du TTL</td>
+</tr>
+<tr>
+<td>Source, Destination</td>
+<td>128 bits chacune</td>
+<td>—</td>
+</tr>
+</tbody>
+</table>
+<p>Disparus par rapport à IPv4 : la <strong>somme de contrôle</strong> (les couches 2 et 4 vérifient déjà), la <strong>fragmentation par les routeurs</strong> (seul l’émetteur fragmente, après découverte de la MTU du chemin) et les options (remplacées par des <strong>en-têtes d’extension</strong> chaînés).</p>
+<h2 id="les-identifiants-dinterface">Les identifiants d’interface</h2>
+<p>Les 64 bits de droite peuvent être obtenus de plusieurs façons :</p>
+<table>
+<thead>
+<tr>
+<th>Méthode</th>
+<th>Principe</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EUI-64</strong></td>
+<td>dérivé de l’adresse MAC : on insère <code>fffe</code> au milieu et on inverse le 7ᵉ bit</td>
+<td>équipements réseau, anciens systèmes</td>
+</tr>
+<tr>
+<td><strong>Aléatoire stable</strong> (RFC 7217)</td>
+<td>aléatoire, mais constant pour un réseau donné</td>
+<td>adresse principale des systèmes récents</td>
+</tr>
+<tr>
+<td><strong>Temporaire</strong> (RFC 8981)</td>
+<td>aléatoire, change régulièrement</td>
+<td>connexions sortantes, protection de la vie privée</td>
+</tr>
+<tr>
+<td><strong>Manuelle / DHCPv6</strong></td>
+<td>attribuée par l’administrateur ou un serveur</td>
+<td>serveurs, équipements</td>
+</tr>
+</tbody>
+</table>
+<p>Exemple EUI-64 : MAC <code>3c:22:fb:1a:09:7e</code> → <code>3c22:fbff:fe1a:097e</code> → 7ᵉ bit inversé (<code>3c</code> → <code>3e</code>) → identifiant <code>3e22:fbff:fe1a:97e</code>.</p>
+<h2 id="les-adresses-multicast-a-reconnaitre">Les adresses multicast à reconnaître</h2>
+<table>
+<thead>
+<tr>
+<th>Adresse</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ff02::1</code></td>
+<td>tous les nœuds du lien</td>
+</tr>
+<tr>
+<td><code>ff02::2</code></td>
+<td>tous les routeurs du lien</td>
+</tr>
+<tr>
+<td><code>ff02::5</code>, <code>ff02::6</code></td>
+<td>routeurs OSPFv3</td>
+</tr>
+<tr>
+<td><code>ff02::1:2</code></td>
+<td>agents DHCPv6</td>
+</tr>
+<tr>
+<td><code>ff02::1:ff00:0/104</code></td>
+<td><strong>multicast de nœud sollicité</strong> : utilisé par NDP à la place d’ARP</td>
+</tr>
+</tbody>
+</table>
+<h2 id="plan-dadressage-type">Plan d’adressage type</h2>
+<p>Une organisation reçoit généralement un <strong>/48</strong> de son opérateur (ou de son registre régional). Cela laisse <strong>16 bits</strong> pour numéroter ses réseaux : 65 536 réseaux de /64.</p>
+<pre><code class="language-text">2001:db8:abcd::/48               bloc de l'entreprise
+2001:db8:abcd:SSVV::/64          SS = site (00 à FF), VV = VLAN (00 à FF)
+  2001:db8:abcd:0110::/64        site 01, VLAN 10 (employés)
+  2001:db8:abcd:0120::/64        site 01, VLAN 20 (voix)
+  2001:db8:abcd:0210::/64        site 02, VLAN 10
+</code></pre>
+<p>Reprendre les numéros de site et de VLAN dans l’adresse rend le plan lisible d’un coup d’œil. Sur les liens entre routeurs, on utilise souvent des <strong>/127</strong> (RFC 6164).</p>
+<h2 id="configurer-et-verifier-cisco-ios">Configurer et vérifier (Cisco IOS)</h2>
+<pre><code class="language-cisco">ipv6 unicast-routing
+<span class="c">!</span>
+interface Vlan10
+ ipv6 address 2001:db8:abcd:110::1/64
+ ipv6 address fe80::1 link-local
+<span class="c">!</span>
+<span class="k">R1#</span> show ipv6 interface brief
+Vlan10                 [up/up]
+    FE80::1
+    2001:DB8:ABCD:110::1
+</code></pre>
+<pre><code class="language-bash"><span class="c"># Linux</span>
+ip -6 addr show dev eth0
+ip -6 route
+ping -6 2001:db8:abcd:110::1
+</code></pre>
+<pre><code class="language-powershell"><span class="c"># Windows</span>
+netsh interface ipv6 show addresses
+ping -6 2001:db8:abcd:110::1
+</code></pre>
+<p>La suite pratique — autoconfiguration SLAAC, DHCPv6, routage OSPFv3 — est détaillée dans <a href="ipv6-pratique.html">IPv6 en pratique</a>.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Quelle est l’adresse de lien local EUI-64 d’une interface dont la MAC est <code>00:1a:2b:3c:4d:5e</code> ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>On coupe la MAC en deux : <code>001a2b</code> et <code>3c4d5e</code>, on insère <code>fffe</code> : <code>001a:2bff:fe3c:4d5e</code>. On inverse le 7ᵉ bit du premier octet : <code>00</code> → <code>02</code>. Résultat : <strong><code>fe80::21a:2bff:fe3c:4d5e</code></strong>.</p>
+</details>
+<p><strong>2.</strong> Une entreprise a reçu <code>2001:db8:500::/48</code>. Combien de réseaux /64 peut-elle créer, et quel serait le préfixe du VLAN 30 du site 4 avec le plan « SSVV » ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>64 − 48 = 16 bits → <strong>65 536</strong> réseaux /64. Site 04, VLAN 30 → quatrième groupe <code>0430</code> → <strong><code>2001:db8:500:430::/64</code></strong>.</p>
+</details>
+<p><strong>3.</strong> Pourquoi l’absence de somme de contrôle dans l’en-tête IPv6 accélère-t-elle les routeurs ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>En IPv4, chaque routeur doit <strong>recalculer</strong> la somme de contrôle de l’en-tête après avoir décrémenté le TTL. En IPv6, le Hop Limit est décrémenté sans aucun recalcul. Les erreurs sont détectées par le FCS Ethernet et par la somme de contrôle de TCP ou UDP (obligatoire en IPv6).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/subnet.html"><small>Fiche précédente</small><strong>Subnetting, CIDR et VLSM</strong></a><a class="apres" href="../niveau-2/ipv6-pratique.html"><small>Fiche suivante</small><strong>IPv6 en pratique</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-la-penurie-dadresses">Le problème : la pénurie d’adresses</a><a href="#a-quoi-ressemble-une-adresse-ipv6">À quoi ressemble une adresse IPv6 ?</a><a href="#partie-reseau-et-partie-interface">Partie réseau et partie interface</a><a href="#plusieurs-adresses-par-interface">Plusieurs adresses par interface</a><a href="#pas-de-broadcast">Pas de broadcast</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#len-tete-ipv6">L’en-tête IPv6</a><a href="#les-identifiants-dinterface">Les identifiants d’interface</a><a href="#les-adresses-multicast-a-reconnaitre">Les adresses multicast à reconnaître</a><a href="#plan-dadressage-type">Plan d’adressage type</a><a href="#configurer-et-verifier-cisco-ios">Configurer et vérifier (Cisco IOS)</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

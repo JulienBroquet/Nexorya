@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>RIP — Routing Information Protocol | Nexorya</title>
+<meta name="description" content="RIP est le plus ancien protocole de routage dynamique — chaque routeur envoie régulièrement toute sa table à ses voisins, et choisit le chemin qui traverse le moins de routeurs.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip" aria-current="page">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/rip">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-3">Choisir un chemin</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>RIP</h1><p class="nom-complet">Routing Information Protocol</p>
+<p class="idee">RIP est le plus ancien protocole de routage dynamique — chaque routeur envoie régulièrement toute sa table à ses voisins, et choisit le chemin qui traverse le moins de routeurs.</p><div class="badges"><span>Couche OSI 3 (transporté en UDP 520)</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-2/passerelle.html">La table de routage</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-des-routes-qui-se-mettent-a-jour-toutes-seules">Le problème : des routes qui se mettent à jour toutes seules</h2>
+<p>Avec des routes statiques, chaque ajout de réseau ou chaque panne demande une intervention humaine. Un <strong>protocole de routage dynamique</strong> fait échanger aux routeurs ce qu’ils savent, pour que chacun construise et mette à jour sa table automatiquement. RIP fut l’un des premiers.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Chaque routeur RIP dit régulièrement à ses voisins : « voici les réseaux que je connais, et à combien de sauts ils sont de moi ». Chacun garde le chemin le plus court en nombre de sauts.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<figure class="schema"><svg viewBox="0 0 586.0 286.0" width="586.0" role="img" aria-label="RIP compte les routeurs, pas la vitesse des liens" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="354.0" y2="50.0"/><text class="tp-etiq" x="232.0" y="38.0" text-anchor="middle">lien lent, 2 Mb/s</text><line class="tp-lien " x1="110.0" y1="50.0" x2="232.0" y2="190.0"/><text class="tp-etiq" x="180.0" y="112.1" text-anchor="start">10 Gb/s</text><line class="tp-lien " x1="232.0" y1="190.0" x2="354.0" y2="50.0"/><text class="tp-etiq" x="284.0" y="112.1" text-anchor="end">10 Gb/s</text><line class="tp-lien " x1="354.0" y1="50.0" x2="476.0" y2="50.0"/><g transform="translate(110.0 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">R1</text><g transform="translate(354.0 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">R2</text><g transform="translate(232.0 190.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="232.0" y="230.0" text-anchor="middle">R3</text><g transform="translate(476.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">Réseau 10.9.0.0/24</text></svg><figcaption>RIP compte les routeurs, pas la vitesse des liens</figcaption></figure>
+<p>R1 peut joindre <code>10.9.0.0/24</code> en passant directement par R2 (<strong>2 sauts</strong>) ou par R3 puis R2 (<strong>3 sauts</strong>). RIP choisit le lien à 2 Mb/s, parce qu’il ne compte que les sauts. C’est sa principale faiblesse.</p>
+<h2 id="les-limites-de-rip">Les limites de RIP</h2>
+<ul>
+<li><strong>Maximum 15 sauts</strong> : au-delà, le réseau est considéré comme injoignable.</li>
+<li><strong>Convergence lente</strong> : après une panne, plusieurs minutes peuvent être nécessaires pour que tous les routeurs se mettent d’accord.</li>
+<li><strong>Il ignore la vitesse des liens.</strong></li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Protocole de routage dynamique</strong> — Protocole par lequel les routeurs échangent leurs routes automatiquement.</li>
+<li><strong>Vecteur de distance</strong> — Famille de protocoles où chaque routeur annonce à ses voisins des réseaux et leur distance, sans connaître toute la topologie.</li>
+<li><strong>Saut</strong> — Passage par un routeur ; RIP mesure les chemins en nombre de sauts.</li>
+<li><strong>Convergence</strong> — Moment où tous les routeurs ont une vision cohérente après un changement.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi un réseau RIP ne peut-il pas dépasser 15 routeurs de diamètre ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que la métrique <strong>16</strong> signifie « injoignable ». Ce plafond très bas sert à limiter la durée du problème de « comptage à l’infini » dans les boucles de routage.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="vecteur-de-distance-et-comptage-a-linfini">Vecteur de distance et comptage à l’infini</h2>
+<p>Un routeur RIP ne connaît pas la topologie : il fait confiance à ce que disent ses voisins. Si R2 perd un réseau et que R1 lui annonce « je l’atteins en 2 sauts » (en réalité via R2 lui-même), R2 croit pouvoir le joindre via R1 en 3 sauts, et ainsi de suite : la métrique monte jusqu’à 16. Plusieurs mécanismes limitent ce phénomène :</p>
+<table>
+<thead>
+<tr>
+<th>Mécanisme</th>
+<th>Principe</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Split horizon</strong></td>
+<td>ne pas réannoncer une route sur l’interface d’où on l’a apprise</td>
+</tr>
+<tr>
+<td><strong>Route poisoning</strong></td>
+<td>annoncer immédiatement une route perdue avec la métrique 16</td>
+</tr>
+<tr>
+<td><strong>Hold-down</strong></td>
+<td>ignorer pendant 180 s les annonces moins bonnes d’une route qui vient de tomber</td>
+</tr>
+<tr>
+<td><strong>Triggered updates</strong></td>
+<td>envoyer un changement immédiatement, sans attendre les 30 s</td>
+</tr>
+</tbody>
+</table>
+<p>Temporisateurs par défaut : mise à jour <strong>30 s</strong>, invalidité <strong>180 s</strong>, hold-down <strong>180 s</strong>, suppression <strong>240 s</strong>.</p>
+<h2 id="ripv1-ripv2-ripng">RIPv1, RIPv2, RIPng</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Caractéristiques</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>RIPv1</td>
+<td><strong>sans masque</strong> dans les annonces (classful), broadcast : à proscrire</td>
+</tr>
+<tr>
+<td>RIPv2</td>
+<td>masques transportés (VLSM), multicast <code>224.0.0.9</code>, authentification MD5</td>
+</tr>
+<tr>
+<td>RIPng</td>
+<td>version IPv6, <code>ff02::9</code>, port UDP 521</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco">router rip
+ version 2
+ no auto-summary
+ network 10.0.0.0
+ network 192.168.20.0
+ passive-interface default
+ no passive-interface GigabitEthernet0/0/1
+<span class="c">!</span>
+<span class="k">R1#</span> show ip route rip
+R     10.9.0.0/24 [120/2] via 10.255.0.2, 00:00:12, GigabitEthernet0/0/1
+<span class="k">R1#</span> debug ip rip
+</code></pre>
+<p><code>[120/2]</code> : distance administrative 120, <strong>2 sauts</strong>. Le compteur <code>00:00:12</code> indique l’âge de la dernière mise à jour reçue.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Lors d’une migration, RIP et OSPF tournent en même temps et annoncent tous deux <code>10.9.0.0/24</code>. Laquelle des deux routes est installée ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La route <strong>OSPF</strong> : distance administrative 110 contre 120 pour RIP. Cette propriété permet de migrer progressivement : dès qu’OSPF connaît un réseau, il prend le dessus, et l’on retire RIP à la fin.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/routage-statique.html"><small>Fiche précédente</small><strong>Routage statique</strong></a><a class="apres" href="../niveau-2/ospf.html"><small>Fiche suivante</small><strong>OSPF</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-des-routes-qui-se-mettent-a-jour-toutes-seules">Le problème : des routes qui se mettent à jour toutes seules</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#les-limites-de-rip">Les limites de RIP</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#vecteur-de-distance-et-comptage-a-linfini">Vecteur de distance et comptage à l’infini</a><a href="#ripv1-ripv2-ripng">RIPv1, RIPv2, RIPng</a><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

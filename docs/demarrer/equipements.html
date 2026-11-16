@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Les équipements — Switch, routeur, point d’accès, pare-feu | Nexorya</title>
+<meta name="description" content="Le switch relie les appareils d’un même lieu, le routeur relie des réseaux entre eux, le point d’accès remplace le câble par des ondes et le pare-feu filtre.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l0)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" aria-current=page class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>0</i>Je débute</a><h3>Le décor</h3><ul><li><a href="bienvenue.html" data-fiche="demarrer/bienvenue">Bienvenue</a></li><li><a href="reseau.html" data-fiche="demarrer/reseau">Qu’est-ce qu’un réseau ?</a></li><li><a href="equipements.html" data-fiche="demarrer/equipements" aria-current="page">Les équipements</a></li><li><a href="paquet.html" data-fiche="demarrer/paquet">Un message en paquets</a></li></ul><h3>Les adresses et les règles</h3><ul><li><a href="adresses.html" data-fiche="demarrer/adresses">Les trois adresses</a></li><li><a href="protocoles.html" data-fiche="demarrer/protocoles">Les protocoles</a></li><li><a href="internet.html" data-fiche="demarrer/internet">Ma box et Internet</a></li></ul><h3>Passer à la pratique</h3><ul><li><a href="commandes.html" data-fiche="demarrer/commandes">Les commandes de base</a></li></ul></aside>
+<article class="contenu" data-fiche-id="demarrer/equipements">
+<p class="fil"><a href="index.html">Je débute</a> › <a href="index.html#chapitre-1">Le décor</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Les équipements</h1><p class="nom-complet">Switch, routeur, point d’accès, pare-feu</p>
+<p class="idee">Le switch relie les appareils d’un même lieu, le routeur relie des réseaux entre eux, le point d’accès remplace le câble par des ondes et le pare-feu filtre.</p><div class="badges"><span>Découvrir : 8 min</span></div></header>
+
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-relier-beaucoup-dappareils">Le problème : relier beaucoup d’appareils</h2>
+<p>Avec deux ordinateurs, un seul câble suffit à les relier. Avec trente, il faudrait des centaines de câbles pour relier chacun à tous les autres. On utilise donc des <strong>équipements intermédiaires</strong>, chacun avec un rôle précis. Voici les quatre que tu croiseras partout.</p>
+<figure class="schema"><svg viewBox="0 0 708.0 846.0" width="708.0" role="img" aria-label="Les équipements d’un petit réseau d’entreprise" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="354.0" y1="50.0" x2="354.0" y2="190.0"/><line class="tp-lien " x1="354.0" y1="190.0" x2="354.0" y2="330.0"/><line class="tp-lien " x1="354.0" y1="330.0" x2="354.0" y2="470.0"/><line class="tp-lien " x1="354.0" y1="470.0" x2="110.0" y2="610.0"/><line class="tp-lien " x1="354.0" y1="470.0" x2="232.0" y2="610.0"/><line class="tp-lien " x1="354.0" y1="470.0" x2="476.0" y2="610.0"/><line class="tp-lien " x1="354.0" y1="470.0" x2="598.0" y2="610.0"/><line class="tp-lien sansfil" x1="476.0" y1="610.0" x2="476.0" y2="750.0"/><text class="tp-etiq" x="488.0" y="684.0" text-anchor="start">Wi-Fi</text><g transform="translate(354.0 50.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">Internet</text><g transform="translate(354.0 190.0)"><rect class="tp-ico" x="-26" y="-16" width="52" height="32" rx="3"/><path class="tp-ico-trait" d="M-26 -5 h52 M-26 6 h52 M-9 -16 v11 M9 -16 v11 M0 -5 v11 M-17 -5 v11 M17 -5 v11 M-9 6 v10 M9 6 v10"/></g><text class="tp-lib" x="354.0" y="230.0" text-anchor="middle">Pare-feu</text><g transform="translate(354.0 330.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="354.0" y="370.0" text-anchor="middle">Routeur</text><g transform="translate(354.0 470.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="354.0" y="510.0" text-anchor="middle">Switch</text><g transform="translate(110.0 610.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="650.0" text-anchor="middle">Poste</text><g transform="translate(232.0 610.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="232.0" y="650.0" text-anchor="middle">Poste</text><g transform="translate(476.0 610.0)"><rect class="tp-ico" x="-18" y="2" width="36" height="12" rx="6"/><path class="tp-ico-trait" d="M-9 -4 a13 13 0 0 1 18 0 M-15 -10 a21 21 0 0 1 30 0"/></g><text class="tp-lib" x="476.0" y="650.0" text-anchor="middle">Point d’accès</text><g transform="translate(598.0 610.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="598.0" y="650.0" text-anchor="middle">Serveur</text><g transform="translate(476.0 750.0)"><rect class="tp-ico" x="-18" y="-15" width="36" height="22" rx="3"/><path class="tp-ico" d="M-25 9 h50 l-4 6 h-42 z"/></g><text class="tp-lib" x="476.0" y="790.0" text-anchor="middle">Portable</text></svg><figcaption>Les équipements d’un petit réseau d’entreprise</figcaption></figure>
+<h2 id="le-switch-le-standardiste-du-reseau-local">Le switch : le standardiste du réseau local</h2>
+<p>Un <strong>switch</strong> (commutateur en français) possède de nombreux ports, souvent 24 ou 48. On y branche les ordinateurs, les imprimantes, les téléphones, les points d’accès.</p>
+<p>Son travail : <strong>livrer chaque message au bon appareil du réseau local</strong>, et seulement à lui. Pour cela, il apprend quel appareil est branché sur quel port, en regardant l’adresse de chaque message qui arrive. C’est comme un standardiste qui saurait, au bout de quelques minutes, dans quel bureau se trouve chaque employé.</p>
+<h2 id="le-routeur-la-douane-entre-les-reseaux">Le routeur : la douane entre les réseaux</h2>
+<p>Un <strong>routeur</strong> relie des <strong>réseaux différents</strong> : le réseau de l’entreprise et Internet, ou le réseau du siège et celui d’une agence. Il lit l’adresse de destination de chaque message et choisit par où l’envoyer pour qu’il se rapproche de sa destination.</p>
+<p>Pour un ordinateur, le routeur est la <strong>passerelle</strong> : la porte qu’on emprunte dès qu’un message doit sortir du réseau local.</p>
+<div class="encadre astuce">
+<p class="encadre-titre">Switch ou routeur ?</p>
+<p>Pose-toi la question : « est-ce que je reste dans le même réseau local ? » Si oui, c’est le switch qui livre. Si le message doit sortir vers un autre réseau, il passe par le routeur.</p>
+</div>
+<h2 id="le-point-dacces-wi-fi-le-cable-devient-une-onde">Le point d’accès Wi-Fi : le câble devient une onde</h2>
+<p>Un <strong>point d’accès</strong> (<em>access point</em>, AP) est relié au switch par un câble, et diffuse le réseau par ondes radio. Les ordinateurs portables et les téléphones s’y connectent sans fil. Pour le réseau, c’est un peu comme une prise murale invisible qui couvre toute une pièce.</p>
+<h2 id="le-pare-feu-le-vigile">Le pare-feu : le vigile</h2>
+<p>Un <strong>pare-feu</strong> (<em>firewall</em>) observe les échanges qui le traversent et <strong>décide</strong> lesquels sont autorisés : « les employés peuvent consulter le Web, mais personne depuis Internet ne peut se connecter directement aux ordinateurs du bureau ». Il se place surtout entre le réseau de l’entreprise et Internet, mais aussi entre des zones internes sensibles.</p>
+<h2 id="et-les-serveurs">Et les serveurs ?</h2>
+<p>Un <strong>serveur</strong> est un ordinateur qui <strong>rend un service</strong> aux autres : héberger des fichiers, un site Web, la messagerie, les comptes des utilisateurs. Ce n’est pas un équipement réseau à proprement parler, mais c’est souvent la destination des messages.</p>
+<h2 id="et-la-box-de-la-maison">Et la box de la maison ?</h2>
+<p>La box Internet est un <strong>tout-en-un</strong> : un routeur (pour sortir vers Internet), un petit switch (les 4 prises à l’arrière), un point d’accès Wi-Fi et un pare-feu simple. En entreprise, ces rôles sont séparés dans des équipements dédiés, plus puissants et plus faciles à surveiller.</p>
+<table>
+<thead>
+<tr>
+<th>Équipement</th>
+<th>Relie…</th>
+<th>Regarde…</th>
+<th>Analogie</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Switch</td>
+<td>les appareils d’un même réseau local</td>
+<td>l’adresse matérielle (MAC)</td>
+<td>le standardiste</td>
+</tr>
+<tr>
+<td>Routeur</td>
+<td>des réseaux différents</td>
+<td>l’adresse IP</td>
+<td>la douane, l’aiguilleur</td>
+</tr>
+<tr>
+<td>Point d’accès</td>
+<td>des appareils sans fil au réseau</td>
+<td>—</td>
+<td>une prise invisible</td>
+</tr>
+<tr>
+<td>Pare-feu</td>
+<td>des zones de confiance différentes</td>
+<td>adresses, ports, applications</td>
+<td>le vigile</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Switch</strong> — Équipement qui relie les appareils d’un même réseau local et livre chaque message au bon port. En français : commutateur.</li>
+<li><strong>Routeur</strong> — Équipement qui relie des réseaux différents et choisit le chemin des messages entre eux.</li>
+<li><strong>Passerelle</strong> — Pour un ordinateur, l’adresse du routeur à qui confier les messages qui sortent du réseau local.</li>
+<li><strong>Point d’accès</strong> — Équipement qui diffuse le réseau par ondes Wi-Fi.</li>
+<li><strong>Pare-feu</strong> — Équipement qui autorise ou bloque les échanges selon des règles.</li>
+<li><strong>Serveur</strong> — Ordinateur qui rend un service aux autres (fichiers, site Web, messagerie…).</li>
+<li><strong>Port</strong> — Prise physique d’un équipement où l’on branche un câble. Le mot désigne aussi, plus tard, un numéro de service : on le verra dans la fiche <a href="protocoles.html">Les protocoles</a>.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Deux ordinateurs du même bureau, branchés sur le même switch, s’échangent un fichier. Le routeur intervient-il ?</p>
+<details>
+<summary>Voir la réponse</summary>
+<p><strong>Non.</strong> Ils sont dans le même réseau local : le switch livre directement les messages de l’un à l’autre. Le routeur n’intervient que lorsqu’un message doit sortir du réseau local.</p>
+</details>
+<p><strong>2.</strong> Dans une entreprise, l’accès Internet fonctionne mais personne ne peut imprimer. Quel équipement soupçonnes-tu en premier : le routeur ou le switch ?</p>
+<details>
+<summary>Voir la réponse</summary>
+<p>Plutôt le <strong>switch</strong> (ou le câble et le port de l’imprimante) : l’impression reste dans le réseau local, alors qu’Internet, qui passe par le routeur, fonctionne. Cette façon de raisonner — « qu’est-ce qui marche, qu’est-ce qui ne marche pas, quel équipement est commun » — est la base du dépannage.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../demarrer/reseau.html"><small>Fiche précédente</small><strong>Qu’est-ce qu’un réseau ?</strong></a><a class="apres" href="../demarrer/paquet.html"><small>Fiche suivante</small><strong>Un message en paquets</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-relier-beaucoup-dappareils">Le problème : relier beaucoup d’appareils</a><a href="#le-switch-le-standardiste-du-reseau-local">Le switch : le standardiste du réseau local</a><a href="#le-routeur-la-douane-entre-les-reseaux">Le routeur : la douane entre les réseaux</a><a href="#le-point-dacces-wi-fi-le-cable-devient-une-onde">Le point d’accès Wi-Fi : le câble devient une onde</a><a href="#le-pare-feu-le-vigile">Le pare-feu : le vigile</a><a href="#et-les-serveurs">Et les serveurs ?</a><a href="#et-la-box-de-la-maison">Et la box de la maison ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

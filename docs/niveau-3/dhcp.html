@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DHCP — Dynamic Host Configuration Protocol | Nexorya</title>
+<meta name="description" content="DHCP donne automatiquement à chaque appareil son adresse IP, son masque, sa passerelle et ses serveurs DNS, pour une durée limitée appelée bail.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp" aria-current="page">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/dhcp">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-2">Noms et adresses automatiques</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>DHCP</h1><p class="nom-complet">Dynamic Host Configuration Protocol</p>
+<p class="idee">DHCP donne automatiquement à chaque appareil son adresse IP, son masque, sa passerelle et ses serveurs DNS, pour une durée limitée appelée bail.</p><div class="badges"><span>Couche OSI 7 (UDP 67 serveur, 68 client)</span><span>Découvrir : 8 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../demarrer/adresses.html">Les trois adresses</a>, <a href="../niveau-3/udp.html">UDP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-configurer-500-postes-a-la-main">Le problème : configurer 500 postes à la main</h2>
+<p>Chaque appareil a besoin d’une adresse IP unique, du bon masque, de la bonne passerelle et des bons serveurs DNS. Les saisir à la main sur 500 postes, des téléphones et les ordinateurs des visiteurs, c’est des heures de travail et des erreurs garanties (deux postes avec la même adresse, une faute de frappe dans la passerelle).</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Un serveur DHCP tient un stock d’adresses et <strong>prête</strong> une adresse à chaque appareil qui se connecte, avec toute la configuration réseau, pour une durée limitée.</p>
+</div>
+<h2 id="comment-ca-marche-dora">Comment ça marche : DORA</h2>
+<figure class="schema"><svg viewBox="0 0 760 280" width="760" role="img" aria-label="Un poste obtient son adresse" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="280"/><g class="sq-acteur"><rect x="45.0" y="12" width="80" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Poste</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="280"/><g class="sq-acteur"><rect x="612.8" y="12" width="124.39999999999999" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Serveur DHCP</text></g><g class="sq-msg "><text x="380.0" y="66" text-anchor="middle">1. DISCOVER (broadcast) : « y a-t-il un serveur DHCP ? »</text><line x1="85.0" y1="78" x2="663.0" y2="78"/><polygon class="sq-pointe" points="673.0,78 661.0,72 661.0,84"/></g><g class="sq-msg rep"><text x="380.0" y="116" text-anchor="middle">2. OFFER : « je te propose 10.10.0.57 »</text><line x1="675.0" y1="128" x2="97.0" y2="128"/><polygon class="sq-pointe" points="87.0,128 99.0,122 99.0,134"/></g><g class="sq-msg "><text x="380.0" y="166" text-anchor="middle">3. REQUEST (broadcast) : « j’accepte 10.10.0.57 »</text><line x1="85.0" y1="178" x2="663.0" y2="178"/><polygon class="sq-pointe" points="673.0,178 661.0,172 661.0,184"/></g><g class="sq-msg rep"><text x="380.0" y="216" text-anchor="middle">4. ACK : « confirmé : masque /24, passerelle .1, DNS 10.99.0.53, bail 8 h »</text><line x1="675.0" y1="228" x2="97.0" y2="228"/><polygon class="sq-pointe" points="87.0,228 99.0,222 99.0,234"/></g></svg><figcaption>Un poste obtient son adresse</figcaption></figure>
+<ol>
+<li><strong>Discover</strong> : le poste, qui n’a pas encore d’adresse, crie en <strong>broadcast</strong> pour trouver un serveur.</li>
+<li><strong>Offer</strong> : un serveur propose une adresse libre.</li>
+<li><strong>Request</strong> : le poste accepte (en broadcast, pour prévenir les autres serveurs éventuels qu’il a choisi).</li>
+<li><strong>Ack</strong> : le serveur confirme et envoie toute la configuration.</li>
+</ol>
+<h2 id="le-bail">Le bail</h2>
+<p>L’adresse est <strong>prêtée</strong>, pas donnée. À <strong>la moitié</strong> du bail, le poste demande à le prolonger. S’il est éteint ou parti, le serveur pourra réattribuer l’adresse à expiration. On choisit des baux courts (1 à 4 heures) pour les réseaux invités où les appareils changent souvent, plus longs (8 heures à quelques jours) pour les postes fixes.</p>
+<h2 id="le-relais-dhcp-traverser-les-routeurs">Le relais DHCP : traverser les routeurs</h2>
+<p>Le Discover est un broadcast : il <strong>ne traverse pas</strong> les routeurs. Or on n’installe pas un serveur DHCP dans chaque VLAN. On configure donc sur la passerelle de chaque VLAN un <strong>relais</strong> qui transforme le broadcast en message dirigé vers le serveur central.</p>
+<figure class="schema"><svg viewBox="0 0 586.0 286.0" width="586.0" role="img" aria-label="Un serveur DHCP central pour tous les VLAN" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="293.0" y2="120.0"/><text class="tp-etiq" x="205.8" y="73.8" text-anchor="start">broadcast</text><line class="tp-lien " x1="110.0" y1="190.0" x2="293.0" y2="120.0"/><text class="tp-etiq" x="197.2" y="143.8" text-anchor="end">broadcast</text><line class="tp-lien actif" x1="293.0" y1="120.0" x2="476.0" y2="120.0"/><text class="tp-etiq" x="384.5" y="108.0" text-anchor="middle">unicast</text><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">Poste VLAN 10</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">Poste VLAN 20</text><g transform="translate(293.0 120.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="293.0" y="160.0" text-anchor="middle">Switch L3</text><text class="tp-sous" x="293.0" y="176.0" text-anchor="middle">relais DHCP sur chaque VLAN</text><g transform="translate(476.0 120.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="476.0" y="160.0" text-anchor="middle">Serveur DHCP</text><text class="tp-sous" x="476.0" y="176.0" text-anchor="middle">10.99.0.10</text></svg><figcaption>Un serveur DHCP central pour tous les VLAN</figcaption></figure>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>DHCP</strong> — Protocole qui attribue automatiquement la configuration réseau aux appareils.</li>
+<li><strong>Bail</strong> — Durée pendant laquelle une adresse est prêtée à un appareil.</li>
+<li><strong>Étendue</strong> — Plage d’adresses qu’un serveur DHCP peut distribuer pour un réseau ; <em>scope</em> ou <em>pool</em>.</li>
+<li><strong>Réservation</strong> — Adresse toujours attribuée au même appareil, identifié par son adresse MAC.</li>
+<li><strong>Relais DHCP</strong> — Fonction d’un routeur qui transmet les demandes DHCP vers un serveur situé dans un autre réseau.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un nouveau VLAN est créé. Les postes obtiennent une adresse en 169.254.x.x. Le serveur DHCP a bien une étendue pour ce VLAN. Que manque-t-il le plus souvent ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le <strong>relais DHCP</strong> (<code>ip helper-address</code>) sur l’interface du nouveau VLAN. Sans lui, le broadcast Discover reste dans le VLAN et n’atteint jamais le serveur.</p>
+</details>
+<p><strong>2.</strong> Pourquoi réserver l’adresse d’une imprimante plutôt que la configurer à la main ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La <strong>réservation</strong> garantit que l’imprimante reçoit toujours la même adresse, tout en gardant une <strong>gestion centralisée</strong> : changement de DNS, de passerelle ou de plan d’adressage au même endroit, et aucun risque de conflit avec une adresse distribuée.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-options-dhcp-courantes">Les options DHCP courantes</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Contenu</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>masque de sous-réseau</td>
+</tr>
+<tr>
+<td>3</td>
+<td>passerelle (routeur)</td>
+</tr>
+<tr>
+<td>6</td>
+<td>serveurs DNS</td>
+</tr>
+<tr>
+<td>15</td>
+<td>suffixe DNS (domaine)</td>
+</tr>
+<tr>
+<td>42</td>
+<td>serveurs NTP</td>
+</tr>
+<tr>
+<td>43</td>
+<td>informations propres au fabricant (souvent l’adresse du contrôleur Wi-Fi pour les bornes)</td>
+</tr>
+<tr>
+<td>51</td>
+<td>durée du bail</td>
+</tr>
+<tr>
+<td>66 / 67</td>
+<td>serveur et fichier de démarrage réseau (PXE, téléphones)</td>
+</tr>
+<tr>
+<td>82</td>
+<td>informations du relais (switch, port)</td>
+</tr>
+<tr>
+<td>150</td>
+<td>serveur TFTP (téléphones Cisco)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="c">! Relais sur la passerelle de chaque VLAN</span>
+interface Vlan10
+ ip address 10.10.0.1 255.255.255.0
+ ip helper-address 10.99.0.10
+ ip helper-address 10.99.0.11        ! second serveur, pour la redondance
+<span class="c">!</span>
+<span class="c">! Petit serveur DHCP sur un routeur d'agence</span>
+ip dhcp excluded-address 10.30.0.1 10.30.0.20
+ip dhcp pool INVITES
+ network 10.30.0.0 255.255.255.0
+ default-router 10.30.0.1
+ dns-server 10.99.0.53 10.99.0.54
+ lease 0 2                           ! 2 heures
+</code></pre>
+<div class="encadre note">
+<p class="encadre-titre">Bon à savoir</p>
+<p><code>ip helper-address</code> relaie aussi, par défaut, d’autres broadcasts UDP (TFTP, DNS, NetBIOS, TACACS…). On peut restreindre avec <code>no ip forward-protocol udp &lt;port&gt;</code>.</p>
+</div>
+<h2 id="verification-et-depannage">Vérification et dépannage</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip dhcp binding
+IP address      Client-ID/Hardware address   Lease expiration        Type
+10.30.0.21      0100.1a2b.3c4d.5e            Nov 15 2026 11:42 AM    Automatic
+<span class="k">R1#</span> show ip dhcp pool INVITES
+ Total addresses                : 254
+ Leased addresses               : 233
+ Excluded addresses             : 20
+<span class="k">R1#</span> show ip dhcp conflict
+<span class="k">R1#</span> debug ip dhcp server packet
+</code></pre>
+<pre><code class="language-powershell">C:\&gt; ipconfig /release
+C:\&gt; ipconfig /renew
+C:\&gt; ipconfig /all | findstr /i &quot;DHCP Bail Serveur&quot;
+</code></pre>
+<pre><code class="language-bash">$ sudo dhclient -v eth0          # ou : nmcli connection up &quot;Ethernet&quot;
+$ journalctl -u NetworkManager | grep -i dhcp
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Causes probables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>169.254.x.x</td>
+<td>pas de réponse : câble, VLAN, relais absent, serveur arrêté, DHCP Snooping qui bloque (uplink non « trusted », option 82)</td>
+</tr>
+<tr>
+<td>Adresse d’un mauvais réseau (192.168.0.x)</td>
+<td><strong>serveur DHCP pirate</strong> (box, routeur domestique) : voir <a href="../niveau-1/dhcp-snooping.html">DHCP Snooping</a></td>
+</tr>
+<tr>
+<td>Plus d’adresses pour les nouveaux venus</td>
+<td>étendue <strong>épuisée</strong> : baux trop longs pour un réseau invités, étendue trop petite</td>
+</tr>
+<tr>
+<td>Conflit d’adresse signalé</td>
+<td>une adresse de l’étendue est utilisée par un équipement configuré à la main : l’exclure</td>
+</tr>
+</tbody>
+</table>
+<h2 id="redondance-du-service">Redondance du service</h2>
+<ul>
+<li><strong>Deux serveurs avec basculement</strong> (<em>DHCP failover</em>, ISC Kea, Windows Server) : ils partagent l’état des baux.</li>
+<li>Méthode ancienne, encore courante : <strong>découper l’étendue</strong> entre deux serveurs (80/20) sans synchronisation.</li>
+<li>Dans tous les cas : déclarer <strong>deux</strong> <code>ip helper-address</code>.</li>
+</ul>
+<h2 id="dhcpv6-en-bref">DHCPv6 en bref</h2>
+<p>En IPv6, la passerelle vient toujours des <strong>annonces de routeur</strong> ; DHCPv6 fournit les adresses (mode avec état) ou seulement les options comme le DNS (mode sans état). Ports UDP 546 (client) et 547 (serveur), messages SOLICIT, ADVERTISE, REQUEST, REPLY. Voir <a href="../niveau-2/ipv6-pratique.html">IPv6 en pratique</a>.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Le réseau invités (/24, bail de 8 jours) refuse de nouveaux appareils chaque vendredi après-midi. Pourquoi, et que corriger ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Des centaines de visiteurs passent dans la semaine ; chacun garde son adresse <strong>8 jours</strong>, même parti. L’étendue de 254 adresses est <strong>épuisée</strong>. Réduire le bail (1 à 2 heures) et, si besoin, agrandir le réseau (/23 ou /22).</p>
+</details>
+<p><strong>2.</strong> Après l’activation du DHCP Snooping, les postes ne reçoivent plus d’adresse, alors que l’uplink est bien « trusted ». Le relais est un routeur Cisco. Quelle piste ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>L’<strong>option 82</strong> insérée par le switch. Le relais reçoit une requête avec l’option 82 et une adresse <code>giaddr</code> nulle, et la <strong>rejette</strong> par défaut. Solutions : <code>no ip dhcp snooping information option</code> sur le switch, ou <code>ip dhcp relay information trusted</code> sur l’interface du relais.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/dns-avance.html"><small>Fiche précédente</small><strong>DNS approfondi</strong></a><a class="apres" href="../niveau-3/nat.html"><small>Fiche suivante</small><strong>NAT</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-configurer-500-postes-a-la-main">Le problème : configurer 500 postes à la main</a><a href="#comment-ca-marche-dora">Comment ça marche : DORA</a><a href="#le-bail">Le bail</a><a href="#le-relais-dhcp-traverser-les-routeurs">Le relais DHCP : traverser les routeurs</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-options-dhcp-courantes">Les options DHCP courantes</a><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#verification-et-depannage">Vérification et dépannage</a><a href="#redondance-du-service">Redondance du service</a><a href="#dhcpv6-en-bref">DHCPv6 en bref</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

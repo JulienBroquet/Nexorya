@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WAF — Pare-feu applicatif Web | Nexorya</title>
+<meta name="description" content="Un WAF se place devant une application Web et bloque les requêtes malveillantes — injections SQL, scripts, accès anormaux — avant qu’elles n’atteignent le serveur.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf" aria-current="page">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/waf">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-4">Détecter et bloquer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>WAF</h1><p class="nom-complet">Pare-feu applicatif Web</p>
+<p class="idee">Un WAF se place devant une application Web et bloque les requêtes malveillantes — injections SQL, scripts, accès anormaux — avant qu’elles n’atteignent le serveur.</p><div class="badges"><span>Couche OSI 7</span><span>Découvrir : 5 min</span><span>Approfondir : 10 min</span><span>Avant : <a href="../niveau-3/http.html">HTTP</a>, <a href="../niveau-3/proxy.html">Proxy et répartiteur de charge</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Un portail client est publié sur Internet. Il reçoit chaque jour des requêtes piégées : un champ « nom » qui contient du code SQL pour lire toute la base de données, un commentaire qui contient un script pour voler les sessions des autres visiteurs. Le pare-feu réseau laisse tout passer : c’est du HTTPS vers le port 443, parfaitement autorisé.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le WAF lit chaque requête HTTP comme le ferait l’application, et rejette celles qui ressemblent à une attaque.</p>
+</div>
+<h2 id="exemple">Exemple</h2>
+<pre><code class="language-text">GET /clients?nom=Dupont' OR '1'='1 HTTP/1.1
+Host: portail.exemple.fr
+</code></pre>
+<p>Un WAF reconnaît le motif d’<strong>injection SQL</strong> (<code>' OR '1'='1</code>) et renvoie un refus (403), sans transmettre la requête au serveur.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>WAF</strong> — <em>Web Application Firewall</em>, filtre qui protège une application Web au niveau HTTP.</li>
+<li><strong>Injection SQL</strong> — Attaque qui glisse des commandes de base de données dans un champ de saisie.</li>
+<li><strong>XSS</strong> — <em>Cross-Site Scripting</em>, attaque qui injecte un script exécuté dans le navigateur des autres utilisateurs.</li>
+<li><strong>Patch virtuel</strong> — Règle WAF qui bloque l’exploitation d’une vulnérabilité en attendant la correction de l’application.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi un pare-feu réseau classique ne voit-il pas une injection SQL ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Il ne regarde que les adresses, les ports et éventuellement l’application (HTTPS), et le trafic est <strong>chiffré</strong>. L’attaque se trouve dans le <strong>contenu</strong> de la requête HTTP déchiffrée. Seul un équipement qui termine TLS et lit HTTP (WAF, reverse proxy) peut la reconnaître.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="ou-placer-un-waf">Où placer un WAF</h2>
+<ul>
+<li><strong>Intégré au reverse proxy ou au répartiteur de charge</strong> (ModSecurity, modules des load balancers commerciaux).</li>
+<li><strong>Service cloud</strong> devant le site (qui absorbe aussi les attaques par déni de service).</li>
+<li><strong>Dans le pare-feu NGFW</strong>, pour des besoins simples.</li>
+</ul>
+<p>Dans tous les cas, il doit <strong>voir le trafic en clair</strong> : il termine TLS lui-même, ou reçoit le trafic déchiffré.</p>
+<h2 id="regles-et-reglage">Règles et réglage</h2>
+<ul>
+<li>Les jeux de règles génériques (comme l’<strong>OWASP Core Rule Set</strong>) couvrent les attaques classiques.</li>
+<li>On démarre en mode <strong>détection</strong>, on analyse les faux positifs (un champ « commentaire » qui contient légitimement des apostrophes), on crée des exceptions <strong>précises</strong>, puis on passe en <strong>blocage</strong>.</li>
+<li>Le <strong>patch virtuel</strong> permet de bloquer l’exploitation d’une faille publiée le jour même, en attendant la mise à jour de l’application.</li>
+</ul>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Après l’activation du WAF en blocage, les clients ne peuvent plus enregistrer de commentaires contenant le mot « select ». Que faire ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>C’est un <strong>faux positif</strong> de la règle d’injection SQL. Créer une exception <strong>ciblée</strong> : désactiver cette règle uniquement pour le paramètre « commentaire » de cette page, plutôt que pour tout le site. Vérifier en parallèle que l’application utilise bien des requêtes paramétrées (vraie protection contre l’injection).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/ngfw.html"><small>Fiche précédente</small><strong>NGFW</strong></a><a class="apres" href="../niveau-4/doh.html"><small>Fiche suivante</small><strong>DoH</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#exemple">Exemple</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#ou-placer-un-waf">Où placer un WAF</a><a href="#regles-et-reglage">Règles et réglage</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WAN — Relier des sites éloignés | Nexorya</title>
+<meta name="description" content="Le WAN relie les sites d’une entreprise répartis dans une région, un pays ou le monde, à travers des réseaux d’opérateurs ou Internet.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan" aria-current="page">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/wan">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-1">Du bâtiment au monde</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>WAN</h1><p class="nom-complet">Relier des sites éloignés</p>
+<p class="idee">Le WAN relie les sites d’une entreprise répartis dans une région, un pays ou le monde, à travers des réseaux d’opérateurs ou Internet.</p><div class="badges"><span>Couche OSI 1 à 3</span><span>Découvrir : 7 min</span><span>Approfondir : 14 min</span><span>Avant : <a href="../niveau-5/man.html">MAN</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Une chaîne de magasins a un siège et 120 boutiques dans tout le pays. Chaque boutique doit joindre les applications du siège (caisse, stocks), Internet et le cloud. On ne tire pas de fibre privée sur 800 km : on utilise des réseaux d’opérateurs.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le WAN relie des sites lointains en s’appuyant sur des réseaux d’opérateurs ; il faut y composer avec une capacité limitée, une latence plus élevée et des pannes qu’on ne maîtrise pas directement.</p>
+</div>
+<h2 id="les-options">Les options</h2>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Principe</th>
+<th>Avantages</th>
+<th>Limites</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MPLS VPN</strong> (L3VPN)</td>
+<td>l’opérateur route les sites de l’entreprise dans un réseau privé virtuel</td>
+<td>qualité de service garantie, contrat</td>
+<td>coût, délais de mise en service</td>
+</tr>
+<tr>
+<td><strong>Internet + VPN</strong> (IPsec)</td>
+<td>chaque site a un accès Internet et des tunnels chiffrés</td>
+<td>coût faible, disponibilité partout</td>
+<td>qualité non garantie</td>
+</tr>
+<tr>
+<td><strong>4G/5G</strong></td>
+<td>accès mobile</td>
+<td>rapide à installer, secours</td>
+<td>débit variable, volume</td>
+</tr>
+<tr>
+<td><strong>Liaison louée / Ethernet point à point</strong></td>
+<td>lien dédié entre deux sites</td>
+<td>prévisible</td>
+<td>coût, rigidité</td>
+</tr>
+<tr>
+<td><strong>Satellite</strong> (orbite basse)</td>
+<td>accès partout</td>
+<td>sites isolés</td>
+<td>latence et météo (selon la technologie)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="topologies">Topologies</h2>
+<ul>
+<li><strong>Étoile</strong> (<em>hub and spoke</em>) : chaque site est relié au siège. Simple, mais le trafic entre deux agences passe par le siège.</li>
+<li><strong>Maillage complet</strong> : chaque site est relié à tous les autres. Direct, mais le nombre de tunnels explose (n × (n − 1) / 2).</li>
+<li><strong>Maillage dynamique</strong> : étoile pour le contrôle, tunnels directs créés à la demande entre agences (DMVPN, SD-WAN).</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>WAN</strong> — <em>Wide Area Network</em>, réseau qui relie des sites éloignés.</li>
+<li><strong>Hub and spoke</strong> — Topologie en étoile, avec un site central (hub) et des sites périphériques (spokes).</li>
+<li><strong>Multihoming</strong> — Raccordement d’un site à plusieurs accès ou opérateurs.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi un appel vidéo entre deux agences d’un WAN en étoile est-il parfois de mauvaise qualité, alors que chaque agence a un bon accès ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le flux passe par le <strong>siège</strong> : il traverse deux liens WAN au lieu d’un, ce qui double la latence et consomme la capacité du siège. Un maillage dynamique (tunnels directs entre agences) règle ce problème.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="dimensionner-un-lien-wan">Dimensionner un lien WAN</h2>
+<ol>
+<li><strong>Mesurer</strong> le trafic actuel (NetFlow, supervision) aux heures de pointe, pas en moyenne.</li>
+<li><strong>Lister</strong> les flux critiques et leurs besoins : voix (débit et gigue), applications métier (latence), sauvegardes (volume, plage horaire).</li>
+<li><strong>Ajouter</strong> la croissance et les usages cloud (visioconférence, SaaS).</li>
+<li><strong>Prévoir la QoS</strong> : sur un lien WAN, la congestion est normale ; c’est la QoS qui décide qui passe d’abord. Voir <a href="qos.html">QoS</a>.</li>
+</ol>
+<h2 id="ce-que-la-distance-change">Ce que la distance change</h2>
+<p>Latence aller-retour typique : Paris–Lyon ≈ 10 ms, Paris–New York ≈ 75 ms, Paris–Singapour ≈ 160 ms. Les applications bavardes (beaucoup d’allers-retours, comme SMB ou certains clients lourds) deviennent lentes au-delà de quelques dizaines de millisecondes, quel que soit le débit. Solutions : publier l’application en mode Web ou bureau à distance, mettre des caches locaux, rapprocher les données.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Une entreprise de 40 agences veut relier toutes ses agences entre elles en maillage complet avec IPsec statique. Combien de tunnels faut-il, et quelle alternative ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>40 × 39 / 2 = <strong>780 tunnels</strong> à configurer et maintenir. Alternative : une architecture en étoile avec tunnels directs <strong>dynamiques</strong> (DMVPN) ou un <strong>SD-WAN</strong> qui crée et gère ces tunnels automatiquement.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/man.html"><small>Fiche précédente</small><strong>MAN</strong></a><a class="apres" href="../niveau-5/sd-wan.html"><small>Fiche suivante</small><strong>SD-WAN</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#les-options">Les options</a><a href="#topologies">Topologies</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#dimensionner-un-lien-wan">Dimensionner un lien WAN</a><a href="#ce-que-la-distance-change">Ce que la distance change</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Multicast — Envoyer à un groupe de récepteurs | Nexorya</title>
+<meta name="description" content="Le multicast envoie un flux une seule fois vers une adresse de groupe ; le réseau le recopie seulement là où se trouvent des récepteurs intéressés.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast" aria-current="page">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/multicast">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-6">Diffuser à plusieurs, le multicast</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Multicast</h1><p class="nom-complet">Envoyer à un groupe de récepteurs</p>
+<p class="idee">Le multicast envoie un flux une seule fois vers une adresse de groupe ; le réseau le recopie seulement là où se trouvent des récepteurs intéressés.</p><div class="badges"><span>Couche OSI 3</span><span>Découvrir : 8 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-2/ipv4.html">IPv4</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-300-ecrans-un-meme-flux">Le problème : 300 écrans, un même flux</h2>
+<p>Le directeur fait une intervention vidéo diffusée en direct dans 300 bureaux. En <strong>unicast</strong>, le serveur devrait envoyer 300 copies identiques du flux : à 5 Mb/s chacune, cela fait 1,5 Gb/s qui sortent du serveur et traversent les mêmes liens. En <strong>broadcast</strong>, le flux arriverait aussi chez les milliers de machines qui ne le regardent pas, et ne traverserait pas les routeurs.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>En multicast, la source envoie <strong>une seule copie</strong> vers une adresse de groupe ; les routeurs et les switches la <strong>dupliquent</strong> seulement aux embranchements qui mènent à des récepteurs abonnés.</p>
+</div>
+<h2 id="trois-facons-denvoyer">Trois façons d’envoyer</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Destinataire</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Unicast</strong></td>
+<td>une seule machine</td>
+<td>consulter un site Web</td>
+</tr>
+<tr>
+<td><strong>Broadcast</strong></td>
+<td>toutes les machines du réseau local</td>
+<td>requête ARP</td>
+</tr>
+<tr>
+<td><strong>Multicast</strong></td>
+<td>les machines <strong>abonnées</strong> à un groupe, où qu’elles soient</td>
+<td>télévision sur IP, diffusion vidéo interne, cotations boursières, protocoles de routage</td>
+</tr>
+</tbody>
+</table>
+<figure class="schema"><svg viewBox="0 0 586.0 566.0" width="586.0" role="img" aria-label="Une seule copie par lien, dupliquée aux embranchements" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien actif" x1="354.0" y1="50.0" x2="354.0" y2="190.0"/><text class="tp-etiq" x="366.0" y="124.0" text-anchor="start">1 copie</text><line class="tp-lien actif" x1="354.0" y1="190.0" x2="232.0" y2="330.0"/><text class="tp-etiq" x="284.0" y="252.1" text-anchor="end">1 copie</text><line class="tp-lien " x1="354.0" y1="190.0" x2="476.0" y2="330.0"/><text class="tp-etiq" x="424.0" y="252.1" text-anchor="start">rien</text><line class="tp-lien actif" x1="232.0" y1="330.0" x2="171.0" y2="470.0"/><line class="tp-lien actif" x1="232.0" y1="330.0" x2="293.0" y2="470.0"/><line class="tp-lien " x1="476.0" y1="330.0" x2="476.0" y2="470.0"/><g transform="translate(354.0 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">Source vidéo</text><text class="tp-sous" x="354.0" y="106.0" text-anchor="middle">groupe 239.1.1.1</text><g transform="translate(354.0 190.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="354.0" y="230.0" text-anchor="middle">R1</text><g transform="translate(232.0 330.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="232.0" y="370.0" text-anchor="middle">R2</text><g transform="translate(476.0 330.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="476.0" y="370.0" text-anchor="middle">R3</text><g transform="translate(171.0 470.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="171.0" y="510.0" text-anchor="middle">Abonné</text><g transform="translate(293.0 470.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="293.0" y="510.0" text-anchor="middle">Abonné</text><g transform="translate(476.0 470.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="476.0" y="510.0" text-anchor="middle">Pas abonné</text></svg><figcaption>Une seule copie par lien, dupliquée aux embranchements</figcaption></figure>
+<h2 id="comment-ca-marche-en-trois-briques">Comment ça marche, en trois briques</h2>
+<ol>
+<li><strong>Les adresses de groupe.</strong> Un groupe est une adresse IP spéciale, dans la plage <code>224.0.0.0</code> à <code>239.255.255.255</code>. La source envoie ses paquets vers cette adresse.</li>
+<li><strong>L’abonnement.</strong> Un poste qui veut recevoir le flux le signale à son routeur avec <a href="igmp.html">IGMP</a> (ou <a href="mld.html">MLD</a> en IPv6) : « je rejoins le groupe 239.1.1.1 ».</li>
+<li><strong>La distribution.</strong> Les routeurs s’échangent ces abonnements avec <a href="pim.html">PIM</a> et construisent un <strong>arbre</strong> de la source vers les abonnés.</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Multicast</strong> — Envoi d’un même flux vers un groupe de récepteurs abonnés.</li>
+<li><strong>Groupe multicast</strong> — Adresse IP de classe D (224.0.0.0/4) qui désigne les récepteurs d’un flux.</li>
+<li><strong>Abonnement</strong> — Signalement par un poste qu’il veut recevoir un groupe ; on dit aussi « rejoindre le groupe ».</li>
+<li><strong>Arbre de distribution</strong> — Chemin construit par les routeurs pour acheminer un flux de la source vers les abonnés.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi le multicast économise-t-il de la bande passante sur le lien qui sort du serveur ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que le serveur envoie <strong>une seule copie</strong> du flux, quel que soit le nombre de récepteurs. La duplication est faite plus loin, par les routeurs et les switches, aux embranchements de l’arbre.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-plages-dadresses">Les plages d’adresses</h2>
+<table>
+<thead>
+<tr>
+<th>Plage</th>
+<th>Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>224.0.0.0/24</td>
+<td><strong>lien local</strong>, jamais routé : 224.0.0.5/6 OSPF, 224.0.0.9 RIP, 224.0.0.13 PIM, 224.0.0.22 IGMPv3, 224.0.0.102 HSRPv2</td>
+</tr>
+<tr>
+<td>232.0.0.0/8</td>
+<td><strong>SSM</strong> (<em>Source-Specific Multicast</em>)</td>
+</tr>
+<tr>
+<td>239.0.0.0/8</td>
+<td><strong>portée administrative</strong> : l’équivalent des adresses privées, pour les flux internes</td>
+</tr>
+<tr>
+<td>reste de 224.0.0.0/4</td>
+<td>groupes globaux attribués</td>
+</tr>
+</tbody>
+</table>
+<h2 id="de-ladresse-ip-a-ladresse-mac">De l’adresse IP à l’adresse MAC</h2>
+<p>Une adresse IP multicast correspond à une adresse MAC multicast : préfixe <code>01:00:5e</code>, puis les <strong>23 bits de poids faible</strong> de l’adresse IP.</p>
+<pre><code class="language-text">239.1.1.1 → 01:00:5e:01:01:01
+224.1.1.1 → 01:00:5e:01:01:01   (même MAC !)
+</code></pre>
+<p>Comme 5 bits de l’adresse IP sont perdus, <strong>32 groupes IP</strong> partagent chaque adresse MAC. Une carte réseau peut donc recevoir des flux qu’elle n’a pas demandés ; c’est la pile IP qui les écarte. Choisir ses groupes en évitant les collisions avec 224.0.0.x (souvent traités spécialement par les switches) est une bonne pratique.</p>
+<p>En IPv6 : <code>33:33</code> + les 32 derniers bits de l’adresse.</p>
+<h2 id="asm-et-ssm">ASM et SSM</h2>
+<ul>
+<li><strong>ASM</strong> (<em>Any-Source Multicast</em>) : le récepteur rejoint un groupe, sans préciser la source. Le réseau doit découvrir les sources : on a besoin d’un <strong>point de rendez-vous</strong> (RP). Plus complexe.</li>
+<li><strong>SSM</strong> (<em>Source-Specific Multicast</em>) : le récepteur demande « le groupe G <strong>de la source S</strong> ». Pas de RP, arbre direct, plus simple et plus sûr. Il exige IGMPv3 (ou MLDv2) côté récepteurs. C’est le choix recommandé pour la télévision sur IP et les diffusions internes dont on connaît la source.</li>
+</ul>
+<h2 id="le-multicast-dans-un-vlan-igmp-snooping">Le multicast dans un VLAN : IGMP Snooping</h2>
+<p>Un switch traite par défaut une trame multicast comme un broadcast : il l’<strong>inonde</strong> sur tous les ports du VLAN. Avec <strong>IGMP Snooping</strong>, il écoute les abonnements IGMP qui passent et n’envoie chaque groupe qu’aux ports concernés. C’est indispensable dès qu’on transporte de la vidéo. Voir <a href="igmp.html">IGMP</a>.</p>
+<h2 id="diagnostic-les-questions-dans-lordre">Diagnostic : les questions dans l’ordre</h2>
+<ol>
+<li>La <strong>source</strong> émet-elle (capture, compteurs) ? Avec quel <strong>TTL</strong> (un TTL de 1 ne dépassera pas le premier routeur) ?</li>
+<li>Le <strong>récepteur</strong> s’abonne-t-il (IGMP Report visible) ?</li>
+<li>Le <strong>routeur du récepteur</strong> a-t-il l’abonnement (<code>show ip igmp groups</code>) ?</li>
+<li>Les <strong>routeurs</strong> ont-ils construit l’arbre (<code>show ip mroute</code>) ? Le contrôle <strong>RPF</strong> passe-t-il ?</li>
+<li>Les <strong>switches</strong> transmettent-ils au bon port (<code>show ip igmp snooping groups</code>) ?</li>
+</ol>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Une source émet vers 239.10.10.10 avec un TTL de 1. Les récepteurs du même VLAN reçoivent le flux, ceux d’un autre site non. Pourquoi ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le premier routeur décrémente le TTL à 0 et <strong>jette</strong> les paquets : le flux ne quitte jamais le VLAN de la source. Il faut que l’application émette avec un TTL suffisant (par exemple 16 ou 32), en plus du routage multicast (PIM) entre les sites.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/ipsla.html"><small>Fiche précédente</small><strong>IP SLA et suivi</strong></a><a class="apres" href="../niveau-2/igmp.html"><small>Fiche suivante</small><strong>IGMP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-300-ecrans-un-meme-flux">Le problème : 300 écrans, un même flux</a><a href="#trois-facons-denvoyer">Trois façons d’envoyer</a><a href="#comment-ca-marche-en-trois-briques">Comment ça marche, en trois briques</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-plages-dadresses">Les plages d’adresses</a><a href="#de-ladresse-ip-a-ladresse-mac">De l’adresse IP à l’adresse MAC</a><a href="#asm-et-ssm">ASM et SSM</a><a href="#le-multicast-dans-un-vlan-igmp-snooping">Le multicast dans un VLAN : IGMP Snooping</a><a href="#diagnostic-les-questions-dans-lordre">Diagnostic : les questions dans l’ordre</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

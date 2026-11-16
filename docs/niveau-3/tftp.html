@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>TFTP — Trivial File Transfer Protocol | Nexorya</title>
+<meta name="description" content="TFTP est un transfert de fichiers minimal, sans authentification, sur UDP ; il sert à démarrer des équipements par le réseau et à charger des configurations ou des micrologiciels.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp" aria-current="page">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/tftp">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-5">Transférer, partager, s’identifier</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>TFTP</h1><p class="nom-complet">Trivial File Transfer Protocol</p>
+<p class="idee">TFTP est un transfert de fichiers minimal, sans authentification, sur UDP ; il sert à démarrer des équipements par le réseau et à charger des configurations ou des micrologiciels.</p><div class="badges"><span>Couche OSI 7 (UDP 69)</span><span>Découvrir : 4 min</span><span>Approfondir : 8 min</span><span>Avant : <a href="../niveau-3/udp.html">UDP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Un téléphone IP qui démarre, un PC qui s’installe par le réseau (PXE), un switch qu’on restaure : ces équipements ont très peu de mémoire et de logiciel au démarrage. Il leur faut un protocole de transfert <strong>minuscule</strong>, simple à programmer.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>TFTP demande un fichier par son nom et le reçoit en blocs numérotés, sur UDP, sans aucune authentification.</p>
+</div>
+<h2 id="ou-on-le-rencontre">Où on le rencontre</h2>
+<ul>
+<li><strong>PXE</strong> : un PC sans système démarre, obtient une adresse par DHCP (options 66/67), puis télécharge son programme de démarrage en TFTP.</li>
+<li><strong>Téléphones IP</strong> : ils récupèrent leur configuration et leur micrologiciel au démarrage (option DHCP 150 chez Cisco).</li>
+<li><strong>Équipements réseau</strong> : sauvegarde et restauration de configurations, chargement d’images logicielles en laboratoire.</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>TFTP</strong> — Protocole de transfert de fichiers très simple, sur UDP, sans authentification.</li>
+<li><strong>PXE</strong> — <em>Preboot Execution Environment</em>, démarrage d’un ordinateur par le réseau.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi ne faut-il pas laisser un serveur TFTP accessible depuis tout le réseau ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que n’importe qui peut y <strong>lire</strong> (et parfois <strong>écrire</strong>) des fichiers sans s’authentifier. Il contient souvent des <strong>configurations</strong> d’équipements, avec des secrets. On le limite aux réseaux et aux équipements qui en ont besoin, et l’on préfère SCP ou SFTP pour les sauvegardes.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="fonctionnement">Fonctionnement</h2>
+<p>Le client envoie une requête de lecture (<strong>RRQ</strong>) ou d’écriture (<strong>WRQ</strong>) vers le <strong>port 69</strong> du serveur. Le serveur répond <strong>depuis un autre port</strong>, choisi pour ce transfert : c’est là que les pare-feu sans inspection TFTP échouent. Le fichier est envoyé en blocs de 512 octets (davantage avec l’option <em>blksize</em>), chacun acquitté avant le suivant : TFTP est lent sur un lien à forte latence.</p>
+<h2 id="commandes-utiles">Commandes utiles</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> copy running-config tftp://10.99.0.70/sw1-2026-11-15.cfg
+<span class="k">SW1#</span> copy tftp://10.99.0.70/c9300-17.09.04.bin flash:
+<span class="c">! Plus sûr pour les sauvegardes :</span>
+<span class="k">SW1#</span> copy running-config scp://sauvegarde@10.99.0.70/sw1.cfg
+</code></pre>
+<pre><code class="language-bash">$ tftp 10.99.0.70 -c get phone-config.xml
+</code></pre>
+<h2 id="exercice">Exercice</h2>
+<p><strong>L’installation PXE d’un PC s’arrête après « TFTP… » avec un délai d’attente, alors que le DHCP fonctionne. Que vérifier ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Les options DHCP <strong>66/67</strong> (serveur et nom de fichier), la joignabilité du serveur TFTP depuis le VLAN du PC, et le <strong>filtrage</strong> : le pare-feu doit laisser passer l’UDP 69 <strong>et</strong> les réponses depuis les ports dynamiques du serveur (inspection TFTP ou règle adaptée).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/ftp.html"><small>Fiche précédente</small><strong>FTP</strong></a><a class="apres" href="../niveau-3/sftp.html"><small>Fiche suivante</small><strong>SFTP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#ou-on-le-rencontre">Où on le rencontre</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#fonctionnement">Fonctionnement</a><a href="#commandes-utiles">Commandes utiles</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>QUIC — Le transport moderne de HTTP/3 | Nexorya</title>
+<meta name="description" content="QUIC réunit en un seul protocole, au-dessus d’UDP, ce que faisaient TCP et TLS — connexion fiable, chiffrement, flux multiples — avec des connexions plus rapides à établir.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic" aria-current="page">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/quic">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-3">Le Web et le chiffrement</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>QUIC</h1><p class="nom-complet">Le transport moderne de HTTP/3</p>
+<p class="idee">QUIC réunit en un seul protocole, au-dessus d’UDP, ce que faisaient TCP et TLS — connexion fiable, chiffrement, flux multiples — avec des connexions plus rapides à établir.</p><div class="badges"><span>Couche OSI 4 (sur UDP 443)</span><span>Découvrir : 6 min</span><span>Approfondir : 14 min</span><span>Avant : <a href="../niveau-3/tcp.html">TCP</a>, <a href="../niveau-3/tls.html">TLS</a>, <a href="../niveau-3/udp.html">UDP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-tcp-tls-cest-lent-a-demarrer">Le problème : TCP + TLS, c’est lent à démarrer</h2>
+<p>Pour charger une page en HTTPS classique, il faut d’abord la poignée de main TCP, puis la négociation TLS : plusieurs allers-retours avant la première donnée. Et avec HTTP/2, toutes les requêtes passent dans <strong>une seule</strong> connexion TCP : un seul paquet perdu bloque tout le monde jusqu’à sa retransmission.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>QUIC refait TCP et TLS ensemble, au-dessus d’UDP : la connexion s’ouvre en un aller-retour, chaque requête a son propre flux, et une perte n’arrête que le flux touché.</p>
+</div>
+<h2 id="ce-que-quic-apporte">Ce que QUIC apporte</h2>
+<table>
+<thead>
+<tr>
+<th>Problème avec TCP + TLS</th>
+<th>Réponse de QUIC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2 à 3 allers-retours avant la première donnée</td>
+<td>1 aller-retour (0 en reprise de session)</td>
+</tr>
+<tr>
+<td>Une perte bloque tous les flux HTTP/2</td>
+<td>flux indépendants</td>
+</tr>
+<tr>
+<td>Changer de réseau casse la connexion (l’adresse IP change)</td>
+<td>identifiant de connexion indépendant de l’adresse</td>
+</tr>
+<tr>
+<td>En-têtes TCP visibles et modifiables par les équipements intermédiaires</td>
+<td>en-têtes chiffrés : le protocole peut évoluer sans être cassé par le réseau</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>QUIC</strong> — Protocole de transport chiffré et fiable construit sur UDP, utilisé par HTTP/3.</li>
+<li><strong>HTTP/3</strong> — Version de HTTP transportée par QUIC.</li>
+<li><strong>Blocage en tête de file</strong> — Situation où une donnée perdue retarde toutes les suivantes ; <em>head-of-line blocking</em>.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Un pare-feu d’entreprise bloque UDP 443. Les utilisateurs peuvent-ils encore consulter les sites qui proposent HTTP/3 ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Oui.</strong> Les navigateurs tentent QUIC, constatent l’échec, et reviennent à <strong>HTTP/2 sur TCP 443</strong>. Certaines entreprises bloquent volontairement QUIC pour que tout le trafic Web passe par leur proxy ou leur inspection TLS, qui ne gèrent pas toujours QUIC.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="comment-un-navigateur-decouvre-http-3">Comment un navigateur découvre HTTP/3</h2>
+<p>La première visite se fait en HTTP/2 sur TCP. Le serveur annonce dans sa réponse qu’il propose aussi HTTP/3 (en-tête <code>Alt-Svc: h3=":443"</code>, ou enregistrement DNS <strong>HTTPS</strong>). Les connexions suivantes tentent QUIC.</p>
+<pre><code class="language-bash">$ curl -sI https://www.exemple.fr | grep -i alt-svc
+alt-svc: h3=&quot;:443&quot;; ma=86400
+$ curl --http3 -sI https://www.exemple.fr | head -1     # nécessite un curl compilé avec HTTP/3
+HTTP/3 200
+</code></pre>
+<h2 id="consequences-pour-lexploitation">Conséquences pour l’exploitation</h2>
+<ul>
+<li><strong>Visibilité réduite</strong> : un pare-feu ne voit plus l’état de la connexion (pas de SYN, de FIN) et ne peut lire que peu d’informations. Les outils qui reposaient sur l’observation de TCP (mesure de latence passive, détection de retransmissions) perdent leur source.</li>
+<li><strong>Filtrage</strong> : les NGFW récents savent identifier QUIC et parfois l’inspecter ; sinon, la politique est souvent de le bloquer pour forcer le repli en TCP.</li>
+<li><strong>Équilibrage de charge</strong> : l’identifiant de connexion permet de router un client vers le même serveur même si son adresse change ; les répartiteurs doivent le comprendre.</li>
+<li><strong>Performances</strong> : QUIC est traité dans l’application (en espace utilisateur), ce qui coûte plus de processeur que TCP traité par le noyau et les cartes réseau.</li>
+</ul>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un utilisateur sur son téléphone passe du Wi-Fi du bureau à la 4G en plein appel vidéo dans le navigateur. Avec QUIC, que se passe-t-il pour la connexion, et pourquoi ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La connexion <strong>continue</strong> : QUIC identifie la connexion par un <strong>identifiant</strong> propre, et non par le couple adresses/ports. Quand l’adresse change, le client poursuit avec le même identifiant, après une validation du nouveau chemin. Avec TCP, la connexion aurait été coupée, puis rouverte.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/https.html"><small>Fiche précédente</small><strong>HTTPS</strong></a><a class="apres" href="../niveau-3/dot.html"><small>Fiche suivante</small><strong>DoT</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-tcp-tls-cest-lent-a-demarrer">Le problème : TCP + TLS, c’est lent à démarrer</a><a href="#ce-que-quic-apporte">Ce que QUIC apporte</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#comment-un-navigateur-decouvre-http-3">Comment un navigateur découvre HTTP/3</a><a href="#consequences-pour-lexploitation">Conséquences pour l’exploitation</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

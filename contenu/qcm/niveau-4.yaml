@@ -1,0 +1,302 @@
+# QCM du niveau 4 — Sécurité et identité. Format : voir CONTRIBUTING.md.
+# La bonne réponse est écrite en premier ; le générateur mélange les propositions.
+niveau: 4
+titre: "Sécurité et identité"
+questions:
+
+- niveau: "Découverte"
+  situation: "Un salarié quitte l’entreprise. Le Wi-Fi des employés utilise un mot de passe partagé par tous."
+  question: "Quelle solution évite d’avoir à changer ce mot de passe pour tout le monde à chaque départ ?"
+  bonne: ["Passer en WPA-Entreprise (802.1X) avec une identité par utilisateur", "Chaque salarié s’authentifie avec son compte ; il suffit de désactiver ce compte pour lui retirer l’accès."]
+  fausses:
+    - ["Masquer le nom du réseau (SSID)", "Un SSID masqué reste visible pour qui le cherche, et le mot de passe reste partagé."]
+    - ["Changer de canal Wi-Fi", "Le canal n’a aucun rapport avec l’authentification."]
+    - ["Filtrer par adresse MAC", "Les adresses MAC se copient facilement, et la liste devient ingérable."]
+  retenir: "Départ d’un salarié → désactiver un compte, pas changer un secret partagé."
+  fiche: "wpa-entreprise"
+
+- niveau: "Découverte"
+  situation: "Un utilisateur se connecte avec son mot de passe puis répond à une question secrète."
+  question: "S’agit-il d’une authentification multifacteur ?"
+  bonne: ["Non, les deux preuves sont de la même famille (connaissance)", "Une MFA combine des facteurs de familles différentes : ce que l’on sait, ce que l’on possède, ce que l’on est."]
+  fausses:
+    - ["Oui, car il y a deux étapes", "Le nombre d’étapes ne suffit pas : il faut des natures de preuve différentes."]
+    - ["Oui, si la question secrète est difficile", "La difficulté ne change pas la famille du facteur."]
+    - ["Non, une MFA exige trois facteurs", "Deux facteurs de familles différentes suffisent."]
+  retenir: "MFA = au moins deux familles de facteurs différentes."
+  fiche: "mfa"
+
+- niveau: "Découverte"
+  situation: "Une prise réseau d’une salle de réunion doit rester inutilisable tant que l’appareil branché n’a pas prouvé son identité."
+  question: "Quelle technologie répond à ce besoin ?"
+  bonne: ["802.1X", "Le port reste fermé à tout sauf aux échanges d’authentification, jusqu’à ce que le serveur RADIUS valide l’appareil."]
+  fausses:
+    - ["Le Spanning Tree", "STP empêche les boucles, il ne vérifie aucune identité."]
+    - ["Le PoE", "Le PoE fournit l’alimentation électrique."]
+    - ["Le VLAN natif", "Le VLAN natif concerne les trunks, pas l’authentification des appareils."]
+  retenir: "Prise fermée tant que l’appareil n’est pas authentifié → 802.1X."
+  fiche: "802-1x"
+
+- niveau: "Découverte"
+  situation: "Deux agences d’une entreprise échangent des données à travers Internet."
+  question: "Quelle technologie protège ces échanges entre les deux routeurs ?"
+  bonne: ["Un VPN site à site IPsec", "IPsec chiffre et authentifie les paquets entre les deux sites ; Internet ne voit que des données illisibles."]
+  fausses:
+    - ["Un VLAN commun aux deux sites", "Un VLAN n’offre aucun chiffrement et ne s’étend pas tel quel à travers Internet."]
+    - ["Le DHCP Snooping", "Le DHCP Snooping protège un réseau local contre les faux serveurs DHCP."]
+    - ["Le NAT", "Le NAT traduit des adresses, il ne chiffre rien."]
+  retenir: "Relier deux sites par Internet en sécurité → VPN IPsec."
+  fiche: "ipsec"
+
+- niveau: "Découverte"
+  situation: "Le VLAN invités et le VLAN des serveurs sont reliés par un switch de niveau 3."
+  question: "Que faut-il ajouter pour que les invités ne joignent pas les serveurs ?"
+  bonne: ["Une ACL (ou un pare-feu) sur la passerelle qui refuse ces flux", "Les VLAN séparent les domaines de diffusion, mais le routage les relie ; seul un filtrage décide de ce qui passe."]
+  fausses:
+    - ["Rien, des VLAN différents ne communiquent jamais", "Dès qu’un routeur relie les VLAN, ils communiquent, sauf filtrage."]
+    - ["Un VLAN natif différent", "Le VLAN natif concerne les trunks, pas le routage entre VLAN."]
+    - ["Un câble séparé pour chaque VLAN", "Le problème n’est pas le câblage mais l’autorisation des flux routés."]
+  retenir: "VLAN = séparation ; ACL ou pare-feu = décision de ce qui passe."
+  fiche: "acl"
+
+- niveau: "Découverte"
+  situation: "Un capteur reçoit une copie du trafic par un port miroir et signale un balayage de ports interne."
+  question: "Quel type d’équipement est-ce ?"
+  bonne: ["Un IDS", "Il observe une copie du trafic et alerte, sans pouvoir bloquer : c’est un système de détection d’intrusion."]
+  fausses:
+    - ["Un IPS", "Un IPS est en ligne et peut bloquer ; ici, le capteur ne reçoit qu’une copie."]
+    - ["Un WAF", "Un WAF protège une application Web en analysant ses requêtes HTTP."]
+    - ["Un serveur RADIUS", "RADIUS authentifie les accès, il n’analyse pas le trafic."]
+  retenir: "Copie du trafic + alerte = IDS ; en ligne + blocage = IPS."
+  fiche: "ids"
+
+- niveau: "Découverte"
+  situation: "Un portail client reçoit des requêtes contenant « ' OR '1'='1 » dans ses champs de recherche."
+  question: "Quel équipement est conçu pour bloquer ce type d’attaque ?"
+  bonne: ["Un WAF", "Le pare-feu applicatif Web lit les requêtes HTTP et reconnaît les injections SQL."]
+  fausses:
+    - ["Un switch avec Port Security", "Port Security limite les adresses MAC sur un port."]
+    - ["Un serveur NTP", "NTP synchronise les horloges."]
+    - ["Une ACL standard", "Une ACL standard ne regarde que l’adresse source, pas le contenu des requêtes."]
+  retenir: "Attaques dans le contenu HTTP → WAF."
+  fiche: "waf"
+
+- niveau: "Découverte"
+  situation: "Une entreprise veut que son serveur RADIUS, ses postes en EAP-TLS et son intranet utilisent des certificats reconnus uniquement par ses propres appareils."
+  question: "Quel type d’autorité de certification convient ?"
+  bonne: ["Une autorité de certification interne, dont la racine est distribuée aux appareils gérés", "Une CA interne peut délivrer des certificats pour des noms internes, et les appareils de l’entreprise lui font confiance."]
+  fausses:
+    - ["Une CA publique, obligatoirement", "Une CA publique ne délivre pas de certificats pour des noms internes et n’est pas nécessaire pour ces usages."]
+    - ["Des certificats auto-signés sur chaque serveur", "Chaque certificat devrait être approuvé individuellement : ingérable et source d’erreurs."]
+    - ["Aucune, ces usages n’ont pas besoin de certificats", "EAP-TLS et HTTPS reposent sur des certificats."]
+  retenir: "Usages internes → CA interne ; services publics → CA publique."
+  fiche: "ca"
+
+- niveau: "Pratique"
+  situation: "Un poste 802.1X a un lien actif, mais il reste dans le VLAN de quarantaine."
+  question: "Que faut-il diagnostiquer ?"
+  bonne: ["L’échange EAP/RADIUS : certificat ou identifiants du poste, politique du serveur et attributs renvoyés", "Le lien physique fonctionne ; c’est la décision d’autorisation qui place le poste en quarantaine."]
+  fausses:
+    - ["Uniquement le câble", "Le lien est actif : la couche physique n’est pas en cause."]
+    - ["Le budget PoE", "Le poste est un ordinateur alimenté sur secteur."]
+    - ["Le routage ECMP", "Le partage de charge n’a rien à voir avec l’affectation de VLAN."]
+  retenir: "802.1X : lien OK mais mauvais VLAN → journal du serveur RADIUS."
+  fiche: "802-1x"
+
+- niveau: "Pratique"
+  situation: "Un VPN IKEv2 est établi. Sur le routeur du siège, « #pkts encaps » augmente mais « #pkts decaps » reste à 0."
+  question: "Quelle hypothèse privilégier ?"
+  bonne: ["Le retour ne passe pas dans le tunnel : routes ou sélecteurs de l’autre côté, ou ESP filtré", "Le siège chiffre et envoie, mais ne reçoit rien en retour : le problème est côté agence ou sur le chemin du retour."]
+  fausses:
+    - ["Une panne du serveur NTP uniquement", "Une heure fausse empêcherait plutôt l’établissement avec des certificats."]
+    - ["Un VLAN natif incorrect uniquement", "Sans rapport avec le chiffrement IPsec entre deux routeurs."]
+    - ["Un problème LLDP", "LLDP ne concerne que les voisins directs."]
+  retenir: "IPsec : encaps sans decaps → regarder le retour."
+  fiche: "ipsec"
+
+- niveau: "Pratique"
+  situation: "Une nouvelle PKI est déployée et les clients EAP-TLS échouent en masse. Le journal RADIUS indique « unknown CA »."
+  question: "Que faut-il corriger ?"
+  bonne: ["Ajouter la nouvelle autorité dans la liste de confiance du serveur RADIUS", "Le serveur ne reconnaît pas l’autorité qui a signé les nouveaux certificats des postes."]
+  fausses:
+    - ["La local preference BGP", "Sans rapport avec l’authentification par certificats."]
+    - ["La MTU du DAC", "La MTU n’explique pas un rejet d’autorité."]
+    - ["Le numéro du VLAN voix", "Le VLAN voix n’intervient pas dans la validation des certificats."]
+  retenir: "EAP-TLS : chaîne de confiance, usages, dates (et horloge)."
+  fiche: "eap-tls"
+
+- niveau: "Pratique"
+  situation: "Une ACL contient une seule ligne — « permit tcp any host 10.20.0.15 eq 443 » — appliquée en entrée sur le VLAN des postes."
+  question: "Un poste peut-il pinguer 10.20.0.15 ?"
+  bonne: ["Non, l’ICMP tombe dans le refus implicite", "Seul le TCP 443 vers ce serveur est autorisé ; tout le reste est refusé par la règle invisible de fin."]
+  fausses:
+    - ["Oui, le ping est toujours autorisé", "Aucun trafic n’est autorisé par défaut dans une ACL."]
+    - ["Oui, car la destination est autorisée", "La règle autorise une destination **et** un protocole et un port précis."]
+    - ["Non, car les ACL bloquent tout l’ICMP par défaut sur Cisco", "Ce n’est pas une règle spéciale pour l’ICMP : c’est le refus implicite qui s’applique à tout."]
+  retenir: "Toute ACL se termine par un refus implicite."
+  fiche: "acl"
+
+- niveau: "Pratique"
+  situation: "Après l’activation de Port Security avec « maximum 1 » et le mode shutdown, les ports des postes équipés d’un téléphone IP passent en err-disabled."
+  question: "Pourquoi ?"
+  bonne: ["Le port voit deux adresses MAC (téléphone et PC) au lieu d’une", "La deuxième adresse déclenche la violation ; il faut au moins « maximum 2 », et de préférence le mode restrict."]
+  fausses:
+    - ["Le téléphone consomme trop de PoE", "Un dépassement PoE ne déclenche pas de violation de Port Security."]
+    - ["Le Spanning Tree a détecté une boucle", "Le message err-disabled vient ici de Port Security."]
+    - ["Le VLAN voix n’existe pas", "Un VLAN manquant ne met pas le port en err-disabled."]
+  retenir: "Poste + téléphone = au moins deux adresses MAC par port."
+  fiche: "protection-ports"
+
+- niveau: "Pratique"
+  situation: "Un logiciel de partage de connexion sur un portable a ralenti la navigation de tout un étage, alors que l’IPv4 fonctionne normalement."
+  question: "Quelle protection aurait évité l’incident ?"
+  bonne: ["RA Guard sur les ports d’accès", "Le portable a émis des annonces de routeur IPv6 ; les postes l’ont pris pour passerelle IPv6. RA Guard bloque ces annonces sur les ports d’accès."]
+  fausses:
+    - ["BPDU Guard", "Le portable n’a pas envoyé de BPDU."]
+    - ["Storm Control", "Le volume de trafic n’était pas en cause, mais une fausse passerelle IPv6."]
+    - ["DHCP Snooping IPv4", "L’IPv4 fonctionnait normalement ; l’attaque concernait IPv6."]
+  retenir: "Réseau « sans IPv6 » = IPv6 non surveillé → RA Guard."
+  fiche: "protection-ports"
+
+- niveau: "Pratique"
+  situation: "Après l’activation de DAI sur le VLAN 10, une imprimante à adresse IP fixe n’est plus joignable."
+  question: "Que faut-il ajouter ?"
+  bonne: ["Une ACL ARP ou une liaison statique pour l’adresse et la MAC de l’imprimante", "DAI vérifie les ARP contre la table du DHCP Snooping ; une machine à adresse fixe n’y figure pas."]
+  fausses:
+    - ["Un relais DHCP", "L’imprimante n’utilise pas le DHCP ; le relais n’y changera rien."]
+    - ["Désactiver le Spanning Tree", "STP n’a aucun lien avec DAI."]
+    - ["Un certificat pour l’imprimante", "DAI ne vérifie pas de certificats."]
+  retenir: "DAI + adresses fixes → déclarer les liaisons statiques."
+  fiche: "dai"
+
+- niveau: "Pratique"
+  situation: "Un administrateur reçoit trente demandes d’approbation MFA en pleine nuit et finit par en accepter une."
+  question: "De quelle attaque s’agit-il ?"
+  bonne: ["Une attaque par fatigue MFA", "L’attaquant connaît le mot de passe et déclenche des demandes en rafale jusqu’à obtenir une acceptation."]
+  fausses:
+    - ["Une injection SQL", "L’injection SQL vise une application Web."]
+    - ["Un empoisonnement DNS", "Sans rapport avec des notifications d’approbation."]
+    - ["Une attaque par double étiquetage VLAN", "C’est une attaque de couche 2 sans lien avec la MFA."]
+  retenir: "Contre la fatigue MFA → correspondance de numéro ou FIDO2."
+  fiche: "mfa"
+
+- niveau: "Pratique"
+  situation: "Un pare-feu à états voit passer la requête d’un poste vers un serveur, mais la réponse du serveur repart par un autre chemin qui ne traverse pas ce pare-feu."
+  question: "Quel est le problème ?"
+  bonne: ["Un routage asymétrique : le pare-feu ne voit qu’un sens de la session", "Les pare-feu à états ont besoin de voir l’aller et le retour ; une réponse arrivant sans session connue est rejetée."]
+  fausses:
+    - ["Une MTU trop grande", "La MTU n’explique pas un retour par un autre chemin."]
+    - ["Un certificat expiré", "Le problème se situe au niveau du routage, pas de TLS."]
+    - ["Une adresse MAC dupliquée", "Sans rapport avec le chemin emprunté par la réponse."]
+  retenir: "Pare-feu à états → routage symétrique."
+  fiche: "ngfw"
+
+- niveau: "Pratique"
+  situation: "Avant de limiter l’accès SSH d’un routeur distant au seul bastion, un ingénieur prépare son intervention."
+  question: "Quelle précaution est indispensable ?"
+  bonne: ["Garder un accès de secours et programmer un redémarrage de sécurité (reload in) avant la modification", "Si la nouvelle ACL le coupe, le routeur revient seul à la configuration sauvegardée."]
+  fausses:
+    - ["Supprimer les sauvegardes pour éviter les conflits", "Les sauvegardes sont justement le filet de sécurité."]
+    - ["Désactiver la console", "La console est l’accès de dernier recours."]
+    - ["Renommer le VLAN 1", "Sans rapport avec l’accès d’administration."]
+  retenir: "Modifier un accès d’administration à distance → filet de sécurité d’abord."
+  fiche: "durcissement"
+
+- niveau: "Pratique"
+  situation: "Sur les switches, l’authentification des administrateurs passe par TACACS+ avec « group ADMIN-AAA local ». Le serveur est joignable mais refuse le compte de Bruno, qui possède aussi un compte local."
+  question: "Bruno peut-il se connecter avec son compte local ?"
+  bonne: ["Non, le compte local n’est utilisé que si le serveur ne répond pas", "Un refus explicite arrête le processus ; c’est voulu, pour qu’un compte désactivé dans l’annuaire ne reste pas utilisable."]
+  fausses:
+    - ["Oui, la méthode local prend toujours le relais", "Elle ne prend le relais qu’en cas d’absence de réponse."]
+    - ["Oui, si son mot de passe local est plus récent", "La date du mot de passe n’intervient pas."]
+    - ["Non, car les comptes locaux sont désactivés par aaa new-model", "Ils restent utilisables comme méthode de secours."]
+  retenir: "AAA : la méthode suivante sert en cas d’erreur, pas en cas de refus."
+  fiche: "aaa"
+
+- niveau: "Expert"
+  situation: "Une attaque par proxy d’hameçonnage relaie en temps réel le mot de passe, le code TOTP et le cookie de session des utilisateurs."
+  question: "Quel facteur d’authentification résiste à cette attaque ?"
+  bonne: ["Une clé FIDO2 ou une passkey", "La signature est liée au nom réel du site : sur le faux site, l’authentificateur ne produit rien d’utilisable."]
+  fausses:
+    - ["Un code TOTP plus long", "Un code, même plus long, se recopie et se relaie."]
+    - ["Un code reçu par SMS", "Le SMS se relaie aussi bien, et peut être détourné."]
+    - ["Une question secrète supplémentaire", "C’est un facteur de connaissance, tout aussi hameçonnable."]
+  retenir: "Résistance à l’hameçonnage → FIDO2 / passkeys."
+  fiche: "fido2"
+
+- niveau: "Expert"
+  situation: "Un certificat de serveur a pour sujet CN=srv-web01 et pour SAN DNS:intranet.exemple.fr. Les utilisateurs se connectent à https://srv-web01."
+  question: "Que se passe-t-il ?"
+  bonne: ["Le navigateur affiche une erreur de nom, car srv-web01 ne figure pas dans le SAN", "Les navigateurs ne vérifient que le SAN ; le champ CN est ignoré pour le nom."]
+  fausses:
+    - ["Aucune erreur, car le CN correspond", "Le CN n’est plus utilisé pour vérifier le nom."]
+    - ["Une erreur d’expiration", "Rien n’indique que le certificat soit expiré."]
+    - ["Une erreur d’autorité inconnue", "Le problème décrit concerne le nom, pas l’autorité."]
+  retenir: "Le nom doit figurer dans le SAN."
+  fiche: "pki"
+
+- niveau: "Expert"
+  situation: "Les postes passent bien en 802.1X, mais le démarrage le matin est très long et les scripts d’ouverture de session échouent."
+  question: "Quelle est la cause la plus probable ?"
+  bonne: ["Seule l’authentification utilisateur est configurée : le port reste fermé tant que personne n’a ouvert de session", "Sans authentification machine, le poste ne peut joindre ni le domaine ni le DHCP au démarrage."]
+  fausses:
+    - ["Le budget PoE du switch est épuisé", "Les ordinateurs ne sont pas alimentés en PoE."]
+    - ["Le VLAN natif est incorrect", "Le VLAN natif concerne les trunks."]
+    - ["Le serveur RADIUS est trop rapide", "La rapidité du serveur ne peut pas causer ce symptôme."]
+  retenir: "802.1X : authentification machine pour un poste joignable dès le démarrage."
+  fiche: "802-1x"
+
+- niveau: "Expert"
+  situation: "Un IDS placé derrière le pare-feu Internet n’a rien vu de l’attaque d’un poste interne contre un serveur du même site."
+  question: "Pourquoi ?"
+  bonne: ["Le trafic entre le poste et le serveur ne passe pas par le lien observé", "L’IDS ne voit que ce qu’on lui copie ; il faut aussi observer le trafic interne (est-ouest)."]
+  fausses:
+    - ["Les IDS ne détectent que les attaques venant d’Internet", "Un IDS analyse tout ce qu’il reçoit, quelle qu’en soit l’origine."]
+    - ["Le serveur utilise IPv6", "IPv6 n’empêche pas la détection."]
+    - ["L’IDS doit être en mode IPS pour voir le trafic interne", "Le mode n’y change rien : c’est l’emplacement qui compte."]
+  retenir: "Un capteur ne voit que le trafic qui passe devant lui."
+  fiche: "ids"
+
+- niveau: "Expert"
+  situation: "Après l’activation de DHCP Snooping et de DAI, un serveur RADIUS centralisé est hors service. Les postes filaires d’un étage ne peuvent plus se connecter en 802.1X."
+  question: "Quelle configuration de secours limite l’impact ?"
+  bonne: ["Une action « serveur injoignable » qui autorise les postes dans un VLAN critique", "Le switch détecte l’absence de serveur et place les postes dans un VLAN de secours au lieu de les bloquer."]
+  fausses:
+    - ["Désactiver DAI", "DAI n’est pas la cause : c’est l’absence de serveur RADIUS."]
+    - ["Passer les ports en trunk", "Cela ouvrirait les ports sans contrôle et les exposerait à d’autres risques."]
+    - ["Augmenter le budget PoE", "Sans rapport avec l’authentification."]
+  retenir: "802.1X : prévoir le comportement quand RADIUS est injoignable."
+  fiche: "802-1x"
+
+- niveau: "Expert"
+  situation: "Un poste est infecté par un rançongiciel qui tente de se propager par SMB vers les autres postes et les serveurs."
+  question: "Quelle mesure de segmentation aurait le plus limité la propagation ?"
+  bonne: ["Interdire le TCP 445 entre postes et ne l’autoriser que vers les serveurs de fichiers nécessaires", "Les postes n’ont pas besoin de partager des fichiers entre eux ; bloquer ces flux contient la propagation."]
+  fausses:
+    - ["Augmenter le débit des liens", "Un débit plus élevé accélérerait plutôt la propagation."]
+    - ["Désactiver le DHCP", "Les postes garderaient leurs adresses ; SMB fonctionnerait toujours."]
+    - ["Activer le VLAN natif 999", "Le VLAN natif ne filtre pas le trafic routé ni le trafic d’un même VLAN."]
+  retenir: "Microsegmentation : supprimer les flux inutiles entre postes."
+  fiche: "zero-trust"
+
+- niveau: "Expert"
+  situation: "Pendant un balayage interne, un switch de cœur perd ses voisins OSPF ; son processeur est à 100 %."
+  question: "Quelle protection aurait limité l’impact ?"
+  bonne: ["CoPP (limitation du trafic vers le processeur)", "En limitant les catégories de trafic destinées au processeur, CoPP préserve sa capacité pour les protocoles de contrôle prioritaires."]
+  fausses:
+    - ["Storm Control sur les ports d’accès uniquement", "Utile contre les tempêtes de broadcast, mais un balayage peut être fait en unicast."]
+    - ["Un TTL DNS plus court", "Sans rapport avec la charge du processeur."]
+    - ["Désactiver OSPF", "On perdrait le routage au lieu de le protéger."]
+  retenir: "Protéger le plan de contrôle → CoPP."
+  fiche: "durcissement"
+
+- niveau: "Expert"
+  situation: "Un poste de l’entreprise envoie très peu de requêtes au résolveur DNS interne, alors qu’il navigue normalement. Le filtrage DNS ne s’applique pas à lui."
+  question: "Quelle est l’explication la plus probable ?"
+  bonne: ["Le navigateur utilise DoH vers un résolveur public", "Les requêtes DNS passent dans HTTPS et contournent le résolveur interne ; il faut une politique sur les navigateurs et bloquer les résolveurs DoH publics."]
+  fausses:
+    - ["Le poste utilise un cache DNS très efficace", "Un cache réduit les requêtes, mais ne les supprime pas pour les nouveaux noms."]
+    - ["Le résolveur interne est en IPv6", "Le protocole IP ne fait pas disparaître les requêtes."]
+    - ["Le poste n’utilise que des adresses IP", "La navigation Web normale passe par des noms."]
+  retenir: "DoH peut contourner le DNS de l’entreprise : le maîtriser par politique."
+  fiche: "doh"

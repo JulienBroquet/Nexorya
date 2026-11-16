@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AAA — Authentication, Authorization, Accounting | Nexorya</title>
+<meta name="description" content="AAA répond à trois questions pour chaque accès — qui es-tu (authentification), qu’as-tu le droit de faire (autorisation), qu’as-tu fait (traçabilité).">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa" aria-current="page">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/aaa">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-1">Qui a le droit d’entrer ?</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>AAA</h1><p class="nom-complet">Authentication, Authorization, Accounting</p>
+<p class="idee">AAA répond à trois questions pour chaque accès — qui es-tu (authentification), qu’as-tu le droit de faire (autorisation), qu’as-tu fait (traçabilité).</p><div class="badges"><span>Couche OSI 7</span><span>Découvrir : 7 min</span><span>Approfondir : 15 min</span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-300-equipements-300-listes-de-comptes">Le problème : 300 équipements, 300 listes de comptes</h2>
+<p>Sans organisation, chaque switch, routeur et borne Wi-Fi a ses propres comptes locaux, souvent un compte <code>admin</code> partagé dont le mot de passe n’a jamais changé. Quand un administrateur quitte l’entreprise, il faudrait modifier 300 équipements. Et lors d’un incident, impossible de savoir <strong>qui</strong> a fait <strong>quoi</strong>.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>AAA centralise trois décisions : vérifier l’identité de chaque personne, lui donner seulement les droits nécessaires, et enregistrer ce qu’elle fait.</p>
+</div>
+<h2 id="les-trois-a">Les trois A</h2>
+<table>
+<thead>
+<tr>
+<th>A</th>
+<th>Question</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Authentification</strong></td>
+<td>Qui es-tu ?</td>
+<td>identifiant + mot de passe + code MFA, ou certificat</td>
+</tr>
+<tr>
+<td><strong>Autorisation</strong></td>
+<td>Qu’as-tu le droit de faire ?</td>
+<td>le technicien peut lire la configuration ; seul l’ingénieur peut la modifier ; un poste reçoit le VLAN 10</td>
+</tr>
+<tr>
+<td><strong>Accounting</strong> (traçabilité)</td>
+<td>Qu’as-tu fait, et quand ?</td>
+<td>« bruno a tapé <code>no shutdown</code> sur Gi1/0/4 à 14 h 02 » ; durée d’une session VPN</td>
+</tr>
+</tbody>
+</table>
+<h2 id="un-serveur-au-centre">Un serveur au centre</h2>
+<figure class="schema"><svg viewBox="0 0 647.0 426.0" width="647.0" role="img" aria-label="Les équipements demandent au serveur AAA" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="50.0" x2="354.0" y2="190.0"/><line class="tp-lien " x1="110.0" y1="190.0" x2="354.0" y2="190.0"/><line class="tp-lien " x1="110.0" y1="330.0" x2="354.0" y2="190.0"/><line class="tp-lien " x1="354.0" y1="190.0" x2="537.0" y2="190.0"/><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">Switches</text><g transform="translate(110.0 190.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">Routeurs</text><g transform="translate(110.0 330.0)"><rect class="tp-ico" x="-18" y="2" width="36" height="12" rx="6"/><path class="tp-ico-trait" d="M-9 -4 a13 13 0 0 1 18 0 M-15 -10 a21 21 0 0 1 30 0"/></g><text class="tp-lib" x="110.0" y="370.0" text-anchor="middle">Bornes Wi-Fi</text><g transform="translate(354.0 190.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="354.0" y="230.0" text-anchor="middle">Serveur AAA</text><text class="tp-sous" x="354.0" y="246.0" text-anchor="middle">RADIUS / TACACS+</text><g transform="translate(537.0 190.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="537.0" y="230.0" text-anchor="middle">Annuaire</text><text class="tp-sous" x="537.0" y="246.0" text-anchor="middle">comptes et groupes</text></svg><figcaption>Les équipements demandent au serveur AAA</figcaption></figure>
+<p>Les équipements (appelés <strong>NAS</strong> ou clients AAA) ne connaissent pas les utilisateurs : ils transmettent chaque demande au serveur AAA, qui consulte l’annuaire et répond « accepté, avec tels droits » ou « refusé ».</p>
+<h2 id="deux-protocoles">Deux protocoles</h2>
+<ul>
+<li><strong>RADIUS</strong> : surtout pour l’<strong>accès au réseau</strong> — Wi-Fi d’entreprise, 802.1X sur les prises, VPN. Voir <a href="radius.html">RADIUS</a>.</li>
+<li><strong>TACACS+</strong> : surtout pour l’<strong>administration des équipements</strong> — qui peut se connecter au switch, quelles commandes il peut taper. Voir <a href="tacacs.html">TACACS+</a>.</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>AAA</strong> — Authentification, autorisation et traçabilité des accès.</li>
+<li><strong>Authentification</strong> — Vérification de l’identité d’une personne ou d’un appareil.</li>
+<li><strong>Autorisation</strong> — Attribution des droits après l’authentification.</li>
+<li><strong>Accounting</strong> — Enregistrement des actions et des sessions ; on dit aussi traçabilité ou comptabilité.</li>
+<li><strong>NAS</strong> — <em>Network Access Server</em>, équipement qui transmet les demandes d’accès au serveur AAA.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi garder un compte local sur chaque équipement, alors que l’authentification est centralisée ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Pour pouvoir se connecter <strong>si le serveur AAA est injoignable</strong> — justement pendant une panne réseau, quand on a le plus besoin d’accéder aux équipements. Ce compte de secours a un mot de passe fort, stocké dans un coffre, et son usage est surveillé.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="aaa-sur-un-equipement-cisco">AAA sur un équipement Cisco</h2>
+<pre><code class="language-cisco">aaa new-model
+<span class="c">!</span>
+tacacs server ISE-1
+ address ipv4 10.99.0.80
+ key Une-Cle-Longue-Et-Unique
+tacacs server ISE-2
+ address ipv4 10.99.1.80
+ key Une-Cle-Longue-Et-Unique
+aaa group server tacacs+ ADMIN-AAA
+ server name ISE-1
+ server name ISE-2
+ ip tacacs source-interface Loopback0
+<span class="c">!</span>
+aaa authentication login default group ADMIN-AAA local
+aaa authorization exec default group ADMIN-AAA local if-authenticated
+aaa authorization commands 15 default group ADMIN-AAA local if-authenticated
+aaa accounting exec default start-stop group ADMIN-AAA
+aaa accounting commands 15 default start-stop group ADMIN-AAA
+<span class="c">!</span>
+username secours privilege 15 algorithm-type scrypt secret Mot-De-Passe-Coffre
+</code></pre>
+<p>Lecture de <code>group ADMIN-AAA local</code> : essayer d’abord les serveurs TACACS+ ; <strong>seulement s’ils ne répondent pas</strong>, utiliser les comptes locaux. Si le serveur répond « refusé », on ne passe <strong>pas</strong> au compte local.</p>
+<div class="encadre attention">
+<p class="encadre-titre">Attention en production</p>
+<p><code>aaa new-model</code> change immédiatement la façon dont les connexions sont authentifiées. Configure-le avec une session console ou une session ouverte de secours, et teste une nouvelle connexion <strong>avant</strong> de fermer la tienne.</p>
+</div>
+<h2 id="le-moindre-privilege">Le moindre privilège</h2>
+<table>
+<thead>
+<tr>
+<th>Profil</th>
+<th>Droits typiques</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Support niveau 1</td>
+<td><code>show</code> seulement, sur les switches d’accès</td>
+</tr>
+<tr>
+<td>Administrateur réseau</td>
+<td>configuration des switches et routeurs, hors sécurité</td>
+</tr>
+<tr>
+<td>Ingénieur sécurité</td>
+<td>pare-feu, ACL, AAA</td>
+</tr>
+<tr>
+<td>Compte de service (sauvegarde, supervision)</td>
+<td>lecture seule, depuis une adresse précise</td>
+</tr>
+</tbody>
+</table>
+<p>L’autorisation par commande (TACACS+) permet d’aller très finement : autoriser <code>interface</code>, <code>shutdown</code>, <code>switchport access vlan</code>, mais pas <code>no aaa</code> ni <code>crypto key zeroize</code>.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Le serveur TACACS+ est joignable mais refuse le compte de bruno (mot de passe expiré). Bruno a aussi un compte local identique. Peut-il se connecter avec <code>aaa authentication login default group ADMIN-AAA local</code> ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> La méthode suivante (<code>local</code>) n’est utilisée que si le serveur <strong>ne répond pas</strong>. Un refus explicite (<em>REJECT</em>) arrête le processus. C’est voulu : sinon, un compte désactivé dans l’annuaire resterait utilisable localement.</p>
+</details>
+<p><strong>2.</strong> Pourquoi les traces de l’accounting doivent-elles être stockées hors des équipements ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Un administrateur malveillant ou un attaquant pourrait <strong>effacer</strong> les traces stockées sur l’équipement qu’il a modifié, et un redémarrage les ferait disparaître. Centralisées sur le serveur AAA (et dans le SIEM), elles restent disponibles pour l’enquête.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/wifi-entreprise.html"><small>Fiche précédente</small><strong>Wi-Fi d’entreprise</strong></a><a class="apres" href="../niveau-4/radius.html"><small>Fiche suivante</small><strong>RADIUS</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-300-equipements-300-listes-de-comptes">Le problème : 300 équipements, 300 listes de comptes</a><a href="#les-trois-a">Les trois A</a><a href="#un-serveur-au-centre">Un serveur au centre</a><a href="#deux-protocoles">Deux protocoles</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#aaa-sur-un-equipement-cisco">AAA sur un équipement Cisco</a><a href="#le-moindre-privilege">Le moindre privilège</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

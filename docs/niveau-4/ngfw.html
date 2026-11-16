@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NGFW — Pare-feu de nouvelle génération | Nexorya</title>
+<meta name="description" content="Un pare-feu suit chaque connexion pour n’autoriser que les flux voulus et leurs réponses ; un NGFW reconnaît en plus les applications, les utilisateurs et les menaces.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l4)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>4</i>Sécurité et identité</a><h3>Qui a le droit d’entrer ?</h3><ul><li><a href="aaa.html" data-fiche="niveau-4/aaa">AAA</a></li><li><a href="radius.html" data-fiche="niveau-4/radius">RADIUS</a></li><li><a href="tacacs.html" data-fiche="niveau-4/tacacs">TACACS+</a></li><li><a href="eap.html" data-fiche="niveau-4/eap">EAP</a></li><li><a href="eap-tls.html" data-fiche="niveau-4/eap-tls">EAP-TLS</a></li><li><a href="802-1x.html" data-fiche="niveau-4/802-1x">802.1X</a></li><li><a href="wpa-entreprise.html" data-fiche="niveau-4/wpa-entreprise">WPA Entreprise</a></li></ul><h3>Prouver son identité</h3><ul><li><a href="mfa.html" data-fiche="niveau-4/mfa">MFA</a></li><li><a href="otp.html" data-fiche="niveau-4/otp">OTP</a></li><li><a href="fido.html" data-fiche="niveau-4/fido">FIDO</a></li><li><a href="fido2.html" data-fiche="niveau-4/fido2">FIDO2 et passkeys</a></li><li><a href="pki.html" data-fiche="niveau-4/pki">PKI</a></li><li><a href="ca.html" data-fiche="niveau-4/ca">Autorité de certification</a></li></ul><h3>Filtrer et chiffrer</h3><ul><li><a href="acl.html" data-fiche="niveau-4/acl">ACL</a></li><li><a href="segmentation.html" data-fiche="niveau-4/segmentation">Segmenter le réseau</a></li><li><a href="ipsec.html" data-fiche="niveau-4/ipsec">IPsec</a></li><li><a href="vpn.html" data-fiche="niveau-4/vpn">VPN</a></li><li><a href="macsec.html" data-fiche="niveau-4/macsec">MACsec</a></li></ul><h3>Détecter et bloquer</h3><ul><li><a href="ids.html" data-fiche="niveau-4/ids">IDS</a></li><li><a href="ips.html" data-fiche="niveau-4/ips">IPS</a></li><li><a href="ngfw.html" data-fiche="niveau-4/ngfw" aria-current="page">NGFW</a></li><li><a href="waf.html" data-fiche="niveau-4/waf">WAF</a></li><li><a href="doh.html" data-fiche="niveau-4/doh">DoH</a></li></ul><h3>Protéger le réseau lui-même</h3><ul><li><a href="dai.html" data-fiche="niveau-4/dai">DAI</a></li><li><a href="protection-ports.html" data-fiche="niveau-4/protection-ports">Protéger les ports d’accès</a></li><li><a href="durcissement.html" data-fiche="niveau-4/durcissement">Durcir un équipement</a></li><li><a href="zero-trust.html" data-fiche="niveau-4/zero-trust">Zero Trust</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-4/ngfw">
+<p class="fil"><a href="index.html">Sécurité et identité</a> › <a href="index.html#chapitre-4">Détecter et bloquer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>NGFW</h1><p class="nom-complet">Pare-feu de nouvelle génération</p>
+<p class="idee">Un pare-feu suit chaque connexion pour n’autoriser que les flux voulus et leurs réponses ; un NGFW reconnaît en plus les applications, les utilisateurs et les menaces.</p><div class="badges"><span>Couche OSI 3 à 7</span><span>Découvrir : 9 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-4/acl.html">ACL</a>, <a href="../niveau-3/tcp.html">TCP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-les-ports-ne-disent-plus-tout">Le problème : les ports ne disent plus tout</h2>
+<p>Une ACL autorise ou refuse selon les adresses et les ports. Mais aujourd’hui, presque tout passe par le port 443 : la messagerie, la visioconférence, un réseau social, un outil de prise de contrôle à distance, un logiciel malveillant. Autoriser « le 443 » revient à presque tout autoriser.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Un NGFW ne se contente pas de regarder les ports : il reconnaît <strong>l’application</strong>, <strong>l’utilisateur</strong> et les <strong>menaces</strong>, et applique des règles du type « le service comptable peut utiliser Teams, mais pas les outils de partage de fichiers personnels ».</p>
+</div>
+<h2 id="pare-feu-a-etats-la-base">Pare-feu à états : la base</h2>
+<p>Contrairement à une ACL, un pare-feu à états garde une <strong>table des connexions</strong>. Quand un poste ouvre une connexion autorisée vers un serveur, le pare-feu enregistre la session et laisse passer les <strong>réponses</strong> sans règle supplémentaire. Une réponse qui ne correspond à aucune session connue est rejetée.</p>
+<h2 id="ce-quajoute-un-ngfw">Ce qu’ajoute un NGFW</h2>
+<table>
+<thead>
+<tr>
+<th>Fonction</th>
+<th>Exemple de règle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Identification d’application</strong></td>
+<td>autoriser « Microsoft Teams », bloquer « BitTorrent », quel que soit le port</td>
+</tr>
+<tr>
+<td><strong>Identité de l’utilisateur</strong> (annuaire, 802.1X, VPN)</td>
+<td>autoriser le groupe Compta vers l’ERP</td>
+</tr>
+<tr>
+<td><strong>IPS intégré</strong></td>
+<td>bloquer les exploits connus vers les serveurs</td>
+</tr>
+<tr>
+<td><strong>Filtrage d’URL / de catégories</strong></td>
+<td>bloquer les sites de jeux d’argent, les domaines malveillants</td>
+</tr>
+<tr>
+<td><strong>Analyse de fichiers</strong></td>
+<td>examiner les téléchargements dans un bac à sable</td>
+</tr>
+<tr>
+<td><strong>Inspection TLS</strong></td>
+<td>déchiffrer pour inspecter, selon une politique</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Pare-feu à états</strong> — Pare-feu qui suit les connexions et autorise automatiquement leurs réponses ; <em>stateful</em>.</li>
+<li><strong>NGFW</strong> — <em>Next-Generation Firewall</em>, pare-feu qui identifie applications, utilisateurs et menaces.</li>
+<li><strong>Politique de sécurité</strong> — Ensemble ordonné des règles d’un pare-feu.</li>
+<li><strong>DMZ</strong> — Zone intermédiaire qui héberge les serveurs accessibles depuis Internet.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi, avec un pare-feu à états, n’a-t-on pas besoin d’écrire une règle pour autoriser les réponses des sites Web ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que le pare-feu a <strong>enregistré</strong> la connexion sortante autorisée ; les paquets de réponse correspondent à cette session et sont acceptés automatiquement. Une ACL sans état, elle, aurait besoin d’une règle explicite pour le retour.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="ecrire-une-politique-lisible">Écrire une politique lisible</h2>
+<table>
+<thead>
+<tr>
+<th>N°</th>
+<th>Source</th>
+<th>Destination</th>
+<th>Application / service</th>
+<th>Action</th>
+<th>Journal</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10</td>
+<td>Admins (groupe AD)</td>
+<td>Réseau d’administration</td>
+<td>SSH, HTTPS</td>
+<td>autoriser</td>
+<td>oui</td>
+</tr>
+<tr>
+<td>20</td>
+<td>Postes</td>
+<td>Serveurs AD</td>
+<td>Kerberos, LDAP(S), DNS, SMB</td>
+<td>autoriser</td>
+<td>non</td>
+</tr>
+<tr>
+<td>30</td>
+<td>Postes</td>
+<td>ERP</td>
+<td>HTTPS (application ERP)</td>
+<td>autoriser</td>
+<td>non</td>
+</tr>
+<tr>
+<td>40</td>
+<td>Postes</td>
+<td>Internet</td>
+<td>Web, Teams, applications approuvées</td>
+<td>autoriser + IPS + filtrage URL</td>
+<td>oui</td>
+</tr>
+<tr>
+<td>50</td>
+<td>Invités</td>
+<td>Internet</td>
+<td>Web</td>
+<td>autoriser</td>
+<td>oui</td>
+</tr>
+<tr>
+<td>99</td>
+<td>toute</td>
+<td>toute</td>
+<td>toute</td>
+<td><strong>refuser</strong></td>
+<td><strong>oui</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Principes :</p>
+<ul>
+<li><strong>Moindre privilège</strong> : chaque règle autorise le strict nécessaire, avec un propriétaire et une justification.</li>
+<li><strong>Ordre</strong> : les règles précises avant les règles générales.</li>
+<li><strong>Journaliser</strong> les refus pour comprendre ce qui est bloqué.</li>
+<li><strong>Objets nommés</strong> (groupes d’adresses, d’applications) plutôt que des adresses écrites en dur.</li>
+<li><strong>Revue</strong> régulière : supprimer les règles inutilisées (compteurs à zéro depuis des mois) et les règles trop larges (<code>any</code> vers <code>any</code>).</li>
+</ul>
+<h2 id="depannage">Dépannage</h2>
+<ol>
+<li>Le flux arrive-t-il au pare-feu ? (capture, compteurs d’interface, routage)</li>
+<li>Quelle règle s’applique ? La plupart des pare-feu ont un outil de <strong>simulation</strong> (<em>packet tracer</em>) qui indique la règle retenue pour un flux donné.</li>
+<li>La session est-elle créée ? (table des sessions)</li>
+<li>La réponse revient-elle <strong>par le même pare-feu</strong> ? Un retour par un autre chemin (routage asymétrique) est rejeté faute de session.</li>
+</ol>
+<pre><code class="language-text"><span class="c"># Exemple Cisco ASA / FTD : simuler un flux</span>
+packet-tracer input inside tcp 10.10.0.57 51544 10.20.0.40 443 detailed
+...
+Phase: 4  Type: ACCESS-LIST  Result: DROP
+  access-group INSIDE in interface inside
+  access-list INSIDE extended deny ip any any log
+</code></pre>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un serveur répond aux requêtes, mais ses réponses repartent par un autre routeur qui ne passe pas par le pare-feu. Les utilisateurs n’obtiennent rien. Pourquoi ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Routage asymétrique</strong> : le pare-feu a vu passer la demande, mais pas la réponse. Côté utilisateurs, si la réponse passe par un autre pare-feu à états, celui-ci la rejette (aucune session connue). Il faut que l’aller et le retour traversent le <strong>même</strong> pare-feu (routage symétrique, ou synchronisation des sessions dans un cluster).</p>
+</details>
+<p><strong>2.</strong> Une règle « Postes → Internet → TCP 443 → autoriser » existe depuis des années. Pourquoi est-elle insuffisante aujourd’hui ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Presque toutes les applications utilisent le 443 : cette règle autorise aussi les outils de prise de main à distance non approuvés, les tunnels, les services de partage personnels et les communications de logiciels malveillants. Avec un NGFW, on autorise des <strong>applications</strong> et des <strong>catégories</strong>, et l’on applique IPS et filtrage d’URL.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-4/ips.html"><small>Fiche précédente</small><strong>IPS</strong></a><a class="apres" href="../niveau-4/waf.html"><small>Fiche suivante</small><strong>WAF</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-les-ports-ne-disent-plus-tout">Le problème : les ports ne disent plus tout</a><a href="#pare-feu-a-etats-la-base">Pare-feu à états : la base</a><a href="#ce-quajoute-un-ngfw">Ce qu’ajoute un NGFW</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#ecrire-une-politique-lisible">Écrire une politique lisible</a><a href="#depannage">Dépannage</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

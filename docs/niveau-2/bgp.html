@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BGP — Border Gateway Protocol | Nexorya</title>
+<meta name="description" content="BGP est le protocole qui relie les réseaux des organisations entre eux — c’est lui qui fait tenir Internet ; il ne cherche pas le chemin le plus rapide, mais applique les choix politiques de chaque organisation.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp" aria-current="page">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/bgp">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-4">Relier les organisations</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>BGP</h1><p class="nom-complet">Border Gateway Protocol</p>
+<p class="idee">BGP est le protocole qui relie les réseaux des organisations entre eux — c’est lui qui fait tenir Internet ; il ne cherche pas le chemin le plus rapide, mais applique les choix politiques de chaque organisation.</p><div class="badges"><span>Couche OSI 7 (transporté en TCP 179), décide du routage de couche 3</span><span>Découvrir : 10 min</span><span>Approfondir : 25 min</span><span>Avant : <a href="../niveau-2/ospf.html">OSPF</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-relier-des-reseaux-qui-ne-se-font-pas-confiance">Le problème : relier des réseaux qui ne se font pas confiance</h2>
+<p>OSPF fonctionne très bien <strong>à l’intérieur</strong> d’une organisation, où tous les routeurs se font confiance et partagent une carte complète. Mais Internet relie des dizaines de milliers d’organisations — opérateurs, hébergeurs, entreprises — qui ne veulent ni partager leur topologie, ni laisser les autres décider de leurs chemins. Et la table d’Internet compte plus de <strong>900 000 réseaux IPv4</strong>.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>BGP fait échanger à des organisations indépendantes la liste des réseaux qu’elles savent joindre, en indiquant par quelles organisations il faut passer ; chacune choisit ensuite selon <strong>ses propres règles</strong>.</p>
+</div>
+<h2 id="les-systemes-autonomes">Les systèmes autonomes</h2>
+<p>Un <strong>système autonome</strong> (AS) est un réseau géré par une seule organisation, avec une politique de routage commune : un opérateur, un hébergeur, une grande entreprise. Chacun a un <strong>numéro d’AS</strong> (par exemple AS 64512 dans les exemples, AS 3215 pour Orange, AS 13335 pour Cloudflare).</p>
+<ul>
+<li><strong>eBGP</strong> (externe) : session entre deux AS différents, par exemple entre une entreprise et son opérateur.</li>
+<li><strong>iBGP</strong> (interne) : session entre routeurs d’un même AS, pour partager les routes apprises de l’extérieur.</li>
+</ul>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<ol>
+<li>Deux routeurs BGP ouvrent une <strong>connexion TCP</strong> (port 179) : ce sont des <strong>pairs</strong> (<em>peers</em>), configurés à la main — BGP ne découvre pas ses voisins tout seul.</li>
+<li>Chacun annonce les réseaux qu’il sait joindre, avec leurs <strong>attributs</strong>.</li>
+<li>Chacun choisit, pour chaque réseau, la meilleure route selon une liste de critères et ses politiques.</li>
+<li>Ensuite, seuls les <strong>changements</strong> sont échangés.</li>
+</ol>
+<figure class="schema"><svg viewBox="0 0 647.0 426.0" width="647.0" role="img" aria-label="Une entreprise reliée à deux opérateurs" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="354.0" y1="50.0" x2="171.0" y2="190.0"/><text class="tp-etiq" x="255.2" y="110.5" text-anchor="end">eBGP</text><line class="tp-lien " x1="354.0" y1="50.0" x2="537.0" y2="190.0"/><text class="tp-etiq" x="452.8" y="110.5" text-anchor="start">eBGP</text><line class="tp-lien " x1="171.0" y1="190.0" x2="354.0" y2="330.0"/><line class="tp-lien " x1="537.0" y1="190.0" x2="354.0" y2="330.0"/><g transform="translate(354.0 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">Entreprise</text><text class="tp-sous" x="354.0" y="106.0" text-anchor="middle">AS 64512 — 198.51.100.0/24</text><g transform="translate(171.0 190.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="171.0" y="230.0" text-anchor="middle">Opérateur A</text><text class="tp-sous" x="171.0" y="246.0" text-anchor="middle">AS 65001</text><g transform="translate(537.0 190.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="537.0" y="230.0" text-anchor="middle">Opérateur B</text><text class="tp-sous" x="537.0" y="246.0" text-anchor="middle">AS 65002</text><g transform="translate(354.0 330.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="354.0" y="370.0" text-anchor="middle">Internet</text></svg><figcaption>Une entreprise reliée à deux opérateurs</figcaption></figure>
+<p>L’entreprise annonce son réseau <code>198.51.100.0/24</code> à ses deux opérateurs. Si l’un tombe, Internet continue de la joindre par l’autre : c’est le <strong>multihoming</strong>.</p>
+<h2 id="las-path-la-liste-des-etapes">L’AS_PATH : la liste des étapes</h2>
+<p>Chaque route BGP transporte la liste des AS traversés. Une route vers <code>198.51.100.0/24</code> reçue par un AS lointain peut porter <code>AS_PATH : 65001 64512</code> : « passe par l’AS 65001, puis tu arrives dans l’AS 64512 ». Cette liste sert à deux choses :</p>
+<ul>
+<li><strong>éviter les boucles</strong> : un AS qui voit son propre numéro dans l’AS_PATH rejette la route ;</li>
+<li><strong>choisir</strong> : à critères égaux, BGP préfère le chemin qui traverse le moins d’AS.</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>BGP</strong> — <em>Border Gateway Protocol</em>, protocole de routage entre systèmes autonomes, base d’Internet.</li>
+<li><strong>Système autonome (AS)</strong> — Réseau géré par une organisation, identifié par un numéro d’AS.</li>
+<li><strong>Pair BGP</strong> — Routeur avec lequel une session BGP est établie ; <em>peer</em> ou <em>neighbor</em>.</li>
+<li><strong>eBGP / iBGP</strong> — Session BGP entre deux AS différents / au sein d’un même AS.</li>
+<li><strong>AS_PATH</strong> — Attribut qui liste les AS traversés par une route.</li>
+<li><strong>Multihoming</strong> — Raccordement d’une organisation à plusieurs opérateurs.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Pourquoi BGP n’utilise-t-il pas la vitesse des liens pour choisir ses chemins, comme OSPF ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce que les AS ne partagent pas leur topologie interne : un AS ne connaît pas la vitesse des liens des autres. Et surtout, entre organisations, les choix sont d’abord <strong>commerciaux et politiques</strong> (coût d’un opérateur, accords d’échange) : BGP est conçu pour appliquer ces politiques.</p>
+</details>
+<p><strong>2.</strong> Un routeur de l’AS 64512 reçoit une route dont l’AS_PATH contient 64512. Que fait-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Il la <strong>rejette</strong> : la route est déjà passée par son propre AS, l’accepter créerait une boucle.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-etats-dune-session">Les états d’une session</h2>
+<table>
+<thead>
+<tr>
+<th>État</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Idle</td>
+<td>session arrêtée ou en attente avant réessai</td>
+</tr>
+<tr>
+<td>Connect / <strong>Active</strong></td>
+<td>tentative d’ouverture TCP ; « Active » qui persiste = le TCP n’aboutit pas (adresse, filtrage, route)</td>
+</tr>
+<tr>
+<td>OpenSent / OpenConfirm</td>
+<td>messages OPEN échangés : numéros d’AS, router-ID, capacités, temporisateurs</td>
+</tr>
+<tr>
+<td><strong>Established</strong></td>
+<td>session ouverte, les routes sont échangées</td>
+</tr>
+</tbody>
+</table>
+<p>Messages : <strong>OPEN</strong>, <strong>UPDATE</strong> (annonces et retraits), <strong>KEEPALIVE</strong> (toutes les 60 s ; <em>hold time</em> 180 s), <strong>NOTIFICATION</strong> (erreur, puis fermeture).</p>
+<h2 id="la-selection-du-meilleur-chemin-cisco">La sélection du meilleur chemin (Cisco)</h2>
+<p>Pour un même préfixe, BGP compare les routes dans cet ordre, et s’arrête au premier critère qui départage :</p>
+<ol>
+<li>le prochain saut doit être <strong>joignable</strong> ;</li>
+<li><strong>Weight</strong> le plus élevé (propre à Cisco, local au routeur) ;</li>
+<li><strong>LOCAL_PREF</strong> le plus élevé (partagé dans l’AS : choisit la <strong>sortie</strong> de l’AS) ;</li>
+<li>route <strong>originée localement</strong> ;</li>
+<li><strong>AS_PATH</strong> le plus court ;</li>
+<li><strong>ORIGIN</strong> (IGP &lt; EGP &lt; incomplete) ;</li>
+<li><strong>MED</strong> le plus bas (suggestion faite par l’AS voisin pour l’<strong>entrée</strong> dans son réseau) ;</li>
+<li><strong>eBGP</strong> préféré à iBGP ;</li>
+<li>métrique IGP la plus faible vers le prochain saut ;</li>
+<li>puis critères de départage (route la plus ancienne, router-ID le plus bas…).</li>
+</ol>
+<div class="encadre astuce">
+<p class="encadre-titre">Retenir l’essentiel</p>
+<p>Pour contrôler le trafic <strong>sortant</strong>, on joue sur <strong>LOCAL_PREF</strong> (sur les routes reçues). Pour influencer le trafic <strong>entrant</strong>, on agit sur ce qu’on annonce : <strong>AS_PATH prepend</strong> (rallonger artificiellement le chemin) ou des annonces plus précises. Le trafic entrant est toujours plus difficile à maîtriser, car la décision appartient aux autres.</p>
+</div>
+<h2 id="configuration-dun-multihoming-simple-cisco-ios">Configuration d’un multihoming simple (Cisco IOS)</h2>
+<pre><code class="language-cisco">router bgp 64512
+ bgp router-id 198.51.100.1
+ bgp log-neighbor-changes
+ neighbor 203.0.113.1 remote-as 65001
+ neighbor 203.0.113.1 description Opérateur A
+ neighbor 192.0.2.1 remote-as 65002
+ neighbor 192.0.2.1 description Opérateur B
+<span class="c"> !</span>
+ address-family ipv4
+  network 198.51.100.0 mask 255.255.255.0
+  neighbor 203.0.113.1 activate
+  neighbor 203.0.113.1 prefix-list ANNONCES out
+  neighbor 203.0.113.1 route-map PREF-A in
+  neighbor 192.0.2.1 activate
+  neighbor 192.0.2.1 prefix-list ANNONCES out
+ exit-address-family
+<span class="c">!</span>
+<span class="c">! N'annoncer que notre propre réseau</span>
+ip prefix-list ANNONCES seq 10 permit 198.51.100.0/24
+<span class="c">! Le préfixe annoncé doit exister dans la table (ex. route vers Null0)</span>
+ip route 198.51.100.0 255.255.255.0 Null0
+<span class="c">!</span>
+<span class="c">! Préférer l'opérateur A en sortie</span>
+route-map PREF-A permit 10
+ set local-preference 200
+</code></pre>
+<ul>
+<li>La commande <code>network</code> annonce un préfixe <strong>seulement s’il existe exactement dans la table de routage</strong> : d’où la route vers <code>Null0</code>.</li>
+<li>La <code>prefix-list</code> en sortie est <strong>indispensable</strong> : sans elle, l’entreprise risquerait d’annoncer à l’opérateur B les routes apprises de l’opérateur A, et de devenir un lien de transit entre deux opérateurs. Voir <a href="bgp-filtrage.html">Filtrer les routes BGP</a>.</li>
+</ul>
+<h2 id="verification">Vérification</h2>
+<pre><code class="language-cisco"><span class="k">R1#</span> show ip bgp summary
+Neighbor        V    AS MsgRcvd MsgSent  Up/Down  State/PfxRcd
+192.0.2.1       4 65002  128034    1204 2d03h        943211
+203.0.113.1     4 65001  131772    1207 2d03h        943187
+
+<span class="k">R1#</span> show ip bgp 8.8.8.0/24
+BGP routing table entry for 8.8.8.0/24
+Paths: (2 available, best #1, table default)
+  65001 15169
+    203.0.113.1 from 203.0.113.1
+      Origin IGP, localpref 200, valid, external, best
+  65002 3356 15169
+    192.0.2.1 from 192.0.2.1
+      Origin IGP, localpref 100, valid, external
+</code></pre>
+<ul>
+<li><code>State/PfxRcd</code> contient un <strong>nombre</strong> : la session est <em>Established</em> et l’on reçoit ce nombre de préfixes (ici la table Internet complète). Un mot (<code>Active</code>, <code>Idle</code>) signifie que la session n’est pas établie.</li>
+<li>La meilleure route vers <code>8.8.8.0/24</code> passe par l’opérateur A grâce à la <strong>LOCAL_PREF 200</strong>, même si l’AS_PATH par B n’est pas plus long.</li>
+</ul>
+<h2 id="depannage">Dépannage</h2>
+<table>
+<thead>
+<tr>
+<th>Symptôme</th>
+<th>Causes probables</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Session bloquée en <strong>Active</strong></td>
+<td>adresse du voisin erronée, pas de route vers lui, TCP 179 filtré, mauvaise source (iBGP entre loopbacks sans <code>update-source</code>)</td>
+</tr>
+<tr>
+<td>Session qui monte puis tombe (NOTIFICATION)</td>
+<td>numéro d’AS incorrect, authentification, trop de préfixes reçus (<code>maximum-prefix</code>)</td>
+</tr>
+<tr>
+<td>Session Established, 0 préfixe reçu</td>
+<td>filtre entrant trop strict, voisin qui n’annonce rien</td>
+</tr>
+<tr>
+<td>Préfixe reçu mais pas installé</td>
+<td>prochain saut injoignable (fréquent en iBGP : <code>next-hop-self</code>), meilleure route par une autre source</td>
+</tr>
+<tr>
+<td>Notre réseau n’est pas vu sur Internet</td>
+<td><code>network</code> sans route exacte dans la table, filtre sortant, opérateur qui filtre (objet ROA/IRR manquant)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Une session eBGP reste en état Active. Le ping vers l’adresse du voisin fonctionne. Que vérifier ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le <strong>TCP 179</strong> : une ACL ou un pare-feu peut le bloquer ; le voisin peut attendre une <strong>autre adresse source</strong> ou un autre numéro d’AS ; une <strong>authentification MD5</strong> configurée d’un seul côté empêche aussi l’ouverture TCP. Vérifier la configuration <code>neighbor</code> des deux côtés et <code>debug ip bgp</code> (avec précaution).</p>
+</details>
+<p><strong>2.</strong> Pour que le trafic <strong>entrant</strong> arrive de préférence par l’opérateur A, que peut faire l’entreprise ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Rendre la route annoncée par B <strong>moins attirante</strong> : <em>AS_PATH prepend</em> (annoncer <code>64512 64512 64512</code> à B), ou utiliser les <strong>communautés</strong> proposées par l’opérateur B pour baisser la préférence de la route chez lui. Elle ne peut que suggérer : la décision finale appartient aux autres AS.</p>
+</details>
+<p><strong>3.</strong> Pourquoi une entreprise multihomée doit-elle filtrer ce qu’elle annonce à ses opérateurs, même si elle « n’a rien d’autre à annoncer » ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce qu’un routeur BGP réannonce par défaut à ses voisins eBGP les meilleures routes qu’il a apprises. Sans filtre, l’entreprise annoncerait à l’opérateur B toutes les routes d’Internet apprises par A : elle deviendrait un <strong>chemin de transit</strong>, attirant le trafic d’autres organisations. C’est l’origine de plusieurs incidents majeurs d’Internet.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/is-is.html"><small>Fiche précédente</small><strong>IS-IS</strong></a><a class="apres" href="../niveau-2/bgp-filtrage.html"><small>Fiche suivante</small><strong>Filtrer les routes BGP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-relier-des-reseaux-qui-ne-se-font-pas-confiance">Le problème : relier des réseaux qui ne se font pas confiance</a><a href="#les-systemes-autonomes">Les systèmes autonomes</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#las-path-la-liste-des-etapes">L’AS_PATH : la liste des étapes</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-etats-dune-session">Les états d’une session</a><a href="#la-selection-du-meilleur-chemin-cisco">La sélection du meilleur chemin (Cisco)</a><a href="#configuration-dun-multihoming-simple-cisco-ios">Configuration d’un multihoming simple (Cisco IOS)</a><a href="#verification">Vérification</a><a href="#depannage">Dépannage</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

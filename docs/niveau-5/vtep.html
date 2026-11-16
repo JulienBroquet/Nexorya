@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VTEP — VXLAN Tunnel Endpoint | Nexorya</title>
+<meta name="description" content="Le VTEP est le point d’entrée et de sortie des tunnels VXLAN ; il emballe les trames des machines locales et déballe celles qui arrivent des autres VTEP.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep" aria-current="page">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/vtep">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-3">Le datacenter moderne</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>VTEP</h1><p class="nom-complet">VXLAN Tunnel Endpoint</p>
+<p class="idee">Le VTEP est le point d’entrée et de sortie des tunnels VXLAN ; il emballe les trames des machines locales et déballe celles qui arrivent des autres VTEP.</p><div class="badges"><span>Couche OSI 2 et 3</span><span>Découvrir : 5 min</span><span>Approfondir : 10 min</span><span>Avant : <a href="../niveau-5/vxlan.html">VXLAN</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Le VXLAN a besoin, à chaque bout, d’un équipement qui sache <strong>traduire</strong> entre le monde local (une machine dans un VLAN) et le monde des tunnels (un paquet UDP vers un autre site du datacenter).</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Le VTEP est la « gare » du VXLAN : il reçoit les trames des machines, les met dans le tunnel vers le bon VTEP distant, et fait l’inverse à l’arrivée.</p>
+</div>
+<h2 id="ce-que-fait-un-vtep">Ce que fait un VTEP</h2>
+<ol>
+<li>Il reçoit une trame d’une VM dans le VLAN 100.</li>
+<li>Il sait que le VLAN 100 correspond au <strong>VNI 10100</strong>.</li>
+<li>Il cherche derrière quel VTEP se trouve la MAC de destination (appris par EVPN).</li>
+<li>Il encapsule la trame (en-têtes VXLAN, UDP, IP avec son adresse de VTEP en source) et l’envoie dans l’underlay.</li>
+<li>Le VTEP distant déballe la trame et la remet dans <strong>son</strong> VLAN local associé au VNI 10100 (qui peut avoir un autre numéro de VLAN).</li>
+</ol>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>VTEP</strong> — Extrémité de tunnel VXLAN, qui encapsule et désencapsule les trames.</li>
+<li><strong>Interface NVE</strong> — Interface logique d’un switch qui représente son VTEP (Cisco).</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Le VNI 10100 correspond au VLAN 100 sur le leaf 1 et au VLAN 250 sur le leaf 2. Les VM peuvent-elles communiquer ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Oui.</strong> Le numéro de VLAN n’a qu’une portée <strong>locale</strong> à chaque leaf ; c’est le <strong>VNI</strong> qui identifie le segment dans la fabric. Tant que les deux VLAN sont associés au même VNI, les VM sont sur le même segment.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="verifier-un-vtep-nx-os">Vérifier un VTEP (NX-OS)</h2>
+<pre><code class="language-text"><span class="k">LEAF1#</span> show nve interface nve1
+Interface: nve1, State: Up, encapsulation: VXLAN
+ Source-Interface: loopback1 (primary: 10.255.0.11)
+<span class="k">LEAF1#</span> show nve peers
+Interface Peer-IP          State LearnType Uptime   Router-Mac
+--------- ---------------  ----- --------- -------- -----------------
+nve1      10.255.0.12      Up    CP        3d02h    5254.0012.0a01
+<span class="k">LEAF1#</span> show nve vni
+Interface VNI      Multicast-group   State Mode Type [BD/VRF]
+nve1      10100    UnicastBGP        Up    CP   L2 [100]
+</code></pre>
+<p><code>LearnType CP</code> : le VTEP distant a été appris par le <strong>plan de contrôle</strong> (EVPN), et non par inondation.</p>
+<h2 id="vtep-en-paire-anycast-vtep">VTEP en paire (anycast VTEP)</h2>
+<p>Quand deux leafs forment une paire redondante (vPC, MLAG), ils partagent une <strong>même adresse de VTEP</strong> (adresse secondaire de la loopback). Les autres VTEP voient une seule destination et répartissent le trafic vers les deux leafs par ECMP ; la panne d’un leaf est transparente.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Pourquoi utilise-t-on une interface loopback comme source du VTEP plutôt que l’adresse d’un lien physique ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Une loopback est <strong>toujours active</strong> tant que l’équipement fonctionne, et joignable par <strong>tous</strong> les liens de l’underlay. Si un lien physique tombe, l’adresse du VTEP reste joignable par les autres chemins ECMP, et les tunnels ne sont pas affectés.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/vxlan.html"><small>Fiche précédente</small><strong>VXLAN</strong></a><a class="apres" href="../niveau-5/evpn.html"><small>Fiche suivante</small><strong>EVPN</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#ce-que-fait-un-vtep">Ce que fait un VTEP</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#verifier-un-vtep-nx-os">Vérifier un VTEP (NX-OS)</a><a href="#vtep-en-paire-anycast-vtep">VTEP en paire (anycast VTEP)</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

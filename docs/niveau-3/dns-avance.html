@@ -1,0 +1,168 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>DNS approfondi — DNSSEC, filtrage, redondance et attaques | Nexorya</title>
+<meta name="description" content="Le DNS est un point critique — s’il tombe, plus rien ne marche ; s’il ment, les utilisateurs partent au mauvais endroit. On le rend redondant, on le signe (DNSSEC) et on s’en sert pour filtrer les menaces.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance" aria-current="page">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/dns-avance">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-2">Noms et adresses automatiques</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>DNS approfondi</h1><p class="nom-complet">DNSSEC, filtrage, redondance et attaques</p>
+<p class="idee">Le DNS est un point critique — s’il tombe, plus rien ne marche ; s’il ment, les utilisateurs partent au mauvais endroit. On le rend redondant, on le signe (DNSSEC) et on s’en sert pour filtrer les menaces.</p><div class="badges"><span>Couche OSI 7</span><span>Découvrir : 8 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-3/dns.html">DNS</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-tout-depend-du-dns">Le problème : tout dépend du DNS</h2>
+<p>Avant presque chaque connexion — un site, la messagerie, l’ouverture de session Windows, une application dans le cloud —, il y a une question DNS. Si les résolveurs tombent, « plus rien ne marche », même si le réseau va parfaitement bien. Et si un attaquant peut <strong>falsifier</strong> une réponse, il envoie les utilisateurs vers un faux site sans qu’ils s’en aperçoivent.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>On rend le DNS <strong>redondant</strong> pour qu’il ne tombe jamais, <strong>vérifiable</strong> (DNSSEC) pour qu’on ne puisse pas lui faire mentir, et <strong>observable</strong> pour détecter les menaces.</p>
+</div>
+<h2 id="trois-risques-trois-reponses">Trois risques, trois réponses</h2>
+<table>
+<thead>
+<tr>
+<th>Risque</th>
+<th>Exemple</th>
+<th>Réponse</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Panne</strong></td>
+<td>le seul serveur DNS redémarre : toute l’entreprise est bloquée</td>
+<td>deux résolveurs au minimum, sur des équipements et sites distincts</td>
+</tr>
+<tr>
+<td><strong>Falsification</strong></td>
+<td>un attaquant injecte une fausse adresse pour <code>banque.fr</code> dans un cache</td>
+<td><strong>DNSSEC</strong> : les réponses sont signées et vérifiées</td>
+</tr>
+<tr>
+<td><strong>Espionnage</strong></td>
+<td>sur un Wi-Fi public, quelqu’un lit tous les noms consultés</td>
+<td>requêtes chiffrées : <strong>DoT</strong> ou <strong>DoH</strong></td>
+</tr>
+</tbody>
+</table>
+<h2 id="le-dns-au-service-de-la-securite">Le DNS au service de la sécurité</h2>
+<p>Un logiciel malveillant installé sur un poste doit contacter son <strong>serveur de commande</strong>. Il commence presque toujours par une question DNS. Un résolveur d’entreprise peut donc :</p>
+<ul>
+<li><strong>bloquer</strong> les domaines malveillants connus (listes de réputation, <em>RPZ</em>) ;</li>
+<li><strong>journaliser</strong> les requêtes pour repérer un poste qui interroge des noms suspects ;</li>
+<li><strong>détecter</strong> des usages anormaux (des milliers de noms aléatoires, des enregistrements TXT géants : signes de tunnels DNS).</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>DNSSEC</strong> — Extensions de sécurité qui signent les données DNS pour en garantir l’authenticité.</li>
+<li><strong>Empoisonnement de cache</strong> — Attaque qui insère une fausse réponse dans le cache d’un résolveur.</li>
+<li><strong>DoT / DoH</strong> — DNS sur TLS (port 853) / DNS sur HTTPS (port 443) : requêtes DNS chiffrées.</li>
+<li><strong>RPZ</strong> — <em>Response Policy Zone</em>, liste de règles qui permet à un résolveur de bloquer ou réécrire certains noms.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>DNSSEC empêche-t-il un observateur de voir quels sites tu consultes ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> DNSSEC <strong>signe</strong> les réponses pour prouver qu’elles sont authentiques, mais elles circulent <strong>en clair</strong>. Pour cacher les noms consultés, il faut chiffrer les requêtes (DoT, DoH).</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="dnssec-en-pratique">DNSSEC en pratique</h2>
+<ul>
+<li>Chaque zone signée publie des clés (<strong>DNSKEY</strong>) et des signatures (<strong>RRSIG</strong>) pour ses enregistrements.</li>
+<li>Le domaine parent publie une empreinte de la clé de l’enfant (<strong>DS</strong>) : on construit ainsi une <strong>chaîne de confiance</strong> de la racine jusqu’au domaine.</li>
+<li>Le <strong>résolveur validant</strong> vérifie toute la chaîne. Si une signature est fausse ou expirée, il renvoie <strong>SERVFAIL</strong> : l’utilisateur n’obtient pas de réponse plutôt qu’une réponse falsifiée.</li>
+</ul>
+<pre><code class="language-bash">$ dig exemple.fr A +dnssec +multi
+;; flags: qr rd ra ad;           # &quot;ad&quot; = Authenticated Data : réponse validée
+$ delv @1.1.1.1 exemple.fr       # outil de validation détaillée
+</code></pre>
+<div class="encadre attention">
+<p class="encadre-titre">Attention en production</p>
+<p>Une signature <strong>expirée</strong> (renouvellement automatique en panne) rend le domaine injoignable pour tous les utilisateurs de résolveurs validants, c’est-à-dire une grande partie d’Internet. Superviser l’échéance des signatures est aussi important que superviser un certificat TLS.</p>
+</div>
+<h2 id="resolveurs-dentreprise-architecture-type">Résolveurs d’entreprise : architecture type</h2>
+<figure class="schema"><svg viewBox="0 0 769.0 356.0" width="769.0" role="img" aria-label="Résolveurs internes redondants et sortie contrôlée" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="110.0" y1="190.0" x2="293.0" y2="120.0"/><line class="tp-lien " x1="110.0" y1="190.0" x2="293.0" y2="260.0"/><line class="tp-lien " x1="293.0" y1="120.0" x2="476.0" y2="50.0"/><text class="tp-etiq" x="380.2" y="73.8" text-anchor="end">zones internes</text><line class="tp-lien " x1="293.0" y1="260.0" x2="476.0" y2="50.0"/><line class="tp-lien " x1="293.0" y1="120.0" x2="476.0" y2="260.0"/><line class="tp-lien " x1="293.0" y1="260.0" x2="476.0" y2="260.0"/><text class="tp-etiq" x="384.5" y="248.0" text-anchor="middle">seuls les résolveurs sortent en 53</text><line class="tp-lien " x1="476.0" y1="260.0" x2="659.0" y2="260.0"/><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">Postes</text><g transform="translate(293.0 120.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="293.0" y="160.0" text-anchor="middle">Résolveur 1</text><text class="tp-sous" x="293.0" y="176.0" text-anchor="middle">site A</text><g transform="translate(293.0 260.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="293.0" y="300.0" text-anchor="middle">Résolveur 2</text><text class="tp-sous" x="293.0" y="316.0" text-anchor="middle">site B</text><g transform="translate(476.0 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="476.0" y="90.0" text-anchor="middle">DNS Active Directory</text><text class="tp-sous" x="476.0" y="106.0" text-anchor="middle">zones internes</text><g transform="translate(476.0 260.0)"><rect class="tp-ico" x="-26" y="-16" width="52" height="32" rx="3"/><path class="tp-ico-trait" d="M-26 -5 h52 M-26 6 h52 M-9 -16 v11 M9 -16 v11 M0 -5 v11 M-17 -5 v11 M17 -5 v11 M-9 6 v10 M9 6 v10"/></g><text class="tp-lib" x="476.0" y="300.0" text-anchor="middle">Pare-feu</text><g transform="translate(659.0 260.0)"><path class="tp-ico" d="M-24 12 a11 11 0 0 1 2 -21 a14 14 0 0 1 26 -5 a11 11 0 0 1 20 9 a9 9 0 0 1 -2 17 z"/></g><text class="tp-lib" x="659.0" y="300.0" text-anchor="middle">Internet</text></svg><figcaption>Résolveurs internes redondants et sortie contrôlée</figcaption></figure>
+<ul>
+<li>Les postes reçoivent <strong>deux</strong> résolveurs par DHCP.</li>
+<li>Les résolveurs transmettent les zones internes aux serveurs Active Directory (ou aux serveurs de zone), et le reste à Internet (directement ou via un service de filtrage).</li>
+<li>Le pare-feu <strong>interdit le DNS sortant</strong> (UDP/TCP 53, et TCP 853 pour DoT) à tout autre équipement : les postes ne peuvent pas contourner le filtrage.</li>
+</ul>
+<h2 id="doh-le-casse-tete-de-lentreprise">DoH : le casse-tête de l’entreprise</h2>
+<p>DoH envoie les requêtes DNS dans du <strong>HTTPS ordinaire</strong> vers un service public. C’est excellent pour la vie privée sur un Wi-Fi public, mais en entreprise, un navigateur qui active DoH <strong>contourne</strong> le résolveur interne : plus de filtrage, plus de journaux, et plus d’accès aux noms internes. Les réponses habituelles :</p>
+<ul>
+<li>désactiver DoH par <strong>politique</strong> sur les navigateurs gérés, ou le pointer vers le résolveur de l’entreprise ;</li>
+<li>utiliser le <strong>domaine canari</strong> (<code>use-application-dns.net</code>) que Firefox consulte avant d’activer DoH ;</li>
+<li>bloquer les serveurs DoH publics connus au pare-feu. Voir <a href="../niveau-4/doh.html">DoH</a>.</li>
+</ul>
+<h2 id="les-attaques-a-connaitre">Les attaques à connaître</h2>
+<table>
+<thead>
+<tr>
+<th>Attaque</th>
+<th>Principe</th>
+<th>Protection</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Empoisonnement de cache</td>
+<td>réponses forgées acceptées par un résolveur</td>
+<td>ports source aléatoires, DNSSEC</td>
+</tr>
+<tr>
+<td>Amplification</td>
+<td>petites requêtes avec une source usurpée, grosses réponses vers la victime</td>
+<td>pas de résolveur ouvert, limitation de débit (RRL)</td>
+</tr>
+<tr>
+<td>Tunnel DNS</td>
+<td>données exfiltrées dans des noms de requêtes</td>
+<td>journaux, détection d’anomalies, limiter le DNS sortant</td>
+</tr>
+<tr>
+<td>Détournement de domaine</td>
+<td>compte du registrar compromis, NS modifiés</td>
+<td>MFA chez le registrar, verrouillage du domaine</td>
+</tr>
+<tr>
+<td>NXDOMAIN massif</td>
+<td>requêtes vers des noms aléatoires pour saturer les serveurs</td>
+<td>limitation de débit, capacité, filtrage</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Après une mise à jour, plus personne n’accède à <code>exemple.fr</code> depuis certains opérateurs, alors que ça fonctionne depuis l’entreprise. <code>dig</code> depuis un résolveur public renvoie SERVFAIL. Quelle piste ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Un problème <strong>DNSSEC</strong> : signatures expirées ou enregistrement DS du parent qui ne correspond plus à la clé de la zone (après un changement de clé mal mené). Les résolveurs <strong>validants</strong> refusent la réponse (SERVFAIL) ; le résolveur interne ne valide peut-être pas, d’où la différence. Vérifier avec <code>delv</code> ou un outil d’analyse DNSSEC.</p>
+</details>
+<p><strong>2.</strong> Le SOC remarque qu’un poste envoie des milliers de requêtes vers des noms comme <code>a8f3k2…q9.exfil-exemple.net</code>. Que soupçonner et que faire ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Un <strong>tunnel DNS</strong> : des données sont encodées dans les noms et envoyées au serveur qui fait autorité pour ce domaine, contrôlé par l’attaquant. Isoler le poste, bloquer le domaine sur le résolveur (RPZ), vérifier qu’aucun autre poste ne l’interroge, et confirmer que le DNS sortant direct est interdit.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/dns.html"><small>Fiche précédente</small><strong>DNS</strong></a><a class="apres" href="../niveau-3/dhcp.html"><small>Fiche suivante</small><strong>DHCP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-tout-depend-du-dns">Le problème : tout dépend du DNS</a><a href="#trois-risques-trois-reponses">Trois risques, trois réponses</a><a href="#le-dns-au-service-de-la-securite">Le DNS au service de la sécurité</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#dnssec-en-pratique">DNSSEC en pratique</a><a href="#resolveurs-dentreprise-architecture-type">Résolveurs d’entreprise : architecture type</a><a href="#doh-le-casse-tete-de-lentreprise">DoH : le casse-tête de l’entreprise</a><a href="#les-attaques-a-connaitre">Les attaques à connaître</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

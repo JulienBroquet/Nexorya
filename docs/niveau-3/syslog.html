@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Syslog — Journalisation centralisée | Nexorya</title>
+<meta name="description" content="Syslog envoie les messages des équipements (une interface tombe, un utilisateur se connecte, une règle bloque un flux) vers un serveur central, où l’on peut les conserver, les chercher et les corréler.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog" aria-current="page">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/syslog">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-4">Administrer et superviser</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Syslog</h1><p class="nom-complet">Journalisation centralisée</p>
+<p class="idee">Syslog envoie les messages des équipements (une interface tombe, un utilisateur se connecte, une règle bloque un flux) vers un serveur central, où l’on peut les conserver, les chercher et les corréler.</p><div class="badges"><span>Couche OSI 7 (UDP 514 ; TCP 514 ou 6514 avec TLS)</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-3/ntp.html">NTP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-des-journaux-eparpilles-et-ephemeres">Le problème : des journaux éparpillés et éphémères</h2>
+<p>Chaque switch, routeur et pare-feu produit des messages : un port qui tombe, une boucle détectée, un échec de connexion. Mais ils restent dans une petite mémoire locale, effacée au redémarrage. Lors d’un incident, il faudrait se connecter sur 50 équipements, un par un, pour reconstituer ce qui s’est passé.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Syslog envoie chaque message, au moment où il est produit, vers un <strong>serveur central</strong> qui les conserve et permet de les rechercher et de les corréler.</p>
+</div>
+<h2 id="lire-un-message">Lire un message</h2>
+<pre><code class="language-text">Nov 15 09:12:44.318 CET: %LINEPROTO-5-UPDOWN: Line protocol on Interface GigabitEthernet1/0/48, changed state to down
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Partie</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Nov 15 09:12:44.318 CET</code></td>
+<td>horodatage (à condition que NTP fonctionne)</td>
+</tr>
+<tr>
+<td><code>LINEPROTO</code></td>
+<td>la fonction qui parle (<em>facility</em> Cisco)</td>
+</tr>
+<tr>
+<td><code>5</code></td>
+<td>la <strong>gravité</strong> : notification</td>
+</tr>
+<tr>
+<td><code>UPDOWN</code></td>
+<td>le type de message</td>
+</tr>
+<tr>
+<td>texte</td>
+<td>le détail</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-niveaux-de-gravite">Les niveaux de gravité</h2>
+<table>
+<thead>
+<tr>
+<th>Niveau</th>
+<th>Nom</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>emergency</td>
+<td>système inutilisable</td>
+</tr>
+<tr>
+<td>1</td>
+<td>alert</td>
+<td>action immédiate nécessaire</td>
+</tr>
+<tr>
+<td>2</td>
+<td>critical</td>
+<td>panne matérielle</td>
+</tr>
+<tr>
+<td>3</td>
+<td>error</td>
+<td>erreur d’interface</td>
+</tr>
+<tr>
+<td>4</td>
+<td>warning</td>
+<td>VLAN natif incohérent, MAC flapping</td>
+</tr>
+<tr>
+<td>5</td>
+<td>notification</td>
+<td>interface up/down, changement de configuration</td>
+</tr>
+<tr>
+<td>6</td>
+<td>informational</td>
+<td>ACL qui journalise un flux</td>
+</tr>
+<tr>
+<td>7</td>
+<td>debugging</td>
+<td>sortie des commandes <code>debug</code></td>
+</tr>
+</tbody>
+</table>
+<div class="encadre astuce">
+<p class="encadre-titre">Un moyen mnémotechnique</p>
+<p>« <strong>E</strong>very <strong>A</strong>wesome <strong>C</strong>isco <strong>E</strong>ngineer <strong>W</strong>ill <strong>N</strong>eed <strong>I</strong>ce cream <strong>D</strong>aily » : emergency, alert, critical, error, warning, notification, informational, debugging.</p>
+</div>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Syslog</strong> — Protocole et format standard d’envoi des messages de journal vers un serveur central.</li>
+<li><strong>Gravité</strong> — Niveau d’importance d’un message, de 0 (urgence) à 7 (débogage) ; <em>severity</em>.</li>
+<li><strong>SIEM</strong> — Plateforme qui collecte et corrèle les journaux pour détecter les incidents de sécurité.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>On configure <code>logging trap warnings</code> sur un switch. Les messages « interface up/down » arrivent-ils au serveur ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> <code>warnings</code> (4) n’envoie que les messages de gravité <strong>0 à 4</strong>. Les changements d’état d’interface sont de gravité <strong>5</strong> (notification). Il faut <code>logging trap notifications</code> (ou <code>informational</code>).</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco">service timestamps log datetime msec localtime show-timezone
+service sequence-numbers
+logging buffered 64000 informational
+logging host 10.99.0.60 transport tcp port 6514     ! selon la plateforme, avec profil TLS
+logging host 10.99.0.61
+logging trap informational
+logging source-interface Loopback0
+logging origin-id hostname
+archive
+ log config
+  logging enable
+  notify syslog contenttype plaintext   ! journaliser chaque commande de configuration
+</code></pre>
+<ul>
+<li><code>logging buffered</code> garde une copie locale (utile si le serveur est injoignable).</li>
+<li><code>logging source-interface</code> : une adresse source stable, que le serveur sait associer à l’équipement.</li>
+<li><code>archive log config</code> : chaque commande saisie en mode configuration est journalisée, avec l’utilisateur.</li>
+</ul>
+<h2 id="transport-et-fiabilite">Transport et fiabilité</h2>
+<table>
+<thead>
+<tr>
+<th>Transport</th>
+<th>Avantage</th>
+<th>Limite</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>UDP 514</td>
+<td>simple, universel</td>
+<td>pertes possibles, pas d’authentification, en clair</td>
+</tr>
+<tr>
+<td>TCP 514 / 601</td>
+<td>pas de perte silencieuse</td>
+<td>en clair</td>
+</tr>
+<tr>
+<td>TLS (TCP 6514, RFC 5425)</td>
+<td>confidentialité et intégrité</td>
+<td>configuration plus lourde</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cote-serveur">Côté serveur</h2>
+<p>Un serveur rsyslog ou syslog-ng reçoit et range les messages ; une plateforme (Graylog, Elastic, Splunk, Wazuh, un SIEM) les indexe pour la recherche, les tableaux de bord et les alertes.</p>
+<pre><code class="language-text"><span class="c"># /etc/rsyslog.d/reseau.conf</span>
+module(load=&quot;imudp&quot;)  input(type=&quot;imudp&quot; port=&quot;514&quot;)
+module(load=&quot;imtcp&quot;)  input(type=&quot;imtcp&quot; port=&quot;514&quot;)
+template(name=&quot;ParEquipement&quot; type=&quot;string&quot; string=&quot;/var/log/reseau/%HOSTNAME%/%$YEAR%-%$MONTH%-%$DAY%.log&quot;)
+if $fromhost-ip startswith &quot;10.99.&quot; then { action(type=&quot;omfile&quot; dynaFile=&quot;ParEquipement&quot;) stop }
+</code></pre>
+<h2 id="messages-a-surveiller-en-priorite">Messages à surveiller en priorité</h2>
+<table>
+<thead>
+<tr>
+<th>Message</th>
+<th>Pourquoi</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>%SYS-5-CONFIG_I</code></td>
+<td>configuration modifiée : par qui, quand ?</td>
+</tr>
+<tr>
+<td><code>%SEC_LOGIN-4-LOGIN_FAILED</code></td>
+<td>échecs de connexion répétés : force brute ?</td>
+</tr>
+<tr>
+<td><code>%SW_MATM-4-MACFLAP_NOTIF</code></td>
+<td>boucle probable</td>
+</tr>
+<tr>
+<td><code>%PM-4-ERR_DISABLE</code></td>
+<td>port coupé (BPDU Guard, Port Security…)</td>
+</tr>
+<tr>
+<td><code>%OSPF-5-ADJCHG</code>, <code>%BGP-5-ADJCHANGE</code></td>
+<td>voisins de routage qui tombent</td>
+</tr>
+<tr>
+<td><code>%PLATFORM_ENV-1-…</code>, <code>%ILPOWER-…</code></td>
+<td>alimentation, ventilateurs, température, PoE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Après un incident, on veut savoir qui a modifié l’ACL d’un routeur la nuit dernière. Le routeur a redémarré entre-temps. Quelles configurations auraient permis de répondre ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>L’envoi des journaux vers un <strong>serveur Syslog central</strong> (le tampon local est perdu au redémarrage), la journalisation des commandes (<strong><code>archive log config</code></strong>), une authentification <strong>nominative</strong> des administrateurs (TACACS+ avec comptabilité des commandes), et une heure juste (<strong>NTP</strong>) pour situer précisément la modification.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/snmp.html"><small>Fiche précédente</small><strong>SNMP</strong></a><a class="apres" href="../niveau-3/diagnostic.html"><small>Fiche suivante</small><strong>Démontrer une panne</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-des-journaux-eparpilles-et-ephemeres">Le problème : des journaux éparpillés et éphémères</a><a href="#lire-un-message">Lire un message</a><a href="#les-niveaux-de-gravite">Les niveaux de gravité</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#transport-et-fiabilite">Transport et fiabilité</a><a href="#cote-serveur">Côté serveur</a><a href="#messages-a-surveiller-en-priorite">Messages à surveiller en priorité</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

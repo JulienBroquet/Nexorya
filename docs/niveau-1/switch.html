@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Penser comme un switch — Domaines de collision et de diffusion | Nexorya</title>
+<meta name="description" content="Un switch isole chaque port (plus de collisions) mais laisse passer les broadcasts dans tout le VLAN ; seul un routeur arrête un broadcast.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch" aria-current="page">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/switch">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-3">La trame et le switch</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Penser comme un switch</h1><p class="nom-complet">Domaines de collision et de diffusion</p>
+<p class="idee">Un switch isole chaque port (plus de collisions) mais laisse passer les broadcasts dans tout le VLAN ; seul un routeur arrête un broadcast.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 8 min</span><span>Approfondir : 14 min</span><span>Avant : <a href="../niveau-1/mac.html">Adresse MAC</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-savoir-jusquou-va-une-trame">Le problème : savoir jusqu’où va une trame</h2>
+<p>Quand une trame part d’un PC, <strong>qui la reçoit</strong> ? Seulement son destinataire, tout le VLAN, tout le bâtiment ? La réponse dépend des équipements traversés. La comprendre permet d’expliquer pourquoi un réseau trop grand ralentit, et pourquoi on le découpe.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Un switch livre chaque trame individuelle <strong>au seul port concerné</strong>, mais il répète les broadcasts <strong>dans tout le VLAN</strong>. Seul un routeur arrête un broadcast.</p>
+</div>
+<h2 id="hub-switch-routeur-trois-comportements">Hub, switch, routeur : trois comportements</h2>
+<table>
+<thead>
+<tr>
+<th>Équipement</th>
+<th>Une trame pour un seul destinataire…</th>
+<th>Un broadcast…</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Hub</strong> (disparu aujourd’hui)</td>
+<td>est recopiée sur <strong>tous</strong> les ports</td>
+<td>est recopié sur tous les ports</td>
+</tr>
+<tr>
+<td><strong>Switch</strong></td>
+<td>va <strong>uniquement</strong> vers le port du destinataire (une fois la MAC apprise)</td>
+<td>est recopié sur tous les ports <strong>du VLAN</strong></td>
+</tr>
+<tr>
+<td><strong>Routeur</strong></td>
+<td>est transmise vers le bon réseau, si une route existe</td>
+<td><strong>n’est pas</strong> transmis : il s’arrête là</td>
+</tr>
+</tbody>
+</table>
+<p>Deux notions en découlent :</p>
+<ul>
+<li><strong>Domaine de collision</strong> : la zone où deux appareils qui émettent en même temps se gênent. Avec un hub, c’était tout le réseau. Avec un switch, chaque port est son propre domaine — et en full duplex, il n’y a plus de collision du tout.</li>
+<li><strong>Domaine de diffusion</strong> (<em>broadcast domain</em>) : la zone atteinte par un broadcast. C’est <strong>tout le VLAN</strong>, quel que soit le nombre de switches. Il s’arrête au routeur.</li>
+</ul>
+<figure class="schema"><svg viewBox="0 0 647.0 426.0" width="647.0" role="img" aria-label="Deux domaines de diffusion séparés par un routeur" xmlns="http://www.w3.org/2000/svg"><rect class="tp-zone" x="109.0" y="150.0" width="246.0" height="236.0" rx="14"/><text class="tp-zone-lib" x="119.0" y="166.0">Domaine de diffusion 1</text><rect class="tp-zone" x="353.0" y="150.0" width="246.0" height="236.0" rx="14"/><text class="tp-zone-lib" x="363.0" y="166.0">Domaine de diffusion 2</text><line class="tp-lien " x1="354.0" y1="50.0" x2="232.0" y2="190.0"/><line class="tp-lien " x1="354.0" y1="50.0" x2="476.0" y2="190.0"/><line class="tp-lien " x1="232.0" y1="190.0" x2="171.0" y2="330.0"/><line class="tp-lien " x1="232.0" y1="190.0" x2="293.0" y2="330.0"/><line class="tp-lien " x1="476.0" y1="190.0" x2="415.0" y2="330.0"/><line class="tp-lien " x1="476.0" y1="190.0" x2="537.0" y2="330.0"/><g transform="translate(354.0 50.0)"><circle class="tp-ico" r="19"/><path class="tp-ico-trait" d="M-11 0 h22 M0 -11 v22 M7 -4 l4 4 l-4 4 M-7 -4 l-4 4 l4 4 M-4 -7 l4 -4 l4 4 M-4 7 l4 4 l4 -4"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">Routeur</text><g transform="translate(232.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="232.0" y="230.0" text-anchor="middle">Switch 1</text><g transform="translate(476.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="476.0" y="230.0" text-anchor="middle">Switch 2</text><g transform="translate(171.0 330.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="171.0" y="370.0" text-anchor="middle">PC A</text><g transform="translate(293.0 330.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="293.0" y="370.0" text-anchor="middle">PC B</text><g transform="translate(415.0 330.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="415.0" y="370.0" text-anchor="middle">PC C</text><g transform="translate(537.0 330.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="537.0" y="370.0" text-anchor="middle">PC D</text></svg><figcaption>Deux domaines de diffusion séparés par un routeur</figcaption></figure>
+<p>Un broadcast envoyé par A atteint B, mais ni C ni D : le routeur l’arrête.</p>
+<h2 id="pourquoi-cest-important">Pourquoi c’est important</h2>
+<p>Chaque broadcast (une requête ARP, une demande DHCP, une annonce d’imprimante…) est reçu et traité par <strong>toutes</strong> les machines du domaine. Avec 50 machines, c’est négligeable. Avec 2 000 machines dans un seul domaine, ces messages finissent par consommer de la bande passante et du processeur partout, et une seule panne (une boucle, un appareil qui s’emballe) touche tout le monde.</p>
+<p>C’est pourquoi on <strong>découpe</strong> un grand réseau en plusieurs domaines de diffusion plus petits, avec des <a href="vlan.html">VLAN</a> reliés par un routeur ou un switch de niveau 3.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Domaine de collision</strong> — Zone dans laquelle deux émissions simultanées entrent en collision ; un port de switch en forme un à lui seul.</li>
+<li><strong>Domaine de diffusion</strong> — Ensemble des appareils atteints par un broadcast ; il correspond à un VLAN et s’arrête au routeur.</li>
+<li><strong>Switch de niveau 3</strong> — Switch capable de router entre ses VLAN, en plus de commuter.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un réseau compte trois switches reliés en cascade, sans VLAN ni routeur. Combien de domaines de diffusion ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Un seul.</strong> Les switches recopient les broadcasts entre eux : toutes les machines reçoivent chaque broadcast. Seul un routeur (ou des VLAN distincts) crée plusieurs domaines.</p>
+</details>
+<p><strong>2.</strong> Pourquoi ne met-on pas 3 000 postes dans un même VLAN ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Tous les broadcasts seraient reçus par les 3 000 postes : bruit permanent, et une boucle ou un appareil défaillant paralyserait tout le monde. On découpe en domaines de diffusion plus petits, ce qui limite aussi l’étendue des pannes et permet de filtrer entre les groupes.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="comment-un-switch-transmet-stocker-ou-couper">Comment un switch transmet : stocker ou couper</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Principe</th>
+<th>Avantage</th>
+<th>Inconvénient</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Store-and-forward</strong></td>
+<td>Le switch reçoit la trame entière, vérifie le FCS, puis la transmet.</td>
+<td>Les trames abîmées sont jetées immédiatement.</td>
+<td>Latence proportionnelle à la taille de la trame.</td>
+</tr>
+<tr>
+<td><strong>Cut-through</strong></td>
+<td>Le switch commence à transmettre dès qu’il a lu l’adresse destination.</td>
+<td>Latence très faible (utile en datacenter et en finance).</td>
+<td>Une trame abîmée est propagée (le FCS est vérifié trop tard).</td>
+</tr>
+</tbody>
+</table>
+<p>Les switches de campus fonctionnent généralement en store-and-forward ; beaucoup de switches de datacenter en cut-through. Un switch passe obligatoirement en store-and-forward quand le port de sortie est plus rapide que le port d’entrée.</p>
+<h2 id="le-plan-de-donnees-en-materiel">Le plan de données en matériel</h2>
+<p>Un switch moderne ne fait pas ses décisions par logiciel : un circuit spécialisé (ASIC) consulte la table MAC, stockée dans une mémoire associative (<strong>CAM</strong>), en quelques nanosecondes, quel que soit le nombre d’entrées. Le processeur du switch, lui, gère le <strong>plan de contrôle</strong> : STP, LACP, CDP, l’administration. Quand le processeur est saturé (une boucle, un flot de broadcasts), c’est l’administration et les protocoles de contrôle qui souffrent en premier — d’où des pannes en cascade.</p>
+<h2 id="switch-de-niveau-3-et-routage-entre-vlan">Switch de niveau 3 et routage entre VLAN</h2>
+<p>Un <strong>switch de niveau 3</strong> possède, pour chaque VLAN, une interface virtuelle (<strong>SVI</strong>) qui sert de passerelle aux machines de ce VLAN. Il route entre ses VLAN en matériel, à la vitesse des ports.</p>
+<figure class="schema"><svg viewBox="0 0 464.0 286.0" width="464.0" role="img" aria-label="Routage entre VLAN sur un switch de niveau 3" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="232.0" y1="50.0" x2="110.0" y2="190.0"/><text class="tp-etiq" x="162.0" y="112.1" text-anchor="end">accès VLAN 10</text><line class="tp-lien " x1="232.0" y1="50.0" x2="354.0" y2="190.0"/><text class="tp-etiq" x="302.0" y="112.1" text-anchor="start">accès VLAN 20</text><g transform="translate(232.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="232.0" y="90.0" text-anchor="middle">Switch L3</text><text class="tp-sous" x="232.0" y="106.0" text-anchor="middle">SVI 10 : 10.10.0.1 · SVI 20 : 10.20.0.1</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">PC VLAN 10</text><text class="tp-sous" x="110.0" y="246.0" text-anchor="middle">10.10.0.15</text><g transform="translate(354.0 190.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="354.0" y="230.0" text-anchor="middle">PC VLAN 20</text><text class="tp-sous" x="354.0" y="246.0" text-anchor="middle">10.20.0.27</text></svg><figcaption>Routage entre VLAN sur un switch de niveau 3</figcaption></figure>
+<pre><code class="language-cisco">ip routing
+<span class="c">!</span>
+interface Vlan10
+ description Utilisateurs
+ ip address 10.10.0.1 255.255.255.0
+<span class="c">!</span>
+interface Vlan20
+ description Imprimantes
+ ip address 10.20.0.1 255.255.255.0
+</code></pre>
+<p>Le PC du VLAN 10 envoie sa trame à la MAC de la SVI 10 ; le switch route le paquet vers le VLAN 20 et fabrique une nouvelle trame avec sa propre MAC de SVI 20 comme source. Les deux PC sont dans <strong>deux domaines de diffusion</strong> différents, même s’ils sont branchés sur le même boîtier.</p>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Créer des VLAN puis activer <code>ip routing</code> sans filtrage <strong>relie</strong> à nouveau tous les VLAN entre eux. La séparation n’est réelle que si des listes de contrôle d’accès (ACL) ou un pare-feu limitent ce qui passe d’un VLAN à l’autre. Voir <a href="../niveau-4/acl.html">ACL</a>.</p>
+</div>
+<h2 id="taille-des-domaines-de-diffusion-quelques-reperes">Taille des domaines de diffusion : quelques repères</h2>
+<ul>
+<li><strong>Campus</strong> : un VLAN par usage et par étage ou bâtiment, souvent un /24 (254 adresses), rarement plus de 500 à 1 000 machines.</li>
+<li><strong>Wi-Fi</strong> : les grands VLAN sont fréquents, mais les contrôleurs filtrent ou convertissent les broadcasts pour ne pas les diffuser sur les ondes.</li>
+<li><strong>Datacenter</strong> : les réseaux modernes évitent d’étendre un domaine de diffusion entre baies, sauf via des technologies conçues pour cela (VXLAN avec EVPN, niveau 5).</li>
+</ul>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Un switch reçoit une trame de 1 500 octets sur un port à 1 Gb/s et doit la transmettre sur un port à 10 Gb/s. Peut-il fonctionner en cut-through ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> S’il commençait à émettre à 10 Gb/s pendant que la trame arrive à 1 Gb/s, il manquerait de données à envoyer (<em>underrun</em>). Il doit <strong>stocker</strong> la trame entière avant de la transmettre.</p>
+</details>
+<p><strong>2.</strong> Un PC du VLAN 10 et un PC du VLAN 20 sont branchés sur le même switch de niveau 3, sans ACL. Peuvent-ils communiquer ? Combien de domaines de diffusion ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Oui</strong>, ils communiquent par routage via les SVI (si chacun a la bonne passerelle). Il y a <strong>deux domaines de diffusion</strong> : un broadcast du VLAN 10 n’atteint pas le VLAN 20. Le routage relie les réseaux, il ne mélange pas les broadcasts.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/mac.html"><small>Fiche précédente</small><strong>Adresse MAC</strong></a><a class="apres" href="../niveau-1/vlan.html"><small>Fiche suivante</small><strong>VLAN</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-savoir-jusquou-va-une-trame">Le problème : savoir jusqu’où va une trame</a><a href="#hub-switch-routeur-trois-comportements">Hub, switch, routeur : trois comportements</a><a href="#pourquoi-cest-important">Pourquoi c’est important</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#comment-un-switch-transmet-stocker-ou-couper">Comment un switch transmet : stocker ou couper</a><a href="#le-plan-de-donnees-en-materiel">Le plan de données en matériel</a><a href="#switch-de-niveau-3-et-routage-entre-vlan">Switch de niveau 3 et routage entre VLAN</a><a href="#taille-des-domaines-de-diffusion-quelques-reperes">Taille des domaines de diffusion : quelques repères</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Wi-Fi d’entreprise — Contrôleur, VLAN et itinérance | Nexorya</title>
+<meta name="description" content="En entreprise, des dizaines de bornes sont pilotées par un contrôleur ; chaque SSID est relié à un VLAN, et les appareils passent d’une borne à l’autre sans couper leurs appels grâce à l’itinérance rapide.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l3)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>3</i>Services et applications</a><h3>Transporter les données</h3><ul><li><a href="tcp.html" data-fiche="niveau-3/tcp">TCP</a></li><li><a href="udp.html" data-fiche="niveau-3/udp">UDP</a></li></ul><h3>Noms et adresses automatiques</h3><ul><li><a href="dns.html" data-fiche="niveau-3/dns">DNS</a></li><li><a href="dns-avance.html" data-fiche="niveau-3/dns-avance">DNS approfondi</a></li><li><a href="dhcp.html" data-fiche="niveau-3/dhcp">DHCP</a></li><li><a href="nat.html" data-fiche="niveau-3/nat">NAT</a></li></ul><h3>Le Web et le chiffrement</h3><ul><li><a href="http.html" data-fiche="niveau-3/http">HTTP</a></li><li><a href="tls.html" data-fiche="niveau-3/tls">TLS</a></li><li><a href="https.html" data-fiche="niveau-3/https">HTTPS</a></li><li><a href="quic.html" data-fiche="niveau-3/quic">QUIC</a></li><li><a href="dot.html" data-fiche="niveau-3/dot">DoT</a></li><li><a href="proxy.html" data-fiche="niveau-3/proxy">Proxy et répartiteur de charge</a></li></ul><h3>Administrer et superviser</h3><ul><li><a href="ssh.html" data-fiche="niveau-3/ssh">SSH</a></li><li><a href="rdp.html" data-fiche="niveau-3/rdp">RDP</a></li><li><a href="ntp.html" data-fiche="niveau-3/ntp">NTP</a></li><li><a href="snmp.html" data-fiche="niveau-3/snmp">SNMP</a></li><li><a href="syslog.html" data-fiche="niveau-3/syslog">Syslog</a></li><li><a href="diagnostic.html" data-fiche="niveau-3/diagnostic">Démontrer une panne</a></li></ul><h3>Transférer, partager, s’identifier</h3><ul><li><a href="ftp.html" data-fiche="niveau-3/ftp">FTP</a></li><li><a href="tftp.html" data-fiche="niveau-3/tftp">TFTP</a></li><li><a href="sftp.html" data-fiche="niveau-3/sftp">SFTP</a></li><li><a href="smb.html" data-fiche="niveau-3/smb">SMB</a></li><li><a href="nfs.html" data-fiche="niveau-3/nfs">NFS</a></li><li><a href="ldap.html" data-fiche="niveau-3/ldap">LDAP</a></li></ul><h3>Voix et mobilité</h3><ul><li><a href="sip.html" data-fiche="niveau-3/sip">SIP</a></li><li><a href="rtp.html" data-fiche="niveau-3/rtp">RTP</a></li><li><a href="voip.html" data-fiche="niveau-3/voip">La téléphonie sur IP</a></li><li><a href="wifi-entreprise.html" data-fiche="niveau-3/wifi-entreprise" aria-current="page">Wi-Fi d’entreprise</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-3/wifi-entreprise">
+<p class="fil"><a href="index.html">Services et applications</a> › <a href="index.html#chapitre-6">Voix et mobilité</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Wi-Fi d’entreprise</h1><p class="nom-complet">Contrôleur, VLAN et itinérance</p>
+<p class="idee">En entreprise, des dizaines de bornes sont pilotées par un contrôleur ; chaque SSID est relié à un VLAN, et les appareils passent d’une borne à l’autre sans couper leurs appels grâce à l’itinérance rapide.</p><div class="badges"><span>Couche OSI 1 à 3</span><span>Découvrir : 9 min</span><span>Approfondir : 18 min</span><span>Avant : <a href="../niveau-1/wifi.html">Le Wi-Fi</a>, <a href="../niveau-1/vlan.html">VLAN</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-80-bornes-des-centaines-dappareils-qui-bougent">Le problème : 80 bornes, des centaines d’appareils qui bougent</h2>
+<p>Un bâtiment de bureaux compte 80 bornes Wi-Fi. Les configurer une à une est impossible. Et un employé en ligne sur son téléphone traverse trois étages : sa conversation ne doit pas couper chaque fois qu’il change de borne.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Un <strong>contrôleur</strong> pilote toutes les bornes comme un seul système, relie chaque nom de réseau (SSID) à un VLAN, et aide les appareils à passer d’une borne à l’autre en quelques millisecondes.</p>
+</div>
+<h2 id="larchitecture">L’architecture</h2>
+<figure class="schema"><svg viewBox="0 0 586.0 706.0" width="586.0" role="img" aria-label="Bornes pilotées par un contrôleur" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="354.0" y1="50.0" x2="354.0" y2="190.0"/><line class="tp-lien " x1="354.0" y1="190.0" x2="232.0" y2="330.0"/><line class="tp-lien " x1="354.0" y1="190.0" x2="476.0" y2="330.0"/><line class="tp-lien " x1="232.0" y1="330.0" x2="171.0" y2="470.0"/><line class="tp-lien " x1="232.0" y1="330.0" x2="293.0" y2="470.0"/><line class="tp-lien " x1="476.0" y1="330.0" x2="476.0" y2="470.0"/><line class="tp-lien sansfil" x1="171.0" y1="470.0" x2="232.0" y2="610.0"/><line class="tp-lien sansfil" x1="293.0" y1="470.0" x2="232.0" y2="610.0"/><text class="tp-etiq" x="274.5" y="544.0" text-anchor="start">itinérance</text><g transform="translate(354.0 50.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">Contrôleur Wi-Fi</text><g transform="translate(354.0 190.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/><path class="tp-ico-trait" d="M-10 -20 h20 m-6 -4 l6 4 l-6 4"/></g><text class="tp-lib" x="354.0" y="230.0" text-anchor="middle">Cœur</text><text class="tp-sous" x="354.0" y="246.0" text-anchor="middle">VLAN 10, 30, 50</text><g transform="translate(232.0 330.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="232.0" y="370.0" text-anchor="middle">Switch étage 1</text><g transform="translate(476.0 330.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="476.0" y="370.0" text-anchor="middle">Switch étage 2</text><g transform="translate(171.0 470.0)"><rect class="tp-ico" x="-18" y="2" width="36" height="12" rx="6"/><path class="tp-ico-trait" d="M-9 -4 a13 13 0 0 1 18 0 M-15 -10 a21 21 0 0 1 30 0"/></g><text class="tp-lib" x="171.0" y="510.0" text-anchor="middle">Borne 1</text><g transform="translate(293.0 470.0)"><rect class="tp-ico" x="-18" y="2" width="36" height="12" rx="6"/><path class="tp-ico-trait" d="M-9 -4 a13 13 0 0 1 18 0 M-15 -10 a21 21 0 0 1 30 0"/></g><text class="tp-lib" x="293.0" y="510.0" text-anchor="middle">Borne 2</text><g transform="translate(476.0 470.0)"><rect class="tp-ico" x="-18" y="2" width="36" height="12" rx="6"/><path class="tp-ico-trait" d="M-9 -4 a13 13 0 0 1 18 0 M-15 -10 a21 21 0 0 1 30 0"/></g><text class="tp-lib" x="476.0" y="510.0" text-anchor="middle">Borne 3</text><g transform="translate(232.0 610.0)"><rect class="tp-ico" x="-18" y="-15" width="36" height="22" rx="3"/><path class="tp-ico" d="M-25 9 h50 l-4 6 h-42 z"/></g><text class="tp-lib" x="232.0" y="650.0" text-anchor="middle">Téléphone en mouvement</text></svg><figcaption>Bornes pilotées par un contrôleur</figcaption></figure>
+<table>
+<thead>
+<tr>
+<th>SSID</th>
+<th>VLAN</th>
+<th>Sécurité</th>
+<th>Accès</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Entreprise</td>
+<td>10</td>
+<td>WPA2/WPA3-Entreprise (802.1X)</td>
+<td>réseau interne selon le profil</td>
+</tr>
+<tr>
+<td>Invités</td>
+<td>30</td>
+<td>portail ou WPA3-Personnel, isolation des clients</td>
+<td>Internet seulement</td>
+</tr>
+<tr>
+<td>Objets</td>
+<td>50</td>
+<td>WPA2-Personnel avec clé par appareil, ou 802.1X</td>
+<td>serveurs nécessaires seulement</td>
+</tr>
+</tbody>
+</table>
+<h2 id="litinerance-qui-decide">L’itinérance : qui décide ?</h2>
+<p>Ce n’est <strong>pas</strong> la borne qui décide de transférer un appareil, c’est <strong>l’appareil lui-même</strong>. Il reste souvent accroché à sa borne bien trop longtemps (« client collant »), même quand une autre est plus proche. Les normes suivantes l’aident :</p>
+<ul>
+<li><strong>802.11k</strong> : la borne fournit la liste des bornes voisines, pour que l’appareil cherche vite.</li>
+<li><strong>802.11v</strong> : la borne peut <strong>suggérer</strong> à l’appareil de partir vers une meilleure borne.</li>
+<li><strong>802.11r</strong> (<em>Fast Transition</em>) : l’appareil se réauthentifie auprès de la nouvelle borne en quelques millisecondes, sans refaire toute la procédure 802.1X.</li>
+</ul>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Contrôleur Wi-Fi</strong> — Équipement ou service qui configure et supervise les bornes d’un réseau ; <em>WLC</em>.</li>
+<li><strong>Itinérance</strong> — Passage d’un appareil d’une borne à une autre ; <em>roaming</em>.</li>
+<li><strong>802.11r</strong> — Transition rapide entre bornes, qui évite de refaire l’authentification complète.</li>
+<li><strong>Client collant</strong> — Appareil qui reste connecté à une borne lointaine au lieu de passer à une plus proche.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Les appels Wi-Fi coupent quand on passe du 2ᵉ au 3ᵉ étage, mais pas à l’intérieur d’un étage. Quelles hypothèses ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Une <strong>zone sans couverture suffisante</strong> dans l’escalier (pas de recouvrement entre bornes), ou un <strong>changement de VLAN</strong> entre les étages (le téléphone doit changer d’adresse IP, ce qui coupe l’appel). Le même SSID doit utiliser le même VLAN (ou un groupe de VLAN géré par le contrôleur) dans toute la zone d’itinérance.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="modes-de-deploiement">Modes de déploiement</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Le trafic des clients passe…</th>
+<th>Avantages</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Centralisé</strong> (tunnel CAPWAP vers le contrôleur)</td>
+<td>par le contrôleur</td>
+<td>politique centrale, itinérance entre étages facile</td>
+</tr>
+<tr>
+<td><strong>Local</strong> (<em>FlexConnect</em>, commutation locale)</td>
+<td>directement sur le switch de la borne</td>
+<td>moins de trafic vers le contrôleur, adapté aux agences</td>
+</tr>
+<tr>
+<td><strong>Géré dans le cloud</strong></td>
+<td>localement, contrôle par Internet</td>
+<td>déploiement rapide, multi-sites</td>
+</tr>
+</tbody>
+</table>
+<p>Les bornes découvrent leur contrôleur par l’option <strong>DHCP 43</strong>, par le DNS (<code>CISCO-CAPWAP-CONTROLLER.&lt;domaine&gt;</code>) ou par une configuration de démarrage.</p>
+<h2 id="ce-que-le-controleur-automatise">Ce que le contrôleur automatise</h2>
+<ul>
+<li><strong>Gestion radio</strong> : choix des canaux et des puissances, adaptation aux interférences (RRM chez Cisco).</li>
+<li><strong>Orientation des clients</strong> : pousser les appareils bi-bande vers le 5 ou 6 GHz (<em>band steering</em>).</li>
+<li><strong>Équilibrage</strong> entre bornes chargées.</li>
+<li><strong>Détection</strong> des bornes pirates et des attaques radio.</li>
+</ul>
+<h2 id="diagnostic-ditinerance">Diagnostic d’itinérance</h2>
+<pre><code class="language-text">(WLC) &gt; show client detail 3c:22:fb:1a:09:7e
+Client State..................................... Associated
+AP Name.......................................... AP-ETG3-02
+Channel.......................................... 44
+Radio Signal Strength Indicator.................. -71 dBm
+Signal to Noise Ratio............................ 22 dB
+Fast Transition (802.11r)........................ Enabled
+Mobility Move Count.............................. 14
+</code></pre>
+<p>Un client à <strong>-71 dBm</strong> et 22 dB de SNR est en limite pour la voix : il aurait dû changer de borne. On vérifie la couverture (étude sur site), on active 802.11k/v/r si les terminaux les supportent, et l’on réduit éventuellement la puissance des bornes trop « attirantes ».</p>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Certains terminaux anciens se connectent mal à un SSID où 802.11r est <strong>obligatoire</strong>. On utilise alors le mode <strong>adaptatif</strong> (FT activé pour les clients compatibles seulement) ou un SSID dédié aux appareils anciens.</p>
+</div>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Dans un entrepôt, des terminaux restent connectés à une borne lointaine à -80 dBm alors qu’une autre borne, à 10 mètres, offre -55 dBm. Que proposer ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Activer <strong>802.11k et 802.11v</strong> pour informer et inciter les clients à changer, régler un <strong>seuil RSSI minimal</strong> (au-delà duquel la borne refuse ou déconnecte poliment), réduire la puissance des bornes trop puissantes, et vérifier la configuration d’itinérance des terminaux (beaucoup de terminaux industriels ont un seuil réglable).</p>
+</details>
+<p><strong>2.</strong> Pourquoi tunneliser le trafic des invités jusqu’au contrôleur placé en zone isolée (DMZ) ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le trafic invité ne touche <strong>jamais</strong> les VLAN internes : il traverse les switches de l’entreprise dans un tunnel et n’en sort qu’en DMZ, d’où il ne peut aller que vers Internet. On n’a pas à étendre le VLAN invités sur tous les switches, et l’isolation est plus facile à garantir.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-3/voip.html"><small>Fiche précédente</small><strong>La téléphonie sur IP</strong></a><a class="apres" href="../niveau-4/aaa.html"><small>Fiche suivante · Sécurité et identité</small><strong>AAA</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-80-bornes-des-centaines-dappareils-qui-bougent">Le problème : 80 bornes, des centaines d’appareils qui bougent</a><a href="#larchitecture">L’architecture</a><a href="#litinerance-qui-decide">L’itinérance : qui décide ?</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#modes-de-deploiement">Modes de déploiement</a><a href="#ce-que-le-controleur-automatise">Ce que le contrôleur automatise</a><a href="#diagnostic-ditinerance">Diagnostic d’itinérance</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

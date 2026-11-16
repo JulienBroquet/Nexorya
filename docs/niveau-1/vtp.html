@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>VTP — VLAN Trunking Protocol (Cisco) | Nexorya</title>
+<meta name="description" content="VTP recopie automatiquement la liste des VLAN d’un switch vers tous les autres ; pratique, mais un switch mal préparé peut effacer les VLAN de tout le réseau.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp" aria-current="page">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/vtp">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-6">Agréger, découvrir, protéger</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>VTP</h1><p class="nom-complet">VLAN Trunking Protocol (Cisco)</p>
+<p class="idee">VTP recopie automatiquement la liste des VLAN d’un switch vers tous les autres ; pratique, mais un switch mal préparé peut effacer les VLAN de tout le réseau.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-1/802-1q.html">802.1Q</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-creer-le-meme-vlan-sur-50-switches">Le problème : créer le même VLAN sur 50 switches</h2>
+<p>Pour qu’un VLAN traverse le réseau, il doit exister sur <strong>chaque</strong> switch du chemin. Avec 50 switches, créer un VLAN signifie 50 connexions et 50 configurations — avec un risque d’oubli à chaque fois.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>VTP diffuse la liste des VLAN depuis un switch « serveur » vers tous les autres : on crée le VLAN une fois, il apparaît partout.</p>
+</div>
+<h2 id="comment-ca-marche">Comment ça marche</h2>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Peut créer des VLAN ?</th>
+<th>Se synchronise ?</th>
+<th>Relaie les annonces ?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Server</strong></td>
+<td>oui</td>
+<td>oui</td>
+<td>oui</td>
+</tr>
+<tr>
+<td><strong>Client</strong></td>
+<td>non</td>
+<td>oui</td>
+<td>oui</td>
+</tr>
+<tr>
+<td><strong>Transparent</strong></td>
+<td>oui, localement</td>
+<td>non</td>
+<td>oui</td>
+</tr>
+<tr>
+<td><strong>Off</strong> (v3)</td>
+<td>oui, localement</td>
+<td>non</td>
+<td>non</td>
+</tr>
+</tbody>
+</table>
+<p>Chaque modification incrémente un <strong>numéro de révision</strong>. Un switch qui reçoit une base de révision <strong>plus élevée</strong> que la sienne la remplace entièrement.</p>
+<h2 id="lincident-classique">L’incident classique</h2>
+<p>Un switch récupéré dans un laboratoire est branché en production. Il est en mode server, avec le même nom de domaine VTP et un <strong>numéro de révision plus élevé</strong> — mais avec seulement trois VLAN. Quelques secondes plus tard, tous les switches adoptent sa base : les autres VLAN <strong>disparaissent</strong>, et les ports qui y appartenaient deviennent inactifs. Une partie du site perd le réseau.</p>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Avant de brancher un switch d’occasion ou de laboratoire, remets son numéro de révision à zéro (par exemple en changeant son nom de domaine VTP, ou en le passant en mode transparent), ou utilise VTP v3.</p>
+</div>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>VTP</strong> — <em>VLAN Trunking Protocol</em>, protocole Cisco qui synchronise la liste des VLAN entre switches.</li>
+<li><strong>Domaine VTP</strong> — Nom partagé par les switches qui se synchronisent entre eux.</li>
+<li><strong>Numéro de révision</strong> — Compteur incrémenté à chaque modification ; la base la plus récente gagne.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi le mode transparent est-il souvent préféré en entreprise ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce qu’il <strong>supprime le risque</strong> d’effacement massif : chaque switch garde sa propre liste de VLAN. La création des VLAN sur tous les switches est alors faite par l’administrateur ou, mieux, par un outil d’automatisation.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-versions">Les versions</h2>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>Apports</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>v1 / v2</td>
+<td>synchronisation des VLAN 1 à 1005 ; la révision la plus haute gagne</td>
+</tr>
+<tr>
+<td><strong>v3</strong></td>
+<td>un seul <strong>serveur primaire</strong> peut écrire (les autres serveurs sont secondaires) ; support des VLAN étendus et de MST ; mot de passe caché ; mode <strong>off</strong></td>
+</tr>
+</tbody>
+</table>
+<p>En VTP v3, un switch ajouté avec une révision plus haute <strong>ne peut pas</strong> écraser la base s’il n’est pas déclaré primaire. Devenir primaire est une action explicite (<code>vtp primary</code>), ce qui supprime l’incident classique.</p>
+<h2 id="configuration-et-verification-cisco-ios">Configuration et vérification (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="c">! Option sûre : chaque switch gère ses VLAN</span>
+vtp mode transparent
+<span class="c">!</span>
+<span class="c">! Ou VTP v3 avec un serveur primaire</span>
+vtp domain CAMPUS
+vtp version 3
+vtp mode server
+vtp password Un-Secret-Solide hidden
+<span class="c">! puis, en mode privilégié, sur le seul switch qui doit écrire :</span>
+<span class="c">! vtp primary vlan</span>
+</code></pre>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show vtp status
+VTP Version capable             : 1 to 3
+VTP version running             : 3
+VTP Domain Name                 : CAMPUS
+VTP Operating Mode              : Client
+Number of existing VLANs        : 12
+Configuration Revision          : 27
+Primary ID                      : 00aa.0b00.0001
+</code></pre>
+<h2 id="elagage-pruning">Élagage (pruning)</h2>
+<p>Le <strong>VTP pruning</strong> évite d’envoyer le trafic inondé (broadcasts, unicast inconnu) d’un VLAN vers un switch qui n’a aucun port dans ce VLAN. On obtient le même résultat, de façon plus prévisible, en <strong>limitant la liste des VLAN autorisés</strong> sur chaque trunk.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un switch client VTP v2 est déplacé dans un autre bâtiment et rebranché un mois plus tard. Entre-temps, sa révision est restée à 40 alors que le domaine est passé à 55. Y a-t-il un risque ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non</strong> dans ce cas : sa révision (40) est <strong>plus basse</strong> que celle du domaine (55), il adoptera la base du domaine. Le danger survient quand le switch ajouté a une révision <strong>plus haute</strong>. Mais l’incident montre qu’on ne contrôle pas facilement ces numéros : c’est un argument pour VTP v3 ou le mode transparent.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/cdp.html"><small>Fiche précédente</small><strong>CDP</strong></a><a class="apres" href="../niveau-1/dtp.html"><small>Fiche suivante</small><strong>DTP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-creer-le-meme-vlan-sur-50-switches">Le problème : créer le même VLAN sur 50 switches</a><a href="#comment-ca-marche">Comment ça marche</a><a href="#lincident-classique">L’incident classique</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-versions">Les versions</a><a href="#configuration-et-verification-cisco-ios">Configuration et vérification (Cisco IOS)</a><a href="#elagage-pruning">Élagage (pruning)</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

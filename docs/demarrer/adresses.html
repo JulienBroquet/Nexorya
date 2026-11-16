@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Les trois adresses — Nom, adresse IP, adresse MAC | Nexorya</title>
+<meta name="description" content="Un appareil se désigne de trois façons — un nom pour les humains, une adresse IP pour trouver son réseau dans le monde, une adresse MAC pour le livrer sur le réseau local.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l0)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" aria-current=page class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>0</i>Je débute</a><h3>Le décor</h3><ul><li><a href="bienvenue.html" data-fiche="demarrer/bienvenue">Bienvenue</a></li><li><a href="reseau.html" data-fiche="demarrer/reseau">Qu’est-ce qu’un réseau ?</a></li><li><a href="equipements.html" data-fiche="demarrer/equipements">Les équipements</a></li><li><a href="paquet.html" data-fiche="demarrer/paquet">Un message en paquets</a></li></ul><h3>Les adresses et les règles</h3><ul><li><a href="adresses.html" data-fiche="demarrer/adresses" aria-current="page">Les trois adresses</a></li><li><a href="protocoles.html" data-fiche="demarrer/protocoles">Les protocoles</a></li><li><a href="internet.html" data-fiche="demarrer/internet">Ma box et Internet</a></li></ul><h3>Passer à la pratique</h3><ul><li><a href="commandes.html" data-fiche="demarrer/commandes">Les commandes de base</a></li></ul></aside>
+<article class="contenu" data-fiche-id="demarrer/adresses">
+<p class="fil"><a href="index.html">Je débute</a> › <a href="index.html#chapitre-2">Les adresses et les règles</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Les trois adresses</h1><p class="nom-complet">Nom, adresse IP, adresse MAC</p>
+<p class="idee">Un appareil se désigne de trois façons — un nom pour les humains, une adresse IP pour trouver son réseau dans le monde, une adresse MAC pour le livrer sur le réseau local.</p><div class="badges"><span>Découvrir : 10 min</span></div></header>
+
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-retrouver-une-machine-parmi-des-milliards">Le problème : retrouver une machine parmi des milliards</h2>
+<p>Quand tu tapes <code>www.wikipedia.org</code>, ton ordinateur doit retrouver <strong>une machine précise</strong> parmi des milliards. Pour y arriver, le réseau utilise trois sortes d’adresses, chacune à un moment différent du voyage.</p>
+<div class="encadre astuce">
+<p class="encadre-titre">L’analogie de l’employé</p>
+<p>Pour joindre Marie Dupont, tu peux utiliser son <strong>nom</strong> (facile à retenir), l’<strong>adresse de son entreprise</strong> (pour que la poste trouve la ville, la rue, le bâtiment) et son <strong>numéro de bureau</strong> (pour que l’accueil lui remette le courrier). Sur un réseau : le <strong>nom DNS</strong>, l’<strong>adresse IP</strong> et l’<strong>adresse MAC</strong>.</p>
+</div>
+<h2 id="1-le-nom-pour-les-humains">1. Le nom : pour les humains</h2>
+<p><code>www.wikipedia.org</code>, <code>intranet.monentreprise.fr</code>, <code>imprimante-etage2</code> : les noms sont faciles à retenir, mais les équipements réseau ne savent pas les utiliser. Avant tout échange, l’ordinateur demande à un serveur spécial, le <strong>DNS</strong> (<em>Domain Name System</em>), de traduire le nom en adresse IP. C’est l’annuaire du réseau.</p>
+<h2 id="2-ladresse-ip-pour-trouver-le-reseau">2. L’adresse IP : pour trouver le réseau</h2>
+<p>Une adresse IP ressemble à <code>192.168.1.20</code> : quatre nombres de 0 à 255, séparés par des points (c’est l’<strong>IPv4</strong> ; il existe aussi l’IPv6, plus longue, comme <code>2001:db8::20</code>).</p>
+<p>Elle contient <strong>deux informations</strong> :</p>
+<ul>
+<li><strong>le réseau</strong> auquel la machine appartient (comme la ville et la rue) ;</li>
+<li><strong>la machine</strong> dans ce réseau (comme le numéro de la maison).</li>
+</ul>
+<p>Avec <code>192.168.1.20</code> dans un réseau <code>192.168.1.x</code>, le réseau est <code>192.168.1</code> et la machine est la numéro <code>20</code>. Les <strong>routeurs</strong> utilisent cette adresse pour faire avancer le paquet de réseau en réseau jusqu’à la bonne destination.</p>
+<p>L’adresse IP est <strong>attribuée</strong> à une machine selon l’endroit où elle est branchée : ton portable n’a pas la même adresse IP chez toi et au bureau. Le plus souvent, elle est donnée automatiquement par un service appelé <strong>DHCP</strong>.</p>
+<h2 id="3-ladresse-mac-pour-livrer-sur-le-reseau-local">3. L’adresse MAC : pour livrer sur le réseau local</h2>
+<p>Une adresse MAC ressemble à <code>3c:22:fb:1a:09:7e</code> : six paires de caractères hexadécimaux (chiffres de 0 à 9 et lettres de A à F). Elle est <strong>gravée dans la carte réseau</strong> par le fabricant et ne change pas quand on déplace l’appareil.</p>
+<p>Elle sert à la <strong>dernière étape</strong> : livrer le message à la bonne carte réseau sur le réseau local. C’est l’adresse que lit le <strong>switch</strong>.</p>
+<h2 id="les-trois-ensemble">Les trois ensemble</h2>
+<figure class="schema"><svg viewBox="0 0 760 522" width="760" role="img" aria-label="Ce qui se passe quand tu tapes un nom de site" xmlns="http://www.w3.org/2000/svg"><line class="sq-vie" x1="85.0" y1="43" x2="85.0" y2="522"/><g class="sq-acteur"><rect x="31.0" y="12" width="108.0" height="31" rx="8"/><text x="85.0" y="33" text-anchor="middle">Ordinateur</text></g><line class="sq-vie" x1="281.66666666666663" y1="43" x2="281.66666666666663" y2="522"/><g class="sq-acteur"><rect x="223.56666666666663" y="12" width="116.19999999999999" height="31" rx="8"/><text x="281.66666666666663" y="33" text-anchor="middle">Serveur DNS</text></g><line class="sq-vie" x1="478.3333333333333" y1="43" x2="478.3333333333333" y2="522"/><g class="sq-acteur"><rect x="399.73333333333335" y="12" width="157.2" height="31" rx="8"/><text x="478.3333333333333" y="33" text-anchor="middle">Box (passerelle)</text></g><line class="sq-vie" x1="675.0" y1="43" x2="675.0" y2="522"/><g class="sq-acteur"><rect x="616.9" y="12" width="116.19999999999999" height="31" rx="8"/><text x="675.0" y="33" text-anchor="middle">Serveur Web</text></g><g class="sq-msg "><text x="183.33333333333331" y="66" text-anchor="middle">1. « quelle est</text><text x="183.33333333333331" y="84" text-anchor="middle">l’adresse IP de</text><text x="183.33333333333331" y="102" text-anchor="middle">www.exemple.fr ? »</text><line x1="85.0" y1="114" x2="269.66666666666663" y2="114"/><polygon class="sq-pointe" points="279.66666666666663,114 267.66666666666663,108 267.66666666666663,120"/></g><g class="sq-msg rep"><text x="183.33333333333331" y="152" text-anchor="middle">2. « c’est 203.0.113.10</text><text x="183.33333333333331" y="170" text-anchor="middle">»</text><line x1="281.66666666666663" y1="182" x2="97.0" y2="182"/><polygon class="sq-pointe" points="87.0,182 99.0,176 99.0,188"/></g><g class="sq-note"><rect x="6" y="228" width="200" height="68" rx="6"/><text x="106.0" y="247" text-anchor="middle">203.0.113.10 n’est pas</text><text x="106.0" y="265" text-anchor="middle">dans mon réseau : je</text><text x="106.0" y="283" text-anchor="middle">passe par la passerelle</text></g><g class="sq-msg "><text x="281.66666666666663" y="322" text-anchor="middle">3. paquet pour l’IP 203.0.113.10, remis à l’adresse</text><text x="281.66666666666663" y="340" text-anchor="middle">MAC de la box</text><line x1="85.0" y1="352" x2="466.3333333333333" y2="352"/><polygon class="sq-pointe" points="476.3333333333333,352 464.3333333333333,346 464.3333333333333,358"/></g><g class="sq-msg "><text x="576.6666666666666" y="390" text-anchor="middle">4. la box fait suivre</text><text x="576.6666666666666" y="408" text-anchor="middle">vers Internet</text><line x1="478.3333333333333" y1="420" x2="663.0" y2="420"/><polygon class="sq-pointe" points="673.0,420 661.0,414 661.0,426"/></g><g class="sq-msg rep"><text x="380.0" y="458" text-anchor="middle">5. la page revient par le même principe</text><line x1="675.0" y1="470" x2="97.0" y2="470"/><polygon class="sq-pointe" points="87.0,470 99.0,464 99.0,476"/></g></svg><figcaption>Ce qui se passe quand tu tapes un nom de site</figcaption></figure>
+<p>Remarque l’étape 4 : le paquet est destiné à l’<strong>IP du serveur</strong>, mais il est remis à l’<strong>adresse MAC de la box</strong>. L’adresse IP indique la destination finale, l’adresse MAC indique la <strong>prochaine étape</strong>. C’est l’une des idées les plus importantes de tout le parcours.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Nom</th>
+<th>Adresse IP</th>
+<th>Adresse MAC</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Exemple</td>
+<td><code>www.exemple.fr</code></td>
+<td><code>192.168.1.20</code></td>
+<td><code>3c:22:fb:1a:09:7e</code></td>
+</tr>
+<tr>
+<td>Pour qui ?</td>
+<td>Les humains</td>
+<td>Les routeurs</td>
+<td>Les switches et cartes réseau</td>
+</tr>
+<tr>
+<td>Portée</td>
+<td>Monde entier</td>
+<td>Monde entier (ou réseau privé)</td>
+<td>Réseau local seulement</td>
+</tr>
+<tr>
+<td>Change si on déplace l’appareil ?</td>
+<td>Non</td>
+<td>Oui</td>
+<td>Non</td>
+</tr>
+<tr>
+<td>Qui la fournit ?</td>
+<td>Le DNS</td>
+<td>Le DHCP ou l’administrateur</td>
+<td>Le fabricant</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Adresse IP</strong> — Adresse logique d’un appareil, qui indique son réseau et son numéro dans ce réseau.</li>
+<li><strong>Adresse MAC</strong> — Adresse physique gravée dans une carte réseau, utilisée pour livrer les trames sur le réseau local.</li>
+<li><strong>DNS</strong> — <em>Domain Name System</em>, service qui traduit un nom (www.exemple.fr) en adresse IP.</li>
+<li><strong>DHCP</strong> — <em>Dynamic Host Configuration Protocol</em>, service qui donne automatiquement une adresse IP aux appareils.</li>
+<li><strong>Hexadécimal</strong> — Façon d’écrire les nombres avec 16 symboles : 0 à 9 puis A à F.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Tu emportes ton portable du bureau à la maison. Laquelle de ses adresses change ?</p>
+<details>
+<summary>Voir la réponse</summary>
+<p><strong>Son adresse IP</strong>, parce qu’elle dépend du réseau où il est connecté. Son adresse MAC reste la même : elle est gravée dans la carte réseau. (Certains systèmes récents utilisent une adresse MAC aléatoire par réseau Wi-Fi pour protéger la vie privée, mais le principe reste vrai.)</p>
+</details>
+<p><strong>2.</strong> Un collègue peut ouvrir <code>http://10.1.1.50</code> mais pas <code>http://intranet.monentreprise.fr</code>, qui désigne le même serveur. Quel service soupçonnes-tu ?</p>
+<details>
+<summary>Voir la réponse</summary>
+<p><strong>Le DNS.</strong> L’accès par adresse IP fonctionne, donc le réseau et le serveur vont bien. Ce qui échoue, c’est la traduction du nom en adresse IP.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../demarrer/paquet.html"><small>Fiche précédente</small><strong>Un message en paquets</strong></a><a class="apres" href="../demarrer/protocoles.html"><small>Fiche suivante</small><strong>Les protocoles</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-retrouver-une-machine-parmi-des-milliards">Le problème : retrouver une machine parmi des milliards</a><a href="#1-le-nom-pour-les-humains">1. Le nom : pour les humains</a><a href="#2-ladresse-ip-pour-trouver-le-reseau">2. L’adresse IP : pour trouver le réseau</a><a href="#3-ladresse-mac-pour-livrer-sur-le-reseau-local">3. L’adresse MAC : pour livrer sur le réseau local</a><a href="#les-trois-ensemble">Les trois ensemble</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Redondance de switches — Stacking, MLAG et Cisco vPC | Nexorya</title>
+<meta name="description" content="Deux switches peuvent se présenter comme un seul aux équipements voisins ; un serveur ou un switch d’accès s’y relie par un agrégat de deux liens, et survit à la perte d’un des deux switches.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches" aria-current="page">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/redondance-switches">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-3">Le datacenter moderne</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Redondance de switches</h1><p class="nom-complet">Stacking, MLAG et Cisco vPC</p>
+<p class="idee">Deux switches peuvent se présenter comme un seul aux équipements voisins ; un serveur ou un switch d’accès s’y relie par un agrégat de deux liens, et survit à la perte d’un des deux switches.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 8 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-1/lacp.html">LACP</a>, <a href="../niveau-1/stp.html">STP</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Un serveur a deux cartes réseau, reliées à deux switches pour la redondance. Avec un design classique, STP bloque un des chemins, ou le serveur doit gérer seul ses deux cartes en actif-secours. On voudrait que le serveur voie <strong>un seul agrégat</strong> de deux liens, tous deux actifs, alors qu’ils arrivent sur <strong>deux switches différents</strong>.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Les deux switches s’entendent pour se présenter comme <strong>un seul partenaire LACP</strong> : le serveur (ou le switch d’accès) fait un agrégat normal vers « un » équipement qui, en réalité, en est deux.</p>
+</div>
+<h2 id="les-approches">Les approches</h2>
+<table>
+<thead>
+<tr>
+<th>Technologie</th>
+<th>Principe</th>
+<th>Plan de contrôle</th>
+<th>Exemple</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Stacking</strong></td>
+<td>switches reliés par des câbles de pile, gérés comme un seul</td>
+<td><strong>un seul</strong></td>
+<td>Cisco StackWise sur les Catalyst 9200/9300</td>
+</tr>
+<tr>
+<td><strong>Châssis virtuel</strong></td>
+<td>deux switches de distribution fusionnés logiquement</td>
+<td>un seul</td>
+<td>Cisco StackWise Virtual (Catalyst 9500/9600)</td>
+</tr>
+<tr>
+<td><strong>MLAG / vPC</strong></td>
+<td>deux switches indépendants qui coordonnent l’agrégat</td>
+<td><strong>deux</strong> (configurations séparées)</td>
+<td>Cisco vPC (Nexus, NX-OS), MLAG Arista</td>
+</tr>
+<tr>
+<td><strong>EVPN multihoming</strong></td>
+<td>agrégat multi-équipements annoncé en EVPN</td>
+<td>distribué</td>
+<td>fabrics EVPN-VXLAN</td>
+</tr>
+</tbody>
+</table>
+<figure class="schema"><svg viewBox="0 0 525.0 328.0" width="525.0" role="img" aria-label="Un serveur relié à une paire vPC" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien double" x1="171.0" y1="50.0" x2="415.0" y2="50.0"/><line class="tp-lien-int" x1="171.0" y1="50.0" x2="415.0" y2="50.0" stroke="var(--surface)" stroke-width="3"/><text class="tp-etiq" x="293.0" y="38.0" text-anchor="middle">peer-link</text><line class="tp-lien actif" x1="171.0" y1="50.0" x2="293.0" y2="232.0"/><line class="tp-lien actif" x1="415.0" y1="50.0" x2="293.0" y2="232.0"/><g transform="translate(171.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="171.0" y="90.0" text-anchor="middle">Nexus 1</text><g transform="translate(415.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="415.0" y="90.0" text-anchor="middle">Nexus 2</text><g transform="translate(293.0 232.0)"><rect class="tp-ico" x="-15" y="-22" width="30" height="44" rx="4"/><path class="tp-ico-trait" d="M-8 -12 h16 M-8 -4 h16 M-8 4 h16"/><circle class="tp-ico-plein" cx="0" cy="14" r="2.5"/></g><text class="tp-lib" x="293.0" y="272.0" text-anchor="middle">Serveur</text><text class="tp-sous" x="293.0" y="288.0" text-anchor="middle">agrégat LACP de 2 liens</text></svg><figcaption>Un serveur relié à une paire vPC</figcaption></figure>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Stacking</strong> — Regroupement de plusieurs switches en un seul équipement logique.</li>
+<li><strong>MLAG</strong> — <em>Multi-Chassis Link Aggregation</em>, agrégat de liens réparti sur deux switches.</li>
+<li><strong>vPC</strong> — <em>Virtual Port Channel</em>, MLAG des switches Cisco Nexus.</li>
+<li><strong>Peer-link</strong> — Lien entre les deux switches d’une paire MLAG/vPC, pour synchroniser leurs états et transporter le trafic si nécessaire.</li>
+<li><strong>Split-brain</strong> — Situation où les deux membres d’une paire, ne se voyant plus, se croient chacun seul maître.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Quelle est la différence majeure entre un stack et une paire vPC lors d’une mise à jour logicielle ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Un <strong>stack</strong> a un seul plan de contrôle : la mise à jour concerne l’ensemble, et nécessite souvent un redémarrage de tous les membres (ou une procédure spécifique). Une <strong>paire vPC</strong> a deux équipements indépendants : on met à jour l’un, puis l’autre, sans coupure pour les équipements reliés aux deux.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="les-elements-dune-paire-vpc-nx-os">Les éléments d’une paire vPC (NX-OS)</h2>
+<pre><code class="language-text">feature vpc
+feature lacp
+vpc domain 10
+  peer-keepalive destination 10.99.0.32 source 10.99.0.31 vrf management
+  peer-switch
+  peer-gateway
+  auto-recovery
+<span class="c">!</span>
+interface port-channel1
+  description peer-link
+  switchport mode trunk
+  vpc peer-link
+<span class="c">!</span>
+interface port-channel20
+  description Serveur ESX-01
+  switchport mode trunk
+  vpc 20
+<span class="c">!</span>
+interface Ethernet1/20
+  channel-group 20 mode active
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Élément</th>
+<th>Rôle</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Peer-keepalive</strong></td>
+<td>lien de surveillance (souvent par la gestion) : permet de savoir si l’autre switch est vivant quand le peer-link tombe</td>
+</tr>
+<tr>
+<td><strong>Peer-link</strong></td>
+<td>synchronise les tables MAC, l’état des vPC ; transporte le trafic des machines raccordées à un seul switch</td>
+</tr>
+<tr>
+<td><code>peer-switch</code></td>
+<td>les deux switches émettent les mêmes BPDU : la paire apparaît comme une seule racine STP</td>
+</tr>
+<tr>
+<td><code>peer-gateway</code></td>
+<td>chaque switch route aussi le trafic adressé à la MAC de l’autre (certains équipements visent une MAC réelle plutôt que la MAC HSRP)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="la-regle-de-boucle-du-vpc">La règle de boucle du vPC</h2>
+<p>Un paquet reçu par le peer-link <strong>n’est pas renvoyé</strong> sur un port vPC dont le membre local est actif : le switch voisin l’a déjà livré. Conséquence : un équipement relié à <strong>un seul</strong> switch de la paire (<em>orphan port</em>) dépend du peer-link ; on évite ces raccordements autant que possible.</p>
+<h2 id="verifier">Vérifier</h2>
+<pre><code class="language-text"><span class="k">N1#</span> show vpc brief
+vPC domain id                     : 10
+Peer status                       : peer adjacency formed ok
+vPC keep-alive status             : peer is alive
+Configuration consistency status  : success
+vPC role                          : primary
+id    Port   Status Consistency Reason          Active vlans
+--    ----   ------ ----------- ------          ------------
+20    Po20   up     success     success         10,20,30
+</code></pre>
+<p><code>Consistency : success</code> est indispensable : des paramètres différents entre les deux switches (VLAN autorisés, mode, MTU) suspendent le vPC (incohérences de type 1).</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> Le peer-link d’une paire vPC tombe, mais le peer-keepalive fonctionne. Que se passe-t-il ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le <strong>secondaire</strong>, qui voit grâce au keepalive que le primaire est vivant, <strong>suspend ses ports vPC</strong> pour éviter un split-brain (deux switches qui transmettraient chacun sans coordination). Le trafic passe entièrement par le primaire. Les équipements correctement raccordés aux deux switches restent connectés.</p>
+</details>
+<p><strong>2.</strong> Un serveur relié en vPC perd la moitié de ses paquets depuis l’ajout d’un VLAN, ajouté seulement sur le Nexus 1. Explique.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La configuration des deux membres du vPC n’est plus <strong>cohérente</strong> : le VLAN n’existe pas (ou n’est pas autorisé) côté Nexus 2. Selon le type d’incohérence, ce VLAN est suspendu sur le vPC, ou le trafic haché vers le Nexus 2 est perdu. Ajouter le VLAN sur <strong>les deux</strong> switches, et vérifier <code>show vpc consistency-parameters</code>.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/evpn.html"><small>Fiche précédente</small><strong>EVPN</strong></a><a class="apres" href="../niveau-5/qos.html"><small>Fiche suivante</small><strong>QoS</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#les-approches">Les approches</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#les-elements-dune-paire-vpc-nx-os">Les éléments d’une paire vPC (NX-OS)</a><a href="#la-regle-de-boucle-du-vpc">La règle de boucle du vPC</a><a href="#verifier">Vérifier</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

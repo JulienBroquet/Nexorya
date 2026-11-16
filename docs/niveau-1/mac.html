@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Adresse MAC — Media Access Control | Nexorya</title>
+<meta name="description" content="L’adresse MAC identifie une carte réseau sur le réseau local ; le switch apprend sur quel port se trouve chaque adresse MAC pour y livrer les trames.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l1)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>1</i>Ethernet, switching et Wi-Fi</a><h3>Se repérer</h3><ul><li><a href="osi.html" data-fiche="niveau-1/osi">Les modèles OSI et TCP/IP</a></li><li><a href="mesures.html" data-fiche="niveau-1/mesures">Mesurer une connexion</a></li></ul><h3>Câbles, fibre et énergie</h3><ul><li><a href="cablage.html" data-fiche="niveau-1/cablage">Câbles cuivre et fibres</a></li><li><a href="phy.html" data-fiche="niveau-1/phy">PHY</a></li><li><a href="sfp.html" data-fiche="niveau-1/sfp">SFP</a></li><li><a href="sfp-plus.html" data-fiche="niveau-1/sfp-plus">SFP+ et au-delà</a></li><li><a href="dac.html" data-fiche="niveau-1/dac">DAC</a></li><li><a href="poe.html" data-fiche="niveau-1/poe">PoE</a></li></ul><h3>La trame et le switch</h3><ul><li><a href="ethernet.html" data-fiche="niveau-1/ethernet">Ethernet</a></li><li><a href="mac.html" data-fiche="niveau-1/mac" aria-current="page">Adresse MAC</a></li><li><a href="switch.html" data-fiche="niveau-1/switch">Penser comme un switch</a></li></ul><h3>Découper le réseau avec les VLAN</h3><ul><li><a href="vlan.html" data-fiche="niveau-1/vlan">VLAN</a></li><li><a href="802-1q.html" data-fiche="niveau-1/802-1q">802.1Q</a></li><li><a href="mtu.html" data-fiche="niveau-1/mtu">MTU</a></li><li><a href="qinq.html" data-fiche="niveau-1/qinq">QinQ</a></li></ul><h3>Éviter les boucles</h3><ul><li><a href="stp.html" data-fiche="niveau-1/stp">STP</a></li><li><a href="rstp.html" data-fiche="niveau-1/rstp">RSTP</a></li><li><a href="mstp.html" data-fiche="niveau-1/mstp">MSTP</a></li></ul><h3>Agréger, découvrir, protéger</h3><ul><li><a href="lacp.html" data-fiche="niveau-1/lacp">LACP</a></li><li><a href="lldp.html" data-fiche="niveau-1/lldp">LLDP</a></li><li><a href="cdp.html" data-fiche="niveau-1/cdp">CDP</a></li><li><a href="vtp.html" data-fiche="niveau-1/vtp">VTP</a></li><li><a href="dtp.html" data-fiche="niveau-1/dtp">DTP</a></li><li><a href="eee.html" data-fiche="niveau-1/eee">EEE</a></li><li><a href="dhcp-snooping.html" data-fiche="niveau-1/dhcp-snooping">DHCP Snooping</a></li></ul><h3>Le Wi-Fi</h3><ul><li><a href="wifi.html" data-fiche="niveau-1/wifi">Le Wi-Fi</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-1/mac">
+<p class="fil"><a href="index.html">Ethernet, switching et Wi-Fi</a> › <a href="index.html#chapitre-3">La trame et le switch</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>Adresse MAC</h1><p class="nom-complet">Media Access Control</p>
+<p class="idee">L’adresse MAC identifie une carte réseau sur le réseau local ; le switch apprend sur quel port se trouve chaque adresse MAC pour y livrer les trames.</p><div class="badges"><span>Couche OSI 2</span><span>Découvrir : 8 min</span><span>Approfondir : 16 min</span><span>Avant : <a href="../niveau-1/ethernet.html">Ethernet</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-livrer-au-bon-appareil-du-reseau-local">Le problème : livrer au bon appareil du réseau local</h2>
+<p>Un switch reçoit une trame sur un de ses 48 ports. Sur lequel doit-il la renvoyer ? Il lui faut un identifiant pour chaque appareil, et un moyen de savoir <strong>où</strong> se trouve chaque identifiant. Cet identifiant, c’est l’<strong>adresse MAC</strong>.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>Chaque carte réseau possède une adresse MAC unique. Le switch note, pour chaque adresse, le port par lequel elle est arrivée, et s’en sert pour livrer les trames suivantes au bon endroit.</p>
+</div>
+<h2 id="a-quoi-ressemble-une-adresse-mac">À quoi ressemble une adresse MAC ?</h2>
+<p><code>3C:22:FB:1A:09:7E</code> — six octets en hexadécimal, soit 48 bits. Selon les systèmes, on l’écrit avec des deux-points, des tirets (<code>3C-22-FB-1A-09-7E</code>) ou par groupes de quatre (<code>3c22.fb1a.097e</code>, notation Cisco).</p>
+<ul>
+<li>Les <strong>trois premiers octets</strong> identifient le <strong>fabricant</strong> (c’est l’OUI, attribué par l’IEEE).</li>
+<li>Les <strong>trois derniers</strong> sont attribués par le fabricant à chaque carte.</li>
+<li>L’adresse spéciale <code>FF:FF:FF:FF:FF:FF</code> est le <strong>broadcast</strong> : « à tout le monde ».</li>
+</ul>
+<h2 id="comment-le-switch-apprend">Comment le switch apprend</h2>
+<p>Le switch tient une <strong>table MAC</strong> : une liste « adresse MAC → port ». Il la remplit tout seul, en observant le trafic.</p>
+<figure class="schema"><svg viewBox="0 0 464.0 286.0" width="464.0" role="img" aria-label="Un switch et trois PC" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien " x1="232.0" y1="50.0" x2="110.0" y2="190.0"/><line class="tp-lien " x1="232.0" y1="50.0" x2="232.0" y2="190.0"/><line class="tp-lien " x1="232.0" y1="50.0" x2="354.0" y2="190.0"/><g transform="translate(232.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="232.0" y="90.0" text-anchor="middle">Switch</text><g transform="translate(110.0 190.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="110.0" y="230.0" text-anchor="middle">PC A</text><text class="tp-sous" x="110.0" y="246.0" text-anchor="middle">port 1</text><g transform="translate(232.0 190.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="232.0" y="230.0" text-anchor="middle">PC B</text><text class="tp-sous" x="232.0" y="246.0" text-anchor="middle">port 5</text><g transform="translate(354.0 190.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="354.0" y="230.0" text-anchor="middle">PC C</text><text class="tp-sous" x="354.0" y="246.0" text-anchor="middle">port 9</text></svg><figcaption>Un switch et trois PC</figcaption></figure>
+<ol>
+<li><strong>A envoie une trame à B.</strong> Le switch regarde l’adresse <strong>source</strong> : il note « A est sur le port 1 ».</li>
+<li>Il regarde l’adresse <strong>destination</strong>, B : il ne la connaît pas encore. Il <strong>inonde</strong> la trame sur tous les autres ports (5 et 9). C reçoit la trame, voit qu’elle ne lui est pas destinée et l’ignore.</li>
+<li><strong>B répond à A.</strong> Le switch apprend « B est sur le port 5 ». Il connaît A : il envoie la réponse <strong>uniquement</strong> sur le port 1.</li>
+<li>À partir de là, A et B communiquent sans que C ne reçoive plus rien.</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Ce que fait le switch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Destination connue dans la table</td>
+<td>Il envoie la trame sur <strong>ce seul port</strong>.</td>
+</tr>
+<tr>
+<td>Destination inconnue</td>
+<td>Il l’<strong>inonde</strong> sur tous les ports du VLAN, sauf celui d’arrivée.</td>
+</tr>
+<tr>
+<td>Destination broadcast (FF:FF…)</td>
+<td>Il l’<strong>inonde</strong> de la même façon.</td>
+</tr>
+<tr>
+<td>Destination sur le port d’arrivée</td>
+<td>Il la <strong>jette</strong> (le destinataire l’a déjà reçue).</td>
+</tr>
+</tbody>
+</table>
+<div class="encadre astuce">
+<p class="encadre-titre">Le moyen mnémotechnique</p>
+<p>Le switch <strong>apprend avec la source, décide avec la destination</strong>.</p>
+</div>
+<h2 id="les-adresses-mac-changent-a-chaque-routeur">Les adresses MAC changent à chaque routeur</h2>
+<p>Une adresse MAC n’a de sens <strong>que sur le réseau local</strong>. Quand un PC envoie un paquet à un serveur situé dans un autre réseau, la trame est adressée à la MAC du <strong>routeur</strong> (la passerelle), pas à celle du serveur. Le routeur fabrique ensuite une nouvelle trame pour le lien suivant. L’adresse <strong>IP</strong> de destination, elle, reste celle du serveur tout au long du voyage.</p>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>Adresse MAC</strong> — Identifiant de 48 bits d’une carte réseau, utilisé pour livrer les trames sur le réseau local.</li>
+<li><strong>OUI</strong> — <em>Organizationally Unique Identifier</em>, les trois premiers octets d’une adresse MAC, qui désignent le fabricant.</li>
+<li><strong>Table MAC</strong> — Table d’un switch qui associe chaque adresse MAC au port où elle a été vue ; aussi appelée table CAM.</li>
+<li><strong>Inondation</strong> — Envoi d’une trame sur tous les ports d’un VLAN quand la destination est inconnue ou broadcast ; <em>flooding</em> en anglais.</li>
+<li><strong>Broadcast</strong> — Adresse FF:FF:FF:FF:FF:FF, qui désigne tous les appareils du réseau local.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>1.</strong> Un switch vient de démarrer. Le PC A (port 1) envoie une trame au PC B (port 5). Que retient le switch, et que fait-il de la trame ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Il retient que <strong>A est sur le port 1</strong> (adresse source). Il ne connaît pas encore B, donc il <strong>inonde</strong> la trame sur tous les ports du VLAN sauf le port 1. Il apprendra où se trouve B quand B répondra.</p>
+</details>
+<p><strong>2.</strong> Le PC <code>10.1.1.10</code> envoie un paquet au serveur <code>10.2.2.20</code>, situé derrière le routeur R1. Quelle est l’adresse MAC de destination de la trame qui sort du PC ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>La MAC du routeur R1</strong>, sa passerelle. Le serveur n’est pas dans le réseau local du PC : le PC confie le paquet à R1. L’IP de destination reste <code>10.2.2.20</code>.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="structure-fine-dune-adresse-mac">Structure fine d’une adresse MAC</h2>
+<p>Les deux bits de poids faible du <strong>premier octet</strong> ont un rôle particulier :</p>
+<table>
+<thead>
+<tr>
+<th>Bit</th>
+<th>Valeur 0</th>
+<th>Valeur 1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I/G (bit 0)</td>
+<td>adresse <strong>individuelle</strong> (unicast)</td>
+<td>adresse de <strong>groupe</strong> (multicast ou broadcast)</td>
+</tr>
+<tr>
+<td>U/L (bit 1)</td>
+<td>adresse <strong>universelle</strong> (attribuée par le fabricant)</td>
+<td>adresse <strong>administrée localement</strong></td>
+</tr>
+</tbody>
+</table>
+<p>Exemples : <code>01:00:5E:xx:xx:xx</code> (premier octet impair) est une adresse multicast IPv4 ; <code>33:33:xx:xx:xx:xx</code> une adresse multicast IPv6. Une adresse dont le deuxième chiffre hexadécimal est 2, 6, A ou E (<code>x2:…</code>, <code>xA:…</code>) est administrée localement : c’est le cas des <strong>adresses aléatoires</strong> que les téléphones et Windows utilisent sur les réseaux Wi-Fi pour protéger la vie privée, ainsi que des MAC de machines virtuelles.</p>
+<div class="encadre note">
+<p class="encadre-titre">Bon à savoir</p>
+<p>Les adresses MAC aléatoires compliquent les réseaux qui identifient les appareils par leur MAC (portails invités, réservations DHCP, filtrage). Les solutions modernes s’appuient sur l’authentification 802.1X plutôt que sur l’adresse MAC.</p>
+</div>
+<h2 id="la-table-mac-en-pratique-cisco-ios">La table MAC en pratique (Cisco IOS)</h2>
+<pre><code class="language-cisco"><span class="k">SW1#</span> show mac address-table dynamic vlan 10
+          Mac Address Table
+-------------------------------------------
+Vlan    Mac Address       Type        Ports
+----    -----------       --------    -----
+  10    3c22.fb1a.097e    DYNAMIC     Gi1/0/1
+  10    0050.56aa.0001    DYNAMIC     Gi1/0/48
+  10    7c21.0e4a.1b30    DYNAMIC     Gi1/0/48
+Total Mac Addresses for this criterion: 3
+
+<span class="k">SW1#</span> show mac address-table address 3c22.fb1a.097e
+<span class="k">SW1#</span> show mac address-table aging-time
+Global Aging Time:  300
+</code></pre>
+<ul>
+<li>Plusieurs adresses sur <strong>Gi1/0/48</strong> : c’est normal pour un lien vers un autre switch, derrière lequel se trouvent de nombreuses machines.</li>
+<li>Les entrées dynamiques <strong>expirent</strong> après 300 secondes sans trafic (<em>aging time</em>), pour que la table suive les déplacements.</li>
+<li>La table est <strong>par VLAN</strong> : la même MAC peut apparaître dans deux VLAN différents.</li>
+</ul>
+<p><strong>Retrouver un poste dans un réseau</strong> : on cherche sa MAC sur le switch de cœur, on suit le port indiqué vers le switch suivant, et ainsi de suite jusqu’à un port d’accès. <code>show cdp neighbors</code> ou <code>show lldp neighbors</code> indique quel switch se trouve derrière chaque port.</p>
+<h2 id="les-incidents-lies-a-la-table-mac">Les incidents liés à la table MAC</h2>
+<p><strong>MAC flapping.</strong> La même adresse est apprise alternativement sur deux ports :</p>
+<pre><code class="language-text">%SW_MATM-4-MACFLAP_NOTIF: Host 0050.56aa.0001 in vlan 10 is flapping
+between port Gi1/0/1 and port Gi1/0/2
+</code></pre>
+<p>C’est le signe d’une <strong>boucle</strong> (voir <a href="stp.html">STP</a>), d’un agrégat de liens mal configuré (voir <a href="lacp.html">LACP</a>), ou parfois d’un serveur dont deux cartes utilisent la même adresse sans être agrégées.</p>
+<p><strong>Saturation de la table.</strong> Une table MAC a une taille finie (quelques milliers à quelques centaines de milliers d’entrées). Un attaquant qui envoie des milliers de trames avec des MAC source aléatoires la remplit : les vraies adresses ne peuvent plus être apprises, leurs trames sont <strong>inondées</strong> partout, et l’attaquant peut les capturer. <strong>Port Security</strong>, qui limite le nombre de MAC par port, empêche cette attaque.</p>
+<pre><code class="language-cisco">interface GigabitEthernet1/0/1
+ switchport mode access
+ switchport port-security
+ switchport port-security maximum 2
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky
+</code></pre>
+<h2 id="le-flooding-dunicast-inconnu-un-symptome-subtil">Le flooding d’unicast inconnu, un symptôme subtil</h2>
+<p>Si un serveur n’envoie presque jamais de trafic mais en reçoit beaucoup (un serveur de journaux, par exemple), son entrée MAC peut <strong>expirer</strong> (300 s) alors que son entrée ARP chez les émetteurs dure bien plus longtemps (4 heures par défaut sur Cisco). Le switch ne sait plus où il se trouve : tout le trafic qui lui est destiné est <strong>inondé</strong> dans le VLAN. Solutions : aligner les temporisateurs (aging MAC ≥ délai ARP) ou faire émettre régulièrement le serveur.</p>
+<h2 id="exercices">Exercices</h2>
+<p><strong>1.</strong> L’adresse <code>02:42:ac:11:00:02</code> apparaît sur un serveur Linux. Est-ce une adresse de fabricant ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>Non.</strong> Le premier octet <code>02</code> a le bit U/L à 1 : c’est une adresse <strong>administrée localement</strong>. Ce préfixe <code>02:42</code> est typiquement celui des conteneurs Docker.</p>
+</details>
+<p><strong>2.</strong> <code>show mac address-table</code> sur un switch d’accès montre 400 adresses sur un port utilisateur. Que soupçonnes-tu ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Un port utilisateur ne devrait voir qu’une à trois adresses (PC, téléphone, éventuellement une machine virtuelle). 400 adresses désignent soit un <strong>switch non autorisé</strong> branché sur la prise, soit une <strong>attaque de saturation</strong> de la table MAC. Vérifier avec <code>show cdp neighbors</code>, <code>show lldp neighbors</code>, et configurer <strong>Port Security</strong> avec un nombre maximal d’adresses.</p>
+</details>
+<p><strong>3.</strong> Après le remplacement de la carte mère d’un serveur, des utilisateurs ne le joignent plus pendant quelques minutes, puis tout rentre dans l’ordre. Explique.</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>La nouvelle carte a une <strong>nouvelle adresse MAC</strong>. Les postes et le routeur gardaient en mémoire (cache ARP) l’ancienne association IP → MAC et envoyaient leurs trames à une adresse qui n’existe plus. Les choses rentrent dans l’ordre à l’expiration des caches ARP, ou dès que le serveur envoie un <strong>ARP gratuit</strong> pour annoncer sa nouvelle MAC.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-1/ethernet.html"><small>Fiche précédente</small><strong>Ethernet</strong></a><a class="apres" href="../niveau-1/switch.html"><small>Fiche suivante</small><strong>Penser comme un switch</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-livrer-au-bon-appareil-du-reseau-local">Le problème : livrer au bon appareil du réseau local</a><a href="#a-quoi-ressemble-une-adresse-mac">À quoi ressemble une adresse MAC ?</a><a href="#comment-le-switch-apprend">Comment le switch apprend</a><a href="#les-adresses-mac-changent-a-chaque-routeur">Les adresses MAC changent à chaque routeur</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#structure-fine-dune-adresse-mac">Structure fine d’une adresse MAC</a><a href="#la-table-mac-en-pratique-cisco-ios">La table MAC en pratique (Cisco IOS)</a><a href="#les-incidents-lies-a-la-table-mac">Les incidents liés à la table MAC</a><a href="#le-flooding-dunicast-inconnu-un-symptome-subtil">Le flooding d’unicast inconnu, un symptôme subtil</a><a href="#exercices">Exercices</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

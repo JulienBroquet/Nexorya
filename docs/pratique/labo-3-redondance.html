@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Labo 3 — Redondance sans boucle | Nexorya</title>
+<meta name="description" content="Explore les réseaux. Maîtrise l’infrastructure.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" aria-current=page class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="page"><p class="fil"><a href="../index.html">Accueil</a> › <a href=index.html>Pratique</a></p><h1>Labo 3 — Redondance sans boucle</h1><p class=chapeau>Tu vas ajouter des liens de secours entre trois switches, voir le spanning tree bloquer un port, choisir toi-même la racine, puis doubler un lien avec LACP.</p><div class="prose"><div class="encadre retenir">
+<p class="encadre-titre">Objectif</p>
+<p>Observer l’élection STP, contrôler le choix de la racine, mesurer la reprise après une panne, et agréger deux liens en un seul avec LACP.</p>
+</div>
+<p><strong>Durée</strong> : 1 heure. <strong>Fiches utiles</strong> : <a href="../niveau-1/stp.html">STP</a>, <a href="../niveau-1/rstp.html">RSTP</a>, <a href="../niveau-1/lacp.html">LACP</a>.</p>
+<h2 id="la-topologie">La topologie</h2>
+<figure class="schema"><svg viewBox="0 0 464.0 482.0" width="464.0" role="img" aria-label="Labo 3" xmlns="http://www.w3.org/2000/svg"><line class="tp-lien double" x1="110.0" y1="50.0" x2="354.0" y2="50.0"/><line class="tp-lien-int" x1="110.0" y1="50.0" x2="354.0" y2="50.0" stroke="var(--surface)" stroke-width="3"/><text class="tp-etiq" x="232.0" y="38.0" text-anchor="middle">2 liens LACP</text><line class="tp-lien " x1="110.0" y1="50.0" x2="232.0" y2="232.0"/><line class="tp-lien " x1="354.0" y1="50.0" x2="232.0" y2="232.0"/><line class="tp-lien " x1="232.0" y1="232.0" x2="232.0" y2="386.0"/><g transform="translate(110.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="110.0" y="90.0" text-anchor="middle">DIST1</text><text class="tp-sous" x="110.0" y="106.0" text-anchor="middle">racine voulue</text><g transform="translate(354.0 50.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="354.0" y="90.0" text-anchor="middle">DIST2</text><text class="tp-sous" x="354.0" y="106.0" text-anchor="middle">racine de secours</text><g transform="translate(232.0 232.0)"><rect class="tp-ico" x="-30" y="-13" width="60" height="26" rx="5"/><rect class="tp-ico-plein" x="-22" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-13" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="-4" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="5" y="-3" width="5" height="5" rx="1"/><rect class="tp-ico-plein" x="14" y="-3" width="5" height="5" rx="1"/></g><text class="tp-lib" x="232.0" y="272.0" text-anchor="middle">ACC1</text><g transform="translate(232.0 386.0)"><rect class="tp-ico" x="-21" y="-18" width="42" height="28" rx="3"/><path class="tp-ico-trait" d="M0 10 v6 M-10 17 h20"/></g><text class="tp-lib" x="232.0" y="426.0" text-anchor="middle">PC</text></svg><figcaption>Labo 3</figcaption></figure>
+<h2 id="etape-1-observer-lelection">Étape 1 — Observer l’élection</h2>
+<p>Relie les trois switches en triangle (un seul lien entre DIST1 et DIST2 pour l’instant), sans rien configurer.</p>
+<pre><code class="language-cisco"><span class="k">ACC1#</span> show spanning-tree vlan 1
+  Root ID    Priority    32769
+             Address     0001.4227.8a01
+  ...
+Interface        Role Sts Cost      Prio.Nbr Type
+---------------- ---- --- --------- -------- -----
+Gi0/1            Root FWD 4         128.25   P2p
+Gi0/2            Altn BLK 4         128.26   P2p
+</code></pre>
+<p>Note quel switch est la racine. C’est celui qui a la <strong>plus petite adresse MAC</strong>, au hasard du matériel — souvent un mauvais choix, comme le switch d’accès.</p>
+<h2 id="etape-2-choisir-la-racine">Étape 2 — Choisir la racine</h2>
+<pre><code class="language-cisco"><span class="k">DIST1(config)#</span> spanning-tree mode rapid-pvst
+<span class="k">DIST1(config)#</span> spanning-tree vlan 1-4094 priority 4096
+<span class="k">DIST2(config)#</span> spanning-tree mode rapid-pvst
+<span class="k">DIST2(config)#</span> spanning-tree vlan 1-4094 priority 8192
+<span class="k">ACC1(config)#</span>  spanning-tree mode rapid-pvst
+</code></pre>
+<p>Vérifie que DIST1 est racine et repère le port <strong>bloqué</strong> : il doit maintenant se trouver sur ACC1, vers DIST2.</p>
+<h2 id="etape-3-provoquer-une-panne">Étape 3 — Provoquer une panne</h2>
+<p>Lance un ping continu depuis le PC vers une adresse au-delà de DIST1 (<code>ping -t</code>), puis coupe le lien ACC1–DIST1. Compte les pings perdus. Remets le lien.</p>
+<h2 id="etape-4-proteger-les-ports-dacces">Étape 4 — Protéger les ports d’accès</h2>
+<pre><code class="language-cisco"><span class="k">ACC1(config)#</span> interface Fa0/1
+<span class="k">ACC1(config-if)#</span> spanning-tree portfast
+<span class="k">ACC1(config-if)#</span> spanning-tree bpduguard enable
+</code></pre>
+<h2 id="etape-5-agreger-dist1dist2">Étape 5 — Agréger DIST1–DIST2</h2>
+<p>Ajoute un second câble entre DIST1 et DIST2, puis :</p>
+<pre><code class="language-cisco"><span class="k">DIST1(config)#</span> interface range Gi0/1 - 2
+<span class="k">DIST1(config-if-range)#</span> channel-group 1 mode active
+<span class="k">DIST1(config-if-range)#</span> interface Port-channel1
+<span class="k">DIST1(config-if)#</span> switchport mode trunk
+</code></pre>
+<p>Même configuration sur DIST2.</p>
+<pre><code class="language-cisco"><span class="k">DIST1#</span> show etherchannel summary
+1      Po1(SU)         LACP      Gi0/1(P)    Gi0/2(P)
+</code></pre>
+<h2 id="questions">Questions</h2>
+<p><strong>1.</strong> Sans agrégat, pourquoi le second câble entre DIST1 et DIST2 n’apporterait-il pas de débit ?</p>
+<p><strong>2.</strong> Combien de pings as-tu perdus à l’étape 3 ? Qu’attendrais-tu avec l’ancien STP (802.1D) ?</p>
+<p><strong>3.</strong> Que fait BPDU Guard si quelqu’un branche un switch sur Fa0/1 ?</p>
+<details>
+<summary>Voir le corrigé</summary>
+<p><strong>1.</strong> Le spanning tree verrait une <strong>boucle</strong> et bloquerait l’un des deux câbles. Avec LACP, les deux liens forment <strong>un seul lien logique</strong> : STP ne voit plus de boucle, et le trafic se répartit sur les deux.</p>
+<p><strong>2.</strong> Avec RSTP, en général 0 à 2 pings perdus (une à quelques secondes). Avec 802.1D, la reprise prend <strong>30 à 50 secondes</strong>, soit une trentaine de pings perdus.</p>
+<p><strong>3.</strong> Le port reçoit des BPDU, alors qu’il ne devrait y avoir qu’un poste : il passe en <strong>err-disabled</strong> (coupé) pour protéger la topologie. Il faut une intervention (<code>shutdown</code> / <code>no shutdown</code>) ou une reprise automatique configurée.</p>
+</details>
+<p><strong>Suite</strong> : <a href="labo-4-routage.html">Labo 4 — Plusieurs sites routés</a>.</p></div></div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

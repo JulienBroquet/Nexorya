@@ -1,0 +1,579 @@
+# QCM du niveau 1. Format : voir CONTRIBUTING.md.
+# La bonne réponse est écrite en premier ici ; le générateur mélange les propositions.
+niveau: 1
+titre: Ethernet, switching et Wi-Fi
+questions:
+- niveau: Découverte
+  situation: Tu branches le PC de Léa sur la prise murale B12. Le voyant du port, côté switch, reste éteint et Windows
+    affiche « Câble réseau non connecté ».
+  question: À quelle couche du modèle OSI se situe très probablement le problème ?
+  bonne:
+  - Couche 1 — physique (câble, prise, carte réseau, port)
+  - 'Un voyant éteint signifie qu''aucun signal électrique n''est échangé : la liaison physique n''existe pas. Tant
+    que la couche 1 ne fonctionne pas, aucune couche supérieure ne peut fonctionner.'
+  fausses:
+  - - Couche 3 — réseau (adresse IP, passerelle)
+    - 'Une mauvaise adresse IP n''éteint pas le voyant : le lien serait « connecté » mais sans communication IP.'
+  - - Couche 4 — transport (TCP/UDP)
+    - TCP et UDP n'interviennent que lorsqu'une liaison et une adresse IP existent déjà.
+  - - Couche 7 — application (navigateur, messagerie)
+    - Une application en panne n'empêche pas le voyant de s'allumer.
+  retenir: 'On dépanne de bas en haut : voyant et câble d''abord, adresse IP ensuite.'
+  fiche: phy
+- niveau: Découverte
+  situation: Un administrateur te montre quatre valeurs relevées sur un poste de travail.
+  question: Laquelle est une adresse MAC ?
+  bonne:
+  - 00:1A:2B:3C:4D:5E
+  - Une adresse MAC compte 48 bits, écrits en 6 octets hexadécimaux (0-9, A-F). Elle est gravée dans la carte réseau
+    et sert à livrer les trames sur le réseau local.
+  fausses:
+  - - 192.168.1.10
+    - 'C''est une adresse IPv4 : 4 nombres décimaux de 0 à 255. Elle sert au routage entre réseaux, pas à la livraison
+      locale.'
+  - - fe80::1
+    - 'C''est une adresse IPv6 (lien local), notée en groupes hexadécimaux séparés par « : » avec une abréviation
+      « :: ».'
+  - - intranet.exemple.fr
+    - C'est un nom DNS, que l'ordinateur doit d'abord traduire en adresse IP.
+  retenir: MAC = 6 octets hexadécimaux, adresse de livraison sur le réseau local.
+  fiche: mac
+- niveau: Découverte
+  situation: 'Un switch vient de démarrer : sa table d''adresses MAC est vide. Le PC A, branché sur le port 1, envoie
+    une trame au PC B, branché sur le port 5.'
+  question: Que retient le switch en recevant cette trame ?
+  bonne:
+  - Que l'adresse MAC de A se trouve derrière le port 1
+  - 'Le switch apprend toujours à partir de l''adresse MAC SOURCE : la trame arrive par le port 1 et vient de A,
+    donc A est joignable par le port 1.'
+  fausses:
+  - - Que l'adresse MAC de B se trouve derrière le port 5
+    - 'Le switch ne sait pas encore où est B : B n''a encore rien envoyé. Il l''apprendra quand B répondra.'
+  - - L'adresse IP de A
+    - 'Un switch de niveau 2 ne construit pas de table d''adresses IP : il travaille avec les adresses MAC.'
+  - - Rien tant que B n'a pas répondu
+    - 'L''apprentissage est immédiat dès la première trame reçue : la source est enregistrée tout de suite.'
+  retenir: Le switch apprend avec la MAC source et décide avec la MAC destination.
+  fiche: mac
+- niveau: Découverte
+  situation: 'Même situation : la table MAC du switch ne contient encore que « A → port 1 ». La trame de A est destinée
+    à B, dont l''emplacement est inconnu.'
+  question: Que fait le switch de cette trame ?
+  bonne:
+  - Il la recopie sur tous les ports du même VLAN, sauf le port 1
+  - 'C''est l''inondation (flooding) d''une « unicast inconnue » : faute de savoir où est B, le switch envoie une
+    copie partout dans le VLAN. Seul B la prendra en compte ; sa réponse permettra d''apprendre où il se trouve.'
+  fausses:
+  - - Il la supprime car la destination est inconnue
+    - Supprimer la trame empêcherait toute première communication. Le switch préfère l'inonder.
+  - - Il la renvoie au PC A
+    - Un switch ne renvoie jamais une trame par le port d'arrivée.
+  - - Il l'envoie au routeur pour qu'il trouve B
+    - Un switch ne délègue pas la recherche au routeur ; le routeur sert à sortir du réseau local, pas à localiser
+      une MAC.
+  retenir: Destination inconnue = inondation dans le VLAN, jamais par le port d'arrivée.
+  fiche: mac
+- niveau: Découverte
+  situation: Dans une PME, les ordinateurs des invités et ceux de la comptabilité sont branchés sur le même switch.
+    La direction veut que les invités ne puissent plus joindre la comptabilité.
+  question: Quelle est la solution de base sur le switch ?
+  bonne:
+  - Placer les deux groupes dans deux VLAN différents
+  - 'Un VLAN crée un réseau local séparé à l''intérieur d''un même switch : les trames et les broadcasts d''un VLAN
+    n''atteignent pas l''autre. Pour aller d''un VLAN à l''autre, il faudrait un routeur — et c''est là qu''on placera
+    un filtrage.'
+  fausses:
+  - - Utiliser des câbles de couleurs différentes
+    - La couleur d'un câble aide à l'étiquetage, mais ne change rien au fonctionnement du réseau.
+  - - Activer le PoE sur les ports des invités
+    - Le PoE alimente des appareils (téléphones, caméras) ; il n'isole pas les flux.
+  - - Activer le Spanning Tree
+    - STP empêche les boucles entre switches, il ne sépare pas les utilisateurs.
+  retenir: VLAN = un réseau local séparé, même sur un switch partagé.
+  fiche: vlan
+- niveau: Découverte
+  situation: Deux switches d'étage sont reliés par un seul câble. Les VLAN 10 (ordinateurs) et 20 (téléphones) doivent
+    passer par ce câble.
+  question: Comment le switch qui reçoit une trame sait-il à quel VLAN elle appartient ?
+  bonne:
+  - Grâce à une étiquette 802.1Q insérée dans la trame, qui contient le numéro de VLAN
+  - Sur un lien « trunk », le switch émetteur ajoute un en-tête de 4 octets (le tag 802.1Q) qui contient le numéro
+    de VLAN, sur 12 bits. Le switch récepteur lit ce numéro, retire l'étiquette et livre la trame dans le bon VLAN.
+  fausses:
+  - - En lisant l'adresse IP de destination
+    - Le switch de niveau 2 ne lit pas l'IP pour choisir le VLAN ; et deux VLAN peuvent d'ailleurs contenir des
+      plans d'adressage quelconques.
+  - - 'C''est impossible : il faut un câble par VLAN'
+    - C'était la solution avant 802.1Q ; le trunk permet justement de faire passer de nombreux VLAN sur un même
+      câble.
+  - - En lisant l'adresse MAC source
+    - Une adresse MAC n'indique pas le VLAN ; un même poste pourrait être déplacé d'un VLAN à l'autre.
+  retenir: Trunk = plusieurs VLAN sur un câble, chaque trame porte son étiquette 802.1Q.
+  fiche: 802-1q
+- niveau: Découverte
+  situation: Trois switches sont reliés en triangle (SW1–SW2, SW2–SW3, SW3–SW1) pour avoir un chemin de secours.
+    Le Spanning Tree est désactivé. Un PC envoie un broadcast.
+  question: Que se passe-t-il ?
+  bonne:
+  - Le broadcast tourne sans fin dans le triangle et se multiplie jusqu'à saturer le réseau
+  - 'Chaque switch recopie le broadcast sur tous ses autres ports : les copies font le tour du triangle dans les
+    deux sens, indéfiniment, car une trame Ethernet n''a aucun compteur de durée de vie. En quelques secondes, les
+    liens et les processeurs sont saturés : c''est la tempête de broadcast.'
+  fausses:
+  - - La trame est supprimée après 64 sauts grâce au TTL
+    - Le TTL existe dans l'en-tête IP, pas dans la trame Ethernet. C'est justement ce qui rend une boucle de niveau
+      2 si dangereuse.
+  - - Les switches choisissent automatiquement le chemin le plus court
+    - 'Sans STP, les switches n''ont aucun mécanisme pour choisir un chemin : ils inondent tous les ports.'
+  - - 'Rien de particulier : la redondance améliore toujours la fiabilité'
+    - La redondance n'est utile que si une boucle est empêchée ; sans STP, elle provoque une panne totale.
+  retenir: 'Ethernet n''a pas de TTL : une boucle sans STP fait tomber tout le VLAN.'
+  fiche: stp
+- niveau: Découverte
+  situation: 'Un switch PoE+ dispose d''un budget total de 370 W. Douze caméras de classe 4 (30 W réservés chacune)
+    fonctionnent. Tu branches une treizième caméra identique : le lien s''allume, mais la caméra ne démarre pas.'
+  question: Quelle est la cause la plus probable ?
+  bonne:
+  - Le budget PoE du switch est épuisé
+  - '12 × 30 W = 360 W sont déjà réservés : il ne reste que 10 W sur 370 W, alors que la nouvelle caméra en demande
+    30. Le switch refuse de l''alimenter. La commande « show power inline » affiche la puissance disponible et consommée.'
+  fausses:
+  - - La caméra n'est pas dans le bon VLAN
+    - 'Un mauvais VLAN empêcherait la caméra de communiquer, mais pas de s''allumer : l''alimentation est indépendante
+      du VLAN.'
+  - - La MTU du port est trop petite
+    - La MTU concerne la taille des trames, pas l'alimentation électrique.
+  - - Il faut une fibre optique pour alimenter la caméra
+    - 'Une fibre ne transporte pas d''électricité : le PoE passe uniquement sur du câble cuivre à paires torsadées.'
+  retenir: 'PoE : vérifier le budget total du switch, pas seulement le port.'
+  fiche: poe
+- niveau: Découverte
+  situation: Deux bâtiments d'un même site sont distants de 400 m. Les switches des deux bâtiments disposent de
+    ports SFP vides.
+  question: Quelle solution permet de les relier ?
+  bonne:
+  - Deux modules SFP optiques de même type, avec une fibre compatible avec ce type
+  - Le module SFP convertit le signal électrique du switch en lumière. Il faut le même standard aux deux extrémités
+    (par exemple 1000BASE-LX sur fibre monomode) et une fibre adaptée à la distance et à la longueur d'onde.
+  fausses:
+  - - Un câble cuivre de catégorie 6
+    - La paire torsadée Ethernet est limitée à 100 m par segment.
+  - - Un câble DAC
+    - Un DAC est un câble cuivre avec connecteurs intégrés, prévu pour quelques mètres dans une même baie.
+  - - N'importe quels modules SFP, du moment qu'ils s'enfichent
+    - 'Un SX (multimode, 850 nm) en face d''un LX (monomode, 1310 nm) ne fonctionnera pas : type, longueur d''onde
+      et fibre doivent concorder.'
+  retenir: 'Au-delà de 100 m : fibre et modules optiques identiques des deux côtés.'
+  fiche: sfp
+- niveau: Découverte
+  situation: Un PC équipé d'une carte 1 Gb/s ne se connecte qu'à 100 Mb/s. Le testeur de câble indique que deux
+    des quatre paires du câble sont coupées.
+  question: Pourquoi la liaison reste-t-elle à 100 Mb/s ?
+  bonne:
+  - Le Gigabit Ethernet cuivre utilise les quatre paires ; 100 Mb/s n'en utilise que deux
+  - 1000BASE-T transmet sur les 4 paires simultanément. Avec seulement 2 paires valides, l'auto-négociation ne peut
+    retenir que 100BASE-TX, qui n'utilise que 2 paires. Remplacer le câble ou la prise résout le problème.
+  fausses:
+  - - Le switch limite volontairement les PC à 100 Mb/s
+    - 'Rien ne l''indique : le testeur a trouvé un défaut physique qui explique exactement le symptôme.'
+  - - L'adresse IP du PC est mal configurée
+    - La vitesse du lien est négociée à la couche 1, avant toute adresse IP.
+  - - Le VLAN du port est lent
+    - Un VLAN n'a pas de vitesse propre ; la vitesse dépend du lien physique.
+  retenir: Gigabit cuivre = 4 paires ; une paire abîmée fait redescendre à 100 Mb/s.
+  fiche: phy
+- niveau: Découverte
+  situation: Tu arrives dans une baie mal documentée. Tu veux savoir à quel équipement est relié le port Gi1/0/48
+    d'un switch Cisco.
+  question: Quelle commande te donne directement le nom de l'équipement voisin ?
+  bonne:
+  - show cdp neighbors (ou show lldp neighbors)
+  - CDP (Cisco) et LLDP (standard) font annoncer à chaque équipement son nom, son modèle et son port à ses voisins
+    directs. La commande affiche, pour chaque port local, le nom du voisin et son port.
+  fausses:
+  - - show mac address-table interface Gi1/0/48
+    - Cette commande affiche des adresses MAC vues sur le port, pas le nom de l'équipement.
+  - - show ip route
+    - La table de routage liste des réseaux IP et des passerelles, pas les voisins physiques.
+  - - show vlan brief
+    - Elle liste les VLAN et leurs ports d'accès, sans rien dire du voisin.
+  retenir: CDP/LLDP = « qui est branché en face de ce port ? ».
+  fiche: lldp
+- niveau: Pratique
+  situation: 'Sur un trunk entre SW1 et SW2, le VLAN 10 fonctionne mais pas le VLAN 20. Sur SW1, « show interfaces
+    trunk » affiche : Vlans allowed on trunk : 10,30.'
+  question: Quelle commande corrige le problème sans couper les autres VLAN ?
+  bonne:
+  - switchport trunk allowed vlan add 20
+  - Le mot-clé « add » ajoute le VLAN 20 à la liste existante, qui devient 10,20,30. Le VLAN 20 traverse désormais
+    le trunk sans perturber le reste.
+  fausses:
+  - - switchport trunk allowed vlan 20
+    - 'Sans « add », la liste est REMPLACÉE par « 20 » : les VLAN 10 et 30 sont coupés immédiatement. C''est une
+      erreur classique en production.'
+  - - switchport mode access
+    - 'Le port cesserait d''être un trunk : il ne transporterait plus qu''un seul VLAN.'
+  - - vlan 20 sur SW2 uniquement
+    - Créer le VLAN est nécessaire des deux côtés, mais la liste autorisée sur le trunk de SW1 bloque toujours le
+      VLAN 20.
+  retenir: Sur un trunk en production, toujours « allowed vlan add ».
+  fiche: 802-1q
+- niveau: Pratique
+  situation: 'Les journaux de SW1 affichent « %CDP-4-NATIVE_VLAN_MISMATCH » : le trunk a le VLAN natif 1 côté SW1
+    et le VLAN natif 99 côté SW2.'
+  question: Quel est le risque principal ?
+  bonne:
+  - Les trames non étiquetées passent du VLAN 1 d'un côté au VLAN 99 de l'autre
+  - 'Les trames du VLAN natif voyagent SANS étiquette. Le récepteur les range dans SON VLAN natif : du trafic du
+    VLAN 1 se retrouve dans le VLAN 99, ce qui crée une fuite entre réseaux et peut perturber le Spanning Tree.'
+  fausses:
+  - - Le câble est coupé physiquement
+    - Le lien reste actif ; c'est justement pourquoi l'erreur passe parfois inaperçue.
+  - - Tous les VLAN étiquetés sont bloqués
+    - Les VLAN étiquetés (10, 20…) continuent de passer normalement ; seul le trafic non étiqueté est mal classé.
+  - - 'Aucun : c''est un simple message d''information'
+    - Le niveau 4 (warning) signale une incohérence réelle qui peut faire fuir du trafic.
+  retenir: Le VLAN natif doit être identique aux deux extrémités d'un trunk.
+  fiche: 802-1q
+- niveau: Pratique
+  situation: 'Trois switches gardent la priorité STP par défaut (32768). Adresses MAC : SW1 = 0011.2233.4455, SW2
+    = 000c.1111.0001 (un ancien switch d''accès), SW3 = 00aa.bbcc.ddee.'
+  question: Quel switch devient pont racine ?
+  bonne:
+  - SW2
+  - 'La racine est le switch au plus petit Bridge ID = priorité, puis adresse MAC. Les priorités sont égales, donc
+    la plus petite MAC gagne : 000c… < 0011… < 00aa…. Le plus vieux switch devient racine : c''est pourquoi on fixe
+    la racine avec « spanning-tree vlan X root primary ».'
+  fausses:
+  - - SW1
+    - 'Sa MAC 0011… est plus grande que 000c… : à priorité égale, il perd l''élection.'
+  - - SW3
+    - Sa MAC 00aa… est la plus grande des trois.
+  - - Le plus rapide ou le plus récent
+    - STP ne regarde ni la vitesse ni l'âge des switches, seulement priorité et adresse MAC.
+  retenir: Racine = plus petit Bridge ID (priorité, puis MAC) — à fixer soi-même.
+  fiche: stp
+- niveau: Pratique
+  situation: Avec le STP classique (802.1D), la panne d'un uplink coupe le réseau 30 à 50 secondes. Après passage
+    en Rapid PVST+, la coupure ne dure plus qu'environ une seconde.
+  question: Pourquoi le STP classique est-il si lent ?
+  bonne:
+  - Un port doit attendre plusieurs temporisateurs (blocage, écoute 15 s, apprentissage 15 s) avant de transmettre
+  - 'En 802.1D, un port bloqué attend jusqu''à 20 s (max age), puis passe 15 s en « listening » et 15 s en « learning
+    » : jusqu''à 50 s. RSTP remplace l''attente par une négociation directe entre voisins (proposal/agreement) et
+    des ports de secours (alternate) prêts à basculer.'
+  fausses:
+  - - Les switches doivent redémarrer après une panne
+    - Aucun redémarrage n'a lieu ; seul l'état des ports change.
+  - - La table de routage IP doit être recalculée
+    - STP est un protocole de niveau 2 ; il n'utilise pas la table de routage.
+  - - Le câble de secours doit d'abord chauffer
+    - Il n'y a aucune contrainte physique de ce type ; le délai est purement protocolaire.
+  retenir: STP classique = temporisateurs (jusqu'à 50 s) ; RSTP = négociation (≈ 1 s).
+  fiche: rstp
+- niveau: Pratique
+  situation: Un utilisateur branche un petit switch de bureau sur sa prise réseau. Le port Gi1/0/12 passe aussitôt
+    à l'état err-disabled. Sa configuration contient « spanning-tree portfast » et « spanning-tree bpduguard enable
+    ».
+  question: Pourquoi le port a-t-il été désactivé ?
+  bonne:
+  - Il a reçu des BPDU, alors que BPDU Guard n'en autorise aucune sur un port d'accès
+  - 'Un port PortFast est censé accueillir un seul poste, qui n''émet jamais de BPDU. Le petit switch en a envoyé
+    : BPDU Guard coupe le port pour empêcher une boucle ou une prise de contrôle de la topologie. Il faut retirer
+    l''équipement puis réactiver le port (shutdown / no shutdown).'
+  fausses:
+  - - Le câble est défectueux
+    - Un câble défectueux produit des erreurs ou une liaison « down », pas un err-disabled lié à BPDU Guard.
+  - - Le switch de bureau consomme trop de PoE
+    - Un dépassement PoE coupe l'alimentation du port, pas le port lui-même avec ce message.
+  - - PortFast désactive le port dès qu'un nouveau PC arrive
+    - PortFast fait au contraire passer le port directement en transmission pour un poste.
+  retenir: PortFast + BPDU Guard sur tous les ports utilisateurs.
+  fiche: stp
+- niveau: Pratique
+  situation: Deux liens de 10 Gb/s sont agrégés en un port-channel LACP entre un serveur et un switch. Une copie
+    de fichier unique plafonne pourtant à 10 Gb/s.
+  question: Pourquoi ?
+  bonne:
+  - Chaque flux est placé sur un seul lien membre par un calcul de hachage
+  - Pour garder les paquets dans l'ordre, l'agrégat choisit un lien par flux (selon MAC, IP ou ports). Un seul flux
+    ne dépasse donc pas la vitesse d'un lien ; ce sont plusieurs flux simultanés qui profitent des 20 Gb/s.
+  fausses:
+  - - Un VLAN est limité à 10 Gb/s
+    - Un VLAN n'a pas de débit maximal propre.
+  - - LACP désactive le second lien en secours
+    - LACP utilise les deux liens actifs à la fois ; c'est le STP qui bloque des liens, pas LACP.
+  - - Le PoE ralentit les ports
+    - Le PoE n'agit pas sur le débit, et un serveur n'est pas alimenté par PoE.
+  retenir: Agrégat = plus de capacité pour plusieurs flux, pas pour un flux unique.
+  fiche: lacp
+- niveau: Pratique
+  situation: Sur SW1, les ports sont configurés en « channel-group 1 mode active ». Sur SW2, en face, en « channel-group
+    1 mode on ».
+  question: Que se passe-t-il ?
+  bonne:
+  - 'L''agrégat ne se forme pas correctement : le mode « on » n''envoie aucun message LACP'
+  - '« on » force l''agrégat sans négociation ; « active » attend des messages LACP qui ne viennent jamais. SW1
+    laisse ses ports hors agrégat (suspendus ou individuels) alors que SW2 les a regroupés : la situation est incohérente.
+    Il faut active/active ou active/passive.'
+  fausses:
+  - - 'Cela fonctionne : active et on sont compatibles'
+    - « on » ne parle pas LACP ; il ne peut s'associer qu'avec un autre « on ».
+  - - L'agrégat se forme à moitié de la vitesse
+    - 'Il n''existe pas de mode dégradé de ce type : soit LACP négocie, soit il ne négocie pas.'
+  - - Les deux switches redémarrent
+    - Une incohérence de configuration n'entraîne pas de redémarrage.
+  retenir: 'LACP : active/active ou active/passive — jamais active/on.'
+  fiche: lacp
+- niveau: Pratique
+  situation: 'Les journaux d''un switch affichent en boucle : « %SW_MATM-4-MACFLAP_NOTIF: Host 0050.56aa.0001 in
+    vlan 10 is flapping between port Gi1/0/1 and port Gi1/0/2 ». Le réseau est très lent.'
+  question: Quelle cause faut-il vérifier en priorité ?
+  bonne:
+  - Une boucle de niveau 2, ou un agrégat mal configuré, entre ces deux ports
+  - 'La même MAC est apprise alternativement sur deux ports : les trames de cette machine arrivent par deux chemins.
+    C''est la signature d''une boucle (STP absent ou contourné) ou d''un port-channel incomplet.'
+  fausses:
+  - - Un serveur DNS trop lent
+    - Le DNS n'a aucun effet sur l'apprentissage MAC du switch.
+  - - Un certificat TLS expiré
+    - Les certificats agissent au niveau applicatif, bien au-dessus du switch.
+  - - Une table MAC trop petite
+    - Une table pleine provoque de l'inondation, pas l'alternance d'une MAC entre deux ports.
+  retenir: 'MAC flapping = la même MAC arrive par deux chemins : chercher la boucle.'
+  fiche: mac
+- niveau: Pratique
+  situation: Un serveur est forcé en 100 Mb/s full-duplex ; le port du switch est resté en auto-négociation. Le
+    switch détecte bien 100 Mb/s mais se place en half-duplex. Les transferts sont très lents, avec des « late collisions
+    » d'un côté et des erreurs CRC de l'autre.
+  question: Comment s'appelle ce problème ?
+  bonne:
+  - Un désaccord de duplex (duplex mismatch)
+  - Le côté forcé ne participe plus à l'auto-négociation ; le côté auto déduit la vitesse mais retombe par défaut
+    en half-duplex. L'un parle en même temps qu'il écoute, l'autre croit à des collisions. Il faut configurer les
+    deux côtés de la même façon (idéalement auto/auto).
+  fausses:
+  - - Une boucle Spanning Tree
+    - Une boucle produit du MAC flapping et des tempêtes de broadcast, pas des collisions tardives sur un seul lien.
+  - - Un VLAN natif différent
+    - Le VLAN natif concerne les trunks et n'explique pas des collisions.
+  - - Une MTU trop grande
+    - Une MTU incorrecte fait perdre les grosses trames, sans créer de collisions.
+  retenir: 'Les deux côtés d''un lien : même vitesse, même duplex, idéalement en auto.'
+  fiche: ethernet
+- niveau: Pratique
+  situation: Sur un port, « show interfaces » montre un compteur CRC qui augmente régulièrement. Le câble a été
+    remplacé la veille et passe entre des néons et un moteur d'ascenseur.
+  question: Que faut-il suspecter d'abord ?
+  bonne:
+  - 'Le câblage ou la connectique : câble, prises, interférences électromagnétiques'
+  - 'Le CRC (champ FCS) permet au récepteur de détecter une trame abîmée pendant le transport. Des CRC qui augmentent
+    signalent presque toujours un problème physique : connecteur mal serti, câble endommagé ou parasites. Un désaccord
+    de duplex est l''autre suspect classique.'
+  fausses:
+  - - Un VLAN mal configuré
+    - Une erreur de VLAN empêche la communication, mais n'abîme pas les trames reçues.
+  - - Le Spanning Tree
+    - STP bloque ou débloque des ports ; il ne corrompt pas le contenu des trames.
+  - - Un DNS mal configuré
+    - Le DNS intervient bien plus haut et n'altère jamais une trame Ethernet.
+  retenir: 'CRC en hausse = trames abîmées : regarder le câble et le duplex.'
+  fiche: ethernet
+- niveau: Pratique
+  situation: Des postes du VLAN 10 reçoivent soudain des adresses 192.168.0.x au lieu de 10.10.10.x. On découvre
+    qu'un employé a branché une box Internet personnelle sur sa prise.
+  question: Quelle fonction du switch empêche ce type d'incident ?
+  bonne:
+  - DHCP Snooping, en déclarant « de confiance » seulement le port qui mène au vrai serveur DHCP
+  - DHCP Snooping bloque les réponses DHCP (OFFER, ACK) qui arrivent par un port non fiable. La box peut rester
+    branchée, ses réponses sont jetées et les postes ne reçoivent que les adresses du vrai serveur.
+  fausses:
+  - - Port Security
+    - Port Security limite le nombre d'adresses MAC sur un port, mais une seule box suffit à distribuer de fausses
+      adresses.
+  - - BPDU Guard
+    - 'Une box domestique n''envoie généralement pas de BPDU : BPDU Guard ne la détecterait pas.'
+  - - VTP
+    - VTP diffuse la liste des VLAN entre switches et n'a aucun rapport avec DHCP.
+  retenir: 'DHCP Snooping : seuls les ports de confiance peuvent répondre en DHCP.'
+  fiche: dhcp-snooping
+- niveau: Pratique
+  situation: Un switch récupéré dans un laboratoire est branché sur le réseau de production. Il est en mode VTP
+    server, avec le même nom de domaine VTP et un numéro de révision plus élevé. Quelques secondes plus tard, des
+    VLAN disparaissent sur tout le site.
+  question: Que s'est-il passé ?
+  bonne:
+  - Sa base de VLAN, de révision plus élevée, a écrasé celle de tous les autres switches
+  - En VTP v1/v2, la base au numéro de révision le plus haut gagne, quel que soit son contenu. Les VLAN absents
+    du switch de laboratoire sont supprimés partout et leurs ports deviennent inactifs. C'est pourquoi beaucoup
+    d'entreprises utilisent VTP en mode transparent ou off.
+  fausses:
+  - - Le Spanning Tree a bloqué ces VLAN
+    - STP bloque des ports dans un VLAN, il ne supprime pas la définition des VLAN.
+  - - Le switch a lancé une attaque DHCP
+    - Rien n'indique de DHCP ; la disparition des VLAN est typique de VTP.
+  - - Les VLAN ont expiré
+    - Les VLAN n'ont pas de durée de vie ; ils restent tant qu'on ne les supprime pas.
+  retenir: 'VTP : le numéro de révision le plus haut gagne — mode transparent ou off conseillé.'
+  fiche: vtp
+- niveau: Pratique
+  situation: Depuis un PC Windows, « ping -f -l 1472 10.0.0.1 » fonctionne, mais « ping -f -l 1473 10.0.0.1 » répond
+    « Le paquet doit être fragmenté ». L'option -f interdit la fragmentation.
+  question: Quelle MTU IP ce test révèle-t-il ?
+  bonne:
+  - 1500 octets
+  - 1472 octets de données + 8 octets d'en-tête ICMP + 20 octets d'en-tête IP = 1500 octets, la MTU Ethernet standard.
+    Un octet de plus dépasse la limite, et la fragmentation est interdite.
+  fausses:
+  - - 1472 octets
+    - '1472 octets correspondent seulement aux données du ping : il faut ajouter les en-têtes ICMP et IP.'
+  - - 1518 octets
+    - 1518 octets est la taille maximale de la trame Ethernet complète (avec en-tête et FCS), pas la MTU IP.
+  - - 9000 octets
+    - 9000 octets correspond aux « jumbo frames », qui ne sont manifestement pas actives ici.
+  retenir: MTU IP 1500 = 1472 octets de ping + 28 octets d'en-têtes.
+  fiche: mtu
+- niveau: Expert
+  situation: Dans une baie, deux switches top-of-rack doivent être reliés à 25 Gb/s, sur 2 mètres, au coût le plus
+    faible.
+  question: Quel support est le plus adapté ?
+  bonne:
+  - Un câble DAC (twinax cuivre à connecteurs intégrés)
+  - 'Le DAC intègre les deux connecteurs SFP28 et un câble cuivre twinax : pas de module optique à acheter, faible
+    consommation et faible latence. Il convient aux distances de quelques mètres, typiquement dans une même baie.'
+  fausses:
+  - - Deux modules optiques longue portée et de la fibre monomode
+    - Cela fonctionne, mais coûte nettement plus cher et n'apporte rien sur 2 mètres.
+  - - Un câble catégorie 5e
+    - Le Cat5e ne transporte pas du 25 Gb/s et ne s'enfiche pas dans un port SFP28.
+  - - Une liaison Wi-Fi
+    - Le Wi-Fi n'offre ni le débit garanti ni la fiabilité attendus entre deux switches de datacenter.
+  retenir: 'Quelques mètres dans une baie : DAC. Au-delà : optique.'
+  fiche: dac
+- niveau: Expert
+  situation: Un campus compte 200 VLAN. En Rapid PVST+, chaque switch calcule 200 arbres Spanning Tree, ce qui charge
+    les processeurs. L'équipe passe en MSTP avec deux instances.
+  question: Que faut-il garantir pour que les switches forment une seule région MSTP ?
+  bonne:
+  - Le même nom de région, le même numéro de révision et la même correspondance VLAN → instance sur tous les switches
+  - 'Les switches comparent ces trois éléments. Une seule différence (un VLAN associé à une autre instance, par
+    exemple) et le switch est considéré comme hors région : la topologie devient sous-optimale et difficile à dépanner.'
+  fausses:
+  - - Le même modèle de switch partout
+    - 'MSTP est un standard IEEE : des modèles et marques différents peuvent partager une région.'
+  - - La même adresse MAC de pont racine sur chaque switch
+    - Chaque switch a sa propre adresse ; c'est l'élection qui désigne une racine commune.
+  - - Un VTP en mode server
+    - VTP peut distribuer les VLAN, mais il ne définit pas la région MSTP.
+  retenir: Région MSTP = nom + révision + table VLAN→instance identiques.
+  fiche: mstp
+- niveau: Expert
+  situation: Un opérateur métropolitain relie deux sites du client A, qui utilise les VLAN 10 à 50, et deux sites
+    du client B, qui utilise aussi le VLAN 10.
+  question: Comment transporter les deux clients sans mélanger leurs VLAN ni leur demander de les renuméroter ?
+  bonne:
+  - 'QinQ (802.1ad) : ajouter une seconde étiquette « opérateur » propre à chaque client'
+  - 'L''opérateur ajoute un tag extérieur (S-VLAN), par exemple 100 pour A et 200 pour B, autour des tags du client
+    (C-VLAN). Le VLAN 10 de A et celui de B voyagent dans des « tunnels » distincts. Attention : chaque tag ajoute
+    4 octets, la MTU de l''opérateur doit en tenir compte.'
+  fausses:
+  - - Demander au client B de renuméroter son VLAN 10 en VLAN 11
+    - C'est précisément ce qu'on veut éviter ; c'est aussi ingérable avec des dizaines de clients.
+  - - Utiliser un VLAN natif différent pour chaque client
+    - Le VLAN natif ne concerne qu'un VLAN non étiqueté par trunk et n'isole pas des dizaines de VLAN clients.
+  - - Activer VTP entre les sites des clients
+    - VTP synchroniserait les bases de VLAN et mélangerait justement les clients.
+  retenir: QinQ = un tag opérateur par client, autour des tags du client.
+  fiche: qinq
+- niveau: Expert
+  situation: Un datacenter utilise VXLAN, qui ajoute environ 50 octets d'en-tête. Le réseau physique (underlay)
+    a une MTU de 1500 ; les machines virtuelles aussi. Le ping entre VM fonctionne, mais les transferts de fichiers
+    et les sessions SSH se figent.
+  question: Quelle correction faut-il appliquer ?
+  bonne:
+  - Augmenter la MTU de l'underlay à au moins 1550 octets (souvent 9216 en jumbo)
+  - 'Un paquet de 1500 octets de la VM devient environ 1550 octets une fois encapsulé : il dépasse la MTU physique
+    et il est perdu. Les petits paquets (ping par défaut) passent, les gros non : c''est la signature d''un problème
+    de MTU.'
+  fausses:
+  - - Réduire la MTU de l'underlay à 1450
+    - 'Cela aggraverait le problème : l''encapsulation a besoin de PLUS de place, pas de moins.'
+  - - Désactiver le Spanning Tree
+    - STP n'intervient pas dans la taille des paquets ; le symptôme « petits paquets OK, gros paquets KO » désigne
+      la MTU.
+  - - Changer les adresses MAC des VM
+    - Les adresses MAC n'ont aucun lien avec la taille maximale des paquets.
+  retenir: 'Petits paquets OK, gros paquets KO : penser MTU et encapsulation.'
+  fiche: mtu
+- niveau: Expert
+  situation: Un ancien automate industriel perd des paquets uniquement lorsque le lien est peu chargé. Le problème
+    disparaît après « no power efficient-ethernet » sur le port du switch.
+  question: Quelle fonction était en cause ?
+  bonne:
+  - Energy Efficient Ethernet (EEE), qui met le lien en veille quand il est peu utilisé
+  - EEE (802.3az) fait passer le lien en mode basse consommation pendant les silences. Certains équipements anciens
+    ou industriels gèrent mal le réveil et perdent les premières trames. Désactiver EEE sur ces ports est une correction
+    courante.
+  fausses:
+  - - Le PoE, qui coupait l'alimentation
+    - L'automate n'était pas alimenté par le port ; et la commande utilisée concerne EEE, pas le PoE.
+  - - Le Spanning Tree, qui bloquait le port
+    - STP ne bloque pas un port en fonction de la charge du lien.
+  - - La MTU, trop petite pour les messages industriels
+    - Une MTU trop petite poserait problème même lorsque le lien est très chargé.
+  retenir: 'Pertes uniquement au repos sur un équipement ancien : penser EEE.'
+  fiche: eee
+- niveau: Expert
+  situation: Le PC 10.1.1.10 (passerelle 10.1.1.1, le routeur R1) envoie un paquet au serveur 10.2.2.20, situé dans
+    un autre réseau derrière R1.
+  question: Quelle est l'adresse MAC de DESTINATION de la trame qui sort du PC ?
+  bonne:
+  - L'adresse MAC de la passerelle R1
+  - 'Le PC constate que 10.2.2.20 n''est pas dans son réseau : il confie le paquet à sa passerelle. L''IP de destination
+    reste 10.2.2.20, mais la trame est adressée à la MAC de R1. R1 créera ensuite une nouvelle trame vers le serveur
+    : les MAC changent à chaque saut, les IP restent.'
+  fausses:
+  - - L'adresse MAC du serveur 10.2.2.20
+    - Le PC ne peut pas joindre directement une MAC située dans un autre réseau ; il ne la connaît d'ailleurs pas.
+  - - L'adresse de broadcast FF:FF:FF:FF:FF:FF
+    - Le broadcast sert notamment à ARP, pas à transporter un paquet vers un serveur distant.
+  - - Il n'y a pas d'adresse MAC dans ce cas
+    - Toute trame Ethernet porte une MAC de destination, même pour un paquet routé.
+  retenir: IP = destination finale ; MAC = prochain saut. La MAC change à chaque routeur.
+  fiche: mac
+- niveau: Expert
+  situation: Un attaquant lance un outil qui envoie des milliers de trames avec des adresses MAC source aléatoires.
+    Peu après, il voit passer sur son PC le trafic de ses collègues.
+  question: Pourquoi reçoit-il ce trafic ?
+  bonne:
+  - 'La table MAC du switch est saturée : le switch inonde les trames comme un hub'
+  - 'Le switch apprend chaque fausse MAC jusqu''à remplir sa table. Les vraies adresses ne peuvent plus être apprises
+    : leurs trames deviennent des « unicast inconnues » inondées sur tous les ports du VLAN. Port Security, qui
+    limite le nombre de MAC par port, bloque cette attaque.'
+  fausses:
+  - - Il a obtenu l'adresse IP de la passerelle
+    - Rien n'indique une usurpation d'IP ; le symptôme s'explique entièrement par la saturation de la table MAC.
+  - - Le Spanning Tree a basculé son port en racine
+    - Un port ne devient pas racine à cause de trames ordinaires ; il faut des BPDU.
+  - - Le switch a changé son VLAN
+    - Le VLAN d'un port ne change pas tout seul ; l'attaquant reste dans le sien.
+  retenir: Saturation de la table MAC = inondation ; Port Security limite les MAC par port.
+  fiche: mac
+- niveau: Expert
+  situation: Les utilisateurs du VLAN 30 au bâtiment B n'ont plus de réseau. Leur port d'accès est « up/up » et
+    bien placé dans le VLAN 30. Le switch d'accès est relié au cœur par un trunk.
+  question: Quelle vérification est la plus logique ensuite ?
+  bonne:
+  - Sur le trunk, vérifier que le VLAN 30 est autorisé et en état forwarding (show interfaces trunk)
+  - 'On suit le chemin de la trame, de bas en haut : port d''accès validé → la trame doit maintenant traverser le
+    trunk. « show interfaces trunk » montre si le VLAN 30 est autorisé, actif et non bloqué par STP. Ensuite seulement
+    : passerelle, routage, services.'
+  fausses:
+  - - Changer le serveur DNS des postes
+    - Sans connectivité de niveau 2, aucun DNS ne peut répondre ; c'est trop haut dans le diagnostic.
+  - - Redémarrer le switch de cœur
+    - 'Une action lourde sans hypothèse : elle couperait tout le site sans rien prouver.'
+  - - Vérifier les routes BGP vers Internet
+    - 'Les utilisateurs n''atteignent même pas leur réseau local : BGP n''est pas en cause à ce stade.'
+  retenir: 'Diagnostic : suivre le chemin de la trame, du port d''accès au trunk puis à la passerelle.'
+  fiche: vlan

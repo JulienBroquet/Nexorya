@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Calculateur de sous-réseaux | Nexorya</title>
+<meta name="description" content="Explore les réseaux. Maîtrise l’infrastructure.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" class="">Les niveaux</a><a href="../pratique/index.html" aria-current=page class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="page"><h1>Calculateur de sous-réseaux</h1><p class=chapeau>Saisis une adresse avec son préfixe pour voir son réseau, sa plage d’adresses et son masque bit par bit. Puis entraîne-toi avec des exercices tirés au hasard.</p><div class="outil">
+  <label for="cidr-entree">Adresse IPv4 et préfixe</label>
+  <input id="cidr-entree" value="192.168.10.37/26" spellcheck="false" autocomplete="off" inputmode="decimal" aria-describedby="cidr-aide">
+  <p id="cidr-aide" style="margin:8px 0 0;color:var(--encre-3);font-size:15px">Exemples : <code>10.1.20.130/23</code>, <code>172.16.5.9 255.255.240.0</code></p>
+  <p id="cidr-erreur" role="alert" style="color:var(--l4);font-weight:700;margin:10px 0 0"></p>
+  <div class="outil-res" id="cidr-res" aria-live="polite"></div>
+  <div class="bits" id="cidr-bits" aria-label="Vue binaire"></div>
+  <p style="margin:10px 0 0;font-size:15px;color:var(--encre-3)"><span style="color:var(--signal);font-weight:700">En couleur vive</span> : la partie réseau, fixée par le masque. <span style="color:var(--l3);font-weight:700">En second</span> : la partie hôte, qui varie dans le réseau.</p>
+</div>
+
+<div class="prose">
+<h2>Comment le calcul est fait</h2>
+<ol>
+<li>Le <strong>préfixe</strong> /26 signifie : les 26 premiers bits désignent le réseau, les 6 suivants l’hôte.</li>
+<li><strong>Adresse du réseau</strong> : on garde les bits réseau et l’on met tous les bits hôte à 0.</li>
+<li><strong>Adresse de diffusion</strong> : on met tous les bits hôte à 1.</li>
+<li><strong>Adresses utilisables</strong> : tout ce qui est entre les deux, soit 2<sup>bits hôte</sup> − 2.</li>
+</ol>
+<p>Pour l’explication pas à pas, lis la fiche <a href="../niveau-2/subnet.html">Le masque et les sous-réseaux</a>.</p>
+<h2>Entraîne-toi</h2>
+</div>
+
+<div class="outil" id="exo">
+  <p id="exo-enonce" style="font-size:19px;margin:0 0 14px"></p>
+  <label for="exo-reponse">Ta réponse</label>
+  <input id="exo-reponse" spellcheck="false" autocomplete="off" inputmode="decimal">
+  <p style="margin:14px 0 0"><button class="bouton" type="button" id="exo-verifier">Vérifier</button> <button class="bouton secondaire" type="button" id="exo-suivant">Autre exercice</button></p>
+  <p id="exo-retour" aria-live="polite" style="margin:14px 0 0"></p>
+</div>
+
+<script>
+(function () {
+  function versNombre(ip) {
+    var p = ip.trim().split('.');
+    if (p.length !== 4) return null;
+    var n = 0;
+    for (var i = 0; i < 4; i++) {
+      if (!/^\d{1,3}$/.test(p[i])) return null;
+      var o = +p[i];
+      if (o > 255) return null;
+      n = n * 256 + o;
+    }
+    return n;
+  }
+  function versIp(n) { return [n >>> 24, (n >>> 16) & 255, (n >>> 8) & 255, n & 255].join('.'); }
+  function masque(pref) { return pref === 0 ? 0 : (0xFFFFFFFF << (32 - pref)) >>> 0; }
+  function prefixeDe(m) {
+    var b = (m >>> 0).toString(2).padStart(32, '0');
+    return /^1*0*$/.test(b) ? b.indexOf('0') === -1 ? 32 : b.indexOf('0') : null;
+  }
+  function analyser(txt) {
+    var t = txt.trim().replace(/\s+/g, ' ');
+    var ip, pref;
+    if (t.indexOf('/') > 0) {
+      var a = t.split('/'); ip = versNombre(a[0]); pref = /^\d{1,2}$/.test(a[1].trim()) ? +a[1] : null;
+    } else if (t.indexOf(' ') > 0) {
+      var b = t.split(' '); ip = versNombre(b[0]); var m = versNombre(b[1]); pref = m === null ? null : prefixeDe(m);
+    } else { ip = versNombre(t); pref = null; }
+    if (ip === null) return { erreur: 'L’adresse doit avoir quatre nombres de 0 à 255 séparés par des points.' };
+    if (pref === null || pref > 32) return { erreur: 'Ajoute un préfixe de 0 à 32 (par exemple /24) ou un masque valide (par exemple 255.255.255.0).' };
+    var m2 = masque(pref), res = (ip & m2) >>> 0, diff = (res | (~m2 >>> 0)) >>> 0;
+    var nb = pref >= 31 ? Math.pow(2, 32 - pref) : Math.pow(2, 32 - pref) - 2;
+    return { ip: ip, pref: pref, masque: m2, reseau: res, diffusion: diff,
+      premiere: pref >= 31 ? res : res + 1, derniere: pref >= 31 ? diff : diff - 1, nb: nb };
+  }
+  function type(ip) {
+    var o = ip >>> 24, o2 = (ip >>> 16) & 255;
+    if (o === 10 || (o === 172 && o2 >= 16 && o2 <= 31) || (o === 192 && o2 === 168)) return 'privée (RFC 1918)';
+    if (o === 127) return 'boucle locale';
+    if (o === 169 && o2 === 254) return 'lien local (APIPA)';
+    if (o === 100 && o2 >= 64 && o2 <= 127) return 'partagée opérateur (CGNAT)';
+    if (o >= 224 && o <= 239) return 'multicast';
+    if (o >= 240) return 'réservée';
+    return 'publique';
+  }
+  function bits(n, pref) {
+    var b = (n >>> 0).toString(2).padStart(32, '0'), s = '';
+    for (var i = 0; i < 32; i++) {
+      s += '<span class="' + (i < pref ? 'r' : 'h') + '">' + b[i] + '</span>';
+      if (i % 8 === 7 && i < 31) s += '.';
+    }
+    return s;
+  }
+  var entree = document.getElementById('cidr-entree'), err = document.getElementById('cidr-erreur'),
+      zone = document.getElementById('cidr-res'), vb = document.getElementById('cidr-bits');
+  function majCalcul() {
+    var r = analyser(entree.value);
+    if (r.erreur) { err.textContent = r.erreur; zone.innerHTML = ''; vb.innerHTML = ''; return; }
+    err.textContent = '';
+    var cases = [
+      ['Adresse du réseau', versIp(r.reseau) + '/' + r.pref],
+      ['Masque', versIp(r.masque)],
+      ['Masque inverse (wildcard)', versIp(~r.masque >>> 0)],
+      ['Première adresse utilisable', versIp(r.premiere)],
+      ['Dernière adresse utilisable', versIp(r.derniere)],
+      ['Adresse de diffusion', r.pref >= 31 ? 'aucune' : versIp(r.diffusion)],
+      ['Adresses utilisables', r.nb.toLocaleString('fr-FR')],
+      ['Type d’adresse', type(r.ip)]
+    ];
+    zone.innerHTML = cases.map(function (c) { return '<div><small>' + c[0] + '</small><b>' + c[1] + '</b></div>'; }).join('');
+    vb.innerHTML = 'Adresse  ' + bits(r.ip, r.pref) + '\nMasque   ' + bits(r.masque, r.pref) + '\nRéseau   ' + bits(r.reseau, r.pref);
+  }
+  entree.addEventListener('input', majCalcul);
+  majCalcul();
+
+  // Exercices
+  var enonce = document.getElementById('exo-enonce'), rep = document.getElementById('exo-reponse'),
+      retour = document.getElementById('exo-retour'), courant = null;
+  var sortes = [
+    ['reseau', 'Quelle est l’adresse du réseau de '],
+    ['diffusion', 'Quelle est l’adresse de diffusion de '],
+    ['nb', 'Combien d’adresses utilisables dans le réseau de '],
+    ['masque', 'Quel est le masque (en notation décimale) de ']
+  ];
+  function alea(a, b) { return a + Math.floor(Math.random() * (b - a + 1)); }
+  function nouvelExo() {
+    var bases = [[10, alea(0, 255)], [172, alea(16, 31)], [192, 168]];
+    var b = bases[alea(0, 2)], pref = alea(17, 30);
+    var ip = ((b[0] << 24) >>> 0) + (b[1] << 16) + (alea(0, 255) << 8) + alea(1, 254);
+    var s = sortes[alea(0, 3)];
+    courant = { r: analyser(versIp(ip) + '/' + pref), sorte: s[0], texte: versIp(ip) + '/' + pref };
+    enonce.innerHTML = s[1] + '<code>' + courant.texte + '</code> ?';
+    rep.value = ''; retour.textContent = ''; rep.focus();
+  }
+  function attendu() {
+    var r = courant.r;
+    return courant.sorte === 'reseau' ? versIp(r.reseau) : courant.sorte === 'diffusion' ? versIp(r.diffusion)
+      : courant.sorte === 'nb' ? String(r.nb) : versIp(r.masque);
+  }
+  function verifier() {
+    var a = attendu(), donne = rep.value.trim().replace(/\s/g, '').replace(/\/\d+$/, '');
+    var r = courant.r, hote = 32 - r.pref;
+    var expl = 'Préfixe /' + r.pref + ' : ' + r.pref + ' bits réseau, ' + hote + ' bits hôte, donc des blocs de ' + Math.pow(2, hote) + ' adresses. ';
+    expl += 'Réseau ' + versIp(r.reseau) + ', diffusion ' + versIp(r.diffusion) + ', ' + r.nb + ' adresses utilisables, masque ' + versIp(r.masque) + '.';
+    if (donne === a) { retour.innerHTML = '<strong style="color:var(--l1)">Juste.</strong> ' + expl; }
+    else { retour.innerHTML = '<strong style="color:var(--l4)">Pas tout à fait : la réponse est ' + a + '.</strong> ' + expl + ' Colle l’adresse dans le calculateur ci-dessus pour voir les bits.'; }
+  }
+  document.getElementById('exo-verifier').addEventListener('click', verifier);
+  document.getElementById('exo-suivant').addEventListener('click', nouvelExo);
+  rep.addEventListener('keydown', function (ev) { if (ev.key === 'Enter') verifier(); });
+  nouvelExo();
+  rep.blur();
+})();
+</script></div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

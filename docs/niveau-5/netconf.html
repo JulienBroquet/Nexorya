@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>NETCONF et YANG — Configuration par API structurée | Nexorya</title>
+<meta name="description" content="Au lieu d’envoyer des lignes de commande et de lire du texte, NETCONF et RESTCONF échangent des données structurées décrites par des modèles YANG — les programmes comprennent alors parfaitement ce qu’ils lisent et écrivent.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l5)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>5</i>WAN, datacenter et exploitation</a><h3>Du bâtiment au monde</h3><ul><li><a href="lan.html" data-fiche="niveau-5/lan">LAN</a></li><li><a href="man.html" data-fiche="niveau-5/man">MAN</a></li><li><a href="wan.html" data-fiche="niveau-5/wan">WAN</a></li><li><a href="sd-wan.html" data-fiche="niveau-5/sd-wan">SD-WAN</a></li></ul><h3>Isoler à grande échelle</h3><ul><li><a href="mpls.html" data-fiche="niveau-5/mpls">MPLS</a></li><li><a href="vrf.html" data-fiche="niveau-5/vrf">VRF</a></li></ul><h3>Le datacenter moderne</h3><ul><li><a href="ecmp.html" data-fiche="niveau-5/ecmp">ECMP</a></li><li><a href="vxlan.html" data-fiche="niveau-5/vxlan">VXLAN</a></li><li><a href="vtep.html" data-fiche="niveau-5/vtep">VTEP</a></li><li><a href="evpn.html" data-fiche="niveau-5/evpn">EVPN</a></li><li><a href="redondance-switches.html" data-fiche="niveau-5/redondance-switches">Redondance de switches</a></li></ul><h3>Garantir la qualité</h3><ul><li><a href="qos.html" data-fiche="niveau-5/qos">QoS</a></li><li><a href="dscp.html" data-fiche="niveau-5/dscp">DSCP</a></li></ul><h3>Observer le réseau</h3><ul><li><a href="span.html" data-fiche="niveau-5/span">SPAN</a></li><li><a href="erspan.html" data-fiche="niveau-5/erspan">ERSPAN</a></li><li><a href="netflow.html" data-fiche="niveau-5/netflow">NetFlow</a></li><li><a href="observabilite.html" data-fiche="niveau-5/observabilite">Observabilité</a></li></ul><h3>Automatiser et évoluer</h3><ul><li><a href="automatisation.html" data-fiche="niveau-5/automatisation">Automatisation</a></li><li><a href="netconf.html" data-fiche="niveau-5/netconf" aria-current="page">NETCONF et YANG</a></li><li><a href="cloud.html" data-fiche="niveau-5/cloud">Réseau cloud</a></li><li><a href="changement.html" data-fiche="niveau-5/changement">Gestion du changement</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-5/netconf">
+<p class="fil"><a href="index.html">WAN, datacenter et exploitation</a> › <a href="index.html#chapitre-6">Automatiser et évoluer</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>NETCONF et YANG</h1><p class="nom-complet">Configuration par API structurée</p>
+<p class="idee">Au lieu d’envoyer des lignes de commande et de lire du texte, NETCONF et RESTCONF échangent des données structurées décrites par des modèles YANG — les programmes comprennent alors parfaitement ce qu’ils lisent et écrivent.</p><div class="badges"><span>Couche OSI 7</span><span>Découvrir : 7 min</span><span>Approfondir : 14 min</span><span>Avant : <a href="../niveau-5/automatisation.html">Automatisation</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme-parler-a-une-machine-comme-a-un-humain">Le problème : parler à une machine comme à un humain</h2>
+<p>Un script qui automatise un switch en ligne de commande envoie du texte et lit du texte : il doit <strong>deviner</strong> où se trouve l’information dans la sortie de <code>show interfaces</code>, et la moindre différence de version casse le script. Et si une commande échoue au milieu de vingt, l’équipement reste dans un état à moitié configuré.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>NETCONF et RESTCONF sont des <strong>API</strong> : on lit et l’on écrit la configuration sous forme de données structurées, décrites par des modèles YANG, avec des transactions qui s’appliquent entièrement ou pas du tout.</p>
+</div>
+<h2 id="la-difference">La différence</h2>
+<table>
+<thead>
+<tr>
+<th>Ligne de commande (CLI)</th>
+<th>API (NETCONF / RESTCONF)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>texte libre, différent selon les versions</td>
+<td>données structurées (XML, JSON) selon un modèle</td>
+</tr>
+<tr>
+<td>il faut analyser la sortie</td>
+<td>les champs sont nommés et typés</td>
+</tr>
+<tr>
+<td>commande par commande</td>
+<td>transaction complète, validée avant application</td>
+</tr>
+<tr>
+<td>erreur au milieu = état partiel</td>
+<td>erreur = rien n’est appliqué</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>YANG</strong> — Langage de modélisation qui décrit la structure des données de configuration et d’état.</li>
+<li><strong>NETCONF</strong> — Protocole de configuration par API, sur SSH (port 830), avec des données XML.</li>
+<li><strong>RESTCONF</strong> — API HTTP(S) exposant les mêmes modèles YANG, en JSON ou XML.</li>
+<li><strong>OpenConfig</strong> — Ensemble de modèles YANG communs à plusieurs constructeurs.</li>
+<li><strong>gNMI</strong> — Protocole basé sur gRPC pour la configuration et surtout la télémétrie en streaming.</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi la notion de transaction est-elle précieuse pour l’automatisation ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce qu’en cas d’erreur, <strong>rien</strong> n’est appliqué : l’équipement ne reste jamais dans un état à moitié configuré. Avec la CLI, si la commande 12 sur 20 échoue, les 11 premières restent en place et il faut nettoyer à la main.</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="lire-une-interface-en-restconf">Lire une interface en RESTCONF</h2>
+<pre><code class="language-bash">curl -sk -u admin:****** \
+  -H &quot;Accept: application/yang-data+json&quot; \
+  https://10.99.0.21/restconf/data/ietf-interfaces:interfaces/interface=GigabitEthernet1%2F0%2F1
+</code></pre>
+<pre><code class="language-json">{
+  &quot;ietf-interfaces:interface&quot;: {
+    &quot;name&quot;: &quot;GigabitEthernet1/0/1&quot;,
+    &quot;description&quot;: &quot;Bureau 214&quot;,
+    &quot;type&quot;: &quot;iana-if-type:ethernetCsmacd&quot;,
+    &quot;enabled&quot;: true
+  }
+}
+</code></pre>
+<p>Le programme lit directement <code>enabled: true</code>, sans analyser de texte.</p>
+<h2 id="modifier-en-netconf-python-ncclient">Modifier en NETCONF (Python, ncclient)</h2>
+<pre><code class="language-python">from ncclient import manager
+
+config = &quot;&quot;&quot;
+&lt;config&gt;
+  &lt;interfaces xmlns=&quot;urn:ietf:params:xml:ns:yang:ietf-interfaces&quot;&gt;
+    &lt;interface&gt;
+      &lt;name&gt;GigabitEthernet1/0/1&lt;/name&gt;
+      &lt;description&gt;Bureau 214 - imprimante&lt;/description&gt;
+    &lt;/interface&gt;
+  &lt;/interfaces&gt;
+&lt;/config&gt;&quot;&quot;&quot;
+
+with manager.connect(host=&quot;10.99.0.21&quot;, port=830, username=&quot;admin&quot;,
+                     password=&quot;******&quot;, hostkey_verify=False) as m:
+    m.edit_config(target=&quot;candidate&quot;, config=config)
+    m.validate(source=&quot;candidate&quot;)
+    m.commit()
+</code></pre>
+<p>Le flux <strong>candidate → validate → commit</strong> : on prépare une configuration candidate, l’équipement la vérifie, puis l’applique en une fois.</p>
+<h2 id="activer-les-api-cisco-ios-xe">Activer les API (Cisco IOS-XE)</h2>
+<pre><code class="language-cisco">netconf-yang
+restconf
+ip http secure-server
+</code></pre>
+<div class="encadre piege">
+<p class="encadre-titre">Piège à éviter</p>
+<p>Une API d’administration est un accès complet à l’équipement : la limiter au <strong>réseau de gestion</strong> (ACL), utiliser HTTPS avec un certificat valide et des comptes nominatifs avec droits adaptés (AAA).</p>
+</div>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Un script CLI qui lit le nombre d’erreurs CRC fonctionne sur les switches en version 16 mais renvoie des valeurs absurdes sur ceux en version 17. Pourquoi une API YANG éviterait-elle ce problème ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Le script analyse un <strong>texte</strong> dont la mise en forme a changé entre les versions (colonne déplacée, libellé modifié). Avec une API, la valeur est un <strong>champ nommé</strong> d’un modèle YANG (par exemple <code>in-errors</code> dans <code>ietf-interfaces</code>), indépendant de la présentation : le script lit le même champ quelle que soit la version.</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-5/automatisation.html"><small>Fiche précédente</small><strong>Automatisation</strong></a><a class="apres" href="../niveau-5/cloud.html"><small>Fiche suivante</small><strong>Réseau cloud</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme-parler-a-une-machine-comme-a-un-humain">Le problème : parler à une machine comme à un humain</a><a href="#la-difference">La différence</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#lire-une-interface-en-restconf">Lire une interface en RESTCONF</a><a href="#modifier-en-netconf-python-ncclient">Modifier en NETCONF (Python, ncclient)</a><a href="#activer-les-api-cisco-ios-xe">Activer les API (Cisco IOS-XE)</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>

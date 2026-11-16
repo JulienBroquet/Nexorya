@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>IS-IS — Intermediate System to Intermediate System | Nexorya</title>
+<meta name="description" content="IS-IS est un protocole à état de liens, cousin d’OSPF, très apprécié des opérateurs et des datacenters pour sa robustesse et sa facilité à transporter IPv4 et IPv6 ensemble.">
+<link rel="icon" href="../assets/img/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/css/nexorya.css">
+<script>try{var t=JSON.parse(localStorage.getItem('nexorya:v1')||'{}').theme;document.documentElement.setAttribute('data-theme',t||(matchMedia('(prefers-color-scheme: dark)').matches?'sombre':'clair'))}catch(x){}</script>
+
+</head>
+<body data-racine="../" style="--ligne:var(--l2)">
+<a class="saut" href="#principal">Aller au contenu</a>
+<header class="barre"><div class="barre-int">
+<a class="marque" href="../index.html"><img src="../assets/img/logo.svg" alt="">Nexorya</a>
+<button class="bouton-icone" id="bascule-nav" type="button" aria-expanded="false" aria-controls="nav-principale"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><path d="M3 5h14M3 10h14M3 15h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg> Menu</button>
+<nav id="nav-principale" aria-label="Navigation principale"><a href="../demarrer/index.html" class="">Je débute</a><a href="../index.html#plan" aria-current=page class="">Les niveaux</a><a href="../pratique/index.html" class="secondaire-nav">Pratique</a><a href="../lexique.html" class="secondaire-nav">Lexique</a><a href="../progression.html" class="">Ma progression</a>
+<a href="../recherche.html" aria-label="Rechercher">⌕ Rechercher</a>
+<button class="bouton-icone" id="bascule-theme" type="button" aria-label="Changer de thème"><svg width="18" height="18" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="10" r="8" fill="none" stroke="currentColor" stroke-width="2"/><path d="M10 2a8 8 0 0 1 0 16z" fill="currentColor"/></svg><span class="seul-mobile"> Changer de thème</span></button>
+</nav></div></header>
+<main id="principal">
+<div class="lecture">
+<aside class="lateral" aria-label="Fiches du niveau"><a class="retour" href="index.html"><i>2</i>IP et routage</a><h3>Adresser les machines</h3><ul><li><a href="ipv4.html" data-fiche="niveau-2/ipv4">IPv4</a></li><li><a href="subnet.html" data-fiche="niveau-2/subnet">Subnetting, CIDR et VLSM</a></li><li><a href="ipv6.html" data-fiche="niveau-2/ipv6">IPv6</a></li><li><a href="ipv6-pratique.html" data-fiche="niveau-2/ipv6-pratique">IPv6 en pratique</a></li></ul><h3>Trouver ses voisins et diagnostiquer</h3><ul><li><a href="arp.html" data-fiche="niveau-2/arp">ARP</a></li><li><a href="ndp.html" data-fiche="niveau-2/ndp">NDP</a></li><li><a href="icmp.html" data-fiche="niveau-2/icmp">ICMP</a></li></ul><h3>Choisir un chemin</h3><ul><li><a href="passerelle.html" data-fiche="niveau-2/passerelle">La table de routage</a></li><li><a href="routage-statique.html" data-fiche="niveau-2/routage-statique">Routage statique</a></li><li><a href="rip.html" data-fiche="niveau-2/rip">RIP</a></li><li><a href="ospf.html" data-fiche="niveau-2/ospf">OSPF</a></li><li><a href="eigrp.html" data-fiche="niveau-2/eigrp">EIGRP</a></li><li><a href="is-is.html" data-fiche="niveau-2/is-is" aria-current="page">IS-IS</a></li></ul><h3>Relier les organisations</h3><ul><li><a href="bgp.html" data-fiche="niveau-2/bgp">BGP</a></li><li><a href="bgp-filtrage.html" data-fiche="niveau-2/bgp-filtrage">Filtrer les routes BGP</a></li></ul><h3>Une passerelle qui ne tombe jamais</h3><ul><li><a href="vrrp.html" data-fiche="niveau-2/vrrp">VRRP</a></li><li><a href="hsrp.html" data-fiche="niveau-2/hsrp">HSRP</a></li><li><a href="glbp.html" data-fiche="niveau-2/glbp">GLBP</a></li><li><a href="bfd.html" data-fiche="niveau-2/bfd">BFD</a></li><li><a href="ipsla.html" data-fiche="niveau-2/ipsla">IP SLA et suivi</a></li></ul><h3>Diffuser à plusieurs, le multicast</h3><ul><li><a href="multicast.html" data-fiche="niveau-2/multicast">Multicast</a></li><li><a href="igmp.html" data-fiche="niveau-2/igmp">IGMP</a></li><li><a href="mld.html" data-fiche="niveau-2/mld">MLD</a></li><li><a href="pim.html" data-fiche="niveau-2/pim">PIM</a></li></ul></aside>
+<article class="contenu" data-fiche-id="niveau-2/is-is">
+<p class="fil"><a href="index.html">IP et routage</a> › <a href="index.html#chapitre-3">Choisir un chemin</a> <button class="bouton-icone menu-mobile" id="menu-mobile" aria-expanded="false" type="button">☰ Fiches du niveau</button></p>
+<header class="contenu-tete"><h1>IS-IS</h1><p class="nom-complet">Intermediate System to Intermediate System</p>
+<p class="idee">IS-IS est un protocole à état de liens, cousin d’OSPF, très apprécié des opérateurs et des datacenters pour sa robustesse et sa facilité à transporter IPv4 et IPv6 ensemble.</p><div class="badges"><span>Couche OSI 3 (transporté directement sur la couche 2)</span><span>Découvrir : 6 min</span><span>Approfondir : 12 min</span><span>Avant : <a href="../niveau-2/ospf.html">OSPF</a></span></div></header>
+<div class="modes" role="tablist" aria-label="Niveau de lecture"><button role="tab" data-mode="decouvrir" aria-selected="true" aria-controls="partie-decouvrir">Découvrir<small>l’essentiel</small></button><button role="tab" data-mode="approfondir" aria-selected="false" aria-controls="partie-approfondir">Approfondir<small>le détail technique</small></button></div><p class="mode-aide">Commence par « Découvrir ». Passe à « Approfondir » quand l’essentiel est clair.</p>
+<section class="prose" id="partie-decouvrir" data-partie="decouvrir" role="tabpanel"><h2 id="le-probleme">Le problème</h2>
+<p>Les opérateurs ont besoin d’un protocole à état de liens qui tienne des milliers de routeurs, se configure simplement, et transporte IPv4 et IPv6 sans tout dupliquer. IS-IS, conçu à l’origine pour la pile OSI, s’est imposé dans ce rôle.</p>
+<div class="encadre retenir">
+<p class="encadre-titre">L’idée en une phrase</p>
+<p>IS-IS fait le même travail qu’OSPF — une carte partagée, puis un calcul de chemin — mais fonctionne directement sur Ethernet, ce qui le rend indépendant d’IP et très robuste.</p>
+</div>
+<h2 id="ce-qui-le-distingue-dospf">Ce qui le distingue d’OSPF</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>OSPF</th>
+<th>IS-IS</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Transport</td>
+<td>dans IP (protocole 89)</td>
+<td>directement dans la trame (couche 2)</td>
+</tr>
+<tr>
+<td>IPv6</td>
+<td>OSPFv3, un processus séparé</td>
+<td>les mêmes adjacences transportent IPv4 et IPv6</td>
+</tr>
+<tr>
+<td>Hiérarchie</td>
+<td>zones autour de la zone 0</td>
+<td>niveaux 1 et 2 ; les frontières passent <strong>sur les liens</strong>, pas dans les routeurs</td>
+</tr>
+<tr>
+<td>Usage typique</td>
+<td>entreprises</td>
+<td>opérateurs, datacenters (underlay)</td>
+</tr>
+</tbody>
+</table>
+<h2 id="les-mots-a-connaitre">Les mots à connaître</h2>
+<ul>
+<li><strong>IS-IS</strong> — Protocole de routage à état de liens, issu de la pile OSI.</li>
+<li><strong>NET</strong> — <em>Network Entity Title</em>, adresse qui identifie un routeur IS-IS (zone + identifiant système).</li>
+<li><strong>Niveau 1 / niveau 2</strong> — Routage à l’intérieur d’une zone / entre les zones.</li>
+<li><strong>Underlay</strong> — Réseau de transport routé sur lequel s’appuient des réseaux virtuels (VXLAN, MPLS).</li>
+</ul>
+<h2 id="teste-toi">Teste-toi</h2>
+<p><strong>Pourquoi un pare-feu qui filtre le protocole IP 89 n’empêche-t-il pas IS-IS de fonctionner ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Parce qu’IS-IS <strong>n’est pas transporté dans IP</strong> : ses messages sont directement encapsulés dans des trames de couche 2. Un filtrage IP ne le voit pas. (Pour la même raison, IS-IS ne traverse pas un routeur : ses voisins doivent être sur le même lien.)</p>
+</details></section><section class="prose" id="partie-approfondir" data-partie="approfondir" role="tabpanel" hidden><h2 id="ladresse-net">L’adresse NET</h2>
+<p>Chaque routeur reçoit une adresse <strong>NET</strong>, par exemple <code>49.0001.0102.5525.5001.00</code> :</p>
+<table>
+<thead>
+<tr>
+<th>Partie</th>
+<th>Exemple</th>
+<th>Signification</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AFI + zone</td>
+<td><code>49.0001</code></td>
+<td>49 = adresse privée ; 0001 = numéro de zone</td>
+</tr>
+<tr>
+<td>System ID</td>
+<td><code>0102.5525.5001</code></td>
+<td>identifiant unique du routeur (souvent dérivé de sa loopback 10.255.255.1)</td>
+</tr>
+<tr>
+<td>NSEL</td>
+<td><code>00</code></td>
+<td>toujours 00 pour un routeur</td>
+</tr>
+</tbody>
+</table>
+<h2 id="configuration-cisco-ios">Configuration (Cisco IOS)</h2>
+<pre><code class="language-cisco">router isis CORE
+ net 49.0001.0102.5525.5001.00
+ is-type level-2-only
+ metric-style wide
+ address-family ipv6
+  multi-topology
+<span class="c">!</span>
+interface GigabitEthernet0/0/1
+ ip router isis CORE
+ ipv6 router isis CORE
+ isis network point-to-point
+<span class="c">!</span>
+<span class="k">R1#</span> show isis neighbors
+System Id      Type Interface   IP Address      State Holdtime Circuit Id
+R2             L2   Gi0/0/1     10.255.0.2      UP    27       00
+<span class="k">R1#</span> show ip route isis
+i L2  10.255.255.2/32 [115/20] via 10.255.0.2, GigabitEthernet0/0/1
+</code></pre>
+<p><code>metric-style wide</code> est indispensable : les métriques « étroites » historiques plafonnent à 63 par lien. Dans un datacenter ou un cœur d’opérateur, on choisit souvent une seule couche (<code>level-2-only</code>) pour rester simple.</p>
+<h2 id="exercice">Exercice</h2>
+<p><strong>Pourquoi IS-IS est-il souvent choisi comme protocole d’underlay pour une fabric VXLAN ?</strong></p>
+<details>
+<summary>Voir le corrigé</summary>
+<p>Il converge vite, passe très bien à l’échelle, transporte <strong>IPv4 et IPv6 dans les mêmes adjacences</strong>, ne dépend pas d’IP pour fonctionner, et sa configuration est compacte. Son seul rôle dans une fabric est d’assurer la joignabilité entre les loopbacks des switches ; les réseaux des clients sont transportés par l’overlay (VXLAN, EVPN).</p>
+</details></section>
+<footer class="fin-fiche"><div class="marquer"><button class="bouton" id="bouton-lu" type="button" aria-pressed="false">Marquer cette fiche comme lue</button>
+<span class="mode-aide">Ta progression reste sur cet appareil.</span></div><nav class="suite" aria-label="Fiches voisines"><a href="../niveau-2/eigrp.html"><small>Fiche précédente</small><strong>EIGRP</strong></a><a class="apres" href="../niveau-2/bgp.html"><small>Fiche suivante</small><strong>BGP</strong></a></nav></footer>
+</article>
+<aside class="sommaire" aria-label="Sur cette page"><div data-sommaire="decouvrir"><p>Sur cette page</p><a href="#le-probleme">Le problème</a><a href="#ce-qui-le-distingue-dospf">Ce qui le distingue d’OSPF</a><a href="#les-mots-a-connaitre">Les mots à connaître</a><a href="#teste-toi">Teste-toi</a></div><div data-sommaire="approfondir" hidden><p>Sur cette page</p><a href="#ladresse-net">L’adresse NET</a><a href="#configuration-cisco-ios">Configuration (Cisco IOS)</a><a href="#exercice">Exercice</a></div></aside>
+</div>
+</main>
+<footer class="pied"><span><strong>Nexorya</strong> — Explore les réseaux. Maîtrise l’infrastructure.</span><span>Version 1.0.0 · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="../a-propos.html">À propos</a></span></footer>
+
+<script src="../assets/js/nexorya.js"></script>
+</body>
+</html>
