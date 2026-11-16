@@ -48,7 +48,7 @@ def photos():
 
 def credit_html(p):
     lic = f'<a href="{e(p["licence_url"])}" rel="license">{e(p["licence"])}</a>' if p.get('licence_url') else e(p['licence'])
-    return f'Photo : {e(p["auteur"])}, {lic}, <a href="{e(p["source"])}">source</a>'
+    return f'{e(p.get("nature", "Photo"))} : {e(p["auteur"])}, {lic}, <a href="{e(p["source"])}">source</a>'
 
 
 def figure_photo(src):

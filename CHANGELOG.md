@@ -25,6 +25,11 @@ Première version publique sous le nom **Nexorya**, entièrement réécrite à p
 ### Technique
 - Générateur statique en Python (`outils/build.py`) avec vérification des liens internes.
 - Publication directe sur GitHub Pages depuis le dossier `docs/`.
+- Licences : contenu CC BY-NC-SA 4.0, code PolyForm Noncommercial 1.0.0, nom et logo réservés.
+
+### Images
+- Illustrations de matériel reprises de la V4.4 et recadrées (modules SFP, câble DAC, fibre LC, RJ45, façade de switch, baies), avec légende détaillée et crédit sous chaque image.
+- Page « Crédits des images » générée automatiquement.
 
 ### Retiré
-- Les anciens volumes PDF et les photos de la V4.4, remplacés par les fiches et les schémas générés.
+- Les anciens volumes PDF de la V4.4, remplacés par les fiches et les schémas générés.

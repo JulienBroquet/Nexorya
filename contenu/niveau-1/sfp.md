@@ -26,11 +26,25 @@ Un même modèle de switch peut être installé dans un bureau, au bout d’une 
 4. On branche la fibre (connecteur LC double) sur le module.
 5. Le switch lit une petite mémoire du module pour connaître son type, puis active le port.
 
+
+```photo
+fichier: modules-sfp-dac-fibre.jpg
+legende: "Au fond, un switch : 24 ports RJ45 et, à droite, trois **cages SFP** vides. Devant : deux **modules SFP** optiques (en bas à gauche), une **fibre** terminée par un connecteur LC double (turquoise), un **câble DAC** (noir, modules intégrés) et un câble **RJ45** (bleu)."
+alt: "Switch avec ports RJ45 et cages SFP, devant lequel sont posés deux modules SFP, une fibre turquoise, un câble DAC noir et un câble réseau bleu"
+```
+
 ```topologie
 titre: Deux bâtiments reliés par des modules SFP
 SWA switch 0,0 "Switch bâtiment A" "module 1000BASE-LX"
 SWB switch 3,0 "Switch bâtiment B" "module 1000BASE-LX"
 SWA -- SWB "fibre monomode, 2 km"
+```
+
+
+```photo
+fichier: modules-sfp-lc.jpg
+legende: "Deux modules SFP vus de près. À l’arrière, les contacts dorés s’enfichent dans la cage du switch ; à l’avant, les **deux ouvertures** reçoivent le connecteur LC de la fibre : l’une pour émettre, l’autre pour recevoir. La languette bleue sert à déverrouiller le module."
+alt: "Deux modules SFP métalliques avec deux ouvertures pour fibre et une languette bleue"
 ```
 
 ## Les modules les plus courants à 1 Gb/s

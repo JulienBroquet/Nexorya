@@ -17,6 +17,13 @@ Une entreprise commence avec un switch dans un placard. Puis un deuxième, puis 
 > [!IMPORTANT] L’idée en une phrase
 > On construit le LAN en **couches** qui ont chacune un rôle, avec des liens doublés entre elles : on sait où passe le trafic, et une panne n’isole personne.
 
+
+```photo
+fichier: baie-reseau.jpg
+legende: "Une baie de distribution : switches, panneaux de brassage cuivre et fibre, jarretières rangées dans des guide-câbles. Un réseau bien conçu se reconnaît aussi à une baie lisible."
+alt: "Baie réseau avec switches, panneaux de brassage et câbles rangés"
+```
+
 ## Le modèle en trois couches
 
 ```topologie

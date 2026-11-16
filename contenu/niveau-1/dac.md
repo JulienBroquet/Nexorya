@@ -22,6 +22,13 @@ Dans une baie de datacenter, un serveur est souvent à un ou deux mètres de son
 
 Le câble contient des paires de cuivre **twinax** (deux conducteurs blindés) qui transportent directement le signal électrique d’un port à l’autre, sans conversion en lumière. Les « modules » aux extrémités ne contiennent presque rien : juste une petite mémoire qui annonce le type de câble.
 
+
+```photo
+fichier: cable-dac.jpg
+legende: "Un câble DAC : un câble noir épais avec, à chaque bout, une tête qui a la forme d’un module SFP+. On ne branche aucune fibre : la tête entre directement dans la cage du switch ou de la carte réseau. On le retire en tirant sur la boucle noire."
+alt: "Câble noir enroulé, terminé à chaque extrémité par une tête métallique au format SFP avec une tirette noire"
+```
+
 ```topologie
 titre: DAC dans une baie, fibre entre les baies
 SRV1 serveur 0,1 "Serveur 1"

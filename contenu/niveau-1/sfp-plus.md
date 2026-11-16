@@ -30,6 +30,13 @@ Un serveur de virtualisation ou de stockage échange des volumes considérables.
 
 Le « Q » de QSFP signifie *quad* : le module regroupe **quatre voies** en parallèle. Un port QSFP+ peut d’ailleurs être éclaté en quatre liens à 10 Gb/s avec un câble adapté (*breakout*).
 
+
+```photo
+fichier: modules-optiques-branches.jpg
+legende: "Des modules optiques en place dans les cages d’un switch. Le module dépasse légèrement de la façade ; la fibre (turquoise) se branche directement dessus."
+alt: "Gros plan d’un switch en baie avec des modules optiques insérés et des fibres turquoise branchées"
+```
+
 ## Exemple : passer une baie de serveurs à 10 Gb/s
 
 Une PME virtualise ses serveurs. On remplace les modules SFP 1 Gb/s par des **SFP+ 10GBASE-SR** sur fibre multimode OM4, et les cartes réseau des serveurs par des cartes 10 Gb/s. Pour les serveurs situés dans la même baie que le switch, on utilise plutôt des câbles [DAC](dac.md), moins chers.

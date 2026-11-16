@@ -35,11 +35,25 @@ SW -- Srv
 AP ~~ Tel "Wi-Fi"
 ```
 
+
+```photo
+fichier: baie-reseau.jpg
+legende: "Dans une entreprise, ces équipements sont rangés dans une **baie** : une armoire métallique où sont empilés switches, panneaux de brassage et câbles."
+alt: "Un technicien devant une baie réseau ouverte remplie de switches et de câbles"
+```
+
 ## Le switch : le standardiste du réseau local
 
 Un **switch** (commutateur en français) possède de nombreux ports, souvent 24 ou 48. On y branche les ordinateurs, les imprimantes, les téléphones, les points d’accès.
 
 Son travail : **livrer chaque message au bon appareil du réseau local**, et seulement à lui. Pour cela, il apprend quel appareil est branché sur quel port, en regardant l’adresse de chaque message qui arrive. C’est comme un standardiste qui saurait, au bout de quelques minutes, dans quel bureau se trouve chaque employé.
+
+
+```photo
+fichier: facade-switch-rj45-sfp.jpg
+legende: "La façade d’un switch : à gauche, **24 ports** RJ45 où l’on branche les câbles réseau ; à droite, des **cages** pour des modules fibre. Les petits voyants verts s’allument quand un appareil est branché et communique."
+alt: "Façade d’un switch avec deux rangées de prises réseau et trois emplacements pour modules, voyants verts allumés"
+```
 
 ## Le routeur : la douane entre les réseaux
 

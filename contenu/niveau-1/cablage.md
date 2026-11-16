@@ -19,6 +19,13 @@ Entre un ordinateur et la prise murale, entre deux étages, entre deux bâtiment
 
 C’est le câble « réseau » que tout le monde connaît, terminé par une prise **RJ45**. À l’intérieur, **quatre paires** de fils de cuivre torsadés deux à deux. La torsade limite les interférences entre fils et avec l’extérieur.
 
+
+```photo
+fichier: connecteur-rj45.jpg
+legende: "Un connecteur **RJ45**. À travers le plastique transparent, on voit les **huit fils** de couleur, chacun relié à un contact doré. Le petit ergot sur le dessus verrouille la prise dans le port."
+alt: "Prise RJ45 transparente au bout d’un câble bleu, laissant voir huit fils de couleur"
+```
+
 - **Distance maximale : 100 mètres** par segment (90 m de câble fixe + 10 m de cordons).
 - Le signal est **électrique** : il est sensible aux perturbations (moteurs, néons, câbles électriques proches).
 - La **catégorie** du câble indique la vitesse qu’il supporte :
@@ -39,6 +46,13 @@ Une fibre est un fil de verre plus fin qu’un cheveu. Le signal est **lumineux*
 - **Longues distances** : de quelques centaines de mètres à plusieurs dizaines de kilomètres.
 - On l’utilise **par paires** : une fibre pour émettre, une pour recevoir.
 
+
+```photo
+fichier: jarretiere-fibre-lc.jpg
+legende: "Une **jarretière optique** multimode (gaine turquoise) terminée par un connecteur **LC duplex** : deux connecteurs clipsés ensemble, un par fibre. Les embouts blancs protègent l’extrémité du verre."
+alt: "Câble fibre optique turquoise enroulé, terminé par deux connecteurs LC bleus accolés"
+```
+
 Il en existe deux types :
 
 | Type | Cœur | Distance typique | Gaine (code couleur courant) |
@@ -52,6 +66,13 @@ Il en existe deux types :
 ## Comment brancher une fibre sur un switch ?
 
 Un switch a rarement une prise fibre intégrée. Il possède des **cages** où l’on glisse un petit **module optique** (SFP, SFP+…) qui convertit le signal électrique en lumière. On choisit le module selon la fibre et la distance. C’est l’objet des fiches [SFP](sfp.md) et [SFP+](sfp-plus.md).
+
+
+```photo
+fichier: brassage-optique.jpg
+legende: "En baie : en haut, un **panneau de brassage optique** où arrivent les fibres du bâtiment ; en bas, un switch avec, à droite, des **modules optiques** sur lesquels sont branchées les jarretières."
+alt: "Baie réseau avec un panneau de brassage optique relié par des jarretières jaunes, au-dessus d’un switch à 48 ports"
+```
 
 ```topologie
 titre: Un campus typique — cuivre dans les étages, fibre entre les bâtiments

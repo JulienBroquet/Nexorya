@@ -94,6 +94,13 @@ Tous les broadcasts seraient reçus par les 3 000 postes : bruit permanent, et u
 
 Les switches de campus fonctionnent généralement en store-and-forward ; beaucoup de switches de datacenter en cut-through. Un switch passe obligatoirement en store-and-forward quand le port de sortie est plus rapide que le port d’entrée.
 
+
+```photo
+fichier: switches-en-baie.jpg
+legende: "Des switches d’accès en baie. Chaque port RJ45 reçoit un poste ou une prise du bâtiment, via le panneau de brassage du bas ; à droite, des modules optiques relient les switches au cœur du réseau."
+alt: "Deux switches à 48 ports en baie, avec des voyants verts, des cordons et des modules optiques à droite"
+```
+
 ## Le plan de données en matériel
 
 Un switch moderne ne fait pas ses décisions par logiciel : un circuit spécialisé (ASIC) consulte la table MAC, stockée dans une mémoire associative (**CAM**), en quelques nanosecondes, quel que soit le nombre d’entrées. Le processeur du switch, lui, gère le **plan de contrôle** : STP, LACP, CDP, l’administration. Quand le processeur est saturé (une boucle, un flot de broadcasts), c’est l’administration et les protocoles de contrôle qui souffrent en premier — d’où des pannes en cascade.
