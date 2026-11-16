@@ -28,6 +28,17 @@ Une fibre relie deux bâtiments en passant par des fourreaux partagés, ou deux 
 | Débit | vitesse du lien (10, 40, 100 Gb/s…) | limité par le matériel de chiffrement |
 | Protège | tout le trafic du lien, y compris les protocoles de niveau 2 | les paquets IP sélectionnés |
 
+```topologie
+titre: MACsec chiffre chaque lien, d’un équipement au suivant
+PC pc 0,0 "Poste"
+ACC switch 1.5,0 "Switch d’accès"
+COEUR l3 3,0 "Cœur"
+DC switch 4.5,0 "Datacenter"
+PC ++ ACC "chiffré"
+ACC ++ COEUR "chiffré"
+COEUR ++ DC "chiffré"
+```
+
 ## Les mots à connaître
 
 - **MACsec** — Chiffrement et authentification des trames Ethernet entre deux équipements voisins.

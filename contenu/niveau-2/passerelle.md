@@ -76,6 +76,17 @@ Destination réseau    Masque réseau    Adr. passerelle    Adr. interface  Mét
       192.168.1.0    255.255.255.0         On-link      192.168.1.20     281
 ```
 
+```topologie
+titre: Le même routeur, trois routes qui conviennent pour 10.20.30.5
+R1 routeur 0,1 "R1"
+A routeur 2,0 "via 10.255.0.6" "10.20.30.0/24 : choisie"
+B routeur 2,1 "via 10.255.0.2" "10.0.0.0/8"
+C nuage 2,2 "via 203.0.113.1" "0.0.0.0/0"
+R1 ++ A "le plus précis"
+R1 -- B
+R1 -- C
+```
+
 ## Les mots à connaître
 
 - **Table de routage** — Liste des réseaux connus par un routeur, avec pour chacun le voisin ou l’interface à utiliser.

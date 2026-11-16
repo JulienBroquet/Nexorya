@@ -25,6 +25,15 @@ ARP n’a aucune authentification. Un attaquant branché sur une prise du VLAN p
 3. Si l’association IP–MAC annoncée **correspond** à une liaison connue sur ce port, le message passe ; sinon, il est **jeté** et journalisé.
 4. Les ports vers les autres switches et les routeurs sont déclarés **de confiance** : leurs ARP ne sont pas vérifiés.
 
+```sequence
+titre: Dynamic ARP Inspection bloque une réponse ARP falsifiée
+Attaquant | Switch | Poste
+Attaquant -> Switch : ARP : « 10.10.0.1 (la passerelle), c’est ma MAC »
+note Switch : compare avec la table DHCP snooping : 10.10.0.1 n’est pas sur ce port
+Switch -x Poste : réponse ARP jetée, événement journalisé
+note Poste : continue d’envoyer son trafic à la vraie passerelle
+```
+
 ## Les mots à connaître
 
 - **DAI** — *Dynamic ARP Inspection*, vérification des messages ARP par le switch.

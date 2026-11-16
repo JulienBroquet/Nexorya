@@ -28,6 +28,19 @@ Les opérateurs ont besoin d’un protocole à état de liens qui tienne des mil
 | Hiérarchie | zones autour de la zone 0 | niveaux 1 et 2 ; les frontières passent **sur les liens**, pas dans les routeurs |
 | Usage typique | entreprises | opérateurs, datacenters (underlay) |
 
+```topologie
+titre: IS-IS en deux niveaux
+zone "Zone 49.0001" 0,0 1,1.3
+zone "Zone 49.0002" 3,0 4,1.3
+A1 routeur 0,1.3 "R-A1" "niveau 1"
+A2 routeur 1,0 "R-A2" "niveaux 1 et 2"
+B2 routeur 3,0 "R-B2" "niveaux 1 et 2"
+B1 routeur 4,1.3 "R-B1" "niveau 1"
+A1 -- A2 "L1"
+A2 ++ B2 "L2 : épine dorsale"
+B2 -- B1 "L1"
+```
+
 ## Les mots à connaître
 
 - **IS-IS** — Protocole de routage à état de liens, issu de la pile OSI.

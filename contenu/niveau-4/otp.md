@@ -25,6 +25,16 @@ On veut un second facteur simple, qui fonctionne sans réseau sur le téléphone
 2. **Connexion** : l’application calcule `code = HMAC(secret, heure ÷ 30 s)`, tronqué à 6 chiffres.
 3. Le serveur fait le même calcul et compare. Il accepte généralement aussi le code de la période précédente et de la suivante, pour tolérer un petit décalage.
 
+```sequence
+titre: Un code TOTP : calculé des deux côtés, jamais transmis à l’avance
+Application | Serveur
+note Application, Serveur : à l’enrôlement, ils partagent un secret (QR code)
+note Application : code = calcul(secret, heure actuelle) → 482 913
+Application -> Serveur : l’utilisateur saisit 482 913
+note Serveur : fait le même calcul avec la même heure
+Serveur --> Application : codes identiques : accès accordé
+```
+
 ## Les mots à connaître
 
 - **OTP** — *One-Time Password*, code valable une seule fois.

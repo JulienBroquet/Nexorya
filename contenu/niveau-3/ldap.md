@@ -43,6 +43,17 @@ Chaque objet a un **nom distinctif** (DN) qui donne son chemin complet, de la fe
 3. Elle **vérifie** son mot de passe (nouveau bind avec le DN trouvé et le mot de passe saisi).
 4. Elle **lit** ses groupes pour décider de ses droits.
 
+```sequence
+titre: Une application vérifie un utilisateur dans l’annuaire
+Application | Annuaire LDAP
+Application -> Annuaire LDAP : BIND avec le compte de service (LDAPS, port 636)
+Annuaire LDAP --> Application : OK
+Application -> Annuaire LDAP : SEARCH : uid=alice, quels groupes ?
+Annuaire LDAP --> Application : DN de l’utilisateur + groupes (Compta, VPN)
+Application -> Annuaire LDAP : BIND avec le DN d’Alice et son mot de passe
+Annuaire LDAP --> Application : OK : mot de passe correct
+```
+
 ## Les mots à connaître
 
 - **LDAP** — Protocole d’interrogation des annuaires.

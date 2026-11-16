@@ -125,6 +125,20 @@ SW -- PC "Gi1/0/5"
 - Liens : `--` normal, `==` agrégat ou trunk, `++` lien mis en évidence (chemin actif, tunnel), `..` flux logique, `~~` sans fil, `-x-` lien bloqué ou coupé ; libellé facultatif entre guillemets.
 - Zone : `zone "Libellé" c1,r1 c2,r2` entoure les nœuds compris entre ces deux coins.
 
+## Ajouter une illustration dessinée
+
+Pour une image explicative qui n’est ni une séquence ni une topologie (structure d’une trame, brochage d’un câble, bits d’une adresse…), place un fichier SVG dans `contenu/illustrations/` et appelle-le dans la fiche :
+
+````markdown
+```illustration
+fichier: ethernet-trame.svg
+legende: "Ce qu’il faut remarquer sur l’image."
+alt: "Description complète pour les lecteurs d’écran"
+```
+````
+
+Le SVG est inséré dans la page : utilise les classes de `theme/css/nexorya.css` (`tx`, `tx2`, `tx3`, `boite`, `fond`, `f1`…`f5`, `pale`, `blanc`…) plutôt que des couleurs fixes, pour qu’il s’adapte au thème sombre. Largeur conseillée : `viewBox` de 760 à 800 unités.
+
 ## Ajouter une photographie
 
 Les photos de matériel réel sont dans `contenu/photos/`. Chacune doit avoir une entrée dans `contenu/photos/credits.yaml` : sans crédit, le générateur refuse de construire le site.

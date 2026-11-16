@@ -36,6 +36,15 @@ La colonne **Platform** donne directement le modèle du voisin : C9500 pour un C
 | Fréquence | 60 s | 30 s |
 | Usage | réseaux 100 % Cisco | réseaux multi-constructeurs |
 
+```topologie
+titre: CDP révèle le voisin de chaque port
+R routeur 0,0 "R-SIEGE" "Gi0/0/1"
+SW switch 2,0 "SW-COEUR" "Gi1/0/48"
+TEL telephone 4,0 "Téléphone Cisco"
+R .. SW "CDP toutes les 60 s"
+SW .. TEL "CDP : VLAN voix, PoE"
+```
+
 ## Les mots à connaître
 
 - **CDP** — *Cisco Discovery Protocol*, protocole Cisco d’annonce aux voisins directs.

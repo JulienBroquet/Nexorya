@@ -24,6 +24,19 @@ Un téléphone IP qui démarre, un PC qui s’installe par le réseau (PXE), un 
 - **Téléphones IP** : ils récupèrent leur configuration et leur micrologiciel au démarrage (option DHCP 150 chez Cisco).
 - **Équipements réseau** : sauvegarde et restauration de configurations, chargement d’images logicielles en laboratoire.
 
+```sequence
+titre: Télécharger un fichier en TFTP, bloc par bloc
+Switch | Serveur TFTP
+Switch -> Serveur TFTP : RRQ : je veux le fichier image.bin (UDP 69)
+Serveur TFTP --> Switch : DATA bloc 1 (512 octets)
+Switch -> Serveur TFTP : ACK 1
+Serveur TFTP --> Switch : DATA bloc 2
+Switch -> Serveur TFTP : ACK 2
+Serveur TFTP -x Switch : DATA bloc 3 (perdu)
+note Serveur TFTP : pas d’ACK 3 reçu : il renvoie le bloc après un délai
+Serveur TFTP --> Switch : DATA bloc 3 (renvoyé)
+```
+
 ## Les mots à connaître
 
 - **TFTP** — Protocole de transfert de fichiers très simple, sur UDP, sans authentification.

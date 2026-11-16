@@ -29,6 +29,19 @@ Un IDS alerte, mais une attaque automatique peut aboutir en quelques secondes, b
 | Effet d’une panne | on perd la visibilité | on peut perdre le **réseau** (sauf mode de secours) |
 | Latence ajoutée | aucune | un peu |
 
+```topologie
+titre: IDS à côté, IPS sur le chemin
+NET nuage 0,0 "Internet"
+FW parefeu 1.5,0 "Pare-feu"
+IPS boite 3,0 "IPS" "en coupure : peut bloquer"
+SW switch 4.5,0 "Réseau interne"
+IDS boite 4.5,1.2 "IDS" "copie du trafic : alerte seulement"
+NET -- FW
+FW -- IPS
+IPS ++ SW
+SW .. IDS "SPAN"
+```
+
 ## Les mots à connaître
 
 - **IPS** — *Intrusion Prevention System*, système qui détecte et bloque les attaques en ligne.

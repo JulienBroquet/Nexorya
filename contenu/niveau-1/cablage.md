@@ -63,6 +63,12 @@ Il en existe deux types :
 > [!TIP] L’analogie du couloir
 > Dans une fibre multimode, la lumière rebondit sur les parois d’un large couloir en empruntant plusieurs trajets (plusieurs « modes ») : les rayons n’arrivent pas tous au même moment, ce qui limite la distance. Dans une fibre monomode, le couloir est si étroit qu’un seul trajet est possible : le signal reste net beaucoup plus loin.
 
+```illustration
+fichier: fibre-multimode-monomode.svg
+legende: "Les deux fibres ont la même taille extérieure (125 µm) : c’est le **cœur**, où voyage la lumière, qui change tout."
+alt: "Fibre multimode à cœur de 50 µm avec des rayons qui rebondissent, et fibre monomode à cœur de 9 µm avec un rayon unique"
+```
+
 ## Comment brancher une fibre sur un switch ?
 
 Un switch a rarement une prise fibre intégrée. Il possède des **cages** où l’on glisse un petit **module optique** (SFP, SFP+…) qui convertit le signal électrique en lumière. On choisit le module selon la fibre et la distance. C’est l’objet des fiches [SFP](sfp.md) et [SFP+](sfp-plus.md).
@@ -136,6 +142,12 @@ Le nom d’une norme Ethernet se lit ainsi : **débit**BASE-**support**.
 Les normes 2,5 et 5 Gb/s (NBASE-T, IEEE 802.3bz) servent surtout à alimenter les bornes Wi-Fi 6 et 7, dont le débit dépasse 1 Gb/s, sans recâbler un bâtiment en Cat6A.
 
 **Blindage** : U/UTP (aucun blindage), F/UTP (blindage global), S/FTP (chaque paire blindée). Un câble blindé n’apporte rien si la chaîne de mise à la terre n’est pas continue d’un bout à l’autre.
+
+```illustration
+fichier: rj45-t568b.svg
+legende: "L’ordre **T568B**, le plus utilisé. Jusqu’à 100 Mb/s, seules les paires orange et verte transportent les données ; à partir de 1 Gb/s, les **quatre paires** sont utilisées. Un câble droit a le même ordre aux deux extrémités."
+alt: "Les huit fils d’une prise RJ45 en T568B : blanc-orange, orange, blanc-vert, bleu, blanc-bleu, vert, blanc-marron, marron"
+```
 
 ## Les normes Ethernet fibre
 

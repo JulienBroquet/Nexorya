@@ -23,6 +23,12 @@ Le routeur du WAN doit savoir quels paquets sont de la voix. Il pourrait analyse
 
 Dans l’octet **Traffic Class** (IPv6) ou **ToS** (IPv4) de l’en-tête IP : les 6 premiers bits sont le **DSCP**, les 2 derniers servent à la notification de congestion (ECN).
 
+```illustration
+fichier: dscp-octet.svg
+legende: "Exemple de la voix : les 6 premiers bits valent `101110`, soit **46**, la valeur EF."
+alt: "Octet de l’en-tête IP dont les 6 premiers bits 101110 forment le DSCP 46 et les 2 derniers l’ECN"
+```
+
 ## Les valeurs courantes
 
 | Nom | Valeur | Usage habituel |

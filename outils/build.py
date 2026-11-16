@@ -65,6 +65,23 @@ def figure_photo(src):
             f'<figcaption>{leg}<small class="credit">{credit_html(p)}</small></figcaption></figure>')
 
 
+ILLUS_DIR = os.path.join(CONTENU, 'illustrations')
+
+
+def figure_illustration(src):
+    d = yaml.safe_load(src)
+    chemin = os.path.join(ILLUS_DIR, d['fichier'])
+    if not os.path.exists(chemin):
+        raise SystemExit(f'Illustration introuvable : contenu/illustrations/{d["fichier"]}')
+    svg = open(chemin, encoding='utf-8').read().strip()
+    svg = re.sub(r'<\?xml[^>]*>\s*', '', svg)
+    alt = d.get('alt', '')
+    svg = svg.replace('<svg ', f'<svg class="il" role="img" aria-label="{e(alt)}" ', 1)
+    leg = markdown.markdown(d.get('legende', ''))[3:-4] if d.get('legende') else ''
+    cap = f'<figcaption>{leg}</figcaption>' if leg else ''
+    return f'<figure class="schema illustration">{svg}{cap}</figure>'
+
+
 class Rendu:
     def __init__(self):
         self.schemas = []
@@ -82,6 +99,10 @@ class Rendu:
             self.schemas.append((figure_photo(m.group(1)), None))
             return f'\n\nSCHEMA{len(self.schemas)-1}FIN\n\n'
         texte = re.sub(r'```photo\n(.*?)```', photo, texte, flags=re.S)
+        def illus(m):
+            self.schemas.append((figure_illustration(m.group(1)), None))
+            return f'\n\nSCHEMA{len(self.schemas)-1}FIN\n\n'
+        texte = re.sub(r'```illustration\n(.*?)```', illus, texte, flags=re.S)
         # 2) encadrés façon GitHub : > [!TIP] Titre facultatif
         lignes, out, i = texte.split('\n'), [], 0
         while i < len(lignes):

@@ -203,6 +203,24 @@ code,kbd,pre{font-family:var(--code)}
 
 /* Schémas générés */
 figure.schema{margin:26px 0;padding:14px 10px 6px;background:var(--surface);border:1px solid var(--trait);border-radius:var(--r-m);max-width:calc(var(--mesure) + 6ch)}
+svg.il{display:block;max-width:100%;height:auto;margin:0 auto;font-family:var(--texte)}
+.il .tx{fill:var(--encre);font-size:15px}
+.il .tx2{fill:var(--encre-2);font-size:13px}
+.il .tx3{fill:var(--encre-3);font-size:12px}
+.il .mono{font-family:var(--code)}
+.il .b{font-weight:700}
+.il .titre{font-family:var(--titre);font-weight:700}
+.il .blanc{fill:#fff}
+:root[data-theme="sombre"] .il .blanc{fill:#0E1524}
+.il .boite{fill:var(--surface);stroke:var(--trait);stroke-width:1.5}
+.il .fond{fill:var(--surface-2)}
+.il .ligne{stroke:var(--encre-3);stroke-width:1.5;fill:none}
+.il .fleche{stroke:var(--encre-2);stroke-width:2;fill:none}
+.il .pointe{fill:var(--encre-2)}
+.il .f0{fill:var(--l0)}.il .f1{fill:var(--l1)}.il .f2{fill:var(--l2)}.il .f3{fill:var(--l3)}.il .f4{fill:var(--l4)}.il .f5{fill:var(--l5)}.il .fled{fill:var(--led)}.il .fko{fill:var(--ko)}.il .fok{fill:var(--ok)}
+.il .s0{stroke:var(--l0)}.il .s1{stroke:var(--l1)}.il .s2{stroke:var(--l2)}.il .s3{stroke:var(--l3)}.il .s4{stroke:var(--l4)}.il .s5{stroke:var(--l5)}.il .sko{stroke:var(--ko)}
+.il .t0{fill:var(--l0)}.il .t1{fill:var(--l1)}.il .t2{fill:var(--l2)}.il .t3{fill:var(--l3)}.il .t4{fill:var(--l4)}.il .t5{fill:var(--l5)}.il .tko{fill:var(--ko)}
+.il .pale{fill-opacity:.16}
 figure.photo{margin:26px 0;max-width:calc(var(--mesure) + 6ch)}
 figure.photo img{display:block;width:100%;height:auto;max-height:440px;object-fit:contain;background:var(--surface);border:1px solid var(--trait);border-radius:var(--r-m)}
 figure.photo figcaption{font-size:15px;color:var(--encre-2);padding:8px 4px 0;line-height:1.5}
@@ -364,3 +382,4 @@ figure.schema figcaption{font-size:14.5px;color:var(--encre-3);padding:6px 8px 4
   .certificat.visible{border:3px solid #15213B;margin:0 auto}
 }
 [hidden]{display:none!important}
+@media (max-width:700px){figure.illustration{overflow-x:auto}figure.illustration svg.il{min-width:640px}figure.illustration figcaption{position:sticky;left:0;max-width:calc(100vw - 60px)}}

@@ -28,6 +28,18 @@ Vingt personnes administrent les équipements réseau : support, administrateurs
 | Autorisation par commande | non | **oui** |
 | Norme | ouverte (RFC 2865) | publiée par Cisco (RFC 8907), largement supportée |
 
+```sequence
+titre: Un administrateur se connecte à un switch géré par TACACS+
+Admin | Switch | Serveur TACACS+
+Admin -> Switch : SSH : alice, mot de passe
+Switch -> Serveur TACACS+ : authentification d’alice ? (TCP 49, chiffré)
+Serveur TACACS+ --> Switch : acceptée, profil « niveau 2 »
+Admin -> Switch : configure terminal
+Switch -> Serveur TACACS+ : autorisation de cette commande ?
+Serveur TACACS+ --> Switch : refusée pour ce profil
+Switch -> Serveur TACACS+ : journal : alice a tenté « configure terminal »
+```
+
 ## Les mots à connaître
 
 - **TACACS+** — Protocole AAA pour l’administration des équipements réseau.

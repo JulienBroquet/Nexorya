@@ -38,6 +38,17 @@ Un port d’accès reçoit normalement le trafic d’un PC et parfois d’un té
 
 Beaucoup de réseaux n’utilisent pas IPv6… mais tous les systèmes récents l’activent par défaut. Un attaquant (ou un logiciel de partage de connexion) qui envoie une **annonce de routeur** IPv6 devient la passerelle IPv6 de tous les postes du VLAN, qui préfèrent alors IPv6 pour joindre les sites qui le proposent. **RA Guard** bloque les annonces de routeur reçues sur les ports d’accès.
 
+```topologie
+titre: Ce que les protections de port empêchent
+SW switch 1.5,0 "Switch d’accès"
+PC pc 0,1.2 "Poste" "1 adresse MAC : OK"
+MINI switch 1.5,1.2 "Switch personnel" "BPDU reçue : port coupé"
+DHCP serveur 3,1.2 "Serveur DHCP pirate" "port non fiable : offres jetées"
+SW -- PC
+SW -x- MINI
+SW -x- DHCP
+```
+
 ## Les mots à connaître
 
 - **Port Security** — Limitation et contrôle des adresses MAC autorisées sur un port.

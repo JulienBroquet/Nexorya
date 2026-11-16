@@ -26,6 +26,16 @@ Le DNS classique circule **en clair**. Sur un Wi-Fi public, chez un fournisseur 
 | Visibilité pour l’administrateur | on voit qu’il y a du DNS chiffré, on peut l’autoriser ou le bloquer | se mélange au trafic Web ordinaire |
 | Utilisation typique | systèmes (Android « DNS privé »), résolveurs vers l’extérieur | navigateurs |
 
+```sequence
+titre: DNS sur TLS
+Poste | Résolveur
+Poste -> Résolveur : connexion TCP au port 853
+Poste -> Résolveur : négociation TLS : le résolveur prouve son identité
+Poste -> Résolveur : question DNS (chiffrée)
+Résolveur --> Poste : réponse DNS (chiffrée)
+note Poste, Résolveur : la connexion est réutilisée pour les questions suivantes
+```
+
 ## Les mots à connaître
 
 - **DoT** — *DNS over TLS*, requêtes DNS chiffrées par TLS sur le port 853.

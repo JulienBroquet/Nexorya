@@ -28,6 +28,19 @@ Un mot de passe Wi-Fi partagé finit toujours par circuler : affiché en salle d
 | Attribution de droits | identique pour tous | VLAN et ACL selon l’identité |
 | Usage | domicile, petites structures, objets connectés | salariés |
 
+```topologie
+titre: Les acteurs du Wi-Fi d’entreprise
+P portable 0,0.6 "Portable" "certificat ou identifiants"
+AP ap 1.5,0.6 "Borne Wi-Fi" "authentificateur"
+WLC switch 3,0.6 "Contrôleur Wi-Fi"
+RAD serveur 4.5,0.6 "Serveur RADIUS"
+AD serveur 6,0.6 "Annuaire" "comptes et groupes"
+P ~~ AP "802.1X"
+AP -- WLC
+WLC -- RAD "RADIUS"
+RAD -- AD
+```
+
 ## Les mots à connaître
 
 - **WPA2 / WPA3** — Protocoles de sécurité du Wi-Fi.

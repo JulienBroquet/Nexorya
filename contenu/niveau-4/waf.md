@@ -18,6 +18,17 @@ Un portail client est publié sur Internet. Il reçoit chaque jour des requêtes
 > [!IMPORTANT] L’idée en une phrase
 > Le WAF lit chaque requête HTTP comme le ferait l’application, et rejette celles qui ressemblent à une attaque.
 
+```topologie
+titre: Le WAF examine les requêtes avant le serveur Web
+U utilisateur 0,0 "Visiteurs"
+A utilisateur 0,1.2 "Attaquant" "injection SQL"
+WAF parefeu 1.8,0.6 "WAF" "analyse HTTP"
+WEB serveur 3.6,0.6 "Application Web"
+U -- WAF "requêtes normales"
+A -x- WAF "bloquée"
+WAF ++ WEB "seulement le trafic sain"
+```
+
 ## Exemple
 
 ```text

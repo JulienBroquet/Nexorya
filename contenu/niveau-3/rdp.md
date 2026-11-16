@@ -28,6 +28,17 @@ Les attaquants balaient en permanence Internet à la recherche du port 3389. Un 
 | Comptes administrateurs avec mot de passe simple | comptes nominatifs, mots de passe forts, verrouillage après échecs |
 | NLA désactivé | **NLA** activé |
 
+```topologie
+titre: Accéder à un poste à distance sans l’exposer à Internet
+U portable 0,0 "Utilisateur" "à domicile"
+INT nuage 1.4,0 "Internet"
+GW parefeu 2.8,0 "Passerelle RDP" "HTTPS 443 + MFA"
+SRV serveur 4.2,0 "Poste ou serveur" "TCP 3389, réseau interne"
+U -- INT
+INT ++ GW "TLS"
+GW -- SRV "RDP"
+```
+
 ## Les mots à connaître
 
 - **RDP** — Protocole de bureau à distance de Microsoft.

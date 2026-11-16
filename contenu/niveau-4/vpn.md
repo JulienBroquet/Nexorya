@@ -33,6 +33,21 @@ Un salarié travaille de chez lui et doit accéder au serveur de fichiers, à l�
 - **Tunnel complet** (*full tunnel*) : tout le trafic du poste, y compris Internet, passe par l’entreprise. Contrôle maximal (filtrage Web, journaux), mais charge et latence sur la passerelle.
 - **Tunnel partagé** (*split tunnel*) : seul le trafic vers les réseaux internes passe par le VPN ; Internet (et souvent les services cloud comme la visioconférence) sort directement. Meilleures performances, moins de contrôle.
 
+```topologie
+titre: Les deux grands usages du VPN
+TT portable 0,0 "Télétravailleur" "client VPN + MFA"
+INT nuage 1.6,0.8 "Internet"
+GW parefeu 3.2,0 "Passerelle VPN" "siège"
+LAN serveur 4.6,0 "Applications" "réseau interne"
+AG routeur 0,1.6 "Routeur d’agence"
+INT2 routeur 3.2,1.6 "Routeur du siège"
+TT ++ GW "VPN d’accès distant"
+GW -- LAN
+AG ++ INT2 "VPN site à site (IPsec)"
+TT .. INT
+AG .. INT
+```
+
 ## Les mots à connaître
 
 - **VPN** — *Virtual Private Network*, tunnel chiffré qui relie un poste ou un site à un réseau privé.

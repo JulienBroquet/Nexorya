@@ -25,6 +25,17 @@ Un incident a lieu dans une agence à 500 km. L’analyseur et l’équipe du SO
 3. Les paquets traversent le réseau routé.
 4. L’analyseur reçoit les paquets GRE ; Wireshark sait les ouvrir et afficher le trafic d’origine.
 
+```topologie
+titre: Analyser le trafic d’une agence depuis le siège
+SRV pc 0,0 "Poste suivi" "agence"
+SW switch 1.4,0 "Switch d’agence" "source ERSPAN"
+WAN nuage 2.8,0 "WAN"
+ANA portable 4.2,0 "Analyseur" "SOC, siège"
+SRV -- SW
+SW ++ WAN "copie dans GRE"
+WAN ++ ANA
+```
+
 ## Les mots à connaître
 
 - **ERSPAN** — *Encapsulated Remote SPAN*, port miroir transporté dans un tunnel GRE.

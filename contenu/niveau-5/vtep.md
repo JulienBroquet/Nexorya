@@ -26,6 +26,23 @@ Le VXLAN a besoin, à chaque bout, d’un équipement qui sache **traduire** ent
 4. Il encapsule la trame (en-têtes VXLAN, UDP, IP avec son adresse de VTEP en source) et l’envoie dans l’underlay.
 5. Le VTEP distant déballe la trame et la remet dans **son** VLAN local associé au VNI 10100 (qui peut avoir un autre numéro de VLAN).
 
+```topologie
+titre: Deux VTEP relient le même segment à travers le réseau routé
+S1 switch 1,0 "Spine 1"
+S2 switch 2.6,0 "Spine 2"
+L1 switch 0.4,1.3 "Leaf 1 : VTEP" "10.255.1.1"
+L2 switch 3.2,1.3 "Leaf 2 : VTEP" "10.255.1.2"
+V1 vm 0.4,2.5 "VM A" "VNI 10100"
+V2 vm 3.2,2.5 "VM B" "VNI 10100"
+L1 -- S1
+L1 -- S2
+L2 -- S1
+L2 -- S2
+L1 ++ L2 "tunnel VXLAN"
+L1 -- V1
+L2 -- V2
+```
+
 ## Les mots à connaître
 
 - **VTEP** — Extrémité de tunnel VXLAN, qui encapsule et désencapsule les trames.

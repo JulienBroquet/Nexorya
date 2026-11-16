@@ -28,6 +28,21 @@ Pour charger une page en HTTPS classique, il faut d’abord la poignée de main 
 | Changer de réseau casse la connexion (l’adresse IP change) | identifiant de connexion indépendant de l’adresse |
 | En-têtes TCP visibles et modifiables par les équipements intermédiaires | en-têtes chiffrés : le protocole peut évoluer sans être cassé par le réseau |
 
+```sequence
+titre: TCP + TLS 1.3 contre QUIC : combien d’allers-retours avant les données ?
+Client | Serveur
+== TCP puis TLS 1.3 ==
+Client -> Serveur : SYN
+Serveur --> Client : SYN-ACK
+Client -> Serveur : ACK + début de la négociation TLS
+Serveur --> Client : réponse TLS, certificat
+Client -> Serveur : première requête : 2 allers-retours
+== QUIC ==
+Client -> Serveur : Initial : connexion et négociation TLS ensemble (UDP 443)
+Serveur --> Client : réponse, certificat
+Client -> Serveur : première requête : 1 seul aller-retour
+```
+
 ## Les mots à connaître
 
 - **QUIC** — Protocole de transport chiffré et fiable construit sur UDP, utilisé par HTTP/3.

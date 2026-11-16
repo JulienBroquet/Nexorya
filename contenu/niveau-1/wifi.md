@@ -46,6 +46,12 @@ Une borne « Wi-Fi 6 à 2,4 Gb/s » ne donnera jamais 2,4 Gb/s à un téléphone
 | **5 GHz** | moyenne | une vingtaine (selon les pays) | le choix habituel en entreprise |
 | **6 GHz** (Wi-Fi 6E et 7) | plus courte | très nombreux | peu encombrée, réservée aux appareils récents |
 
+```illustration
+fichier: wifi-canaux-24ghz.svg
+legende: "Chaque émission occupe environ 20 MHz alors que les canaux ne sont espacés que de 5 MHz : deux bornes voisines sur les canaux 3 et 5 se gênent. Seuls **1, 6 et 11** ne se recouvrent pas."
+alt: "Treize canaux Wi-Fi 2,4 GHz représentés par des arcs qui se chevauchent ; les canaux 1, 6 et 11 sont mis en évidence et ne se recouvrent pas"
+```
+
 ## Exemple : la salle de formation saturée
 
 Une salle de formation de 40 personnes est couverte par une seule borne en 2,4 GHz, sur le canal 3. Les sessions vidéo saccadent. Le diagnostic montre que le canal 3 chevauche les canaux 1 et 6 utilisés par les bornes voisines, et que 40 appareils se partagent une seule borne. Solution : passer les appareils en **5 GHz**, utiliser des canaux **qui ne se chevauchent pas** (1, 6, 11 en 2,4 GHz), et ajouter une deuxième borne avec une puissance réduite.

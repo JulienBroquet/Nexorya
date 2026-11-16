@@ -57,6 +57,18 @@ Cache-Control: max-age=300
 > [!TIP]
 > Un code 4xx ou 5xx est une **excellente nouvelle pour l’équipe réseau** : il prouve que la connexion est passée et qu’un serveur HTTP a répondu. Le problème est dans l’application, les droits ou la configuration du serveur.
 
+```sequence
+titre: Afficher une page Web : une requête par ressource
+Navigateur | Serveur Web
+Navigateur -> Serveur Web : GET / HTTP/1.1  Host: www.exemple.fr
+Serveur Web --> Navigateur : 200 OK + le code HTML de la page
+note Navigateur : lit le HTML et découvre les ressources nécessaires
+Navigateur -> Serveur Web : GET /style.css
+Serveur Web --> Navigateur : 200 OK + la feuille de style
+Navigateur -> Serveur Web : GET /logo.png
+Serveur Web --> Navigateur : 304 Not Modified (déjà en cache)
+```
+
 ## Les mots à connaître
 
 - **HTTP** — Protocole de requêtes et de réponses utilisé par le Web.

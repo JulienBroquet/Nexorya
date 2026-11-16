@@ -27,6 +27,18 @@ Les entreprises équipées uniquement en Cisco ont longtemps voulu un protocole 
    - un éventuel **successeur possible** : un voisin de secours dont le chemin est garanti sans boucle.
 4. Si le successeur disparaît et qu’un successeur possible existe, la bascule est **immédiate**. Sinon, le routeur interroge ses voisins (*query*) pour trouver un nouveau chemin.
 
+```topologie
+titre: Successeur et successeur possible vers 10.9.0.0/24
+R1 routeur 0,1 "R1"
+R2 routeur 2,0 "R2" "successeur : 10 + 20 = 30"
+R3 routeur 2,2 "R3" "successeur possible : 15 + 25 = 40"
+NET nuage 4,1 "10.9.0.0/24"
+R1 ++ R2 "10"
+R1 -- R3 "15"
+R2 ++ NET "20"
+R3 -- NET "25"
+```
+
 ## Les mots à connaître
 
 - **EIGRP** — Protocole de routage hybride d’origine Cisco, fondé sur l’algorithme DUAL.

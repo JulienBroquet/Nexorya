@@ -31,6 +31,12 @@ Sur un lien de 100 Mb/s vers une agence, tout va bien tant que le trafic reste s
 | **Mettre en file et ordonnancer** | qui passe en premier ? | file prioritaire pour la voix, parts garanties pour les autres |
 | **Lisser / limiter** | comment respecter un débit contractuel ? | lisser à 100 Mb/s sur un lien physique à 1 Gb/s |
 
+```illustration
+fichier: qos-files.svg
+legende: "Les paquets sont classés selon leur marquage, rangés dans des files séparées, puis l’ordonnanceur sert toujours la file **voix** en premier, dans la limite de son plafond."
+alt: "Paquets mélangés classés en trois files (voix prioritaire, métier, sauvegardes) avant le lien WAN ; en sortie, la voix passe en premier"
+```
+
 ## Où la QoS est-elle utile ?
 
 Partout où un lien peut être **saturé** : principalement les liens **WAN** (bien plus lents que le LAN), les liaisons montantes des switches d’accès, et les liens Wi-Fi. Sur un lien jamais chargé, elle ne fait rien… et ne coûte rien.

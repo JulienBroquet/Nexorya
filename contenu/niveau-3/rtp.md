@@ -26,6 +26,17 @@ La voix est découpée en petits morceaux de 20 ms. Ils doivent être joués **a
 3. Si un paquet manque au moment de le jouer, il **masque** le trou (répétition, interpolation).
 4. Si un paquet arrive trop tard, il est jeté : il ne sert plus à rien.
 
+```sequence
+titre: Un appel : SIP établit, RTP transporte la voix
+Téléphone A | Serveur d’appels | Téléphone B
+Téléphone A -> Serveur d’appels : SIP INVITE (codec, port RTP proposé)
+Serveur d’appels -> Téléphone B : SIP INVITE
+Téléphone B --> Téléphone A : 200 OK (via le serveur)
+Téléphone A -> Téléphone B : RTP : un paquet de voix toutes les 20 ms (UDP)
+Téléphone B -> Téléphone A : RTP dans l’autre sens
+note Téléphone A, Téléphone B : RTCP : rapports de qualité (pertes, gigue) toutes les quelques secondes
+```
+
 ## Les mots à connaître
 
 - **RTP** — Protocole de transport des flux audio et vidéo en temps réel.

@@ -28,6 +28,19 @@ Qui a le droit de signer un certificat ? Pour un site public, le navigateur de n
 | Noms internes (`srv-ad01.local`) | **impossible** | possible |
 | Coût | gratuit (ACME) à payant | infrastructure à maintenir |
 
+```topologie
+titre: Une chaîne de confiance à deux niveaux
+ROOT boite 1.5,0 "CA racine" "hors ligne, au coffre"
+SUB boite 1.5,1.2 "CA intermédiaire" "signe au quotidien"
+S1 serveur 0,2.4 "Certificat serveur" "intranet.lumen.local"
+S2 portable 1.5,2.4 "Certificat poste" "802.1X"
+S3 utilisateur 3,2.4 "Certificat utilisateur" "VPN"
+ROOT ++ SUB "signe"
+SUB -- S1 "signe"
+SUB -- S2 "signe"
+SUB -- S3 "signe"
+```
+
 ## Les mots à connaître
 
 - **Autorité de certification (CA)** — Entité qui signe les certificats et en garantit le contenu.

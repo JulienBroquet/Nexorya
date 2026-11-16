@@ -34,6 +34,22 @@ Une chaîne de magasins a un siège et 120 boutiques dans tout le pays. Chaque b
 - **Maillage complet** : chaque site est relié à tous les autres. Direct, mais le nombre de tunnels explose (n × (n − 1) / 2).
 - **Maillage dynamique** : étoile pour le contrôle, tunnels directs créés à la demande entre agences (DMVPN, SD-WAN).
 
+```topologie
+titre: Un WAN d’entreprise typique
+SIEGE l3 1.5,0 "Siège" "datacenter"
+MPLS nuage 0.5,1.3 "VPN MPLS" "opérateur"
+INT nuage 2.5,1.3 "Internet"
+A1 routeur 0,2.6 "Agence 1"
+A2 routeur 1.5,2.6 "Agence 2"
+A3 routeur 3,2.6 "Agence 3" "Internet seul"
+SIEGE -- MPLS
+SIEGE -- INT
+MPLS -- A1
+MPLS -- A2
+INT .. A2 "secours"
+INT ++ A3 "VPN IPsec"
+```
+
 ## Les mots à connaître
 
 - **WAN** — *Wide Area Network*, réseau qui relie des sites éloignés.

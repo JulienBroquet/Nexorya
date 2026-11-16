@@ -28,6 +28,12 @@ retenir:
 | **Gigue** | Le délai est-il régulier ? | ms | Voix et vidéo en direct |
 | **Pertes** | Quelle part des paquets disparaît ? | % | Tout, mais surtout la voix et les transferts TCP |
 
+```illustration
+fichier: quatre-mesures.svg
+legende: "Quatre mesures différentes, quatre problèmes différents : un gros débit ne garantit ni une faible latence, ni une gigue faible."
+alt: "Quatre panneaux : débit comme largeur de tuyau, latence comme temps d’aller-retour, gigue comme arrivées irrégulières, pertes comme paquets manquants"
+```
+
 ### Bits ou octets ?
 
 Les réseaux mesurent en **bits par seconde** (b/s), les logiciels de téléchargement affichent souvent des **octets par seconde** (o/s ou B/s). **Un octet = 8 bits**. Une connexion à 100 Mb/s télécharge donc au mieux environ 12,5 Mo/s — un peu moins en réalité, à cause des en-têtes.

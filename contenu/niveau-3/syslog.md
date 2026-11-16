@@ -49,6 +49,21 @@ Nov 15 09:12:44.318 CET: %LINEPROTO-5-UPDOWN: Line protocol on Interface Gigabit
 > [!TIP] Un moyen mnémotechnique
 > « **E**very **A**wesome **C**isco **E**ngineer **W**ill **N**eed **I**ce cream **D**aily » : emergency, alert, critical, error, warning, notification, informational, debugging.
 
+```topologie
+titre: Tous les journaux au même endroit
+SW1 switch 0,0 "Switches"
+R1 routeur 0,1 "Routeurs"
+FW parefeu 0,2 "Pare-feu"
+LOG serveur 2,1 "Serveur Syslog" "stockage, recherche"
+SIEM serveur 3.6,1 "SIEM" "corrélation, alertes"
+NTP serveur 2,2.4 "Serveur NTP" "même heure partout"
+SW1 .. LOG "UDP 514"
+R1 .. LOG "UDP 514"
+FW .. LOG "TCP 6514 (TLS)"
+LOG -- SIEM
+NTP .. LOG
+```
+
 ## Les mots à connaître
 
 - **Syslog** — Protocole et format standard d’envoi des messages de journal vers un serveur central.

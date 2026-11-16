@@ -55,6 +55,12 @@ Le **masque** est une suite de bits à 1 (la partie réseau) suivie de bits à 0
 
 **Formules :** nombre d’adresses = 2^(32 − préfixe) ; hôtes utilisables = 2^(32 − préfixe) − 2.
 
+```illustration
+fichier: sous-reseau-bits.svg
+legende: "Tout le calcul est là : les bits couverts par le masque restent identiques (partie réseau) ; avec les bits d’hôte tous à 0, on obtient l’adresse du réseau, tous à 1, l’adresse de diffusion."
+alt: "Adresse 192.168.10.37, masque /26, adresse réseau 192.168.10.0 et diffusion 192.168.10.63 écrites en binaire, avec 26 bits réseau et 6 bits hôte"
+```
+
 ## La méthode du « nombre magique » (sans binaire)
 
 Pour un masque qui « coupe » dans le dernier octet :

@@ -35,6 +35,17 @@ Le modèle traditionnel ressemble à un château fort : un mur épais (le pare-f
 | Mot de passe seul en interne | MFA aussi en interne, pour les accès sensibles |
 | Administrateurs avec des droits permanents | droits accordés pour une tâche et une durée (PAM, accès juste-à-temps) |
 
+```sequence
+titre: Zero trust : chaque accès est vérifié
+Utilisateur | Proxy d’accès | Moteur de règles | Application
+Utilisateur -> Proxy d’accès : je veux ouvrir l’application RH
+Proxy d’accès -> Moteur de règles : qui ? quel poste ? d’où ? MFA faite ?
+note Moteur de règles : identité vérifiée, poste à jour et chiffré, groupe RH
+Moteur de règles --> Proxy d’accès : autorisé pour l’application RH seulement
+Proxy d’accès -> Application : connexion relayée
+note Utilisateur, Application : aucune autre application n’est visible depuis ce poste
+```
+
 ## Les mots à connaître
 
 - **Zero Trust** — Modèle de sécurité qui ne fait confiance à aucun accès par défaut et vérifie chacun.

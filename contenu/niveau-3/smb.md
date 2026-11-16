@@ -27,6 +27,18 @@ Les employés partagent des dossiers d’équipe, des modèles de documents, des
 | SMB 2.x | performant, encore courant |
 | SMB 3.x | **chiffrement**, signature renforcée, basculement transparent entre serveurs |
 
+```sequence
+titre: Ouvrir \\srv-fichiers\compta depuis un poste Windows
+Poste | Serveur de fichiers | Contrôleur de domaine
+Poste -> Serveur de fichiers : NEGOTIATE : quelle version de SMB ? (TCP 445)
+Serveur de fichiers --> Poste : SMB 3.1.1, chiffrement possible
+Poste -> Contrôleur de domaine : demande un ticket Kerberos pour srv-fichiers
+Contrôleur de domaine --> Poste : ticket de service
+Poste -> Serveur de fichiers : SESSION SETUP avec le ticket
+Poste -> Serveur de fichiers : TREE CONNECT \\srv-fichiers\compta
+Serveur de fichiers --> Poste : accès accordé selon les droits du partage et des fichiers
+```
+
 ## Les mots à connaître
 
 - **SMB** — Protocole de partage de fichiers et d’imprimantes des environnements Windows.

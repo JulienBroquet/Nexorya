@@ -32,6 +32,14 @@ TCP garantit tout, mais au prix d’une ouverture de connexion, d’accusés et 
 | En-tête | 20 octets minimum | **8 octets** |
 | Usages | Web, e-mail, fichiers, SSH | voix, vidéo en direct, DNS, DHCP, NTP, SNMP, jeux, QUIC |
 
+```sequence
+titre: Une requête DNS en UDP : pas de connexion, pas d’accusé de réception
+Client | Résolveur DNS
+Client -> Résolveur DNS : question : adresse de www.exemple.fr ? (UDP, port 53)
+Résolveur DNS --> Client : réponse : 93.184.215.14
+note Client, Résolveur DNS : 2 messages au total. Si la réponse se perd, c’est le client qui redemande après un délai.
+```
+
 ## Les mots à connaître
 
 - **UDP** — Protocole de transport simple, sans connexion ni garantie d’arrivée.

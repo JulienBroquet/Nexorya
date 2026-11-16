@@ -36,6 +36,17 @@ Un switch récupéré dans un laboratoire est branché en production. Il est en 
 > [!WARNING]
 > Avant de brancher un switch d’occasion ou de laboratoire, remets son numéro de révision à zéro (par exemple en changeant son nom de domaine VTP, ou en le passant en mode transparent), ou utilise VTP v3.
 
+```topologie
+titre: Un serveur VTP diffuse la liste des VLAN
+SRV switch 2,0 "SW-COEUR" "mode serveur"
+C1 switch 0,1.5 "Switch" "mode client"
+C2 switch 2,1.5 "Switch" "mode client"
+T switch 4,1.5 "Switch" "transparent : garde ses VLAN"
+SRV == C1 "VLAN 10, 20, 30"
+SRV == C2
+SRV == T "relaie sans appliquer"
+```
+
 ## Les mots à connaître
 
 - **VTP** — *VLAN Trunking Protocol*, protocole Cisco qui synchronise la liste des VLAN entre switches.

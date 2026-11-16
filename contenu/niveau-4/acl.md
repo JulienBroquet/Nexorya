@@ -50,6 +50,19 @@ Les ACL Cisco utilisent un **masque générique** (*wildcard*), l’inverse d’
 | Une seule machine | `host 10.99.0.53` (= `10.99.0.53 0.0.0.0`) |
 | N’importe quelle adresse | `any` |
 
+```topologie
+titre: Une ACL étendue placée au plus près de la source
+INV pc 0,0 "Invités" "VLAN 30"
+UTI pc 0,1.4 "Utilisateurs" "VLAN 10"
+R l3 1.6,0.7 "Switch de cœur" "ACL en entrée sur VLAN 30"
+SRV serveur 3.4,0 "Serveurs internes"
+NET nuage 3.4,1.4 "Internet"
+INV -- R
+UTI -- R
+R -x- SRV "invités → serveurs : refusé"
+R -- NET "invités → Internet : autorisé"
+```
+
 ## Les mots à connaître
 
 - **ACL** — *Access Control List*, liste de règles qui autorisent ou refusent des paquets.

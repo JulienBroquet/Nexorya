@@ -39,6 +39,13 @@ Si un seul protocole devait tout gérer, il serait énorme et impossible à fair
 En entreprise, on parle constamment des couches 1 à 4 et de la couche 7. Les couches 5 et 6 existent surtout dans la théorie : en pratique, leur rôle est assuré par l’application ou par TLS.
 
 ## Le voyage d’un message à travers les couches
+```illustration
+fichier: encapsulation.svg
+legende: "Chaque couche ajoute son en-tête devant ce que lui donne la couche du dessus : c’est l’**encapsulation**."
+alt: "Quatre lignes montrant l’ajout successif des en-têtes TCP, IP puis Ethernet et FCS autour des données"
+```
+
+
 
 Au départ, chaque couche **ajoute son en-tête** au message reçu de la couche du dessus : c’est l’**encapsulation**. À l’arrivée, chaque couche **retire** l’en-tête qui la concerne.
 

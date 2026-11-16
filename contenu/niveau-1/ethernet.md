@@ -28,6 +28,12 @@ Sur un réseau local, des dizaines d’appareils partagent les mêmes switches. 
 | **Données** | 46 à 1 500 octets | Le contenu transporté, souvent un paquet IP. |
 | **FCS** | 4 octets | Un code calculé sur toute la trame, pour détecter les erreurs. |
 
+```illustration
+fichier: ethernet-trame.svg
+legende: "Le switch lit d’abord la **MAC destination** pour savoir où envoyer la trame ; le récepteur vérifie le **FCS** à la fin pour savoir si elle est intacte."
+alt: "Trame Ethernet : préambule, MAC destination, MAC source, type, données de 46 à 1500 octets et FCS ; en-tête de 14 octets, trame de 64 à 1518 octets"
+```
+
 > [!TIP] L’analogie de l’enveloppe scellée
 > Le FCS fonctionne comme un sceau. L’expéditeur calcule un nombre à partir de tout le contenu et l’inscrit à la fin. Le destinataire refait le calcul : si le résultat diffère, la trame a été abîmée en route et elle est **jetée**. Ethernet ne la redemande pas : ce sont les couches supérieures (TCP par exemple) qui s’apercevront du manque.
 

@@ -36,6 +36,16 @@ Les mots de passe se volent facilement : hameçonnage, fuite d’un autre site o
 | Simple notification « Approuver » | non | vulnérable au **bombardement** de notifications |
 | SMS | non | détournement de carte SIM, interception |
 
+```sequence
+titre: Se connecter avec deux facteurs
+Utilisateur | Service | Application d’authentification
+Utilisateur -> Service : identifiant + mot de passe (ce que je sais)
+Service --> Utilisateur : mot de passe correct, second facteur demandé
+Service -> Application d’authentification : notification « Est-ce bien vous ? »
+Application d’authentification --> Service : approuvé sur le téléphone (ce que je possède)
+Service --> Utilisateur : accès accordé
+```
+
 ## Les mots à connaître
 
 - **MFA** — Authentification qui combine au moins deux facteurs de familles différentes.

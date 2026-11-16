@@ -37,6 +37,17 @@ HTTP circule **en clair** : mots de passe, cookies de session, contenu des pages
 4. Activer **HSTS** pour que les navigateurs n’essaient plus jamais HTTP sur ce site.
 5. **Automatiser** le renouvellement.
 
+```sequence
+titre: Arriver sur un site sécurisé
+Navigateur | Serveur
+Navigateur -> Serveur : http://www.exemple.fr (non chiffré)
+Serveur --> Navigateur : 301 : va sur https://www.exemple.fr
+Navigateur -> Serveur : connexion TCP au port 443, puis négociation TLS
+Serveur --> Navigateur : certificat du site, clés de session établies
+Navigateur -> Serveur : GET / (chiffré)
+Serveur --> Navigateur : 200 OK + en-tête HSTS : toujours HTTPS désormais
+```
+
 ## Les mots à connaître
 
 - **HTTPS** — HTTP sécurisé par TLS, sur le port 443.

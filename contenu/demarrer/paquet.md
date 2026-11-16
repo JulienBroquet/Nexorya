@@ -30,6 +30,12 @@ Chaque morceau est emballé **dans plusieurs enveloppes successives**. Chaque en
 | L’enveloppe **réseau (IP)** | L’adresse IP de l’expéditeur et celle du destinataire final. | Les **routeurs**, à chaque étape. |
 | L’enveloppe **locale (Ethernet ou Wi-Fi)** | L’adresse MAC de l’appareil suivant sur le chemin, et un code de contrôle pour détecter les erreurs. | Le **switch** et la carte réseau voisine. |
 
+```illustration
+fichier: encapsulation.svg
+legende: "De haut en bas, les données reçoivent un en-tête à chaque étape. Le nom change avec l’enveloppe extérieure : **segment**, puis **paquet**, puis **trame**."
+alt: "Quatre lignes : données seules, puis TCP et données, puis IP, TCP et données, puis Ethernet, IP, TCP, données et FCS"
+```
+
 ```sequence
 titre: Emballer au départ, déballer à l’arrivée
 Navigateur | Ordinateur | Réseau | Serveur Web

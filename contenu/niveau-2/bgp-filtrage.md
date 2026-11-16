@@ -27,6 +27,17 @@ En BGP, ce que tu annonces est **cru** par tes voisins, qui le réannoncent à l
 | **Prefix-list** | sélectionner des réseaux selon leur adresse et leur longueur | une liste d’invités à l’entrée |
 | **Route-map** | « si la route correspond à… alors… » : accepter, refuser, ou modifier des attributs | un videur qui applique des règles et donne un bracelet de couleur |
 
+```topologie
+titre: Les filtres aux frontières de l’entreprise
+E routeur 1.6,0.8 "Routeur Internet" "AS 64512"
+OP1 nuage 0,0 "Opérateur A"
+OP2 nuage 0,1.6 "Opérateur B"
+LAN nuage 3.4,0.8 "Réseau de l’entreprise" "198.51.100.0/24"
+E ++ OP1 "sortie : 198.51.100.0/24 seulement"
+E ++ OP2 "sortie : 198.51.100.0/24 seulement"
+E -- LAN
+```
+
 ## Exemple : n’annoncer que son réseau
 
 ```cisco

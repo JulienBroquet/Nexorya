@@ -30,6 +30,8 @@ Première version publique sous le nom **Nexorya**, entièrement réécrite à p
 ### Images
 - Illustrations de matériel reprises de la V4.4 et recadrées (modules SFP, câble DAC, fibre LC, RJ45, façade de switch, baies), avec légende détaillée et crédit sous chaque image.
 - Page « Crédits des images » générée automatiquement.
+- 11 illustrations dessinées, adaptées au thème sombre : trame Ethernet, étiquette 802.1Q, brochage RJ45 T568B, fibres multimode et monomode, canaux Wi-Fi 2,4 GHz, encapsulation, sous-réseau en binaire, adresse IPv6, files de QoS, octet DSCP, les quatre mesures d’une connexion.
+- 42 nouveaux schémas (séquences et topologies) dans les fiches qui n’en avaient pas : VRRP, passerelle, UDP, HTTP, HTTPS, QUIC, SSH, Syslog, TFTP, SMB, LDAP, RDP, RTP, DoT, DoH, ACL, VPN, NGFW, WAF, IPS, zero trust, MFA, OTP, TACACS+, EAP-TLS, WPA-Entreprise, DAI, protection des ports, autorités de certification, MACsec, WAN, VTEP, ERSPAN, automatisation, NETCONF, observabilité, LLDP, CDP, VTP, EIGRP, IS-IS, filtrage BGP.
 
 ### Retiré
 - Les anciens volumes PDF de la V4.4, remplacés par les fiches et les schémas générés.

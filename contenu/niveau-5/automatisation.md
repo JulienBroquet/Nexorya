@@ -42,6 +42,21 @@ vlans:
 
 L’automatisation la plus utile et la moins risquée consiste d’abord à **lire** : sauvegarder toutes les configurations chaque nuit, produire un inventaire (modèles, versions, numéros de série), vérifier la conformité (NTP, SSH, bannière…). Écrire vient ensuite, quand on maîtrise l’outil.
 
+```topologie
+titre: La chaîne d’automatisation
+ING utilisateur 0,0.7 "Ingénieur" "modifie les données"
+GIT serveur 1.4,0.7 "Dépôt Git" "relecture"
+CI boite 2.8,0.7 "Pipeline" "contrôles, simulation"
+ANS serveur 4.2,0.7 "Ansible"
+SW1 switch 5.4,0 "Switches"
+SW2 routeur 5.4,1.4 "Routeurs"
+ING -- GIT
+GIT -- CI
+CI -- ANS "validé"
+ANS ++ SW1 "SSH / API"
+ANS ++ SW2 "SSH / API"
+```
+
 ## Les mots à connaître
 
 - **Infrastructure as Code** — Description de l’infrastructure dans des fichiers versionnés, appliqués par des outils.

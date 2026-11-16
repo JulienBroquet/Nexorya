@@ -30,6 +30,20 @@ Le même qu’avec [HSRP](hsrp.md) : rendre la passerelle d’un VLAN tolérante
 | Adresse virtuelle = adresse réelle d’un routeur | non | possible (routeur « propriétaire ») |
 | MAC virtuelle | `0000.0c07.acXX` (v1) | `0000.5e00.01XX` |
 
+```topologie
+titre: Deux routeurs, une seule passerelle virtuelle
+R1 l3 0.5,0 "SW-DIST1 : maître" "10.10.0.2"
+R2 l3 2.5,0 "SW-DIST2 : secours" "10.10.0.3"
+SW switch 1.5,1.3 "Switch d’accès"
+PC1 pc 0.8,2.5 "Poste" "passerelle : 10.10.0.1"
+PC2 pc 2.2,2.5 "Poste" "passerelle : 10.10.0.1"
+R1 ++ SW "porte 10.10.0.1"
+R2 .. SW
+R1 .. R2 "annonces VRRP"
+SW -- PC1
+SW -- PC2
+```
+
 ## Les mots à connaître
 
 - **VRRP** — *Virtual Router Redundancy Protocol*, protocole standard de passerelle virtuelle redondante.

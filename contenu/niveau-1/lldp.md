@@ -36,6 +36,19 @@ SEP0011223344    Gi1/0/5        180        B,T             0011223344:P1
 
 Lecture : le port **Gi1/0/48** mène au switch **DIST1**, sur son port **Te1/0/3**. Le port Gi1/0/12 mène à une borne Wi-Fi (`W`), le port Gi1/0/5 à un téléphone (`T`).
 
+```topologie
+titre: Les équipements s’annoncent à leurs voisins directs
+COEUR l3 0,0 "Cœur"
+SW switch 2.2,0 "SW-ETAGE2" "Gi1/0/14"
+AP ap 4.4,0 "Borne Wi-Fi"
+TEL telephone 2.2,1.3 "Téléphone IP"
+PC pc 2.2,2.5 "Poste"
+COEUR .. SW "nom, port"
+SW .. AP "modèle, PoE"
+SW .. TEL "nom, port, VLAN voix"
+TEL -- PC
+```
+
 ## Les mots à connaître
 
 - **LLDP** — Protocole standard par lequel un équipement annonce son identité à ses voisins directs.

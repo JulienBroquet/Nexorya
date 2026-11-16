@@ -36,9 +36,10 @@ Huit groupes de quatre chiffres hexadécimaux. Comme c’est long, on l’abrèg
 
 Comme en IPv4, une adresse IPv6 a une partie réseau et une partie machine, séparées par un **préfixe**. Mais en IPv6, la règle est simple : **un réseau local fait /64**.
 
-```text
-2001:db8:10:20 : 0000:0000:0000:0025
-└── 64 bits réseau ──┘ └──── 64 bits interface ────┘
+```illustration
+fichier: ipv6-structure.svg
+legende: "Une adresse IPv6 se lit en trois parties : le préfixe donné par l’opérateur, le numéro de sous-réseau que tu choisis, puis l’identifiant de la machine. Les 64 premiers bits forment le réseau local."
+alt: "Adresse 2001:0db8:0010:0020:0000:0000:0000:0025 découpée en préfixe de site /48, sous-réseau de 16 bits et identifiant d’interface de 64 bits"
 ```
 
 Un /64 contient 2⁶⁴ adresses — 18 milliards de milliards — pour un seul réseau local. On ne compte plus les adresses en IPv6 : on compte les **réseaux**.

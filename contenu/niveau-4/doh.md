@@ -18,6 +18,17 @@ L’entreprise s’appuie sur son résolveur DNS interne pour **bloquer** les do
 > [!IMPORTANT] L’idée en une phrase
 > DoH cache les requêtes DNS dans le trafic Web chiffré ; il protège l’utilisateur d’un réseau espion, mais prive l’entreprise de sa visibilité si elle ne le maîtrise pas.
 
+```topologie
+titre: Trois façons d’envoyer une question DNS
+PC pc 0,1 "Poste"
+R1 serveur 3,0 "DNS classique" "UDP 53, lisible par tous"
+R2 serveur 3,1 "DoT" "TCP 853, chiffré, port reconnaissable"
+R3 serveur 3,2 "DoH" "HTTPS 443, chiffré, mêlé au trafic Web"
+PC -- R1
+PC ++ R2
+PC ++ R3
+```
+
 ## Les mots à connaître
 
 - **DoH** — *DNS over HTTPS*, requêtes DNS transportées dans HTTPS.

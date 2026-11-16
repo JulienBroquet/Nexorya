@@ -28,6 +28,18 @@ Un script qui automatise un switch en ligne de commande envoie du texte et lit d
 | commande par commande | transaction complète, validée avant application |
 | erreur au milieu = état partiel | erreur = rien n’est appliqué |
 
+```sequence
+titre: Modifier une configuration en NETCONF, en une transaction
+Script | Switch
+Script -> Switch : session SSH, port 830 : hello (capacités, modèles YANG)
+Script -> Switch : edit-config sur la configuration candidate
+Script -> Switch : validate
+Switch --> Script : ok : la configuration est cohérente
+Script -> Switch : commit
+Switch --> Script : ok : appliqué en une seule fois
+note Script, Switch : en cas d’erreur à n’importe quelle étape, rien n’est appliqué
+```
+
 ## Les mots à connaître
 
 - **YANG** — Langage de modélisation qui décrit la structure des données de configuration et d’état.

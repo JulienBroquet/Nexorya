@@ -34,6 +34,19 @@ Contrairement à une ACL, un pare-feu à états garde une **table des connexions
 | **Analyse de fichiers** | examiner les téléchargements dans un bac à sable |
 | **Inspection TLS** | déchiffrer pour inspecter, selon une politique |
 
+```topologie
+titre: Un pare-feu de nouvelle génération découpe le réseau en zones
+NET nuage 1.5,0 "Internet"
+FW parefeu 1.5,1.2 "NGFW" "applications, utilisateurs, menaces"
+DMZ serveur 0,2.4 "DMZ" "serveurs publiés"
+LAN pc 1.5,2.4 "LAN" "postes"
+INV portable 3,2.4 "Invités"
+NET -- FW
+FW -- DMZ
+FW -- LAN
+FW -- INV
+```
+
 ## Les mots à connaître
 
 - **Pare-feu à états** — Pare-feu qui suit les connexions et autorise automatiquement leurs réponses ; *stateful*.

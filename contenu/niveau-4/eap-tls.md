@@ -25,6 +25,18 @@ Les méthodes par mot de passe ont des faiblesses : mots de passe faibles ou ré
 3. Le poste présente **son** certificat ; le serveur vérifie qu’il est signé par l’autorité de l’entreprise, valide, non révoqué, et prévu pour l’authentification client.
 4. Le serveur applique la politique (VLAN, ACL) selon les informations du certificat ou de l’annuaire.
 
+```sequence
+titre: Authentification 802.1X par certificat (EAP-TLS)
+Poste | Switch ou borne | Serveur RADIUS
+Poste -> Switch ou borne : branchement : le port n’autorise que l’authentification
+Switch ou borne -> Poste : EAP : qui es-tu ?
+Poste -> Serveur RADIUS : EAP-TLS : certificat du poste (relayé par le switch)
+Serveur RADIUS --> Poste : certificat du serveur
+note Poste, Serveur RADIUS : chacun vérifie le certificat de l’autre auprès de la même autorité
+Serveur RADIUS -> Switch ou borne : Access-Accept + VLAN 10
+Switch ou borne --> Poste : port ouvert dans le VLAN 10
+```
+
 ## Les mots à connaître
 
 - **EAP-TLS** — Méthode EAP d’authentification mutuelle par certificats.

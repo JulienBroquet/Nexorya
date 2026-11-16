@@ -39,6 +39,18 @@ SW-ETAGE2#
 > [!WARNING]
 > Si, lors d’une connexion ultérieure, SSH affiche « REMOTE HOST IDENTIFICATION HAS CHANGED », la clé du serveur a changé. C’est normal après une réinstallation de l’équipement… mais cela peut aussi être une **interception**. Vérifie avant d’accepter.
 
+```sequence
+titre: Ouvrir une session SSH sur un switch
+Admin | Switch
+Admin -> Switch : connexion TCP au port 22
+Switch --> Admin : versions et algorithmes proposés
+Admin -> Switch : échange de clés : un secret commun est établi
+Switch --> Admin : clé publique du switch (empreinte)
+note Admin : compare l’empreinte avec celle déjà connue : protection contre l’usurpation
+Admin -> Switch : authentification (clé ou mot de passe), désormais chiffrée
+Switch --> Admin : session ouverte : tout ce qui suit est chiffré
+```
+
 ## Les mots à connaître
 
 - **SSH** — *Secure Shell*, protocole d’accès à distance chiffré.

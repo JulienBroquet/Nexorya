@@ -39,6 +39,23 @@ Un incident survient. Les utilisateurs disent « le réseau est lent ». La supe
 5. **Capture** ciblée si nécessaire, pour le détail d’un échange.
 6. **Conclure** avec des preuves datées, puis corriger.
 
+```topologie
+titre: D’où viennent les signaux, où ils se retrouvent
+SON boite 0,0 "Sondes" "tests synthétiques"
+EQ switch 0,1.4 "Équipements réseau"
+M serveur 2,0 "Métriques" "SNMP, télémétrie"
+J serveur 2,1.4 "Journaux" "Syslog"
+F serveur 2,2.8 "Flux" "NetFlow, IPFIX"
+TB boite 4,1.4 "Tableaux de bord" "alertes, ligne de temps commune"
+SON .. M
+EQ .. M
+EQ .. J
+EQ .. F
+M -- TB
+J -- TB
+F -- TB
+```
+
 ## Les mots à connaître
 
 - **Observabilité** — Capacité à comprendre l’état d’un système à partir des signaux qu’il produit.
