@@ -34,6 +34,37 @@ ALERTES = {'NOTE': ('note', 'Bon à savoir'), 'TIP': ('astuce', 'Astuce'), 'WARN
            'EXAMPLE': ('exemple', 'Exemple')}
 
 
+PHOTOS_DIR = os.path.join(CONTENU, 'photos')
+_PHOTOS = None
+
+
+def photos():
+    global _PHOTOS
+    if _PHOTOS is None:
+        f = os.path.join(PHOTOS_DIR, 'credits.yaml')
+        _PHOTOS = {p['fichier']: p for p in (yaml.safe_load(open(f, encoding='utf-8')) or [])} if os.path.exists(f) else {}
+    return _PHOTOS
+
+
+def credit_html(p):
+    lic = f'<a href="{e(p["licence_url"])}" rel="license">{e(p["licence"])}</a>' if p.get('licence_url') else e(p['licence'])
+    return f'Photo : {e(p["auteur"])}, {lic}, <a href="{e(p["source"])}">source</a>'
+
+
+def figure_photo(src):
+    d = yaml.safe_load(src)
+    nom = d['fichier']
+    p = photos().get(nom)
+    if not p:
+        raise SystemExit(f'Photo sans crédit dans contenu/photos/credits.yaml : {nom}')
+    if not os.path.exists(os.path.join(PHOTOS_DIR, nom)):
+        raise SystemExit(f'Photo introuvable : contenu/photos/{nom}')
+    leg = markdown.markdown(d.get('legende', ''))[3:-4] if d.get('legende') else ''
+    alt = d.get('alt') or p.get('titre', '')
+    return (f'<figure class="photo"><img src="@@RACINE@@assets/photos/{e(nom)}" alt="{e(alt)}" loading="lazy" decoding="async">'
+            f'<figcaption>{leg}<small class="credit">{credit_html(p)}</small></figcaption></figure>')
+
+
 class Rendu:
     def __init__(self):
         self.schemas = []
@@ -46,6 +77,11 @@ class Rendu:
             self.schemas.append((svg, titre))
             return f'\n\nSCHEMA{len(self.schemas)-1}FIN\n\n'
         texte = re.sub(r'```(sequence|topologie)\n(.*?)```', remplace, texte, flags=re.S)
+        # 1 bis) photographies
+        def photo(m):
+            self.schemas.append((figure_photo(m.group(1)), None))
+            return f'\n\nSCHEMA{len(self.schemas)-1}FIN\n\n'
+        texte = re.sub(r'```photo\n(.*?)```', photo, texte, flags=re.S)
         # 2) encadrés façon GitHub : > [!TIP] Titre facultatif
         lignes, out, i = texte.split('\n'), [], 0
         while i < len(lignes):
@@ -72,6 +108,8 @@ class Rendu:
         # schémas
         def fig(m):
             svg, titre = self.schemas[int(m.group(1))]
+            if titre is None:
+                return svg
             cap = f'<figcaption>{e(titre)}</figcaption>' if titre else ''
             return f'<figure class="schema">{svg}{cap}</figure>'
         h = re.sub(r'<p>SCHEMA(\d+)FIN</p>', fig, h)
@@ -129,6 +167,7 @@ def charger():
 # ======================================================================= Gabarits
 def coquille(titre, corps, prof, actif='', ligne=None, extra_tete='', scripts='', desc=''):
     r = '../' * prof
+    corps = corps.replace('@@RACINE@@', r)
     nav = [('demarrer/index.html', 'Je débute', 'demarrer'), ('index.html#plan', 'Les niveaux', 'niveaux'),
            ('pratique/index.html', 'Pratique', 'pratique'), ('lexique.html', 'Lexique', 'lexique'),
            ('progression.html', 'Ma progression', 'progression')]
@@ -343,6 +382,22 @@ def page_accueil(plan, ordre):
     return coquille(f'Nexorya — {SLOGAN}', corps, 0, '')
 
 
+def table_credits():
+    ps = sorted(photos().values(), key=lambda p: p['titre'].lower())
+    if not ps:
+        return '<p><em>Aucune photographie de tiers pour l’instant.</em></p>'
+    lignes = []
+    for p in ps:
+        lic = e(p['licence'])
+        if p.get('licence_url'):
+            lic = f'<a href="{e(p["licence_url"])}" rel="license">{lic}</a>'
+        lignes.append(f'<tr><td><img src="assets/photos/{e(p["fichier"])}" alt="" loading="lazy" class="vignette"></td>'
+                      f'<td><strong>{e(p["titre"])}</strong></td><td>{e(p["auteur"])}</td><td>{lic}</td>'
+                      f'<td><a href="{e(p["source"])}">voir l’original</a></td></tr>')
+    return ('<div class="prose"><table class="credits"><thead><tr><th>Image</th><th>Sujet</th><th>Auteur</th><th>Licence</th>'
+            f'<th>Source</th></tr></thead><tbody>{"".join(lignes)}</tbody></table></div>')
+
+
 # ----------------------------------------------------------------------- QCM
 def page_qcm(num, plan):
     niv = next(n for n in plan['niveaux'] if n['num'] == num)
@@ -458,6 +513,8 @@ def construire():
         shutil.rmtree(SORTIE)
     os.makedirs(SORTIE)
     shutil.copytree(THEME, os.path.join(SORTIE, 'assets'), ignore=shutil.ignore_patterns('outils'))
+    if os.path.isdir(PHOTOS_DIR):
+        shutil.copytree(PHOTOS_DIR, os.path.join(SORTIE, 'assets', 'photos'), ignore=shutil.ignore_patterns('*.yaml', '*.md'))
     ecrire = lambda chemin, t: (os.makedirs(os.path.dirname(os.path.join(SORTIE, chemin)), exist_ok=True),
                                 open(os.path.join(SORTIE, chemin), 'w', encoding='utf-8').write(t))
     for i, f in enumerate(ordre):
@@ -493,6 +550,8 @@ def construire():
             if nom.endswith('.md'):
                 meta, corps = lire_md(os.path.join(base, nom))
                 h = Rendu().html(corps)[0]
+                if nom == 'credits.md':
+                    h += table_credits()
                 fil = f'<p class="fil"><a href="{"../" * prof}index.html">Accueil</a>{" › <a href=index.html>Pratique</a>" if dossier == "pratique" and nom != "index.md" else ""}</p>'
                 ecrire(chemin_sortie, page_simple(meta.get('titre', nom), f'<div class="prose">{h}</div>', prof, meta.get('actif', dossier), meta.get('chapeau', ''), fil))
             else:

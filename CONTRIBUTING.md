@@ -125,6 +125,31 @@ SW -- PC "Gi1/0/5"
 - Liens : `--` normal, `==` agrégat ou trunk, `++` lien mis en évidence (chemin actif, tunnel), `..` flux logique, `~~` sans fil, `-x-` lien bloqué ou coupé ; libellé facultatif entre guillemets.
 - Zone : `zone "Libellé" c1,r1 c2,r2` entoure les nœuds compris entre ces deux coins.
 
+## Ajouter une photographie
+
+Les photos de matériel réel sont dans `contenu/photos/`. Chacune doit avoir une entrée dans `contenu/photos/credits.yaml` : sans crédit, le générateur refuse de construire le site.
+
+```yaml
+- fichier: "sfp-lc.jpg"
+  titre: "Module SFP optique"
+  auteur: "Nom de l’auteur"
+  licence: "CC BY-SA 4.0"
+  licence_url: "https://creativecommons.org/licenses/by-sa/4.0/deed.fr"
+  source: "https://commons.wikimedia.org/wiki/File:…"
+```
+
+Dans la fiche :
+
+````markdown
+```photo
+fichier: sfp-lc.jpg
+legende: "Un module SFP : la partie gauche entre dans le switch, les deux ports LC reçoivent la fibre."
+alt: "Module SFP métallique vu de trois quarts, avec deux ports pour fibre optique"
+```
+````
+
+Le crédit s’affiche automatiquement sous la photo et sur la page « Crédits des images ». Licences acceptées : CC0, domaine public, CC BY, CC BY-SA (ou tes propres photos). Les photos de catalogues de fabricants ou de boutiques ne sont **pas** acceptées. Réduis les photos à 1 600 pixels de large au maximum.
+
 ## Écrire une question de QCM
 
 Les questions sont dans `contenu/qcm/niveau-N.yaml` (`niveau-0.yaml` pour le quiz « Je débute »). **Toutes les valeurs sont entre guillemets doubles.** La bonne réponse est écrite en premier ; le générateur mélange les propositions.
