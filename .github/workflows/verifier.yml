@@ -16,4 +16,8 @@ jobs:
       - name: Générer et vérifier les liens
         run: python outils/build.py --verifier
       - name: Vérifier que docs/ est à jour
-        run: git diff --exit-code -- docs || (echo "Le dossier docs/ n'est pas à jour : lance python3 outils/build.py et commite le résultat." && exit 1)
+        run: |
+          if ! git diff --exit-code -- docs; then
+            echo "Le dossier docs/ n'est pas à jour. Lance python3 outils/build.py puis commite le résultat."
+            exit 1
+          fi
