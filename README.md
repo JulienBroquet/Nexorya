@@ -3,7 +3,7 @@
 <h1 align="center">Nexorya</h1>
 <p align="center"><strong>Explore les réseaux. Maîtrise l’infrastructure.</strong></p>
 
-Nexorya est une formation libre et gratuite aux réseaux informatiques, en français, du grand débutant à l’ingénieur. Chaque notion part du problème qu’elle résout, s’explique d’abord simplement, puis en détail, avec des schémas, des configurations commentées et des exercices corrigés.
+Nexorya est une formation gratuite aux réseaux informatiques, en français, du grand débutant à l’ingénieur. Chaque notion part du problème qu’elle résout, s’explique d’abord simplement, puis en détail, avec des schémas, des configurations commentées et des exercices corrigés.
 
 ## Ce que contient la version 1.0
 
@@ -56,7 +56,14 @@ Aucun compte, aucun traceur, aucune requête vers un service tiers : les polices
 
 ## Licence
 
-- Les polices (Bricolage Grotesque, Atkinson Hyperlegible, JetBrains Mono) sont sous licence SIL Open Font License ; les textes de licence sont dans `theme/fonts/`.
-- Licence du contenu et du code : à préciser par l’auteur dans un fichier `LICENSE` (par exemple CC BY-SA 4.0 pour les textes et MIT pour le code).
+© 2026 Julien Broquet. L’usage **non commercial** est autorisé ; tout usage commercial nécessite l’accord écrit de l’auteur. Détails dans [LICENSE](LICENSE).
+
+| Élément | Licence |
+|---|---|
+| Contenu (fiches, QCM, labos, schémas) | [CC BY-NC-SA 4.0](LICENCE-CONTENU.txt) |
+| Code (générateur, CSS, JavaScript) | [PolyForm Noncommercial 1.0.0](LICENCE-CODE.md) |
+| Nom et logo « Nexorya » | tous droits réservés |
+| Polices | SIL Open Font License 1.1 (`theme/fonts/`) |
+| Photographies de tiers | licence propre à chaque image, indiquée sous l’image et sur la page « Crédits des images » |
 
 Les noms de produits et de marques cités appartiennent à leurs propriétaires. Nexorya n’est affiliée à aucun constructeur.

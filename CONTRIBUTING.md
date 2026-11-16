@@ -2,6 +2,12 @@
 
 Merci de vouloir améliorer Nexorya ! Ce guide explique comment écrire une fiche, un schéma ou une question de QCM, et comment vérifier ton travail.
 
+## Droits sur les contributions
+
+Nexorya appartient à son auteur, Julien Broquet, et est diffusée sous licences non commerciales (voir [LICENSE](LICENSE)). En proposant une contribution (texte, schéma, question, code, image), tu confirmes en être l’auteur ou avoir le droit de la proposer, et tu accordes à Julien Broquet une licence **gratuite, non exclusive, mondiale et pour toute la durée des droits** de reproduire, modifier, publier, sous-licencier et exploiter ta contribution, **y compris commercialement**. Ta contribution reste aussi disponible sous les licences du projet.
+
+Pour une image, indique son auteur, sa licence et sa source : seules les images que tu as créées, ou sous licence libre compatible (CC0, domaine public, CC BY, CC BY-SA), sont acceptées.
+
 ## Avant de proposer une modification
 
 ```bash

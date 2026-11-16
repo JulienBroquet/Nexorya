@@ -158,7 +158,7 @@ def coquille(titre, corps, prof, actif='', ligne=None, extra_tete='', scripts=''
 <main id="principal">
 {corps}
 </main>
-<footer class="pied"><span><strong>Nexorya</strong> — {SLOGAN}</span><span>Version {VERSION} · Formation libre et indépendante · Les marques citées appartiennent à leurs propriétaires · <a href="{r}a-propos.html">À propos</a></span></footer>
+<footer class="pied"><span><strong>Nexorya</strong> — {SLOGAN}</span><span>Version {VERSION} · © 2026 Julien Broquet · Contenu sous licence <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr" rel="license">CC BY-NC-SA 4.0</a>, usage commercial sur autorisation · <a href="{r}credits.html">Crédits des images</a> · <a href="{r}a-propos.html">À propos</a></span></footer>
 {scripts}
 <script src="{r}assets/js/nexorya.js"></script>
 </body>

@@ -4,7 +4,7 @@ actif: ""
 chapeau: Explore les réseaux. Maîtrise l’infrastructure.
 ---
 
-Nexorya est une formation libre et gratuite aux réseaux informatiques, en français. Elle accompagne aussi bien la personne qui n’a jamais ouvert une invite de commandes que le technicien qui prépare un poste d’ingénieur.
+Nexorya est une formation gratuite aux réseaux informatiques, en français. Elle accompagne aussi bien la personne qui n’a jamais ouvert une invite de commandes que le technicien qui prépare un poste d’ingénieur.
 
 ## Les principes
 
@@ -37,7 +37,17 @@ Les exemples de configuration utilisent surtout la syntaxe Cisco IOS, la plus r�
 
 Le site est généré à partir de fichiers Markdown simples. Une erreur, une explication peu claire, une idée de fiche ? Les contributions sont bienvenues sur le dépôt du projet : le fichier `CONTRIBUTING.md` explique comment écrire une fiche, un schéma ou une question de QCM.
 
+## Licence et droits
+
+Nexorya est écrite et éditée par **Julien Broquet**, qui en détient les droits.
+
+- Tu peux lire, copier, imprimer, partager et adapter le contenu **à des fins non commerciales**, en citant la source (« Nexorya — Julien Broquet ») et en partageant tes adaptations sous la même licence : c’est la licence [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr).
+- Le code du site est sous licence PolyForm Noncommercial 1.0.0.
+- Tout **usage commercial** (formation payante, revente, intégration dans un produit) nécessite l’accord écrit de l’auteur.
+- Le nom et le logo Nexorya ne peuvent pas être réutilisés pour un autre projet.
+
 ## Crédits
 
+- Photographies de matériel : voir [Crédits des images](credits.md).
 - Polices : Bricolage Grotesque, Atkinson Hyperlegible et JetBrains Mono, sous licence SIL Open Font License.
 - Version : 1.0.

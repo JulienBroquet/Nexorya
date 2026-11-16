@@ -1,0 +1,58 @@
+Nexorya — Explore les réseaux. Maîtrise l’infrastructure.
+Copyright (c) 2026 Julien Broquet. Tous droits réservés, sauf les autorisations ci-dessous.
+
+Julien Broquet est l’auteur et le titulaire des droits de Nexorya. Les licences
+ci-dessous autorisent un usage NON COMMERCIAL. Tout usage commercial (formation
+payante, revente, intégration dans un produit ou un service payant, etc.)
+nécessite une autorisation écrite préalable de l’auteur.
+Contact : https://github.com/JulienBroquet/Nexorya
+
+------------------------------------------------------------------------------
+1. Contenu pédagogique — CC BY-NC-SA 4.0
+------------------------------------------------------------------------------
+Concerne : les textes, fiches, questions de QCM, laboratoires, schémas et
+illustrations originales (dossier contenu/ et pages générées dans docs/).
+
+Licence Creative Commons Attribution - Pas d’utilisation commerciale -
+Partage dans les mêmes conditions 4.0 International.
+Texte complet : LICENCE-CONTENU.txt
+https://creativecommons.org/licenses/by-nc-sa/4.0/deed.fr
+
+Attribution demandée : « Nexorya — Julien Broquet —
+https://github.com/JulienBroquet/Nexorya — CC BY-NC-SA 4.0 », en indiquant
+si des modifications ont été faites.
+
+------------------------------------------------------------------------------
+2. Code source — PolyForm Noncommercial 1.0.0
+------------------------------------------------------------------------------
+Concerne : le générateur et le moteur de schémas (outils/), la feuille de
+style et les scripts (theme/css/, theme/js/), les outils interactifs.
+
+Texte complet : LICENCE-CODE.md
+https://polyformproject.org/licenses/noncommercial/1.0.0
+
+------------------------------------------------------------------------------
+3. Nom et logo
+------------------------------------------------------------------------------
+Le nom « Nexorya » et son logo (theme/img/logo.svg) ne sont couverts par
+aucune des licences ci-dessus. Ils restent la propriété exclusive de l’auteur
+et ne peuvent pas être utilisés pour désigner un autre projet ou une version
+modifiée sans son autorisation.
+
+------------------------------------------------------------------------------
+4. Éléments de tiers
+------------------------------------------------------------------------------
+- Polices Bricolage Grotesque, Atkinson Hyperlegible et JetBrains Mono :
+  SIL Open Font License 1.1 (textes dans theme/fonts/).
+- Photographies de matériel : chaque image garde la licence choisie par son
+  auteur ; auteur, licence et source sont indiqués sous l’image et sur la page
+  « Crédits des images » du site.
+- Les noms de produits et de marques cités appartiennent à leurs propriétaires.
+
+------------------------------------------------------------------------------
+5. Contributions
+------------------------------------------------------------------------------
+En proposant une contribution, le contributeur accepte les conditions de
+CONTRIBUTING.md : il accorde à l’auteur une licence gratuite, non exclusive,
+mondiale, pour toute la durée des droits, de reproduire, modifier, publier,
+sous-licencier et exploiter sa contribution, y compris commercialement.
